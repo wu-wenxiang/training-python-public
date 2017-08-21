@@ -104,7 +104,16 @@
 
 ## 散列
 
-### 唱票问题
+### 集合问题
+- 让用户输入A、B两个整数数列，统计并排序输出A数列中独有的整数，B中独有的整数，以及A、B公有的整数。
+
+		Please input int list A: 1 3 5 7 9
+		Please input int list B: 5 6 7
+		Only in A: [1, 3, 9]
+		Only in B: [6]
+		Both in A & B: [5, 7]
+
+### 唱票算法
 - 让用户输入一行字符串，统计并输出其中每个字符出现的次数。
 
 		Please input a Str:
@@ -129,15 +138,6 @@
 		b => [1]
 		c => [3]
 		d => [4]
-
-### 集合问题
-- 让用户输入A、B两个整数数列，统计并排序输出A数列中独有的整数，B中独有的整数，以及A、B公有的整数。
-
-		Please input int list A: 1 3 5 7 9
-		Please input int list B: 5 6 7
-		Only in A: [1, 3, 9]
-		Only in B: [6]
-		Both in A & B: [5, 7]
 
 ## 循环和分支
 
