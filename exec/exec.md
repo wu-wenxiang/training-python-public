@@ -304,6 +304,136 @@
 	
 			[0, 5, 16, 19, 27, 28, 30, 37, 38, 46, 49, 55, 60, 64, 73, 82, 90, 91]
 - 实现一个函数，将字符串序列按长度排序。
+	- 原字符串
+	
+			['smiles', 'bool', 'objective', 'hello'] 
 	- Run:
 
 			['bool', 'hello', 'smiles', 'objective']
+
+### 递归函数
+- 汉诺塔问题
+	- 问题
+		- 汉诺塔（又称河内塔）问题是印度的一个古老的传说。传说中，开天辟地的神勃拉玛在一个庙里留下了三根金刚石的棒，第一根上面套着64个圆形的金片，最大的一个在底下，其余一个比一个小，依次叠上去，寺院的僧侣依照一个古老的预言，不知疲倦地把它们一个个地从这根棒搬到另一根棒上，规定可利用中间的一根棒作为帮助，但每次只能搬一个，而且大的不能放在小的上面，预言说，当这些金片移动完毕后，世界就会灭亡。
+	- 解法
+
+			Hanoi(3, 'A', 'C', 'B')
+			# 3阶汉诺塔，从A柱移动到C柱，B柱作为辅助
+			1:      A -> C
+			2:      A -> B
+			3:      C -> B
+			4:      A -> C
+			5:      B -> A
+			6:      B -> C
+			7:      A -> C
+
+## 模块和包
+
+### 模块
+- 打印输出math模块的所有方法属性和字段属性，打印输出其中fsum函数的用法
+	- 运行
+
+			['pow', 'fsum', 'cosh', 'ldexp', 'hypot', 'acosh', 'tan', 'asin', 'isnan', 'log', 'fabs', 'floor', 'atanh', 'modf', 'sqrt', 'frexp', 'degrees', 'lgamma', 'log10', 'asinh', 'fmod', 'atan', 'factorial', 'copysign', 'expm1', 'ceil', 'isinf', 'sinh', 'trunc', 'cos', 'tanh', 'radians', 'sin', 'atan2', 'erf', 'erfc', 'exp', 'acos', 'log1p', 'gamma']
+			
+			['__package__', '__doc__', '__file__', '__name__', 'pi', 'e']
+
+			fsum(iterable)
+			
+			Return an accurate floating point sum of values in the iterable.
+			Assumes IEEE-754 floating point arithmetic.
+- 输入一个标准库的模块名称，输出其属性
+	- 运行
+	
+			Please input module name:math
+			{'pow': <built-in function pow>, 'fsum': <built-in function fsum>, 'cosh': <built-in function cosh>, 'ldexp': <built-in function ldexp>, 'hypot': <built-in function hypot>, 'acosh': <built-in function acosh>, 'tan': <built-in function tan>, 'asin': <built-in function asin>, 'isnan': <built-in function isnan>, 'log': <built-in function log>, 'fabs': <built-in function fabs>, 'floor': <built-in function floor>, 'atanh': <built-in function atanh>, 'modf': <built-in function modf>, 'sqrt': <built-in function sqrt>, '__package__': None, 'frexp': <built-in function frexp>, 'degrees': <built-in function degrees>, 'lgamma': <built-in function lgamma>, 'log10': <built-in function log10>, '__doc__': 'This module is always available.  It provides access to the\nmathematical functions defined by the C standard.', 'asinh': <built-in function asinh>, 'fmod': <built-in function fmod>, 'atan': <built-in function atan>, 'factorial': <built-in function factorial>, '__file__': '/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/math.so', 'copysign': <built-in function copysign>, 'expm1': <built-in function expm1>, 'ceil': <built-in function ceil>, 'isinf': <built-in function isinf>, 'sinh': <built-in function sinh>, '__name__': 'math', 'trunc': <built-in function trunc>, 'cos': <built-in function cos>, 'pi': 3.141592653589793, 'e': 2.718281828459045, 'tanh': <built-in function tanh>, 'radians': <built-in function radians>, 'sin': <built-in function sin>, 'atan2': <built-in function atan2>, 'erf': <built-in function erf>, 'erfc': <built-in function erfc>, 'exp': <built-in function exp>, 'acos': <built-in function acos>, 'log1p': <built-in function log1p>, 'gamma': <built-in function gamma>}
+
+## 类与面向对象
+
+### 组合与继承
+- 编写一个类Name，能被如下代码调用：
+	- 调用代码
+
+			aName = Name("John Green")
+			print aName.getLastName()
+			print len(aName)
+			print aName.split()
+			print aName.lower()
+	- 运行结果
+		
+			Green
+			10
+			['John', 'Green']
+			john green
+- 实现一个缓存类
+	- 调用代码
+
+			aBuff = Buff(3)
+			aBuff.add()
+			aBuff.add()
+			print('buffer length = %d' % len(aBuff))
+			aBuff.add()
+			aBuff.add()
+			print('buffer length = %d' % len(aBuff))
+	- 运行结果
+
+			buffer length = 2
+			buffer length = 4
+- 遍历一个大文件，输出其中最长的5行
+
+## 异常处理
+- 让用户输入两个实数，输出他们的和。如果用户的输入有误，给出提示
+	- Run:
+
+			Please input A: 4
+			Please input B: 56
+			Sum = 60.0
+			
+			Please input A: dd
+			Please input B: 3
+			Value Error!
+			could not convert string to float: dd
+
+## 正则表达式
+- 统计一个文件所有包含数字的行。
+	- 测试文件如下：
+
+			apple banana 2
+			3hello 
+			good orange
+	- Run:
+
+			apple banana 2
+			3hello 
+- 找出一个文件中所有整数，打印输出它们的和。
+	- 测试文件如下：
+
+			apple banana 23
+			33hello 
+			good 45 orange
+
+	- Run:
+
+			[11, 22, 3, 4]
+			40
+
+## 装饰器
+- 编写装饰器makebold和makeitalic
+	- 客户端代码：
+
+			@makebold
+			@makeitalic
+			def hello():
+			    return "hello world"
+			
+			@makeitalic
+			@makebold
+			def hello2():
+			    return "hello world"
+			
+			print hello()
+			print hello2()
+			
+	- Run:
+
+			<b><i>hello world</i></b>
+			<i><b>hello world</b></i>
