@@ -255,7 +255,7 @@
 			apple store
 
 		
-- 统计指定的文件中单词的个数
+- 统计指定的文件中单词(单词只包含字母，在行内由空白隔开)的个数
 	- a.txt文件中内容如下：
 
 			test 1 apples
@@ -265,6 +265,7 @@
 	- Run: 
 		
 			python calNum.py a.txt
+			6
 
 ## 函数
 
