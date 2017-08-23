@@ -369,16 +369,21 @@
 	- 调用代码
 
 			aBuff = Buff(3)
-			aBuff.add()
-			aBuff.add()
+			aBuff.add('test1')
+			aBuff.add('test2')
 			print('buffer length = %d' % len(aBuff))
-			aBuff.add()
-			aBuff.add()
+			print(aBuff)
+			
+			aBuff.add('test3')
+			aBuff.add(42)
 			print('buffer length = %d' % len(aBuff))
+			print(aBuff)
 	- 运行结果
 
 			buffer length = 2
-			buffer length = 4
+			['test1', 'test2']
+			buffer length = 3
+			['test2', 'test3', 42]
 - 遍历一个大文件，输出其中最长的5行
 
 ## 异常处理
