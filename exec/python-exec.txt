@@ -1035,4 +1035,248 @@ def hello():
 
 print hello()
 	
-	
+Tip_53 实现一个队列类FIFO，push/pull
+客户端代码/Run：
+aQueue = Queue()
+aQueue.push("hello")
+aQueue.push(42)
+print len(aQueue)
+print aQueue.pull() # hello
+print aQueue.pull() # 42
+print aQueue.pull() # IndexError
+
+Code:
+class Queue(list):
+    def push(self, i):
+        self.append(i)
+    def pull(self):
+        return self.pop(0)
+
+Tip_54 实现tail功能(每隔1秒检查文件中的内容，并将新增的行输出)
+
+Code:
+
+import time
+
+def follow(fileName):
+    with open(fileName) as aFile:
+        aFile.seek(0, 2)
+        while True:
+            curPos = aFile.tell()
+            aFile.seek(0, 2)
+            endPos = aFile.tell()
+            aFile.seek(curPos)
+            if endPos > curPos:
+                for line in aFile:
+                    print line.rstrip("\n")
+            time.sleep(1)
+
+if __name__ == "__main__":
+    follow("a.txt")
+
+Tip_55 Tail类
+
+客户端代码:
+def printLine(txt):
+    ''' Prints received text '''
+    print(txt)
+
+t = Tail('/var/log/syslog')
+t.register_callback(printLine)
+t.follow(s=5)
+
+Code:
+
+https://github.com/maodouzi/python-tail
+
+Tip_56 线程Demo
+
+import time, threading
+
+def doWork():
+    name = threading.currentThread().getName()
+    print "%s start..." % name
+    time.sleep(3)
+    print "%s stop..." % name
+
+print time.time()
+aThread = threading.Thread(target=doWork, name="aThread")
+aThread.start()
+bThread = threading.Thread(target=doWork, name="bThread")
+bThread.start()
+
+aThread.join()
+bThread.join()
+print time.time()
+
+Tip_57 线程竞争Demo
+
+import threading
+
+a = 0
+
+def doWork():
+    global a
+    for i in range(1000000):  #should be OK if 10
+        a += 1
+
+aThread = threading.Thread(target=doWork, name="aThreadObject")
+bThread = threading.Thread(target=doWork, name="bThreadObject")
+aThread.start()
+bThread.start()
+aThread.join()
+bThread.join()
+
+print a
+
+Tip_58 像管理线程一样管理进程
+
+import time, multiprocessing, random, logging, sys
+
+def doWork():
+    print sum([random.random() for i in range(10000000)])
+    sys.stdout.flush()
+
+if __name__ == "__main__":
+    multiprocessing.log_to_stderr(logging.DEBUG)
+    startTime = time.time()
+    time.clock()
+    aProcess = multiprocessing.Process(target=doWork, name="aProcess")
+    aProcess.start()
+    bProcess = multiprocessing.Process(target=doWork, name="bProcess")
+    bProcess.start()
+    
+    aProcess.join()
+    bProcess.join()
+    print "== ", time.time() - startTime
+
+Tip_59 进程池
+
+import time, multiprocessing, random
+
+def doWork(j):
+    print "%s: start... : %s" % (multiprocessing.current_process().name, time.time())
+    ret = j
+    ret = sum([random.random() for i in range(10000000)])
+    print "%s: stop...  : %s" % (multiprocessing.current_process().name, time.time())
+    return j,ret
+
+if __name__ == "__main__": # Bug
+    startTime = time.time()
+    p = multiprocessing.Pool(2) # 1
+    aList = p.map(doWork, range(8))
+    print aList
+    print time.time() - startTime
+
+Tip_60 线程池
+
+import time, multiprocessing.dummy, random
+
+def doWork(j):
+    print "%s: start... : %s" % (multiprocessing.dummy.current_process().name, time.time())
+    ret = j
+    ret = sum([random.random() for i in range(10000000)])
+    print "%s: stop...  : %s" % (multiprocessing.dummy.current_process().name, time.time())
+    return j,ret
+
+if __name__ == "__main__": # Bug
+    startTime = time.time()
+    p = multiprocessing.dummy.Pool(2) # 1
+    aList = p.map(doWork, range(8))
+    print aList
+    print time.time() - startTime
+
+Tip_61 psutil的使用
+
+import datetime
+import psutil
+from subprocess import PIPE
+
+print(psutil.cpu_times())
+print(psutil.cpu_times())
+print(psutil.cpu_times().user)
+print(psutil.cpu_count())
+print(psutil.cpu_count(logical=False))
+print(psutil.cpu_times(percpu=True))
+
+print(psutil.virtual_memory())
+print(psutil.virtual_memory().total)
+print(psutil.swap_memory())
+
+print(psutil.disk_partitions())
+print(psutil.disk_usage('/'))
+print(psutil.disk_io_counters())
+print(psutil.disk_io_counters(perdisk=True))
+
+print(psutil.net_io_counters())
+print(psutil.net_io_counters(pernic=True))
+
+print(psutil.users())
+print(psutil.boot_time())
+print(datetime.datetime.fromtimestamp(psutil.boot_time()).strftime('%Y-%m-%d %H:%M:%S'))
+
+print(psutil.pids())
+print(psutil.Process(8068))
+p = psutil.Process(8068)
+print(p.name())
+print(p.exe())
+print(p.cwd())
+print(p.status())
+print(p.create_time())
+print(p.uids())
+print(p.gids())
+print(p.cpu_times())
+print(p.memory_percent())
+print(p.memory_info())
+print(p.connections())
+print(p.num_threads())
+
+p = psutil.Popen(['python', '-c', 'print("hello")'], stdout=PIPE)
+print(p.name())
+print(p.username())
+p.communicate()
+
+Tip_62 Numpy快速入门
+
+# -*- coding: utf-8 -*
+import numpy as np #一般以np作为numpy的别名
+a = np.array([2, 0, 1, 5]) #创建数组
+print(a) #输出数组
+print(a[:3]) #引用前三个数字（切片）
+print(a.min()) #输出a的最小值
+a.sort() #将a的元素从小到大排序，此操作直接修改a，因此这时候a为[0, 1, 2, 5]
+b= np.array([[1, 2, 3], [4, 5, 6]]) #创建二维数组
+print(b*b) #输出数组的平方阵，即[[1, 4, 9], [16, 25, 36]]
+
+Tip_63 Pandas快速入门
+
+# -*- coding: utf-8 -*-
+import pandas as pd 
+
+s = pd.Series([1,2,3], index=['a', 'b', 'c']) 
+d = pd.DataFrame([[1, 2, 3], [4, 5, 6]], columns = ['a', 'b', 'c']) 
+d2 = pd.DataFrame(s) 
+
+print(d.head())
+print(d.describe()) 
+
+Tip_64 scipy快速入门
+
+# -*- coding: utf-8 -*
+#求解非线性方程组2x1-x2^2=1,x1^2-x2=2
+from scipy.optimize import fsolve #导入求解方程组的函数
+def f(x): #定义要求解的方程组
+  x1 = x[0]
+  x2 = x[1]
+  return [2*x1 - x2**2 - 1, x1**2 - x2 -2]
+
+result = fsolve(f, [1,1]) #输入初值[1, 1]并求解
+print(result) #输出结果，为array([ 1.91963957,  1.68501606])
+
+#数值积分
+from scipy import integrate #导入积分函数
+def g(x): #定义被积函数
+  return (1-x**2)**0.5
+
+pi_2, err = integrate.quad(g, -1, 1) #积分结果和误差
+print(pi_2 * 2) #由微积分知识知道积分结果为圆周率pi的一半
