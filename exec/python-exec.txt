@@ -61,14 +61,14 @@ Numbers are: 6, 1, 2, 6:
 Right!
 
 Code:
-from random import choice
+from random import choice, randint
 
 aInt = choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 bInt = choice(range(1, 11))
-cInt = choice(range(1, 11))
+cInt = randint(1, 10)
 dInt = choice(range(1, 11))
 
-aStr = raw_input("Numbers are: %d, %d, %d, %d: \n" % (aInt, bInt, cInt, dInt))
+aStr = input("Numbers are: %d, %d, %d, %d: \n" % (aInt, bInt, cInt, dInt))
 if eval(aStr) == 24:
     print("Right!")
 else:
@@ -245,13 +245,13 @@ The average is: 7.00.
 
 Code:
 aStr = raw_input("Please input some integer numbers:\n")
-aNumList = [int(item) for item in aStr.split()]
+aNumList = [float(item) for item in aStr.split()]
 if len(aNumList) < 3:
     print("Please input at least 3 integer numbers!")
 else:
     aNumList.sort()
     bNumList = aNumList[1:-1]
-    avg = float(sum(bNumList)) / len(bNumList)
+    avg = sum(bNumList) / len(bNumList)
     print("The average is: %0.2f." % avg)
 
 Tip_14. 输入若干(>1)个整数，生成一个长度为10000的随机数列表，列表中的每个数字都是随机从你输入的几个数字中选取的，统计列表中各个数字出现了多少次。
@@ -386,8 +386,10 @@ aStr = raw_input("Please input a Str:\n")
 aDict = {chr:aStr.count(chr) for chr in set(aStr)}
 
 # aDict = {}
-# for eachChr in aStr:
-#     aDict[eachChr] = aDict.get(eachChr, 0) + 1
+# for i in aStr:
+#     aDict[i] = aDict.get(i, 0) + 1
+#     # aDict.setdefaut(i, 0)
+#     # aDict[i] += 1
 # 	
 # from collections import Counter
 # aDict = Counter(aStr)
@@ -1089,47 +1091,56 @@ Code:
 
 https://github.com/maodouzi/python-tail
 
-Tip_56 线程Demo
+Tip_56 编写一个多线程执行的Demo，每个线程打印出线程名，模拟IO密集型和CPU密集型两种情况。
 
-import time, threading
+Code:
+
+import time, threading, random
 
 def doWork():
     name = threading.currentThread().getName()
-    print "%s start..." % name
-    time.sleep(3)
-    print "%s stop..." % name
+    print("%s start..." % name)
+    # print(sum(random.random() for i in range(10000000)))
+    print("%s stop..." % name)
 
-print time.time()
+startTime = time.time()
 aThread = threading.Thread(target=doWork, name="aThread")
-aThread.start()
 bThread = threading.Thread(target=doWork, name="bThread")
+aThread.start()
 bThread.start()
 
 aThread.join()
 bThread.join()
-print time.time()
+print(time.time()-startTime)
 
-Tip_57 线程竞争Demo
+Tip_57 编写Demo验证线程竞争情况
 
-import threading
+Code:
 
+import time, threading, random
 a = 0
+lock = threading.Lock()
 
 def doWork():
     global a
-    for i in range(1000000):  #should be OK if 10
-        a += 1
+    for i in range(1000000):
+        lock.acquire()
+        a = a + 1
+        lock.release()
 
-aThread = threading.Thread(target=doWork, name="aThreadObject")
-bThread = threading.Thread(target=doWork, name="bThreadObject")
+startTime = time.time()
+aThread = threading.Thread(target=doWork, name="aThread")
+bThread = threading.Thread(target=doWork, name="bThread")
 aThread.start()
 bThread.start()
+
 aThread.join()
 bThread.join()
-
-print a
+print(a)
 
 Tip_58 像管理线程一样管理进程
+
+Code:
 
 import time, multiprocessing, random, logging, sys
 
@@ -1148,45 +1159,51 @@ if __name__ == "__main__":
     
     aProcess.join()
     bProcess.join()
-    print "== ", time.time() - startTime
+    print("== ", time.time() - startTime)
 
-Tip_59 进程池
+Tip_59 进程池Demo
+
+Code:
 
 import time, multiprocessing, random
 
 def doWork(j):
-    print "%s: start... : %s" % (multiprocessing.current_process().name, time.time())
+    print("%s: start... : %s" % (multiprocessing.current_process().name, time.time()))
     ret = j
     ret = sum([random.random() for i in range(10000000)])
-    print "%s: stop...  : %s" % (multiprocessing.current_process().name, time.time())
+    print("%s: stop...  : %s" % (multiprocessing.current_process().name, time.time()))
     return j,ret
 
 if __name__ == "__main__": # Bug
     startTime = time.time()
-    p = multiprocessing.Pool(2) # 1
+    p = multiprocessing.Pool(4) # 1
     aList = p.map(doWork, range(8))
-    print aList
-    print time.time() - startTime
+    print(aList)
+    print(time.time() - startTime)
 
 Tip_60 线程池
+
+Code:
 
 import time, multiprocessing.dummy, random
 
 def doWork(j):
-    print "%s: start... : %s" % (multiprocessing.dummy.current_process().name, time.time())
+    print("%s: start... : %s" % (multiprocessing.dummy.current_process().name, time.time()))
     ret = j
     ret = sum([random.random() for i in range(10000000)])
-    print "%s: stop...  : %s" % (multiprocessing.dummy.current_process().name, time.time())
+    print("%s: stop...  : %s" % (multiprocessing.dummy.current_process().name, time.time())
     return j,ret
 
 if __name__ == "__main__": # Bug
     startTime = time.time()
-    p = multiprocessing.dummy.Pool(2) # 1
+    p = multiprocessing.dummy.Pool(4) # 1
     aList = p.map(doWork, range(8))
-    print aList
-    print time.time() - startTime
+    print(aList)
+    print(time.time() - startTime)
 
 Tip_61 psutil的使用
+
+Code:
 
 import datetime
 import psutil
@@ -1238,6 +1255,8 @@ p.communicate()
 
 Tip_62 Numpy快速入门
 
+Code:
+
 # -*- coding: utf-8 -*
 import numpy as np #一般以np作为numpy的别名
 a = np.array([2, 0, 1, 5]) #创建数组
@@ -1250,6 +1269,8 @@ print(b*b) #输出数组的平方阵，即[[1, 4, 9], [16, 25, 36]]
 
 Tip_63 Pandas快速入门
 
+Code:
+
 # -*- coding: utf-8 -*-
 import pandas as pd 
 
@@ -1261,6 +1282,8 @@ print(d.head())
 print(d.describe()) 
 
 Tip_64 scipy快速入门
+
+Code:
 
 # -*- coding: utf-8 -*
 #求解非线性方程组2x1-x2^2=1,x1^2-x2=2
@@ -1280,3 +1303,215 @@ def g(x): #定义被积函数
 
 pi_2, err = integrate.quad(g, -1, 1) #积分结果和误差
 print(pi_2 * 2) #由微积分知识知道积分结果为圆周率pi的一半
+
+Tip_65 为如下方法编写单元测试，要求覆盖整数加法，字符串加法，类型不匹配抛出异常三种情况
+
+Code:
+
+import unittest
+
+def add(x, y):
+    return x+y
+
+class ATest(unittest.TestCase):
+    def testAddInt(self):
+        exp = 8
+        ret = add(3, 5)
+        self.assertEqual(ret, exp)
+    def testValueError(self):
+        self.assertRaises(TypeError, add, 3, "5")
+    def testAddString(self):
+        self.skipTest("Skip due to Bug #13452")
+        self.assertEqual(add("hello", "string"), "hellostring")
+
+Tip_66 单元测试，获取大于20000的数字
+
+Code:
+
+import unittest
+import sys, re
+
+def myPrint(obj):
+    print(obj)
+
+# def find20000(aStr):
+#     ret = re.findall(r'((\d{6,})|([2-9]\d{4,}))', aStr)
+#     print ret
+#     ret = [int(i[0]) for i in ret]
+#     ret = [i for i in ret if i > 20000]
+#     return ret
+
+def findNumber(aStr, aNum):
+    ret = re.findall(r'\d+', aStr)
+    ret = [int(i) for i in ret]
+    ret = [i for i in ret if i > 20000]
+    return ret
+
+def find20000(aStr):
+    return findNumber(aStr, 20000)
+
+class FixtureTest(unittest.TestCase):
+    def setUp(self):
+        myPrint('In setUp')
+    def tearDown(self):
+        myPrint('In tearDown')
+    def testCaseA(self):
+        aStr = "abcde100001"
+        ret = find20000(aStr)
+        exp = [100001]
+        self.assertEqual(ret, exp)
+    def testCaseB(self):
+        aStr = "abcde20001"
+        ret = find20000(aStr)
+        exp = [20001]
+        self.assertEqual(ret, exp)
+    def testCaseC(self):
+        aStr = "abcde20000"
+        ret = find20000(aStr)
+        exp = [20000]
+        self.assertNotEqual(ret, exp)
+    def testCaseD(self):
+        aStr = "abcde20000a1000001b20001"
+        ret = find20000(aStr)
+        exp = [1000001, 20001]
+        self.assertEqual(ret, exp)
+
+if __name__ == '__main__':
+    unittest.main()
+
+Tip_67 Mock，为checkWeb编写Unittest，Mock模拟http.client模块中的对象
+
+Code:
+
+import unittest, http.client, socket
+from unittest.mock import MagicMock, create_autospec
+
+import unittest, http.client, socket
+from mock import MagicMock, create_autospec
+
+def checkWeb(addr, port, resource):
+    resource.lstrip(r'/')
+    resource = '/' + resource
+    try:
+        con = http.client.HTTPConnection(addr, port)
+        con.request('GET', resource)
+        response = con.getresponse()
+    except socket.error:
+        return False
+    finally:
+        con.close()
+    if response.status in [200, 301]:
+        return True
+    return False
+
+class HttpConnTest(unittest.TestCase):            
+    def test_checkWebOK(self):
+        mockResp = MagicMock()
+        mockResp.status = 200
+        
+        mockHttpConn = MagicMock()
+        mockHttpConn.getresponse.return_value = mockResp
+
+        http.client.HTTPConnection = MagicMock(return_value = mockHttpConn)
+        
+        ret = checkWeb("www.bing.com", 80, "/")
+        self.assertTrue(ret)
+
+Tip_68 SqlAlchemy+Sqlite3，创建表，插入数据，查询数据
+
+Code:
+
+from sqlalchemy import Column, String, create_engine, MetaData
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
+Base = declarative_base()
+class User(Base):
+    __tablename__ = 'user' # 表的名字
+    # 表的结构:
+    id = Column(String(20), primary_key=True)
+    name = Column(String(20))
+engine = create_engine(r'sqlite:///database.db')
+Base.metadata.create_all(engine)
+DBSession = sessionmaker(bind=engine)
+
+session = DBSession()
+new_user = User(id='5', name='Bob')
+session.add(new_user)
+session.commit()
+session.close()
+
+session = DBSession()
+user = session.query(User).filter(User.id=='5').one()
+print('type:', type(user))
+print('name:', user.name)
+session.close()
+
+Tip_69 TK，编写加法计算器
+
++---------------+
+| NumA: ______  |
+| NumB: ______  |
+| NumC: ______  |
+|               |
+|  (Button)     |
++---------------+
+
+Code: 
+
+from tkinter import Label, Frame, Tk, Button, Entry
+from tkinter import RIGHT, LEFT
+# from tkinter.filedialog import askopenfilename
+tk = Tk()
+
+def cmd():
+    # aStr = askopenfilename
+    aFloat = float(entryList[0].get())
+    bFloat = float(entryList[1].get())
+    entryList[2].delete(0, len(entryList[2].get()))
+    entryList[2].insert(0, round(aFloat+bFloat, 2))
+
+nameList = ['NumberA', 'NumberB', 'NumberC']
+frameList = [Frame(tk) for i in nameList]
+labelList = [Label(i, text=j) for i,j in zip(frameList, nameList)]
+entryList = [Entry(i) for i in frameList]
+
+for lable,entry,frame in zip(labelList, entryList, frameList):
+    lable.pack(side=LEFT)
+    entry.pack(side=RIGHT)
+    frame.pack()
+    
+btn = Button(tk, text="Add", command=cmd)
+btn.pack(side=RIGHT)
+
+tk.mainloop()
+
+Tip_70 Scrapy Demo，获取http://quotes.toscrape.com/tag/humor/中的箴言
+
+[官方文档] https://docs.scrapy.org/en/latest/
+[css & xpath] https://github.com/scrapy/quotesbot
+
+scrapy runspider /Users/wxdev_mac/eclipse-workspace/test3/test.py -o test.json 
+
+Code:
+
+import scrapy
+
+class QuotesSpider(scrapy.Spider):
+    name = "quotes"
+    start_urls = [
+        'http://quotes.toscrape.com/tag/humor/',
+    ]
+
+    def parse(self, response):
+        for quote in response.css('div.quote'):
+            yield {
+                'text': quote.css('span.text::text').extract_first(),
+                'author': quote.xpath('span/small/text()').extract_first(),
+            }
+
+        next_page = response.css('li.next a::attr("href")').extract_first()
+        if next_page is not None:
+            yield response.follow(next_page, self.parse)
+
+
+
