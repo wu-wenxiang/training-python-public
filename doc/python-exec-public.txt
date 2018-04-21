@@ -1,5 +1,37 @@
 Python训练题：
 
+Tip_010101 要求用户输入一个数字，判断这个数字是否大于42。
+Run:
+Input: 45
+> 42
+
+Code:
+'''
+Check if input-number > 42
+'''
+aStr = input("Input: ")
+# print aStr
+aInt = int(aStr)
+if aInt > 42:
+    print("> 42")
+else:
+    print("<= 42")
+
+Tip_010102 要求用户输入两个整数，计算输出两者的和。
+Run:
+Int A = 32
+Int B = 11
+32 + 11 = 43
+
+Code:
+# -*- coding: utf-8 -*-
+
+aStr = input('Int A = ')
+bStr = input('Int B = ')
+aInt = int(aStr)
+bInt = int(bStr)
+print("%s + %s = %s" % (aInt, bInt, aInt+bInt))
+
 Tip_1. 要求输入一个秒数（整数），输出这些秒相当于多少分钟加多少秒，以及相当于多少分钟（带小数）。
 
 Run:
