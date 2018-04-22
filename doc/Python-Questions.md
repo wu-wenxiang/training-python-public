@@ -17,7 +17,7 @@
 	- **IoT**: 树莓板，GPIO，Azure IoT DevKit
 	- **MineCraft**: MineCraft, 绘制三维图形，捕捉玩家位置，虚拟连接现实
 	- **GUI**: TK
-	- **区块链**: BitCoin, IoT
+	- **区块链**: BitCoin, IoT via BitCoin
 
 ---------------------------------------
 ---------------------------------------
