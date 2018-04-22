@@ -127,7 +127,7 @@ FiveNum, OneNum = divmod(tmpNum, 5)
 
 print("%d Yuan = %d Fifty, %d Ten, %d Five, %d One" % (aNum, FiftyNum, TenNum, FiveNum, OneNum))
 
-Tip_6. 一英寸=2.54厘米。提示用户输入一个英寸数（浮点数），将其换算成浮点数输出，计算时保留两位小数，输出时保留到小数点后四位。
+Tip_020106. 一英寸=2.54厘米。提示用户输入一个英寸数（浮点数），将其换算成浮点数输出，计算时保留两位小数，输出时保留到小数点后四位。
 
 Run:
 Please input Inch:
@@ -144,17 +144,17 @@ celiNum = round(inchNum * INCH_CELI, 2)
 
 print("%f inch = %.4f celi" % (inchNum, celiNum))
 
-Tip_6_2 玛雅人用二十进制计数，如果有个玛雅人跟你说“30”年后是世界末日，请问多少年后是世界末日？
+Tip_020107. 玛雅人用二十进制计数，如果有个玛雅人跟你说“30”年后是世界末日，请问多少年后是世界末日？
 
 Code:
 print(int("30", 20))
 
-Tip_6_3 一些非洲的土著人只会用八进制计数，如果你想给他20瓶可乐换他9只羊，你该怎么告诉他？
+Tip_020108. 一些非洲的土著人只会用八进制计数，如果你想给他20瓶可乐换他9只羊，你该怎么告诉他？
 
 Code:
 print("%o Coco Cola <=> %o Sheep" % (20, 9))
 
-Tip_7. 提示用户输入一个字符串，判断该字符串是否包含"apple"子字符串（忽略大小写，Apple, APPLE都算）。
+Tip_020201. 提示用户输入一个字符串，判断该字符串是否包含"apple"子字符串（忽略大小写，Apple, APPLE都算）。
 
 Run:
 Please input a string:
@@ -170,7 +170,7 @@ if "APPLE" in aStrUpper:
 else:
     print("'Apple' not in '%s'" % aStr)
 
-Tip_8. 提示用户输入一个若干个单词，单词要用空白符隔开（两个单词之间可以有多个空白符），程序要将每个单词首字母大写，再用单个空白符连接所有的单词，并输出到屏幕。
+Tip_020202. 提示用户输入一个若干个单词，单词要用空白符隔开（两个单词之间可以有多个空白符），程序要将每个单词首字母大写，再用单个空白符连接所有的单词，并输出到屏幕。
 
 Run:
 Please input a string:
@@ -186,7 +186,7 @@ aStrNew = " ".join(aList)
 
 print(aStrNew)
 
-Tip_9. 提示用户输入一个字符串，判断该字符串是否回文（回文是指正读反读都一样，注意忽略用户输入的字符串两头的空白），并统计字符串长度。
+Tip_020203. 提示用户输入一个字符串，判断该字符串是否回文（回文是指正读反读都一样，注意忽略用户输入的字符串两头的空白），并统计字符串长度。
 
 Run:
 Please input a string:
@@ -204,7 +204,7 @@ if aStr == aStr[::-1]:
 else:
     print("'%s' is not a huiwen string" % aStr)
 
-Tip_10. 提示用户输入一个字符串，将其中所有的hello替换成HELLO，并将其中第一个world替换成WORLD。
+Tip_020204. 提示用户输入一个字符串，将其中所有的hello替换成HELLO，并将其中第一个world替换成WORLD。
 
 Run:
 Please input a string:
@@ -219,7 +219,7 @@ aStr = aStr.replace("world", "WORLD", 1)
 
 print(aStr)
 
-Tip_11. 提示用户输入一个字符串，去掉两头空格，逆序间隔1位输出。
+Tip_020205. 提示用户输入一个字符串，去掉两头空格，逆序间隔1位输出。
 
 Run:
 Please input a string:
@@ -231,7 +231,7 @@ aStr = input("Please input a string:\n")
 aStr = aStr.strip()
 print(aStr[::-2])
 
-Tip_12. 提示用户输入一个字符串，统计其中字母a的个数（不区分大小写，A也算），并输出第一个a在字符串中的位置。
+Tip_020206. 提示用户输入一个字符串，统计其中字母a的个数（不区分大小写，A也算），并输出第一个a在字符串中的位置。
 
 Run:
 Please input a string:
@@ -246,7 +246,7 @@ aIndex = aStr.lower().find('a')
 
 print("String '%s' has %d a(or A), first a(or A) in %d." % (aStr, aCount, aIndex))
 
-Tip_13. 输入若干(>3)个评分，去掉一个最高分，一个最低分，求平均分，保留2位小数。
+Tip_020301. 输入若干(>3)个评分，去掉一个最高分，一个最低分，求平均分，保留2位小数。
 
 Run:
 Please input some integer numbers:
@@ -264,7 +264,7 @@ else:
     avg = sum(bNumList) / len(bNumList)
     print("The average is: %0.2f." % avg)
 
-Tip_14. 输入若干(>1)个整数，生成一个长度为10000的随机数列表，列表中的每个数字都是随机从你输入的几个数字中选取的，统计列表中各个数字出现了多少次。
+Tip_020302. 输入若干(>1)个整数，生成一个长度为10000的随机数列表，列表中的每个数字都是随机从你输入的几个数字中选取的，统计列表中各个数字出现了多少次。
 
 Run:
 Please input some integer numbers:
@@ -294,7 +294,7 @@ else:
     for x,y in cNumList:
         print("%d => %d" % (x, y))
 
-Tip_15. 输入5个字符串，去掉字符串两端的空格，按字母顺序逆序输出其中长度大于3的字符串。(按长度排序输出所有字符串，这个在学完函数之后会容易实现)
+Tip_020303. 输入5个字符串，去掉字符串两端的空格，按字母顺序逆序输出其中长度大于3的字符串。(按长度排序输出所有字符串，这个在学完函数之后会容易实现)
 
 Run:
 Please input string 0:	haha
@@ -319,7 +319,7 @@ print("-" * 20)
 for item in bList:
     print item
 
-Tip_16. 输入一个整数，输出比它小的平方数。
+Tip_020304. 输入一个整数，输出比它小的平方数。
 
 Run:
 Please input an integer:
@@ -333,7 +333,7 @@ aNum = int(input("Please input an integer:\n"))
 aList = [str(i**2) for i in range(1, int(ceil(aNum ** 0.5)))]
 print("Numbers: %s" % " ".join(aList))
 
-Tip_17. 输入一个年份，输出其属相，不考虑公历年和农历年之间的差月，比如1983年全年都认为是属猪。
+Tip_020305. 输入一个年份，输出其属相，不考虑公历年和农历年之间的差月，比如1983年全年都认为是属猪。
 
 Run:
 Please input an integer:
@@ -349,7 +349,7 @@ shengXiao = SX_LIST[index]
 
 print("ShengXiao: %d => %s" % (aNum, shengXiao))
 
-Tip_18. 输出一个字符串，将其加密(每个字母的ascii加一)输出，再解密输出。
+Tip_020306. 输出一个字符串，将其加密(每个字母的ascii加一)输出，再解密输出。
 
 Run:
 Please input a string:
@@ -367,7 +367,7 @@ print("".join(aList))
 bList = [chr(ord(char)-1) for char in aList]
 print("".join(bList))
 
-Tip_19. 输入一个整数，输出比它小的能被三整除的自然数。
+Tip_020307. 输入一个整数，输出比它小的能被三整除的自然数。
 
 Run:
 Please input a integer:
@@ -380,7 +380,7 @@ aList = [str(item) for item in range(3, aInt, 3)]
 #aList = [str(item) for item in range(1, aInt) if item % 3 == 0]
 print(" ".join(aList))
 
-Tip_20. 让用户输入一行字符串，统计并输出其中每个字符出现的次数。
+Tip_020401. 让用户输入一行字符串，统计并输出其中每个字符出现的次数。
 Run:
 Please input a Str:
 abcdcdabcd
@@ -408,7 +408,7 @@ print("The stat char list:")
 for tmpKey, tmpValue in aDict.items():
     print("%s => %d" % (tmpKey, tmpValue))
 
-Tip_21. 让用户输入A、B两个整数数列，统计并排序输出A数列中独有的整数，B中独有的整数，以及A、B公有的整数。
+Tip_020402. 让用户输入A、B两个整数数列，统计并排序输出A数列中独有的整数，B中独有的整数，以及A、B公有的整数。
 Run:
 Please input int list A: 1 3 5 7 9
 Please input int list B: 5 6 7
@@ -427,7 +427,7 @@ print("Only in A: %s" % sorted(aNumSet - bNumSet))
 print("Only in B: %s" % sorted(bNumSet - aNumSet))
 print("Both in A & B: %s" % sorted(aNumSet & bNumSet))
 
-Tip_22. 输入一个句子，按首字母统计句中的单词(限定每个单词都只能由字母组成)，输出统计结果。
+Tip_020403. 输入一个句子，按首字母统计句中的单词(限定每个单词都只能由字母组成)，输出统计结果。
 Run:
 Please input a string:
 it is my book.
