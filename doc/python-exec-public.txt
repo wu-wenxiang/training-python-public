@@ -108,7 +108,7 @@ if eval(aStr) == 24:
 else:
     print("Wrong!")
  
-Tip_5. 提示用户输入一个整数（X元人民币），输出这笔钱等于多少张50元，10元，5元，1元纸币（优先用大额纸币）。
+Tip_020105. 提示用户输入一个整数（X元人民币），输出这笔钱等于多少张50元，10元，5元，1元纸币（优先用大额纸币）。
 
 Run:
 Please input X Yuan:
@@ -116,7 +116,7 @@ Please input X Yuan:
 72 Yuan = 1 Fifty, 2 Ten, 0 Five, 2 One
 
 Code:
-aNumStr = raw_input("Please input X Yuan:\n")
+aNumStr = input("Please input X Yuan:\n")
 aNum = int(aNumStr)
 
 tmpNum = aNum
@@ -137,7 +137,7 @@ Please input Inch:
 Code:
 INCH_CELI = 2.54
 
-aNumStr = raw_input("Please input Inch:\n")
+aNumStr = input("Please input Inch:\n")
 inchNum = float(aNumStr)
 
 celiNum = round(inchNum * INCH_CELI, 2)
@@ -162,7 +162,7 @@ I like aPple
 'Apple' in 'I like aPple'
 
 Code:
-aStr = raw_input("Please input a string:\n")
+aStr = input("Please input a string:\n")
 
 aStrUpper = aStr.upper()
 if "APPLE" in aStrUpper:
@@ -178,7 +178,7 @@ Please input a string:
 I Like Apple
 
 Code:
-aStr = raw_input("Please input a string:\n")
+aStr = input("Please input a string:\n")
 
 aStrTitle = aStr.title()
 aList = aStrTitle.split()
@@ -195,7 +195,7 @@ len = 3
 'bob' is a huiwen string
 
 Code:
-aStr = raw_input("Please input a string:\n")
+aStr = input("Please input a string:\n")
 
 aStr = aStr.strip()
 print("len = %d" % len(aStr))
@@ -212,7 +212,7 @@ hello world hello world hello world
 HELLO WORLD HELLO world HELLO world
 
 Code:
-aStr = raw_input("Please input a string:\n")
+aStr = input("Please input a string:\n")
 
 aStr = aStr.replace("hello", "HELLO")
 aStr = aStr.replace("world", "WORLD", 1)
@@ -227,7 +227,7 @@ Please input a string:
 97531
 
 Code:
-aStr = raw_input("Please input a string:\n")
+aStr = input("Please input a string:\n")
 aStr = aStr.strip()
 print(aStr[::-2])
 
@@ -239,7 +239,7 @@ haha
 String 'haha' has 2 a(or A), first a(or A) in 1.
 
 Code:
-aStr = raw_input("Please input a string:\n")
+aStr = input("Please input a string:\n")
 
 aCount = aStr.lower().count('a')
 aIndex = aStr.lower().find('a')
@@ -254,7 +254,7 @@ Please input some integer numbers:
 The average is: 7.00.
 
 Code:
-aStr = raw_input("Please input some integer numbers:\n")
+aStr = input("Please input some integer numbers:\n")
 aNumList = [float(item) for item in aStr.split()]
 if len(aNumList) < 3:
     print("Please input at least 3 integer numbers!")
@@ -283,7 +283,7 @@ Please input some integer numbers:
 
 Code:
 from random import choice
-aStr = raw_input("Please input some integer numbers:\n")
+aStr = input("Please input some integer numbers:\n")
 aList = aStr.split()
 aNumList = [int(item) for item in aList]
 if len(aNumList) < 1:
@@ -310,7 +310,7 @@ haha
 Code:
 aList = []
 for i in range(5):
-    aStr = raw_input("Please input string %d:\t" % i)
+    aStr = input("Please input string %d:\t" % i)
     aList.append(aStr.strip())
 
 bList = [item for item in aList if len(item) > 3]
@@ -329,7 +329,7 @@ Numbers: 1 4 9 16
 Code:
 from math import ceil
 
-aNum = int(raw_input("Please input an integer:\n"))
+aNum = int(input("Please input an integer:\n"))
 aList = [str(i**2) for i in range(1, int(ceil(aNum ** 0.5)))]
 print("Numbers: %s" % " ".join(aList))
 
@@ -343,7 +343,7 @@ ShengXiao: 2012 => Long
 Code:
 SX_LIST = "Shu Niu Hu Tu Long She Ma Yang Hou Ji Gou Zhu".split()
 
-aNum = int(raw_input("Please input an integer:\n"))
+aNum = int(input("Please input an integer:\n"))
 index = (aNum - 1984) % 12
 shengXiao = SX_LIST[index]
 
@@ -359,7 +359,7 @@ J!mpwf!zpv
 I love you
 
 Code:
-aStr = raw_input("Please input a string:\n")
+aStr = input("Please input a string:\n")
 
 print "-" * 30
 aList = [chr(ord(char)+1) for char in aStr]
@@ -375,7 +375,7 @@ Please input a integer:
 3 6 9 12 15 18 21 24 27 30 33 36 39 42 45 48
 
 Code:
-aInt = int(raw_input("Please input a integer:\n"))
+aInt = int(input("Please input a integer:\n"))
 aList = [str(item) for item in range(3, aInt, 3)]
 #aList = [str(item) for item in range(1, aInt) if item % 3 == 0]
 print(" ".join(aList))
@@ -391,7 +391,7 @@ b => 2
 d => 3
 
 Code:
-aStr = raw_input("Please input a Str:\n")
+aStr = input("Please input a Str:\n")
 
 aDict = {chr:aStr.count(chr) for chr in set(aStr)}
 
@@ -417,8 +417,8 @@ Only in B: [6]
 Both in A & B: [5, 7]
 
 Code:
-aNumStr = raw_input("Please input int list A: ")
-bNumStr = raw_input("Please input int list B: ")
+aNumStr = input("Please input int list A: ")
+bNumStr = input("Please input int list B: ")
 
 aNumSet = set([int(item) for item in aNumStr.split()])
 bNumSet = set([int(item) for item in bNumStr.split()])
@@ -436,7 +436,7 @@ i => ['it', 'is']
 m => ['my']
 
 Code:
-aStr = raw_input("Please input a string:\n")
+aStr = input("Please input a string:\n")
 
 wordList = [word for word in aStr.split() if word.isalpha()]
 aDict = {}
@@ -461,7 +461,7 @@ Please input length:
 *****
 
 Code:
-aNum = int(raw_input("Please input length:\n"))
+aNum = int(input("Please input length:\n"))
 
 for i in range(1, aNum + 1):
     print "*" * i
@@ -477,7 +477,7 @@ Please input length:
 *********
 
 Code:
-aNum = int(raw_input("Please input length:\n"))
+aNum = int(input("Please input length:\n"))
 
 for i in range(1, aNum + 1):
     print(" " * (aNum - i) + "*" * (2*i-1))
@@ -515,7 +515,7 @@ c => [3]
 d => [4]
 
 Code:
-aStr = raw_input("Please input a string:\n")
+aStr = input("Please input a string:\n")
 
 aDict = {}
 for i, char in enumerate(aStr):
@@ -545,7 +545,7 @@ c = randint(1, 100)
 
 count = 0
 while(count < GUESS_MAX):
-    a = raw_input("please input number:\n")
+    a = input("please input number:\n")
     a = int(a)
 
     count = count + 1 
@@ -885,7 +885,7 @@ Please input module name:math
 
 Code:
 
-moduleName = raw_input("Please input module name:")
+moduleName = input("Please input module name:")
 aMoObj = __import__(moduleName)
 print aMoObj.__dict__
 
@@ -925,8 +925,8 @@ could not convert string to float: dd
 
 Code:
 
-aNum = raw_input("Please input A: ")
-bNum = raw_input("Please input B: ")
+aNum = input("Please input A: ")
+bNum = input("Please input B: ")
 
 try:
     sumNum = float(aNum) + float(bNum)
@@ -953,8 +953,8 @@ Code:
 
 import re
 
-aNum = raw_input("Please input A: ")
-bNum = raw_input("Please input B: ")
+aNum = input("Please input A: ")
+bNum = input("Please input B: ")
 
 reFloatStr = re.compile("^\d+(\.\d+)?$")
 
