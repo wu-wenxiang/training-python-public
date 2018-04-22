@@ -603,6 +603,8 @@
 
 1. [GPIO] 如何使用面包板搭建GPIO口的输入、输出电路？
 
+1. [Azure IoT DevKit] 如何使用DevKit将收集到的温度/湿度信息上传到Azure云端，并通过PowerBI显示出来？[参考](https://github.com/wu-wenxiang/Training-Python/tree/master/Python-Common/IoT/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E5%81%9AIoT%E8%AE%BE%E5%A4%87)
+
 ### MineCraft
 1. [基础] MineCraft基础和Hook原理是什么？
 

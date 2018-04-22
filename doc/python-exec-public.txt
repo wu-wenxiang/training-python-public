@@ -1,6 +1,7 @@
 Python训练题：
 
 Tip_010101 要求用户输入一个数字，判断这个数字是否大于42。
+
 Run:
 Input: 45
 > 42
@@ -18,6 +19,7 @@ else:
     print("<= 42")
 
 Tip_010102 要求用户输入两个整数，计算输出两者的和。
+
 Run:
 Int A = 32
 Int B = 11
@@ -32,7 +34,7 @@ aInt = int(aStr)
 bInt = int(bStr)
 print("%s + %s = %s" % (aInt, bInt, aInt+bInt))
 
-Tip_1. 要求输入一个秒数（整数），输出这些秒相当于多少分钟加多少秒，以及相当于多少分钟（带小数）。
+Tip_020101. 要求输入一个秒数（整数），输出这些秒相当于多少分钟加多少秒，以及相当于多少分钟（带小数）。
 
 Run:
 Please input seconds number: 72
@@ -40,7 +42,7 @@ Please input seconds number: 72
 72 sec = 1 min + 12 sec
 
 Code:
-secStr = raw_input("Please input seconds number: ")
+secStr = input("Please input seconds number: ")
 sec = int(secStr)
 minFloat = float(sec) / 60
 minInt, secMod = divmod(sec, 60)
@@ -48,7 +50,7 @@ secMod = sec % 60
 print("%d sec = %f min" % (sec, minFloat))
 print("%d sec = %d min + %d sec" % (sec, minInt, secMod))
 
-Tip_2. 要求输入一个实数，输出它的平方和开方数，后者保留两位小数。
+Tip_020102. 要求输入一个实数，输出它的平方和开方数，后者保留两位小数。
 
 Run:
 Please input float A: 2
@@ -58,14 +60,14 @@ Please input float A: 2
 2 ** 1/2 = 1.41
 
 Code:
-aFloatStr = raw_input("Please input float A: ")
+aFloatStr = input("Please input float A: ")
 aFloat = float(aFloatStr)
 print("%f ** 2 = %f" % (aFloat, aFloat ** 2))
 print("%f ** 1/2 = %f" % (aFloat, aFloat ** 0.5))
 print("%f ** 1/2 = %f" % (aFloat, round(aFloat ** 0.5, 2)))
 print("%s ** 1/2 = %.2f" % (aFloatStr, pow(aFloat, 0.5)))
 
-Tip_3. 随机生成两个10以内的实数（小数点后两位）并输出到屏幕，要求输入他们的和，输出True/False。
+Tip_020103 随机生成两个10以内的实数（小数点后两位）并输出到屏幕，要求输入他们的和，输出True/False。
 
 Run:
 Please input sum for 4.96 + 4.91 =
@@ -79,13 +81,13 @@ MIN_DELTA = 10 ** -10
 
 aFloat = round(random() * 10, 2)
 bFloat = round(random() * 10, 2)
-sumStr = raw_input("Please input sum for %.2f + %.2f =\n" % (aFloat, bFloat))
+sumStr = input("Please input sum for %.2f + %.2f =\n" % (aFloat, bFloat))
 if abs(float(sumStr) - (aFloat+bFloat)) < MIN_DELTA:
     print("Right!")
 else:
     print("Wrong!")
 
-Tip_4. 随机生成4个[1-10]之间的自然数并输出到屏幕，要求输入24点的算法，输出True/False。
+Tip_020104. 随机生成4个[1-10]之间的自然数并输出到屏幕，要求输入24点的算法，输出True/False。
 
 Run:
 Numbers are: 6, 1, 2, 6: 
@@ -105,30 +107,6 @@ if eval(aStr) == 24:
     print("Right!")
 else:
     print("Wrong!")
-
-============
-
-import random
-import re
-
-reCmp = re.compile(r'^[\d+\-*/()]+$')
-
-while True:
-    intList = [random.randint(1,10) for i in range(4)]
-    aStr = raw_input('Numbers: %s' % intList)
-    
-    if not reCmp.search(aStr):
-        print('Input error!')
-        continue
-    inputList = [int(i) for i in re.split(r'[\D+]', aStr)]
-    print inputList
-    if not sorted(inputList) == sorted(intList):
-        print('Input error 2!')
-        continue
-    if eval(aStr) == 24:
-        print True
-    else:
-        print False
  
 Tip_5. 提示用户输入一个整数（X元人民币），输出这笔钱等于多少张50元，10元，5元，1元纸币（优先用大额纸币）。
 
@@ -1038,6 +1016,40 @@ for line in open("test.txt"):
 
 print aList
 print sum(aList)
+
+
+Tip_050204. 随机生成4个[1-10]之间的自然数并输出到屏幕，要求输入24点的算法，输出True/False。
+
+Run:
+Numbers are: 6, 1, 2, 6: 
+6*1*(6-2)
+Right!
+
+Code:
+import random
+import re
+
+reCmp = re.compile(r'^[\d+\-*/()]+$')
+
+while True:
+    intList = [random.randint(1,10) for i in range(4)]
+    aStr = input('Numbers: %s' % intList)
+    aStr = re.sub(r'\s+', '', aStr)
+    print(aStr)
+    
+    if not reCmp.search(aStr):
+        print('Input error!')
+        continue
+    inputList = [i for i in re.split(r'[\D+]', aStr) if i.strip()]
+    # print(inputList)
+    inputList = map(int, inputList)
+    if not sorted(inputList) == sorted(intList):
+        print('Wrong number!')
+        continue
+    if eval(aStr) == 24:
+        print(True)
+    else:
+        print(False)
 
 Tip_52 编写装饰器makebold和makeitalic
 客户端代码：
