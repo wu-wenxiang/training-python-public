@@ -1,4 +1,42 @@
+
 Python训练题：
+
+目录：
+0101 HelloWorld
+0201 Number
+0202 String
+0203 Tuple/List
+0204 Set/Dict
+0205 CLI
+0206 File
+0301 If-Else/While/For
+0302 Function
+0401 Module/Package
+0402 Class
+0501 Exception
+0502 Regex
+0503 Decorator
+0504 Generator
+0601 Dir&File
+0602 Internet Client
+0603 Parallel
+0701 Scrapy
+0801 GUI-TK
+0901 Distribution-Env
+1001 UnitTest
+1002 DB
+1003 WSGI/Flask
+1004 Django
+1101 Automation
+1102 DevOps
+1201 DataAnalysis
+1301 BlockChain
+1401 OpenStack
+1501 MineCraft
+1601 IoT
+1701 Crack-Debug
+
+-----------------------------------------------
 
 Tip_010101 要求用户输入一个数字，判断这个数字是否大于42。
 
@@ -892,7 +930,7 @@ moduleName = input("Please input module name:")
 aMoObj = __import__(moduleName)
 print(aMoObj.__dict__)
 
-Tip_47 编写一个类Name，能被如下代码调用：
+Tip_040201 编写一个类Name，能被如下代码调用：
 
 aName = Name("John Green")
 print(aName.getLastName())
@@ -912,8 +950,63 @@ Code:
 class Name(str):
     def getLastName(self):
         return self.split()[-1] if self else ""
+  
+Tip_040202 实现一个队列类FIFO，push/pull
 
-Tip_48 让用户输入两个实数，输出他们的和。如果用户的输入有误，给出提示。
+客户端代码/Run：
+aQueue = Queue()
+aQueue.push("hello")
+aQueue.push(42)
+print len(aQueue)
+print aQueue.pull() # hello
+print aQueue.pull() # 42
+print aQueue.pull() # IndexError
+
+Code:
+class Queue(list):
+    def push(self, i):
+        self.append(i)
+    def pull(self):
+        return self.pop(0)
+
+Tip_040203 实现tail功能(每隔1秒检查文件中的内容，并将新增的行输出)
+
+Code:
+
+import time
+
+def follow(fileName):
+    with open(fileName) as aFile:
+        aFile.seek(0, 2)
+        while True:
+            curPos = aFile.tell()
+            aFile.seek(0, 2)
+            endPos = aFile.tell()
+            aFile.seek(curPos)
+            if endPos > curPos:
+                for line in aFile:
+                    print(line, end='')
+            time.sleep(1)
+
+if __name__ == "__main__":
+    follow("a.txt")
+
+Tip_040204 Tail类
+
+客户端代码:
+def printLine(txt):
+    ''' Prints received text '''
+    print(txt)
+
+t = Tail('/var/log/syslog')
+t.register_callback(printLine)
+t.follow(s=5)
+
+Code:
+
+https://github.com/maodouzi/python-tail
+
+Tip_050101 让用户输入两个实数，输出他们的和。如果用户的输入有误，给出提示。
 
 Run:
 
@@ -933,14 +1026,14 @@ bNum = input("Please input B: ")
 
 try:
     sumNum = float(aNum) + float(bNum)
-except ValueError, e:
-    print "Value Error!"
-    print e
+except ValueError as e:
+    print("Value Error!")
+    print(e)
     exit()
 
-print "Sum =", sumNum
+print("Sum =", sumNum)
 
-Tip_49 让用户输入两个实数，输出他们的和。如果用户的输入有误，给出提示。正则表达式。
+Tip_050201 让用户输入两个实数，输出他们的和。如果用户的输入有误，给出提示。正则表达式。
 
 Run:
 
@@ -964,17 +1057,17 @@ reFloatStr = re.compile("^\d+(\.\d+)?$")
 flag = True
 
 if not reFloatStr.search(aNum):
-    print "A not a float!"
+    print("A not a float!")
     flag = False
 if not reFloatStr.search(bNum):
-    print "B not a float!"
+    print("B not a float!")
     flag = False
 
 if flag:
     sumNum = float(aNum) + float(bNum)
-    print "Sum =", sumNum
+    print("Sum =", sumNum)
 	
-Tip_50 统计一个文件所有包含数字的行。
+Tip_050202 统计一个文件所有包含数字的行。
 测试文件如下：
 apple banana 2
 3hello 
@@ -994,9 +1087,9 @@ reNumStr = re.compile("\d+")
 for line in open("test.txt"):
     line = line.rstrip("\n")
     if reNumStr.search(line):
-        print line
+        print(line)
 
-Tip_51 找出一个文件中所有整数，打印输出它们的和。
+Tip_050203 找出一个文件中所有整数，打印输出它们的和。
 测试文件如下：
 apple banana 23
 33hello 
@@ -1017,8 +1110,8 @@ for line in open("test.txt"):
     tmpIntList = [int(item) for item in tmpStrList]
     aList.extend(tmpIntList)
 
-print aList
-print sum(aList)
+print(aList)
+print(sum(aList))
 
 
 Tip_050204. 随机生成4个[1-10]之间的自然数并输出到屏幕，要求输入24点的算法，输出True/False。
@@ -1054,14 +1147,15 @@ while True:
     else:
         print(False)
 
-Tip_52 编写装饰器makebold和makeitalic
+Tip_050301 编写装饰器makebold和makeitalic
+
 客户端代码：
 @makebold
 @makeitalic
 def hello():
     return "hello world"
 
-print hello()
+print(hello())
 
 Run:
 <b><i>hello world</i></b>
@@ -1082,63 +1176,9 @@ def makeitalic(fn):
 def hello():
     return "hello world"
 
-print hello()
-	
-Tip_53 实现一个队列类FIFO，push/pull
-客户端代码/Run：
-aQueue = Queue()
-aQueue.push("hello")
-aQueue.push(42)
-print len(aQueue)
-print aQueue.pull() # hello
-print aQueue.pull() # 42
-print aQueue.pull() # IndexError
+print(hello())
 
-Code:
-class Queue(list):
-    def push(self, i):
-        self.append(i)
-    def pull(self):
-        return self.pop(0)
-
-Tip_54 实现tail功能(每隔1秒检查文件中的内容，并将新增的行输出)
-
-Code:
-
-import time
-
-def follow(fileName):
-    with open(fileName) as aFile:
-        aFile.seek(0, 2)
-        while True:
-            curPos = aFile.tell()
-            aFile.seek(0, 2)
-            endPos = aFile.tell()
-            aFile.seek(curPos)
-            if endPos > curPos:
-                for line in aFile:
-                    print line.rstrip("\n")
-            time.sleep(1)
-
-if __name__ == "__main__":
-    follow("a.txt")
-
-Tip_55 Tail类
-
-客户端代码:
-def printLine(txt):
-    ''' Prints received text '''
-    print(txt)
-
-t = Tail('/var/log/syslog')
-t.register_callback(printLine)
-t.follow(s=5)
-
-Code:
-
-https://github.com/maodouzi/python-tail
-
-Tip_56 编写一个多线程执行的Demo，每个线程打印出线程名，模拟IO密集型和CPU密集型两种情况。
+Tip_060301 编写一个多线程执行的Demo，每个线程打印出线程名，模拟IO密集型和CPU密集型两种情况。
 
 Code:
 
@@ -1160,7 +1200,7 @@ aThread.join()
 bThread.join()
 print(time.time()-startTime)
 
-Tip_57 编写Demo验证线程竞争情况
+Tip_060302 编写Demo验证线程竞争情况
 
 Code:
 
@@ -1185,7 +1225,7 @@ aThread.join()
 bThread.join()
 print(a)
 
-Tip_58 像管理线程一样管理进程
+Tip_060303 像管理线程一样管理进程
 
 Code:
 
@@ -1208,7 +1248,7 @@ if __name__ == "__main__":
     bProcess.join()
     print("== ", time.time() - startTime)
 
-Tip_59 进程池Demo
+Tip_060304 进程池Demo
 
 Code:
 
@@ -1228,7 +1268,7 @@ if __name__ == "__main__": # Bug
     print(aList)
     print(time.time() - startTime)
 
-Tip_60 线程池
+Tip_060305 线程池
 
 Code:
 
@@ -1248,130 +1288,74 @@ if __name__ == "__main__": # Bug
     print(aList)
     print(time.time() - startTime)
 
-Tip_61 psutil的使用
+Tip_070101 Scrapy Demo，获取http://quotes.toscrape.com/tag/humor/中的箴言
+
+[官方文档] https://docs.scrapy.org/en/latest/
+[css & xpath] https://github.com/scrapy/quotesbot
+
+scrapy runspider /Users/wxdev_mac/eclipse-workspace/test3/test.py -o test.json 
 
 Code:
 
-import datetime
-import psutil
-from subprocess import PIPE
+import scrapy
 
-print(psutil.cpu_times())
-print(psutil.cpu_times())
-print(psutil.cpu_times().user)
-print(psutil.cpu_count())
-print(psutil.cpu_count(logical=False))
-print(psutil.cpu_times(percpu=True))
+class QuotesSpider(scrapy.Spider):
+    name = "quotes"
+    start_urls = [
+        'http://quotes.toscrape.com/tag/humor/',
+    ]
 
-print(psutil.virtual_memory())
-print(psutil.virtual_memory().total)
-print(psutil.swap_memory())
+    def parse(self, response):
+        for quote in response.css('div.quote'):
+            yield {
+                'text': quote.css('span.text::text').extract_first(),
+                'author': quote.xpath('span/small/text()').extract_first(),
+            }
 
-print(psutil.disk_partitions())
-print(psutil.disk_usage('/'))
-print(psutil.disk_io_counters())
-print(psutil.disk_io_counters(perdisk=True))
+        next_page = response.css('li.next a::attr("href")').extract_first()
+        if next_page is not None:
+            yield response.follow(next_page, self.parse)
 
-print(psutil.net_io_counters())
-print(psutil.net_io_counters(pernic=True))
+Tip_080101 TK，编写加法计算器
 
-print(psutil.users())
-print(psutil.boot_time())
-print(datetime.datetime.fromtimestamp(psutil.boot_time()).strftime('%Y-%m-%d %H:%M:%S'))
++---------------+
+| NumA: ______  |
+| NumB: ______  |
+| NumC: ______  |
+|               |
+|  (Button)     |
++---------------+
 
-print(psutil.pids())
-print(psutil.Process(8068))
-p = psutil.Process(8068)
-print(p.name())
-print(p.exe())
-print(p.cwd())
-print(p.status())
-print(p.create_time())
-print(p.uids())
-print(p.gids())
-print(p.cpu_times())
-print(p.memory_percent())
-print(p.memory_info())
-print(p.connections())
-print(p.num_threads())
+Code: 
 
-p = psutil.Popen(['python', '-c', 'print("hello")'], stdout=PIPE)
-print(p.name())
-print(p.username())
-p.communicate()
+from tkinter import Label, Frame, Tk, Button, Entry
+from tkinter import RIGHT, LEFT
+# from tkinter.filedialog import askopenfilename
+tk = Tk()
 
-Tip_62 Numpy快速入门
+def cmd():
+    # aStr = askopenfilename
+    aFloat = float(entryList[0].get())
+    bFloat = float(entryList[1].get())
+    entryList[2].delete(0, len(entryList[2].get()))
+    entryList[2].insert(0, round(aFloat+bFloat, 2))
 
-Code:
+nameList = ['NumberA', 'NumberB', 'NumberC']
+frameList = [Frame(tk) for i in nameList]
+labelList = [Label(i, text=j) for i,j in zip(frameList, nameList)]
+entryList = [Entry(i) for i in frameList]
 
-# -*- coding: utf-8 -*
-import numpy as np #一般以np作为numpy的别名
-a = np.array([2, 0, 1, 5]) #创建数组
-print(a) #输出数组
-print(a[:3]) #引用前三个数字（切片）
-print(a.min()) #输出a的最小值
-a.sort() #将a的元素从小到大排序，此操作直接修改a，因此这时候a为[0, 1, 2, 5]
-b= np.array([[1, 2, 3], [4, 5, 6]]) #创建二维数组
-print(b*b) #输出数组的平方阵，即[[1, 4, 9], [16, 25, 36]]
+for lable,entry,frame in zip(labelList, entryList, frameList):
+    lable.pack(side=LEFT)
+    entry.pack(side=RIGHT)
+    frame.pack()
+    
+btn = Button(tk, text="Add", command=cmd)
+btn.pack(side=RIGHT)
 
-Tip_63 Pandas快速入门
+tk.mainloop()
 
-Code:
-
-# -*- coding: utf-8 -*-
-import pandas as pd 
-
-s = pd.Series([1,2,3], index=['a', 'b', 'c']) 
-d = pd.DataFrame([[1, 2, 3], [4, 5, 6]], columns = ['a', 'b', 'c']) 
-d2 = pd.DataFrame(s) 
-
-print(d.head())
-print(d.describe()) 
-
-Tip_64 scipy快速入门
-
-Code:
-
-# -*- coding: utf-8 -*
-#求解非线性方程组2x1-x2^2=1,x1^2-x2=2
-from scipy.optimize import fsolve #导入求解方程组的函数
-def f(x): #定义要求解的方程组
-  x1 = x[0]
-  x2 = x[1]
-  return [2*x1 - x2**2 - 1, x1**2 - x2 -2]
-
-result = fsolve(f, [1,1]) #输入初值[1, 1]并求解
-print(result) #输出结果，为array([ 1.91963957,  1.68501606])
-
-#数值积分
-from scipy import integrate #导入积分函数
-def g(x): #定义被积函数
-  return (1-x**2)**0.5
-
-pi_2, err = integrate.quad(g, -1, 1) #积分结果和误差
-print(pi_2 * 2) #由微积分知识知道积分结果为圆周率pi的一半
-
-Tip_65 绘制方程曲线，y = (1-x**2)**0.5，x的范围从-1到1
-
-Code:
-
-# -*- coding: utf-8 -*-
-import numpy as np
-import matplotlib.pyplot as plt #导入Matplotlib
-
-x = np.linspace(-1, 1, 1000) #作图的变量自变量
-y = (1-x**2)**0.5 #因变量y
-
-plt.figure(figsize = (8, 4)) #设置图像大小
-plt.plot(x,y,label = '$y=(1-x**2)**0.5$', color = 'red', linewidth = 2) #作图，设置标签、线条颜色、线条大小
-plt.xlabel('Time(s) ') # x轴名称
-plt.ylabel('Volt') # y轴名称
-plt.title('A Simple Example') #标题
-plt.ylim(0, 1.1) #显示的y轴范围
-plt.legend() #显示图例
-plt.show() #显示作图结果
-
-Tip_66 为如下方法编写单元测试，要求覆盖整数加法，字符串加法，类型不匹配抛出异常三种情况
+Tip_100101 为如下方法编写单元测试，要求覆盖整数加法，字符串加法，类型不匹配抛出异常三种情况
 
 Code:
 
@@ -1391,7 +1375,7 @@ class ATest(unittest.TestCase):
         self.skipTest("Skip due to Bug #13452")
         self.assertEqual(add("hello", "string"), "hellostring")
 
-Tip_67 单元测试，获取大于20000的数字
+Tip_100102 单元测试，获取大于20000的数字
 
 Code:
 
@@ -1446,7 +1430,7 @@ class FixtureTest(unittest.TestCase):
 if __name__ == '__main__':
     unittest.main()
 
-Tip_68 Mock，为checkWeb编写Unittest，Mock模拟http.client模块中的对象
+Tip_100103 Mock，为checkWeb编写Unittest，Mock模拟http.client模块中的对象
 
 Code:
 
@@ -1484,7 +1468,7 @@ class HttpConnTest(unittest.TestCase):
         ret = checkWeb("www.bing.com", 80, "/")
         self.assertTrue(ret)
 
-Tip_69 SqlAlchemy+Sqlite3，创建表，插入数据，查询数据
+Tip_100201 SqlAlchemy+Sqlite3，创建表，插入数据，查询数据
 
 Code:
 
@@ -1513,72 +1497,130 @@ print('type:', type(user))
 print('name:', user.name)
 session.close()
 
-Tip_70 TK，编写加法计算器
-
-+---------------+
-| NumA: ______  |
-| NumB: ______  |
-| NumC: ______  |
-|               |
-|  (Button)     |
-+---------------+
-
-Code: 
-
-from tkinter import Label, Frame, Tk, Button, Entry
-from tkinter import RIGHT, LEFT
-# from tkinter.filedialog import askopenfilename
-tk = Tk()
-
-def cmd():
-    # aStr = askopenfilename
-    aFloat = float(entryList[0].get())
-    bFloat = float(entryList[1].get())
-    entryList[2].delete(0, len(entryList[2].get()))
-    entryList[2].insert(0, round(aFloat+bFloat, 2))
-
-nameList = ['NumberA', 'NumberB', 'NumberC']
-frameList = [Frame(tk) for i in nameList]
-labelList = [Label(i, text=j) for i,j in zip(frameList, nameList)]
-entryList = [Entry(i) for i in frameList]
-
-for lable,entry,frame in zip(labelList, entryList, frameList):
-    lable.pack(side=LEFT)
-    entry.pack(side=RIGHT)
-    frame.pack()
-    
-btn = Button(tk, text="Add", command=cmd)
-btn.pack(side=RIGHT)
-
-tk.mainloop()
-
-Tip_71 Scrapy Demo，获取http://quotes.toscrape.com/tag/humor/中的箴言
-
-[官方文档] https://docs.scrapy.org/en/latest/
-[css & xpath] https://github.com/scrapy/quotesbot
-
-scrapy runspider /Users/wxdev_mac/eclipse-workspace/test3/test.py -o test.json 
+Tip_110101 psutil的使用
 
 Code:
 
-import scrapy
+import datetime
+import psutil
+from subprocess import PIPE
 
-class QuotesSpider(scrapy.Spider):
-    name = "quotes"
-    start_urls = [
-        'http://quotes.toscrape.com/tag/humor/',
-    ]
+print(psutil.cpu_times())
+print(psutil.cpu_times())
+print(psutil.cpu_times().user)
+print(psutil.cpu_count())
+print(psutil.cpu_count(logical=False))
+print(psutil.cpu_times(percpu=True))
 
-    def parse(self, response):
-        for quote in response.css('div.quote'):
-            yield {
-                'text': quote.css('span.text::text').extract_first(),
-                'author': quote.xpath('span/small/text()').extract_first(),
-            }
+print(psutil.virtual_memory())
+print(psutil.virtual_memory().total)
+print(psutil.swap_memory())
 
-        next_page = response.css('li.next a::attr("href")').extract_first()
-        if next_page is not None:
-            yield response.follow(next_page, self.parse)
+print(psutil.disk_partitions())
+print(psutil.disk_usage('/'))
+print(psutil.disk_io_counters())
+print(psutil.disk_io_counters(perdisk=True))
+
+print(psutil.net_io_counters())
+print(psutil.net_io_counters(pernic=True))
+
+print(psutil.users())
+print(psutil.boot_time())
+print(datetime.datetime.fromtimestamp(psutil.boot_time()).strftime('%Y-%m-%d %H:%M:%S'))
+
+print(psutil.pids())
+print(psutil.Process(8068))
+p = psutil.Process(8068)
+print(p.name())
+print(p.exe())
+print(p.cwd())
+print(p.status())
+print(p.create_time())
+print(p.uids())
+print(p.gids())
+print(p.cpu_times())
+print(p.memory_percent())
+print(p.memory_info())
+print(p.connections())
+print(p.num_threads())
+
+p = psutil.Popen(['python', '-c', 'print("hello")'], stdout=PIPE)
+print(p.name())
+print(p.username())
+p.communicate()
+
+Tip_120101 Numpy快速入门
+
+Code:
+
+# -*- coding: utf-8 -*
+import numpy as np #一般以np作为numpy的别名
+a = np.array([2, 0, 1, 5]) #创建数组
+print(a) #输出数组
+print(a[:3]) #引用前三个数字（切片）
+print(a.min()) #输出a的最小值
+a.sort() #将a的元素从小到大排序，此操作直接修改a，因此这时候a为[0, 1, 2, 5]
+b= np.array([[1, 2, 3], [4, 5, 6]]) #创建二维数组
+print(b*b) #输出数组的平方阵，即[[1, 4, 9], [16, 25, 36]]
+
+Tip_120102 Pandas快速入门
+
+Code:
+
+# -*- coding: utf-8 -*-
+import pandas as pd 
+
+s = pd.Series([1,2,3], index=['a', 'b', 'c']) 
+d = pd.DataFrame([[1, 2, 3], [4, 5, 6]], columns = ['a', 'b', 'c']) 
+d2 = pd.DataFrame(s) 
+
+print(d.head())
+print(d.describe()) 
+
+Tip_120103 scipy快速入门
+
+Code:
+
+# -*- coding: utf-8 -*
+#求解非线性方程组2x1-x2^2=1,x1^2-x2=2
+from scipy.optimize import fsolve #导入求解方程组的函数
+def f(x): #定义要求解的方程组
+  x1 = x[0]
+  x2 = x[1]
+  return [2*x1 - x2**2 - 1, x1**2 - x2 -2]
+
+result = fsolve(f, [1,1]) #输入初值[1, 1]并求解
+print(result) #输出结果，为array([ 1.91963957,  1.68501606])
+
+#数值积分
+from scipy import integrate #导入积分函数
+def g(x): #定义被积函数
+  return (1-x**2)**0.5
+
+pi_2, err = integrate.quad(g, -1, 1) #积分结果和误差
+print(pi_2 * 2) #由微积分知识知道积分结果为圆周率pi的一半
+
+Tip_120104 绘制方程曲线，y = (1-x**2)**0.5，x的范围从-1到1
+
+Code:
+
+# -*- coding: utf-8 -*-
+import numpy as np
+import matplotlib.pyplot as plt #导入Matplotlib
+
+x = np.linspace(-1, 1, 1000) #作图的变量自变量
+y = (1-x**2)**0.5 #因变量y
+
+plt.figure(figsize = (8, 4)) #设置图像大小
+plt.plot(x,y,label = '$y=(1-x**2)**0.5$', color = 'red', linewidth = 2) #作图，设置标签、线条颜色、线条大小
+plt.xlabel('Time(s) ') # x轴名称
+plt.ylabel('Volt') # y轴名称
+plt.title('A Simple Example') #标题
+plt.ylim(0, 1.1) #显示的y轴范围
+plt.legend() #显示图例
+plt.show() #显示作图结果
+
+
 
 
 
