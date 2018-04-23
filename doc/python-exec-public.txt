@@ -683,7 +683,7 @@ Tip_030201 实现一个函数sumAny，能满足如下运算：(参数个数是�
 print(sumAny(1, 2))
 print(sumAny(1.2, 2.3, 3.4))
 print(sumAny("hello, ", "world!"))
-print(sumAny(range(5), range(3)))
+print(sumAny([0,1,2,3,4], [0,1,2])
 
 输出：
 3
@@ -698,7 +698,7 @@ def sumAny(*arg):
 print(sumAny(1, 2))
 print(sumAny(1.2, 2.3, 3.4))
 print(sumAny("hello, ", "world!"))
-print(sumAny(range(5), range(3)))
+print(sumAny([0,1,2,3,4], [0,1,2])
 
 Tip_030202 打印指定文件中最长的一行，如果有多行并列最长，只打印最靠前的最长的一行。
 a.txt文件中内容如下：
