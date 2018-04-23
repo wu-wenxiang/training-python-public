@@ -450,62 +450,7 @@ print("The stat char list:")
 for tmpKey, tmpValue in aDict.items():
     print("%s => %s" % (tmpKey, tmpValue))
 
-Tip_23. 根据用户的输入（直角边长），用*号打印直角等腰三角形
-Run:
-Please input length:
-5
-*
-**
-***
-****
-*****
-
-Code:
-aNum = int(input("Please input length:\n"))
-
-for i in range(1, aNum + 1):
-    print "*" * i
-
-Tip_24. 根据用户的输入（腰长），打印等腰三角形。
-Run:
-Please input length:
-5
-    *
-   ***
-  *****
- *******
-*********
-
-Code:
-aNum = int(input("Please input length:\n"))
-
-for i in range(1, aNum + 1):
-    print(" " * (aNum - i) + "*" * (2*i-1))
-
-Tip_25. 打印九九乘法表。
-Run:
-1 * 1 = 1
-2 * 1 = 2       2 * 2 = 4
-3 * 1 = 3       3 * 2 = 6       3 * 3 = 9
-4 * 1 = 4       4 * 2 = 8       4 * 3 = 12      4 * 4 = 16
-5 * 1 = 5       5 * 2 = 10      5 * 3 = 15      5 * 4 = 20      5 * 5 = 25
-……
-
-Code:
-import sys
-
-for i in range(1, 10):
-	for j in range(1, i+1):
-		sys.stdout.write("%d * %d = %d\t" % (i, j, i * j))
-	print ""
-
-for i in range(1, 10):
-	aList = []
-	for j in range(1, i+1):
-		aList.append("%d * %d = %d" % (i, j, i*j))
-	print "\t".join(aList)
-
-Tip_26. 输入一行字符串，按字母顺序输出其中每个字符出现的位置。
+Tip_020404. 输入一行字符串，按字母顺序输出其中每个字符出现的位置。
 Run:
 Please input a string:
 abacd
@@ -523,45 +468,13 @@ for i, char in enumerate(aStr):
     aDict[char].append(i)
 
 for char in sorted(aDict):
-    print char, "=>", aDict[char]
+    print(char, "=>", aDict[char])
 
-Tip_27. 编写猜数字游戏
-Run:
-please input number:
-3
-too small
-please input number:
-67
-good ,right
-count number times = 2
+Tip_020405 字典格式化有什么好处？
+    1. 避免顺序问题
+    2. 避免冗余输入
 
-Code:
-from random import randint
-
-GUESS_MAX = 5
-
-c = randint(1, 100)
-#print c
-
-count = 0
-while(count < GUESS_MAX):
-    a = input("please input number:\n")
-    a = int(a)
-
-    count = count + 1 
-    if a > c:
-        print "too large"
-    elif a < c:
-        print "too small"
-    else:
-        print "good ,right"
-        print ("count number times = %d" % count)
-        break
-    
-else:
-    print("answer = %d" % c)
-
-Tip_28. 计算命令行参数的和，保留两位小数。
+Tip_020501. 计算命令行参数的和，保留两位小数。
 Run: python cmdLineSum.py 4 5 6
 The sum was 15.00 !
 
@@ -570,7 +483,7 @@ import sys
 floatList = [float(item) for item in sys.argv[1:]]
 print("The sum was %.2f !" % sum(floatList))
 
-Tip_29. 使用命令行输入职工信息。
+Tip_020502. 使用命令行输入职工信息。
 1. 职工信息包括姓名，性别，婚姻情况，年龄，薪水，职位。
 2. 职工信息中的“职位”字段的缺省值为“staff”。
 3. 年龄字段必须是整数，薪水字段必须是浮点数，性别只能是N个选项中的一个，否则报错。
@@ -605,21 +518,17 @@ if __name__ == '__main__':
                       help="role string", metavar="ROLE STRING")
     (options, args) = parser.parse_args()
     
-    #print options
+    #print(options)
     
-    print "Worker Information:"
-    print "name => ", options.name
-    print "sex => ", options.sex
-    print "age => ", options.age
-    print "pay => ", options.pay
-    print "marriageFlag => ", options.marriageFlag
-    print "role => ", options.role
+    print("Worker Information:")
+    print("name => ", options.name)
+    print("sex => ", options.sex)
+    print("age => ", options.age)
+    print("pay => ", options.pay)
+    print("marriageFlag => ", options.marriageFlag)
+    print("role => ", options.role)
 
-Tip_30 字典格式化有什么好处？
-	1. 避免顺序问题
-	2. 避免冗余输入
-
-Tip_31 输出被指定的文件中带有指定字符串的行。
+Tip_020601 输出被指定的文件中带有指定字符串的行。
 a.txt文件的内容如下：
 test 1 apples
 apple store
@@ -635,10 +544,10 @@ fileName = sys.argv[1]
 subStr = sys.argv[2]
 
 for line in open(fileName):
-	if subStr in line:
-		print line.rstrip()
-		
-Tip_32 统计指定的文件中单词的个数，并追加写到文件末尾。
+    if subStr in line:
+        print line.rstrip()
+        
+Tip_020602 统计指定的文件中单词的个数，并追加写到文件末尾。
 a.txt文件中内容如下：
 test 1 apples
 apple store
@@ -652,10 +561,10 @@ fileName = sys.argv[1]
 
 wordCount = 0
 for line in open(fileName):
-	wordCount += len(line.split())
+    wordCount += len(line.split())
 open(fileName, 'a').write("\n%d" % wordCount)
 
-Tip_33 打印指定文件中的内容，在打印时将A字符串替换为B字符串(原文件中的内容则不改变)
+Tip_020603 打印指定文件中的内容，在打印时将A字符串替换为B字符串(原文件中的内容则不改变)
 a.txt文件中内容如下：
 test 1 apples
 apple store
@@ -673,16 +582,108 @@ subStr = sys.argv[2]
 repStr = sys.argv[3]
 
 for line in open(fileName):
-	sys.stdout.write(line.replace(subStr, repStr))
+    sys.stdout.write(line.replace(subStr, repStr))
 
-Tip_34 将字典序列化到文件，再从文件读出
+Tip_020604 将字典序列化到文件，再从文件读出
     略
 
-Tip_35 实现一个函数sumAny，能满足如下运算：(参数个数是两个或多个，参数彼此之间能做+运算)
-print sumAny(1, 2)
-print sumAny(1.2, 2.3, 3.4)
-print sumAny("hello, ", "world!")
-print sumAny(range(5), range(3))
+Tip_030101. 根据用户的输入（直角边长），用*号打印直角等腰三角形
+Run:
+Please input length:
+5
+*
+**
+***
+****
+*****
+
+Code:
+aNum = int(input("Please input length:\n"))
+
+for i in range(1, aNum + 1):
+    print("*" * i)
+
+Tip_030102. 根据用户的输入（腰长），打印等腰三角形。
+Run:
+Please input length:
+5
+    *
+   ***
+  *****
+ *******
+*********
+
+Code:
+aNum = int(input("Please input length:\n"))
+
+for i in range(1, aNum + 1):
+    print(" " * (aNum - i) + "*" * (2*i-1))
+
+Tip_030103. 打印九九乘法表。
+Run:
+1 * 1 = 1
+2 * 1 = 2       2 * 2 = 4
+3 * 1 = 3       3 * 2 = 6       3 * 3 = 9
+4 * 1 = 4       4 * 2 = 8       4 * 3 = 12      4 * 4 = 16
+5 * 1 = 5       5 * 2 = 10      5 * 3 = 15      5 * 4 = 20      5 * 5 = 25
+……
+
+Code:
+import sys
+
+for i in range(1, 10):
+    for j in range(1, i+1):
+        k = "%d * %d = %d\t" % (i, j, i*j)
+        print(k, end='')
+        # sys.stdout.write(k)
+    print()
+
+for i in range(1, 10):
+	aList = []
+	for j in range(1, i+1):
+		aList.append("%d * %d = %d" % (i, j, i*j))
+	print("\t".join(aList))
+
+Tip_030104. 编写猜数字游戏
+Run:
+please input number:
+3
+too small
+please input number:
+67
+good ,right
+count number times = 2
+
+Code:
+from random import randint
+
+GUESS_MAX = 5
+
+c = randint(1, 100)
+#print(c)
+
+count = 0
+while(count < GUESS_MAX):
+    a = input("please input number:\n")
+    a = int(a)
+
+    count = count + 1 
+    if a > c:
+        print("too large")
+    elif a < c:
+        print("too small")
+    else:
+        print("good ,right")
+        print("count number times = %d" % count)
+        break  
+else:
+    print("answer = %d" % c)
+
+Tip_030201 实现一个函数sumAny，能满足如下运算：(参数个数是两个或多个，参数彼此之间能做+运算)
+print(sumAny(1, 2))
+print(sumAny(1.2, 2.3, 3.4))
+print(sumAny("hello, ", "world!"))
+print(sumAny(range(5), range(3)))
 
 输出：
 3
@@ -694,12 +695,12 @@ Code:
 def sumAny(*arg):
     return reduce(lambda x,y:x+y, arg)
 
-print sumAny(1, 2)
-print sumAny(1.2, 2.3, 3.4)
-print sumAny("hello, ", "world!")
-print sumAny(range(5), range(3))
+print(sumAny(1, 2))
+print(sumAny(1.2, 2.3, 3.4))
+print(sumAny("hello, ", "world!"))
+print(sumAny(range(5), range(3)))
 
-Tip_36 打印指定文件中最长的一行，如果有多行并列最长，只打印最靠前的最长的一行。
+Tip_030202 打印指定文件中最长的一行，如果有多行并列最长，只打印最靠前的最长的一行。
 a.txt文件中内容如下：
 test 1 apples
 apple store
@@ -710,16 +711,18 @@ test 1 apples
 
 Code:
 import sys
-fileName = sys.argv[1]
-print reduce(lambda x,y:x if len(x)>len(y) else y, open(fileName))
+from functools import reduce
 
-Tip_37 多维列表求和
+fileName = sys.argv[1]
+print(reduce(lambda x,y:x if len(x)>len(y) else y, open(fileName)))
+
+Tip_030203 多维列表求和
     略
 
-Tip_38 遍历打印自然数1-30，如果遇到能被2整除的数只打印duck代替，如果遇到能被3整除的数只打印goose代替，如果遇到既能被2又能被3整除的数只打印pig代替。
+Tip_030204 遍历打印自然数1-30，如果遇到能被2整除的数只打印duck代替，如果遇到能被3整除的数只打印goose代替，如果遇到既能被2又能被3整除的数只打印pig代替。
 	略
 
-Tip_39 打印输出符合如下条件之一的100以内的自然数：
+Tip_030205 打印输出符合如下条件之一的100以内的自然数：
 1. 能被30整除
 2. 个位+十位=10
 3. 个位-十位=5
@@ -735,9 +738,9 @@ funList = [lambda x: x%30==0,
 def testFun(i):
     return any(fun(i) for fun in funList)
 
-print filter(testFun, range(100))
+print(filter(testFun, range(100)))
 
-Tip_40 实现一个函数，将字符串序列按长度排序。
+Tip_030206 实现一个函数，将字符串序列按长度排序。
 Run:
 ['bool', 'hello', 'smiles', 'objective']
 
@@ -747,9 +750,9 @@ def sortStrbyLen(x, y):
 
 testStrList = ["hello", "smiles", "bool", "objective"]
 
-print sorted(testStrList, cmp=sortStrbyLen)
+print(sorted(testStrList, cmp=sortStrbyLen))
 
-Tip_41 打印杨辉三角
+Tip_030207 打印杨辉三角
 Run:
         1
        1 1
@@ -765,7 +768,7 @@ def nextLine(line):
 
 def printLine(level, index, numList):
     strList = [str(i) for i in numList]
-    print " "*(level-index)  + " ".join(strList)
+    print(" "*(level-index)  + " ".join(strList))
 
 yhList = [[1], [1,1]]
 for i in range(2, N):
@@ -774,10 +777,10 @@ for i in range(2, N):
 for i in range(N):
     printLine(N, i, yhList[i])
 
-Tip_42 汉诺塔问题
+Tip_030208 汉诺塔问题
 	略
 
-Tip_43 打印输出math模块的所有方法属性和字段属性，打印输出其中fsum函数的用法
+Tip_040101 打印输出math模块的所有方法属性和字段属性，打印输出其中fsum函数的用法
 
 Run:
 
@@ -796,12 +799,12 @@ import math
 funList = [attr for attr,value in math.__dict__.items() if callable(value)]
 fieldList = [attr for attr,value in math.__dict__.items() if not callable(value)]
 
-print funList
-print fieldList
+print(funList)
+print(fieldList)
 
-print math.fsum.__doc__
+print(math.fsum.__doc__)
 
-Tip_44 编写一个模块，使得以下脚本代码运行之后，得到如下输出：
+Tip_040102 编写一个模块，使得以下脚本代码运行之后，得到如下输出：
 
 脚本代码：
 import aModule
@@ -838,9 +841,9 @@ Description example
 print "Import module: " + __name__
 
 def aFun():
-    print "aFun"
+    print("aFun")
 
-Tip_45 编写一个包，使得一下脚本代码运行之后，得到输出如下：
+Tip_040103 编写一个包，使得一下脚本代码运行之后，得到输出如下：
 
 脚本代码
 
@@ -876,7 +879,7 @@ Package Description
 import math
 
 
-Tip_46 输入一个标准库的名字，打印它的属性
+Tip_040104 输入一个标准库的名字，打印它的属性
 
 Run:
 
@@ -887,15 +890,15 @@ Code:
 
 moduleName = input("Please input module name:")
 aMoObj = __import__(moduleName)
-print aMoObj.__dict__
+print(aMoObj.__dict__)
 
 Tip_47 编写一个类Name，能被如下代码调用：
 
 aName = Name("John Green")
-print aName.getLastName()
-print len(aName)
-print aName.split()
-print aName.lower()
+print(aName.getLastName())
+print(len(aName))
+print(aName.split())
+print(aName.lower())
 
 Run:
 
