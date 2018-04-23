@@ -545,7 +545,7 @@ subStr = sys.argv[2]
 
 for line in open(fileName):
     if subStr in line:
-        print line.rstrip()
+        print(line, end='')
         
 Tip_020602 统计指定的文件中单词的个数，并追加写到文件末尾。
 a.txt文件中内容如下：
@@ -582,7 +582,7 @@ subStr = sys.argv[2]
 repStr = sys.argv[3]
 
 for line in open(fileName):
-    sys.stdout.write(line.replace(subStr, repStr))
+    print(line.replace(subStr, repStr), end='')
 
 Tip_020604 将字典序列化到文件，再从文件读出
     略
