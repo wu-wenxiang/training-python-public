@@ -49,7 +49,7 @@ Code:
 Check if input-number > 42
 '''
 aStr = input("Input: ")
-# print aStr
+# print(aStr)
 aInt = int(aStr)
 if aInt > 42:
     print("> 42")
@@ -355,7 +355,7 @@ bList = [item for item in aList if len(item) > 3]
 bList.sort(reverse=True)
 print("-" * 20)
 for item in bList:
-    print item
+    print(item)
 
 Tip_020304. 输入一个整数，输出比它小的平方数。
 
@@ -399,7 +399,7 @@ I love you
 Code:
 aStr = input("Please input a string:\n")
 
-print "-" * 30
+print("-" * 30)
 aList = [chr(ord(char)+1) for char in aStr]
 print("".join(aList))
 bList = [chr(ord(char)-1) for char in aList]
@@ -876,7 +876,7 @@ Title example
 Description example
 '''
 
-print "Import module: " + __name__
+print("Import module: " + __name__)
 
 def aFun():
     print("aFun")
@@ -887,7 +887,7 @@ Tip_040103 编写一个包，使得一下脚本代码运行之后，得到输出
 
 import aPkg
 help(aPkg)
-print aPkg.math.pi
+print(aPkg.math.pi)
 
 Run:
 
@@ -957,10 +957,10 @@ Tip_040202 实现一个队列类FIFO，push/pull
 aQueue = Queue()
 aQueue.push("hello")
 aQueue.push(42)
-print len(aQueue)
-print aQueue.pull() # hello
-print aQueue.pull() # 42
-print aQueue.pull() # IndexError
+print(len(aQueue))
+print(aQueue.pull()) # hello
+print(aQueue.pull()) # 42
+print(aQueue.pull()) # IndexError
 
 Code:
 class Queue(list):
@@ -1232,7 +1232,7 @@ Code:
 import time, multiprocessing, random, logging, sys
 
 def doWork():
-    print sum([random.random() for i in range(10000000)])
+    print(sum([random.random() for i in range(10000000)]))
     sys.stdout.flush()
 
 if __name__ == "__main__":
@@ -1387,7 +1387,7 @@ def myPrint(obj):
 
 # def find20000(aStr):
 #     ret = re.findall(r'((\d{6,})|([2-9]\d{4,}))', aStr)
-#     print ret
+#     print(ret)
 #     ret = [int(i[0]) for i in ret]
 #     ret = [i for i in ret if i > 20000]
 #     return ret
