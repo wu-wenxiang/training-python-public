@@ -1,7 +1,7 @@
 ## 安装步骤
 
 - 参与课程前需要预安装的[软件](http://url.cn/52g5jKH)
-- Python 3只支持Windows 7 SP1以上版本，如果是XP或者Win7 RTM，只能安装Python 2.7
+- Python 3只支持Windows 7 SP1以上版本，如果是XP或者Win7 RTM，只能安装Python 2.7，安装包在: [Demo](https://share.weiyun.com/5vRfE3Q)
 - 安装步骤：
 	- 安装Python
 	- ![Install-Python.png](https://github.com/wu-wenxiang/Media-WebLink/blob/master/qiniu/9da5527f336948b59f2e5f195552cb61-Install-Python.png)
@@ -18,4 +18,4 @@
 	- ![Config-Eclispe-Interpreter.png](https://github.com/wu-wenxiang/Media-WebLink/blob/master/qiniu/9da5527f336948b59f2e5f195552cb61-Config-Eclispe-Interpreter.png)
 	- 验证Eclipse是否装好
 	- ![Eclispe-Project.png](https://github.com/wu-wenxiang/Media-WebLink/blob/master/qiniu/9da5527f336948b59f2e5f195552cb61-Eclispe-Project.png)
-	- ![Eclispe-Run.png](https://github.com/wu-wenxiang/Media-WebLink/blob/master/qiniu/9da5527f336948b59f2e5f195552cb61-Eclispe-Run.png)
+	- ![Eclispe-Run.png](https://github.com/wu-wenxiang/Media-WebLink/blob/master/qiniu/9da5527f336948b59f2e5f195552cb61-Eclispe-Run.png) 
