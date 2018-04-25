@@ -1516,6 +1516,11 @@ print('type:', type(user))
 print('name:', user.name)
 session.close()
 
+Tip_100401 使用Django实现一个账目管理系统
+
+https://github.com/wu-wenxiang/ZZLARGE-Project-DjangoTest
+https://github.com/wu-wenxiang/Project-Python-Webdev
+
 Tip_110101 psutil的使用
 
 Code:
