@@ -324,9 +324,9 @@
 
 1. [网络] Python如何处理常见的网络协议？Telnet/FTP/Socket/Http/LDAP/SSH/SFTP/SMTP/POP3/IMAP
 
-1. [网络] Twist框架的底层实现是怎样的？
+1. [网络] Twisted框架的底层实现是怎样的？
 
-1. [网络] Twist框架的基本使用方法是怎样的？
+1. [网络] Twisted框架的基本使用方法是怎样的？在Windows上如何安装Python3-Twist框架？[知乎](https://www.zhihu.com/question/52281800), [Python Extension Packages for Windows](https://www.lfd.uci.edu/~gohlke/pythonlibs/#twisted)
 
 1. [并行] **如何处理子进程和管道？subprocess**
 
@@ -434,6 +434,8 @@
 
 1. [ORM] Sqlite3的原理和使用方法是怎样的？
 
+1. [ORM] 使用什么工具查看和编辑Sqlite3数据库文件？[]
+
 1. [ORM] 基本的数据库连接和处理流程是怎样的？
 
 1. [ORM] 什么是ORM模型？
@@ -476,9 +478,9 @@
 
 1. [Django] **Django框架的特点和基本流程是怎样的？**
 
-1. [Django] 应该如何选择Django版本？
+1. [Django] 应该如何选择Django版本？[参考](https://www.djangoproject.com/download/)
 
-1. [Django] **Django框架中如何Startup，编写config文件和Router(urls.py)？**
+1. [Django] **Django框架中如何Startup，编写config文件和Router(urls.py)？**，[参考](https://docs.djangoproject.com/en/2.0/intro/tutorial01/)，[Demo](https://github.com/wu-wenxiang/ZZLARGE-Training-Python-Django)
 
 1. [Django] **Django框架中Views方法如何接收到uri参数？**
 
@@ -515,7 +517,7 @@
 
 1. [Scrapy] Scrapy框架的架构是怎样的？
 
-1. [Scrapy] **Scrapy的基本使用方法是怎样的？**
+1. [Scrapy] **Scrapy的基本使用方法是怎样的？**, [参考](https://docs.scrapy.org/en/latest/)
 
 1. [Scrapy] 如何使用Scrapy框架做整站爬取？
 
