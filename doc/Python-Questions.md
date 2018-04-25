@@ -377,7 +377,7 @@
 
 1. [部署] **pip的常用命令有哪些？**
 
-1. [部署] 如何为pip配置更快的源？Windows, Linux, Mac
+1. [部署] 如何为pip配置更快的源？Windows, Linux, Mac, [清华源](https://mirrors.tuna.tsinghua.edu.cn/help/pypi/)
 
 1. [部署] 什么是anaconda？[Download](https://www.anaconda.com/download/)
 
@@ -480,7 +480,7 @@
 
 1. [Django] 应该如何选择Django版本？[参考](https://www.djangoproject.com/download/)
 
-1. [Django] **Django框架中如何Startup，编写config文件和Router(urls.py)？**，[参考](https://docs.djangoproject.com/en/2.0/intro/tutorial01/)，[Demo](https://github.com/wu-wenxiang/ZZLARGE-Training-Python-Django)
+1. [Django] **Django框架中如何Startup，编写config文件和Router(urls.py)？**，[参考](https://docs.djangoproject.com/en/2.0/intro/tutorial01/)，[Demo](https://github.com/maodouzi/LearningDjango-1-4)
 
 1. [Django] **Django框架中Views方法如何接收到uri参数？**
 

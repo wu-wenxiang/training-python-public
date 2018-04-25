@@ -4,6 +4,10 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 .DS_Store
+env
+.project
+.pydevproject
+.settings
 
 # User-specific files
 *.suo
