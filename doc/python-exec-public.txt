@@ -1374,6 +1374,10 @@ btn.pack(side=RIGHT)
 
 tk.mainloop()
 
+Tip_090101 如何在一个虚拟环境中运行Python项目？不同的Python版本/Module版本。
+
+参考：https://github.com/maodouzi/LearningDjango-1-4
+
 Tip_100101 为如下方法编写单元测试，要求覆盖整数加法，字符串加法，类型不匹配抛出异常三种情况
 
 Code:
@@ -1586,6 +1590,10 @@ print(a.min()) #输出a的最小值
 a.sort() #将a的元素从小到大排序，此操作直接修改a，因此这时候a为[0, 1, 2, 5]
 b= np.array([[1, 2, 3], [4, 5, 6]]) #创建二维数组
 print(b*b) #输出数组的平方阵，即[[1, 4, 9], [16, 25, 36]]
+
+Tip_110201 如何使用Fabric实现自动化部署？
+
+参考：https://github.com/wu-wenxiang/Project-Python-Webdev
 
 Tip_120102 Pandas快速入门
 
