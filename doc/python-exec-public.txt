@@ -1288,6 +1288,25 @@ if __name__ == "__main__": # Bug
     print(aList)
     print(time.time() - startTime)
 
+Tip_060306 Subprocess获取中文输出
+
+Code:
+项目右键/property/Resource/Text-File-Encoding/Other/Utf-8
+######## test2.py ######### 
+# -*- utf-8 -*-
+ret = u'哈'
+print(ret)
+#print(ret.encode(encoding='utf_8', errors='strict'))
+
+######## test.py ######### 
+import subprocess
+
+ret = subprocess.check_output([r'C:\Users\pear\AppData\Local\Programs\Python\Python36\python.exe',
+                               r'C:\Users\pear\eclipse-workspace\test\test2.py'])
+
+print(ret)
+print(ret.decode('utf-8'))
+
 Tip_070101 Scrapy Demo，获取http://quotes.toscrape.com/tag/humor/中的箴言
 
 [官方文档] https://docs.scrapy.org/en/latest/
