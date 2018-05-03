@@ -1178,6 +1178,36 @@ def hello():
 
 print(hello())
 
+Tip_060201 完成Basic Auth验证，取得API信息
+
+Code:
+import urllib.request
+import urllib.response
+import ssl
+
+userName = "xxxxxx"
+passWord  = "HBxxxxxx!@#"
+top_level_url = 'https://58.53.185.155:56789/api/report/internet/summary?request={%22report_datetime%22:{%22defined_by%22:%22period%22,%22start_time%22:%222018-04-26%2004:00%22,%22end_time%22:%222018-04-26%2005:00%22},%22unit%22:%22bps%22,%22protocol%22:%22ipv4%22,%22data_format%22:%22graph_data%22,%22display_data%22:%22yes%22}'
+
+ssl._create_default_https_context = ssl._create_unverified_context
+
+# create an authorization handler
+p = urllib.request.HTTPPasswordMgrWithDefaultRealm()
+p.add_password(None, top_level_url, userName, passWord);
+
+auth_handler = urllib.request.HTTPBasicAuthHandler(p)
+opener = urllib.request.build_opener(auth_handler)
+
+urllib.request.install_opener(opener)
+
+try:
+    req = urllib.request.Request(top_level_url, headers={'Content-Type': 'application/json'})    
+    result = opener.open(req)
+    messages = result.read()
+    print (messages)
+except IOError as e:
+    print (e)
+
 Tip_060301 编写一个多线程执行的Demo，每个线程打印出线程名，模拟IO密集型和CPU密集型两种情况。
 
 Code:
