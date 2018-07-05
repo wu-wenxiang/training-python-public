@@ -1607,6 +1607,10 @@ print(p.name())
 print(p.username())
 p.communicate()
 
+Tip_110201 如何使用Fabric实现自动化部署？
+
+参考：https://github.com/wu-wenxiang/Project-Python-Webdev
+
 Tip_120101 Numpy快速入门
 
 Code:
@@ -1621,10 +1625,6 @@ a.sort() #将a的元素从小到大排序，此操作直接修改a，因此这�
 b= np.array([[1, 2, 3], [4, 5, 6]]) #创建二维数组
 print(b*b) #输出数组的平方阵，即[[1, 4, 9], [16, 25, 36]]
 
-Tip_110201 如何使用Fabric实现自动化部署？
-
-参考：https://github.com/wu-wenxiang/Project-Python-Webdev
-
 Tip_120102 Pandas快速入门
 
 Code:
@@ -1638,6 +1638,10 @@ d2 = pd.DataFrame(s)
 
 print(d.head())
 print(d.describe()) 
+
+#读取文件，注意文件的存储路径不能带有中文，否则读取可能出错。
+pd.read_excel('data.xls') #读取Excel文件，创建DataFrame。
+pd.read_csv('data.csv', encoding = 'utf-8') #读取文本格式的数据，一般用encoding指定编码。
 
 Tip_120103 scipy快速入门
 
