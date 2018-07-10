@@ -1,0 +1,17 @@
+## 安装步骤
+- 预装系统
+	- Win7 / Win10
+- 下载Pycharm
+	- [下载页面](https://www.jetbrains.com/pycharm/download/#section=windows)，选择社区版
+	- ![Pycharm-Download.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/bec937bdec704aee995f610566dcebb0-Pycharm-Download.png)
+	- 下载后一路默认安装，直至如下界面，勾选如下
+	- ![Pycharm-Installation.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/bec937bdec704aee995f610566dcebb0-Pycharm-Installation.png)
+	- 安装完成后，首次打开Pycharm，会出现License说明，拖到最后，Accept就变成黑色，可以确认
+	- ![Pycharm-License.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/bec937bdec704aee995f610566dcebb0-Pycharm-License.png)
+	- 之后就走到此页面，可以打开或者新建一个Python项目
+	- ![Pycharm-Create.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/bec937bdec704aee995f610566dcebb0-Pycharm-CreateProject.png)
+- 下载Anaconda
+	- [下载页面](https://www.anaconda.com/download/#windows)，选择3版本
+	- ![Anaconda-Download.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/bec937bdec704aee995f610566dcebb0-Anaconda-Download.png)
+	- 这里要看你的操作系统是32bit还是64bit，如果不会看就选32bit
+	- 下载后可以开始安装，安装时一路默认安装即可
