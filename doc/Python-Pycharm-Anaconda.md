@@ -15,7 +15,7 @@
 		- `环境变量 (Environment Variables)`
 		- ![OS-Environment.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/bec937bdec704aee995f610566dcebb0-OS-Environment.png)
 		- 如果没有`PATH`这个环境变量，就新建一个
-		- 然后将`;C:\ProgramData\Anaconda3;C:\ProgramData\Anaconda3\Scripts`添加到`PATH`环境变量末尾，环境变量中的各个字符串用分号隔开
+		- 然后将`;C:\ProgramData\Anaconda3;C:\ProgramData\Anaconda3\Scripts`添加到`PATH`环境变量末尾，环境变量中的各个字符串用分号隔开。注意，这里假设Anaconda的安装路径是C:\ProgramData\Anaconda3。如果安装在其它路径，要相应地修改。
 		- ![OS-Env-Var.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/bec937bdec704aee995f610566dcebb0-OS-Env-Var.png)
 		- **重新打开**一个cmd窗口，运行：`python --version`
 		- 出现：`Python 3.6.5 :: Anaconda, Inc.`，表示Python安装成功。
