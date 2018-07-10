@@ -1,5 +1,5 @@
 ## 安装步骤
-
+- 本文描述了纯净版Python以及Eclipse+Pydev IDE开发环境的安装和配置过程。如果你喜欢Anaconda+Pycharm的组合，可以参考[这里](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/Python-Pycharm-Anaconda.md)。
 - 参与课程前需要预安装的[软件](http://url.cn/52g5jKH)
 - Python 3只支持Windows 7 SP1以上版本，如果是XP或者Win7 RTM，只能安装Python 2.7，安装包在: [Demo](https://share.weiyun.com/5vRfE3Q)
 - 安装步骤：
