@@ -1,0 +1,348 @@
+
+Python训练题：
+
+目录：
+001 WinningRate
+002 MindRead
+003 StockSpider
+004 Hanoi
+
+-----------------------------------------------
+
+Tip_00101 WinningRate-PC
+
+def factorial(n):
+    result = 1
+    factor = 2
+    while factor <= n:
+        result *= factor
+        factor += 1
+    return result
+
+def permutation(x, y):
+    return factorial(x) / factorial(x - y)
+
+def combination(x, y):
+    return permutation(x, y) / permutation(y, y)
+
+if __name__ == '__main__':
+    winningRate = combination(6, 3) / combination(11, 8) * 100
+    print('The winning rate = %.2f%%' % winningRate)
+
+Tip_00102 WinningRate-Doctest
+
+def factorial(n):
+    """Return the factorial of n, an exact integer >= 0.
+
+    >>> [factorial(n) for n in range(6)]
+    [1, 1, 2, 6, 24, 120]
+    >>> factorial(30)
+    265252859812191058636308480000000
+    >>> factorial(-1)
+    Traceback (most recent call last):
+        ...
+    ValueError: n must be >= 0
+
+    Factorials of floats are OK, but the float must be an exact integer:
+    >>> factorial(30.1)
+    Traceback (most recent call last):
+        ...
+    ValueError: n must be exact integer
+    >>> factorial(30.0)
+    265252859812191058636308480000000
+
+    It must also not be ridiculously large:
+    >>> factorial(1e100)
+    Traceback (most recent call last):
+        ...
+    OverflowError: n too large
+    """
+
+    import math
+    if not n >= 0:
+        raise ValueError("n must be >= 0")
+    if math.floor(n) != n:
+        raise ValueError("n must be exact integer")
+    if n+1 == n:  # catch a value like 1e300
+        raise OverflowError("n too large")
+    result = 1
+    factor = 2
+    while factor <= n:
+        result *= factor
+        factor += 1
+    return result
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
+    # doctest.testmod(verbose=True)
+    
+Tip_00103 WinningRate-Simulation
+
+import copy
+import random
+from functools import reduce
+
+def choiceN(n, seq):
+    while True:
+        aList = copy.copy(seq)
+        bList = []
+        for _i in range(n):
+            tmp = random.choice(aList)
+            bList.append(tmp)
+            aList.remove(tmp)
+        yield bList
+
+if __name__ == '__main__':
+    SAMPLE = 1000000
+    NUM_ALL = 11
+    NUM_CHOICE = 8
+    NUM_WIN = 5
+
+    seq = list(range(NUM_ALL))
+    gChoiceN = choiceN(NUM_CHOICE, seq)
+    setWin = set(range(NUM_WIN))
+    count = reduce(
+        lambda x,y: x+1 if setWin < set(gChoiceN.__next__()) else x,
+        range(SAMPLE), 0)
+
+    print("Percent %.2f%%" % (100.0*count/SAMPLE))
+
+Tip_00104 WinningRate-Multiprocessing
+
+import copy
+import multiprocessing
+import random
+import time
+from functools import reduce
+
+def choiceN(n, seq):
+    while True:
+        aList = list(seq)
+        bList = []
+        for _i in range(n):
+            tmp = random.choice(aList)
+            bList.append(tmp)
+            aList.remove(tmp)
+        yield bList
+
+def countWinningRate(sample):
+    NUM_ALL = 11
+    NUM_CHOICE = 8
+    NUM_WIN = 5
+    
+    seq = range(NUM_ALL)
+    gChoiceN = choiceN(NUM_CHOICE, seq)
+    setWin = set(range(NUM_WIN))
+#     count = 0
+#     for i in range(sample):
+#         if setWin < set(gChoiceN.__next__()):
+#             count += 1
+    count = reduce(
+        lambda x,y: x+1 if setWin < set(gChoiceN.__next__()) else x,
+        range(sample), 0)
+    
+    winRate = 100.0 * count / sample
+    return winRate
+
+if __name__ == '__main__':
+    SAMPLE = 1000000
+    startTime = time.time()
+    
+#     rate = countWinningRate(SAMPLE)
+    PROC_NUM = 4
+    p = multiprocessing.Pool(PROC_NUM)
+    rateList = p.map(countWinningRate, [int(SAMPLE/PROC_NUM)]*PROC_NUM)
+    rate = sum(rateList) / len(rateList)
+    
+    print("Percent %.2f%%" % rate)
+    print("Cost %.2f seconds" % (time.time() - startTime))
+
+Tip_00201 MindRead-Basic
+
+import sys
+
+POKER_NUM = 6
+LINE_LEN = 50
+MAX_NUM = 1 << POKER_NUM
+
+def showPoker(x):
+    print("=" * LINE_LEN)
+    mark = 1 << x
+    pokerList = [num for num in range(MAX_NUM) if num & mark]
+    for i, num in enumerate(pokerList, 1):
+        sys.stdout.write("%d\t" % num)
+        if i % 8 == 0:
+            print("")
+    print("=" * LINE_LEN + "\n")
+
+resultNum = 0
+
+for x in range(0, POKER_NUM):
+    showPoker(x)
+    tmpStr = input("Is the number in list? n(y/n)?\n")
+    if (tmpStr.strip() == "y"):
+        resultNum += 1 << x
+
+print("The number is: %d" % resultNum)
+
+Tip_00301 StockSpider-KLine
+
+import requests
+from lxml import etree
+
+headers = {
+    'User-Agent':'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36'
+}
+
+def parse_url(url):
+    response = requests.get(url,headers=headers)
+    if response.status_code == 200:
+        return etree.HTML(response.content)
+    return False
+    
+def get_date(response):
+    # 得到股票代码，开始和结束的日期
+    start_date = ''.join(response.xpath('//input[@name="date_start_type"]/@value')[0].split('-'))
+    end_date = ''.join(response.xpath('//input[@name="date_end_type"]/@value')[0].split('-'))
+    code = response.xpath('//h1[@class="name"]/span/a/text()')[0]
+    return code,start_date,end_date
+
+def download(code,start_date, end_date):
+    download_url = "http://quotes.money.163.com/service/chddata.html?code=1"+code+"&start="+start_date+"&end="+end_date+\
+    "&fields=TCLOSE;HIGH;LOW;TOPEN;LCLOSE;CHG;PCHG;TURNOVER;VOTURNOVER;VATURNOVER;TCAP;MCAP"
+    print(download_url) 
+    data = requests.get(download_url,headers=headers)
+    f = open(code + '.csv', 'wb')
+    for chunk in data.iter_content(chunk_size=10000):
+        if chunk:
+            f.write(chunk)
+    print('股票---',code,'历史数据正在下载')
+
+url = 'http://quotes.money.163.com/trade/lsjysj_002230.html'
+response = parse_url(url)
+code,start_date,end_date = get_date(response)
+#download(code,start_date, end_date)
+
+import pandas as pd
+stock  = pd.read_csv(code + '.csv',usecols=[0,1,2,3,4,5,6],encoding='gbk')
+stock.head()
+
+stock_new = stock.iloc[:180,:]
+stock_new_sorted = stock_new.sort_values('日期', ascending=True)
+stock_new_sorted.head()
+
+from pyecharts import Kline
+stock_code = stock_new_sorted['股票代码'][0]
+stock_name = stock_new_sorted['名称'][0]
+index = stock_new_sorted['日期']
+v = [[o,close,lowest,highest] for o,close,lowest,highest in 
+     zip(stock_new_sorted['开盘价'],stock_new_sorted['收盘价'],stock_new_sorted['最低价'],stock_new_sorted['最高价'])]
+kline = Kline()
+kline.add(stock_name+'('+stock_code+')'+'日K线图', index, v,mark_point=["max"], is_datazoom_show=True)
+kline.render()
+
+# from pyecharts import Line
+# line = Line(stock_name+'('+stock_code+')'+'收盘价日折线图')
+# close = stock_new_sorted['收盘价']
+# line.add("收盘价日折线图", index, close,is_datazoom_show=True)
+# line.render()
+# 
+# from pyecharts import Kline,Line,Overlap
+# overlap = Overlap()
+# overlap.add(kline)
+# overlap.add(line)
+# overlap.render()
+
+Tip_00302 StockSpider-2
+
+import requests
+from bs4 import BeautifulSoup
+import traceback
+import re
+
+
+def getHTMLText(url, code="utf-8"):
+    try:
+        r = requests.get(url)
+        r.raise_for_status()
+        r.encoding = code
+        return r.text
+    except:
+        return ""
+
+
+def getStockList(lst, stockURL):
+    html = getHTMLText(stockURL, "GB2312")
+    soup = BeautifulSoup(html, 'html.parser')
+    a = soup.find_all('a')
+    for i in a:
+        try:
+            href = i.attrs['href']
+            lst.append(re.findall(r"[s][hz][36]\d{5}", href)[0])
+        except:
+            continue
+
+
+def getStockInfo(lst, stockURL, fpath):
+    Listtitle = ['名称', '总市值', '净资产', '净利润', '市盈率', '市净率', '毛利率', '净利率', 'ROE']
+    with open(fpath, 'w', encoding='utf-8') as f:
+        for i in range(len(Listtitle)):
+            f.write("{0:<10}\t".format(Listtitle[i], chr(12288)))
+    count = 0
+    for stock in lst:
+        url = stockURL + stock + ".html"
+        html = getHTMLText(url, "GB2312")
+        try:
+            if html == "":
+                continue
+            List = []
+            soup = BeautifulSoup(html, 'html.parser')
+            stock = soup.find('div', attrs={'class': 'cwzb'}).find_all('tbody')[0]
+            name = stock.find_all('b')[0]
+            List.append(name.text)
+            keyList = stock.find_all('td')[1:9]
+            for i in range(len(keyList)):
+                List.append(keyList[i].text)
+            with open(fpath, 'a', encoding='utf-8') as f:
+                f.write('\n')
+                for i in range(len(List)):
+                    f.write('{0:<10}\t'.format(List[i], chr(12288)))
+            count = count + 1
+            print("\r当前进度: {:.2f}%".format(count * 100 / len(lst)), end="")
+        except:
+            count = count + 1
+            print("\r当前进度: {:.2f}%".format(count * 100 / len(lst)), end="")
+            continue
+
+
+def main():
+    stock_list_url = 'http://quote.eastmoney.com/stocklist.html'
+    stock_info_url = 'http://quote.eastmoney.com/'
+    output_file = './Stock.txt'
+    slist = []
+    getStockList(slist, stock_list_url)
+    getStockInfo(slist, stock_info_url, output_file)
+
+
+main()
+
+
+Tip_00401 Recursive-Hanoi
+
+count = 1
+
+def test(num, src, dst, rest):
+    global count
+    
+    if num < 1:
+        print(False)
+    elif num == 1:
+        print("%d:\t%s -> %s" % (count, src, dst))
+        count += 1
+    elif num > 1:
+        test(num - 1, src, rest, dst)
+        test(1, src, dst, rest)
+        test(num - 1, rest, dst, src)
+
+test(3, 'A', 'C', 'B')
