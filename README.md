@@ -1,8 +1,18 @@
 ## Learning-Python
 - 加入微信群：微信 -> 通讯录 -> 新的朋友 -> 添加朋友 -> 面对面建群
-- [搭建开发环境](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/Python-Dev-Env.md)
-- [问题小结](http://blog.wuwenxiang.net/Python-Questions)
-- [编程练习](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/python-exec-public.txt)
-- 专题：[设计模式](http://blog.wuwenxiang.net/Design-Pattern)
-- 专题：[Django](https://github.com/wu-wenxiang/Training-Django-Public)
-- 试题：[A卷](https://github.com/wu-wenxiang/Training-Python/blob/master/Case/DongFangRuiTong/Python-25-A.docx), [B卷](https://github.com/wu-wenxiang/Training-Python/blob/master/Case/DongFangRuiTong/Python-25-B.docx)，[答案](https://github.com/wu-wenxiang/Training-Python/blob/master/Case/DongFangRuiTong/Python%E8%AF%95%E9%A2%98%E7%AD%94%E6%A1%88.txt)
+- 搭建开发环境
+	- [Eclipse+Pydev](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/Python-Dev-Env.md)
+	- [Anaconda+Pycharm](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/Python-Pycharm-Anaconda.md)
+- 博客
+	- [问题小结](http://blog.wuwenxiang.net/Python-Questions)
+	- [案例：彩票中奖率问题](http://blog.wuwenxiang.net/Python-Interesting-Programming)
+- 编程练习
+	- [Python基础练习](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/python-exec-public.txt)
+	- [代码：彩票中奖率问题等](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/python-interesting-programming.txt)
+- 专题
+	- [设计模式](http://blog.wuwenxiang.net/Design-Pattern)
+	- [Django](https://github.com/wu-wenxiang/Training-Django-Public)
+- 试题
+	- [A卷](https://github.com/wu-wenxiang/Training-Python/blob/master/Case/DongFangRuiTong/Python-25-A.docx)
+	- [B卷](https://github.com/wu-wenxiang/Training-Python/blob/master/Case/DongFangRuiTong/Python-25-B.docx)
+	- [答案](https://github.com/wu-wenxiang/Training-Python/blob/master/Case/DongFangRuiTong/Python%E8%AF%95%E9%A2%98%E7%AD%94%E6%A1%88.txt)
