@@ -9,6 +9,7 @@
 - 编程练习
 	- [Python基础练习](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/python-exec-public.txt)
 	- [代码：彩票中奖率问题等](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/python-interesting-programming.txt)
+	- [代码/数据：航空客户价值分析](https://share.weiyun.com/55vfSMw)
 - 专题
 	- [设计模式](http://blog.wuwenxiang.net/Design-Pattern)
 	- [Django](https://github.com/wu-wenxiang/Training-Django-Public)
