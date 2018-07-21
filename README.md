@@ -7,8 +7,8 @@
 	- [问题小结](http://blog.wuwenxiang.net/Python-Questions)
 	- [案例：彩票中奖率问题](http://blog.wuwenxiang.net/Python-Interesting-Programming)
 - 编程练习
-	- [Python基础练习](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/python-exec-public.txt)
-	- [代码：彩票中奖率问题等](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/python-interesting-programming.txt)
+	- [Python基础练习](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/python-exec-public.txt)，纯净TXT版代码在[这里](https://raw.githubusercontent.com/wu-wenxiang/Training-Python-Public/master/doc/python-exec-public.txt)
+	- [代码：彩票中奖率问题等](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/python-interesting-programming.txt)，纯净TXT版代码在[这里](https://raw.githubusercontent.com/wu-wenxiang/Training-Python-Public/master/doc/python-interesting-programming.txt)
 	- [代码/数据：航空客户价值分析](https://share.weiyun.com/55vfSMw)
 - 专题
 	- [设计模式](http://blog.wuwenxiang.net/Design-Pattern)
