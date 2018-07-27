@@ -6,6 +6,7 @@
 - 博客
 	- [问题小结](http://blog.wuwenxiang.net/Python-Questions)
 	- [案例：彩票中奖率问题](http://blog.wuwenxiang.net/Python-Interesting-Programming)
+	- [案例：万矿入门](http://blog.wuwenxiang.net/WindQuant)
 - 编程练习
 	- [Python基础练习](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/python-exec-public.txt)，纯净TXT版代码在[这里](https://raw.githubusercontent.com/wu-wenxiang/Training-Python-Public/master/doc/python-exec-public.txt)
 	- [代码：彩票中奖率问题等](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/python-interesting-programming.txt)，纯净TXT版代码在[这里](https://raw.githubusercontent.com/wu-wenxiang/Training-Python-Public/master/doc/python-interesting-programming.txt)
