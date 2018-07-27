@@ -25,7 +25,7 @@ if __name__ == '__main__':
     setWin = set(range(NUM_WIN))
         
     count = 0
-    for i in range(sample):
+    for i in range(SAMPLE):
         if setWin < set(gChoiceN.__next__()):
             count += 1
 
@@ -34,6 +34,7 @@ if __name__ == '__main__':
 # Tip_002 StockSpider-KLine
 
 # -*- coding: utf-8 -*-
+# pip install -i https://pypi.tuna.tsinghua.edu.cn/simple pyecharts
 
 import requests
 from lxml import etree
