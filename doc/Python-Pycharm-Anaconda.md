@@ -28,3 +28,9 @@
 	- ![Pycharm-License.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/bec937bdec704aee995f610566dcebb0-Pycharm-License.png)
 	- 之后就走到此页面，可以打开或者新建一个Python项目
 	- ![Pycharm-Create.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/bec937bdec704aee995f610566dcebb0-Pycharm-CreateProject.png)
+- 创建项目
+	- 在创建了第一个项目之后，如果还想创建`Project`，可以通过`File/New Project`创建
+	- ![Pycharm-Create.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/bec937bdec704aee995f610566dcebb0-Pycharm-NewProject.png)
+	- 为方便起见，我们可以不使用默认的虚拟环境，而是直接指定系统的Python解释器（这样就不必安装很多第三方库，Anaconda里都安装好了）
+	- ![Pycharm-Create.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/bec937bdec704aee995f610566dcebb0-Pycharm-Interpreter.png)
+	- ![Pycharm-Create.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/bec937bdec704aee995f610566dcebb0-Pycharm-PythonPath.png)
