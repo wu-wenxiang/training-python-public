@@ -30,6 +30,7 @@ Python训练题：
 1101 Automation
 1102 DevOps
 1201 DataAnalysis
+1202 MachineLearning
 1301 BlockChain
 1401 OpenStack
 1501 MineCraft
@@ -1687,5 +1688,146 @@ plt.legend() #显示图例
 plt.show() #显示作图结果
 
 
+Tip_120201 Sklearn-Preprocessing
+
+Code:
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+from sklearn import preprocessing
+
+X_train = np.array([[ 1., -1.,  2.],
+                    [ 2.,  0.,  0.],
+                    [ 0.,  1., -1.]])
+print('原数据：\n',X_train)
+
+print('标准化1：')
+print(preprocessing.scale(X_train))
+min_max_scaler = preprocessing.MinMaxScaler()
+print('标准化2：')
+print(min_max_scaler.fit_transform(X_train))
+print('规范化：')
+print(preprocessing.normalize(X_train, norm='l2'))
+
+print('原数据：')
+print(X_train)
+print('二值化：')
+binarizer = preprocessing.Binarizer(threshold=0.0)
+binarizer.fit(X_train)  
+print(binarizer.transform(X_train))
+
+from sklearn.preprocessing import Imputer
+X = [[np.nan, 2], [6, np.nan], [7, 6]]
+print('原数据：')
+print(X)
+imp = Imputer(missing_values='NaN', strategy='mean', axis=0) 
+print('----------')
+print('按列均值填充缺失：')
+imp.fit(X)
+imp.transform(X)
+
+X = np.arange(6).reshape(3,2)
+print('原数据：')
+print(X)
+poly = preprocessing.PolynomialFeatures(2)
+print('多项式转化：')
+print('(X1, X2)→(1, X1, X2, X1^2, X1X2, X2^2)')
+print(poly.fit_transform(X))
+
+Tip_120202 Sklearn-DecisionTree
+
+Code:
+
+from sklearn.datasets import load_iris   #sklearn.datasets中很多可用的数据集
+from sklearn import tree #导入树模块
+
+iris = load_iris()   #导入iris数据集
+print('特征：')
+print(iris.data[:10])
+print('目标：')
+print(iris.target[:10])
+
+clf = tree.DecisionTreeClassifier()   #可以自己设定很多参数，如果不写则默认参数
+clf = clf.fit(iris.data, iris.target) #模型训练
+print('对第一条记录的预测类别：',clf.predict(iris.data[:1, :]))  #预测
+print('第一条记录的实际类别：',iris.target[1])
+print('对第一条记录的类别概率预测：',clf.predict_proba(iris.data[:1, :])) #概率预测
+
+Tip_120202 Sklearn-SVM
+
+Code:
+
+from sklearn import datasets, svm
+
+digits = datasets.load_digits()
+digits.images.shape
+
+images_and_labels = list(zip(digits.images, digits.target))   #查看 前四个图形
+for index, (image, label) in enumerate(images_and_labels[:4]):
+    plt.subplot(2, 4, index + 1)
+    plt.axis('off')
+    plt.imshow(image, cmap=plt.cm.gray_r, interpolation='nearest')
+    plt.title('Training: %i' % label)
+plt.show()
+
+n_samples = len(digits.images)
+data = digits.images.reshape((n_samples, -1))
+data.shape
+
+digits.images[0]    #原数据集第一个记录
+data[0]    #转换后的数据集的第一个记录
+
+classifier = svm.SVC(gamma=0.001)
+classifier.fit(data[:n_samples//2],digits.target[:n_samples//2])  #//的含义是只保留除法运算结果的整数部分
+expected = digits.target[n_samples // 2:]
+predicted = classifier.predict(data[n_samples // 2:])
+
+plt.figure(figsize=(7,10))
+images_and_predictions = list(zip(digits.images[n_samples // 2:], predicted))
+for index, (image, prediction) in enumerate(images_and_predictions[:4]):
+    plt.subplot(2, 4, index + 5)
+    plt.axis('off')
+    plt.imshow(image, cmap=plt.cm.gray_r, interpolation='nearest')
+    plt.title('Prediction: %i' % prediction)
+
+plt.show()
+
+Tip_120204 Sklearn-LogisticRegression
+
+Code:
+
+from sklearn import linear_model, datasets
+
+iris = datasets.load_iris()
+X = iris.data[:, :2]  # 只选择2列的特征 为了可视化的便利
+Y = iris.target
+X.shape, Y.shape
+
+logreg = linear_model.LogisticRegression(C=1e5)
+logreg.fit(X, Y)
+
+logreg.coef_    #查看模型参数beta的估计
+
+h = 0.02    #作图的间隔
+x_min, x_max = X[:, 0].min() - .5, X[:, 0].max() + .5
+y_min, y_max = X[:, 1].min() - .5, X[:, 1].max() + .5
+xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
+Z = logreg.predict(np.c_[xx.ravel(), yy.ravel()])   #进行预测
+
+Z = Z.reshape(xx.shape)
+plt.figure(1, figsize=(5, 3.888))
+plt.pcolormesh(xx, yy, Z, cmap=plt.cm.Paired)
+
+plt.scatter(X[:, 0], X[:, 1], s=60, c=Y, edgecolors='k', cmap=plt.cm.Paired)
+plt.xlabel('Sepal length')
+plt.ylabel('Sepal width')
+
+plt.xlim(xx.min(), xx.max())
+plt.ylim(yy.min(), yy.max())
+plt.xticks(())
+plt.yticks(())  #不显示横纵轴数值
+
+plt.show()
 
 
