@@ -1,4 +1,4 @@
-
+'''
 Python训练题：
 
 目录：
@@ -36,9 +36,10 @@ Python训练题：
 1501 MineCraft
 1601 IoT
 1701 Crack-Debug
+'''
 
------------------------------------------------
-
+# -----------------------------------------------
+'''
 Tip_010101 要求用户输入一个数字，判断这个数字是否大于42。
 
 Run:
@@ -46,6 +47,7 @@ Input: 45
 > 42
 
 Code:
+'''
 '''
 Check if input-number > 42
 '''
@@ -57,6 +59,7 @@ if aInt > 42:
 else:
     print("<= 42")
 
+'''
 Tip_010102 要求用户输入两个整数，计算输出两者的和。
 
 Run:
@@ -65,6 +68,7 @@ Int B = 11
 32 + 11 = 43
 
 Code:
+'''
 # -*- coding: utf-8 -*-
 
 aStr = input('Int A = ')
@@ -73,6 +77,7 @@ aInt = int(aStr)
 bInt = int(bStr)
 print("%s + %s = %s" % (aInt, bInt, aInt+bInt))
 
+'''
 Tip_020101. 要求输入一个秒数（整数），输出这些秒相当于多少分钟加多少秒，以及相当于多少分钟（带小数）。
 
 Run:
@@ -81,6 +86,7 @@ Please input seconds number: 72
 72 sec = 1 min + 12 sec
 
 Code:
+'''
 secStr = input("Please input seconds number: ")
 sec = int(secStr)
 minFloat = float(sec) / 60
@@ -89,6 +95,7 @@ secMod = sec % 60
 print("%d sec = %f min" % (sec, minFloat))
 print("%d sec = %d min + %d sec" % (sec, minInt, secMod))
 
+'''
 Tip_020102. 要求输入一个实数，输出它的平方和开方数，后者保留两位小数。
 
 Run:
@@ -99,6 +106,7 @@ Please input float A: 2
 2 ** 1/2 = 1.41
 
 Code:
+'''
 aFloatStr = input("Please input float A: ")
 aFloat = float(aFloatStr)
 print("%f ** 2 = %f" % (aFloat, aFloat ** 2))
@@ -1687,11 +1695,11 @@ plt.ylim(0, 1.1) #显示的y轴范围
 plt.legend() #显示图例
 plt.show() #显示作图结果
 
-
+'''
 Tip_120201 Sklearn-Preprocessing
 
 Code:
-
+'''
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -1725,7 +1733,7 @@ imp = Imputer(missing_values='NaN', strategy='mean', axis=0)
 print('----------')
 print('按列均值填充缺失：')
 imp.fit(X)
-imp.transform(X)
+print(imp.transform(X))
 
 X = np.arange(6).reshape(3,2)
 print('原数据：')
@@ -1735,10 +1743,56 @@ print('多项式转化：')
 print('(X1, X2)→(1, X1, X2, X1^2, X1X2, X2^2)')
 print(poly.fit_transform(X))
 
-Tip_120202 Sklearn-DecisionTree
+'''
+Tip_120202 Sklearn-linear-model-plot-polynomial-interpolation
+'''
+import numpy as np
+import matplotlib.pyplot as plt
 
-Code:
+from sklearn.linear_model import Ridge
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.pipeline import make_pipeline
 
+
+def f(x):
+    """ function to approximate by polynomial interpolation"""
+    return x * np.sin(x)
+
+
+# generate points used to plot
+x_plot = np.linspace(0, 10, 100)
+
+# generate points and keep a subset of them
+x = np.linspace(0, 10, 100)
+rng = np.random.RandomState(0)
+rng.shuffle(x)
+x = np.sort(x[:20])
+y = f(x)
+
+# create matrix versions of these arrays
+X = x[:, np.newaxis]
+X_plot = x_plot[:, np.newaxis]
+
+colors = ['teal', 'yellowgreen', 'gold']
+lw = 2
+plt.plot(x_plot, f(x_plot), color='cornflowerblue', linewidth=lw,
+         label="ground truth")
+plt.scatter(x, y, color='navy', s=30, marker='o', label="training points")
+
+for count, degree in enumerate([3, 4, 5]):
+    model = make_pipeline(PolynomialFeatures(degree), Ridge())
+    model.fit(X, y)
+    y_plot = model.predict(X_plot)
+    plt.plot(x_plot, y_plot, color=colors[count], linewidth=lw,
+             label="degree %d" % degree)
+
+plt.legend(loc='lower left')
+
+plt.show()
+
+'''
+Tip_120203 Sklearn-DecisionTree
+'''
 from sklearn.datasets import load_iris   #sklearn.datasets中很多可用的数据集
 from sklearn import tree #导入树模块
 
@@ -1754,14 +1808,18 @@ print('对第一条记录的预测类别：',clf.predict(iris.data[:1, :]))  #�
 print('第一条记录的实际类别：',iris.target[1])
 print('对第一条记录的类别概率预测：',clf.predict_proba(iris.data[:1, :])) #概率预测
 
-Tip_120202 Sklearn-SVM
+'''
+Tip_120204 Sklearn-SVM
 
 Code:
-
+'''
 from sklearn import datasets, svm
+import matplotlib.pyplot as plt
+from sklearn.externals.joblib.numpy_pickle_utils import np
 
 digits = datasets.load_digits()
-digits.images.shape
+print(digits.keys())
+print(digits.images.shape)
 
 images_and_labels = list(zip(digits.images, digits.target))   #查看 前四个图形
 for index, (image, label) in enumerate(images_and_labels[:4]):
@@ -1773,10 +1831,9 @@ plt.show()
 
 n_samples = len(digits.images)
 data = digits.images.reshape((n_samples, -1))
-data.shape
-
-digits.images[0]    #原数据集第一个记录
-data[0]    #转换后的数据集的第一个记录
+ 
+print(digits.images[0])    #原数据集第一个记录
+print(data[0])    #转换后的数据集的第一个记录
 
 classifier = svm.SVC(gamma=0.001)
 classifier.fit(data[:n_samples//2],digits.target[:n_samples//2])  #//的含义是只保留除法运算结果的整数部分
@@ -1790,24 +1847,27 @@ for index, (image, prediction) in enumerate(images_and_predictions[:4]):
     plt.axis('off')
     plt.imshow(image, cmap=plt.cm.gray_r, interpolation='nearest')
     plt.title('Prediction: %i' % prediction)
-
+ 
 plt.show()
 
+'''
 Tip_120204 Sklearn-LogisticRegression
 
 Code:
-
+'''
 from sklearn import linear_model, datasets
+import numpy as np
+import matplotlib.pyplot as plt
 
 iris = datasets.load_iris()
 X = iris.data[:, :2]  # 只选择2列的特征 为了可视化的便利
 Y = iris.target
-X.shape, Y.shape
+print(X.shape, Y.shape)
 
 logreg = linear_model.LogisticRegression(C=1e5)
 logreg.fit(X, Y)
 
-logreg.coef_    #查看模型参数beta的估计
+print(logreg.coef_)    #查看模型参数beta的估计
 
 h = 0.02    #作图的间隔
 x_min, x_max = X[:, 0].min() - .5, X[:, 0].max() + .5
