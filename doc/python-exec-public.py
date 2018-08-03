@@ -1851,7 +1851,7 @@ for index, (image, prediction) in enumerate(images_and_predictions[:4]):
 plt.show()
 
 '''
-Tip_120204 Sklearn-LogisticRegression
+Tip_120205 Sklearn-LogisticRegression
 
 Code:
 '''
@@ -1890,4 +1890,209 @@ plt.yticks(())  #不显示横纵轴数值
 
 plt.show()
 
+'''
+Tip_120206 Sklearn-Linear-Model
+
+Code:
+'''
+import numpy as np
+from matplotlib import pyplot as plt
+from sklearn import datasets, linear_model
+from sklearn.metrics import mean_squared_error, r2_score  #metric模块用来评价模型效果
+# Load the diabetes dataset
+diabetes = datasets.load_diabetes()
+
+# Use only one feature
+diabetes_X = diabetes.data[:, np.newaxis, 2]
+
+# Split the data into training/testing sets
+diabetes_X_train = diabetes_X[:-20]
+diabetes_X_test = diabetes_X[-20:]
+
+# Split the targets into training/testing sets
+diabetes_y_train = diabetes.target[:-20]
+diabetes_y_test = diabetes.target[-20:]
+
+regr = linear_model.LinearRegression() #建立线性回归模型
+regr.fit(diabetes_X_train, diabetes_y_train) #模型训练
+diabetes_y_pred = regr.predict(diabetes_X_test) #模型预测
+
+print('系数估计:', regr.coef_[0])
+print("均方误差: %.2f"
+      % mean_squared_error(diabetes_y_test, diabetes_y_pred))
+print('拟合优度: %.2f' % r2_score(diabetes_y_test, diabetes_y_pred))
+
+plt.style.use('ggplot')
+plt.scatter(diabetes_X_test, diabetes_y_test,  color='#FF7F00',alpha=0.5,s=50,label='Real Dot')
+plt.plot(diabetes_X_test, diabetes_y_pred, color='blue', alpha=0.7,linewidth=2.5,label='Predict Line')
+
+plt.xticks(())
+plt.yticks(())
+plt.legend()
+plt.show()
+
+'''
+Tip_120207 Sklearn-KernelDensity
+
+Code:
+'''
+import numpy as np
+from matplotlib import pyplot as plt
+
+from scipy.stats import norm
+from sklearn.neighbors import KernelDensity
+
+N = 100
+np.random.seed(1)
+X = np.concatenate((np.random.normal(0, 1, int(0.3 * N)),
+                    np.random.normal(5, 1, int(0.7 * N))))[:, np.newaxis]
+X_plot = np.linspace(-5, 10, 1000)[:, np.newaxis]   # [:,np.newaxis]是为了将其转化为2维列向量
+
+true_dens = (0.3 * norm(0, 1).pdf(X_plot[:, 0]) + 0.7 * norm(5, 1).pdf(X_plot[:, 0]))  #数据真实的概率密度
+
+fig, ax = plt.subplots()
+ax.fill(X_plot[:, 0], true_dens, fc='black', alpha=0.2,label='Real Line')
+
+for kernel in ['gaussian', 'tophat', 'epanechnikov']:   #使用三种核密度估计方法来估计
+    kde = KernelDensity(kernel=kernel, bandwidth=0.5).fit(X)
+    log_dens = kde.score_samples(X_plot)
+    ax.plot(X_plot[:, 0], np.exp(log_dens), '-',label="Kernel = '{0}'".format(kernel))
+
+ax.legend(loc='upper left')
+ax.plot(X[:, 0], -0.005 - 0.01 * np.random.random(X.shape[0]), '+k')
+
+ax.set_xlim(-4, 9)
+ax.set_ylim(-0.02, 0.4)
+plt.show()
+
+'''
+Tip_120208 Sklearn-KMeans
+
+Code:
+'''
+import numpy as np
+from matplotlib import pyplot as plt
+from sklearn.cluster import KMeans
+from sklearn.datasets import load_sample_image
+from sklearn.utils import shuffle
+
+n_colors = 64
+china = load_sample_image("china.jpg") #加载图片
+china = np.array(china, dtype=np.float64) / 255 
+#转化数据位float64，且除以255(三原色最大值) 使得数据在0-1之间
+
+w, h, d = original_shape = tuple(china.shape)
+assert d == 3
+image_array = np.reshape(china, (w * h, d)) #将图片数据reshape成为2维
+
+print("使用数据集的一部分子集训练模型")
+image_array_sample = shuffle(image_array, random_state=0)[:1000]
+kmeans = KMeans(n_clusters=n_colors, random_state=0).fit(image_array_sample) #将颜色聚成64个类
+
+print("对整张图片进行颜色预测(K-means方法)")
+labels = kmeans.predict(image_array)  #每个颜色对应的类
+
+def recreate_image(codebook, labels, w, h):
+    """Recreate the (compressed) image from the code book & labels"""
+    d = codebook.shape[1]
+    image = np.zeros((w, h, d))
+    label_idx = 0
+    for i in range(w):
+        for j in range(h):
+            image[i][j] = codebook[labels[label_idx]]
+            label_idx += 1
+    return image
+
+plt.figure(1)
+plt.clf()
+ax = plt.axes([0, 0, 1, 1])
+plt.axis('off')
+plt.title('Original image (96,615 colors)')
+plt.imshow(china)
+
+plt.figure(2)
+plt.clf()
+ax = plt.axes([0, 0, 1, 1])
+plt.axis('off')
+plt.title('Quantized image (64 colors, K-Means)')
+plt.imshow(recreate_image(kmeans.cluster_centers_, labels, w, h))
+plt.show()
+
+'''
+Tip_120209 Sklearn-Decomposition-PCA
+
+Code:
+'''
+import numpy as np
+from matplotlib import pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+from sklearn import decomposition
+from sklearn import datasets
+
+centers = [[1, 1], [-1, -1], [1, -1]]
+iris = datasets.load_iris()  #导入数据集
+X,y = iris.data, iris.target
+print('原始维度：',X.shape)
+print('进行PCA处理')
+pca = decomposition.PCA(n_components=3)
+pca.fit(X)
+X = pca.transform(X)
+print('PCA降维后：',X.shape)
+
+fig = plt.figure()
+plt.clf()
+ax = Axes3D(fig, rect=[0, 0, .95, 1], elev=48, azim=134)
+
+plt.cla()
+for name, label in [('Setosa', 0), ('Versicolour', 1), ('Virginica', 2)]:
+    ax.text3D(X[y == label, 0].mean(),
+              X[y == label, 1].mean() + 1.5,
+              X[y == label, 2].mean(), name,
+              horizontalalignment='center',
+              bbox=dict(alpha=.5, edgecolor='w', facecolor='w'))
+# Reorder the labels to have colors matching the cluster results
+y = np.choose(y, [1, 2, 0]).astype(np.float)
+ax.scatter(X[:, 0], X[:, 1], X[:, 2], c=y, cmap=plt.cm.Spectral,
+           edgecolor='k',s=50)
+
+ax.w_xaxis.set_ticklabels([])
+ax.w_yaxis.set_ticklabels([])
+ax.w_zaxis.set_ticklabels([])
+plt.show()
+
+'''
+Tip_120210 Sklearn-Decomposition-locally_linear_embedding
+
+Code:
+'''
+import numpy as np
+from matplotlib import pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+from sklearn import manifold, datasets
+
+print('带入数据集')
+X, color = datasets.samples_generator.make_swiss_roll(n_samples=1500)
+print(X.shape, color.shape)
+
+fig = plt.figure(figsize=(7,5))
+
+ax = fig.add_subplot(111, projection='3d')
+ax.scatter(X[:, 0], X[:, 1], X[:, 2], c=color, cmap=plt.cm.Spectral,s =30)
+
+plt.axis('tight')
+plt.xticks([]), plt.yticks([])
+plt.title('Original Data Set')
+plt.show()
+
+print("运行 局部线性嵌入")
+X_r, err = manifold.locally_linear_embedding(X, n_neighbors=12,n_components=2)  #选择近邻个数为12个，成分个数为2个
+print("完成重构. 重构误差: %g" % err)
+
+ig = plt.figure(figsize=(7,5))
+
+plt.scatter(X_r[:, 0], X_r[:, 1], s=30, c=color, cmap=plt.cm.Spectral)
+plt.axis('tight')
+plt.xticks([]), plt.yticks([])
+plt.title('Locally Linear Embedding Data Set')
+plt.show()
 
