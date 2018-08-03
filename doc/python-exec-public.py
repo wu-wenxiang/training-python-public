@@ -2096,3 +2096,183 @@ plt.xticks([]), plt.yticks([])
 plt.title('Locally Linear Embedding Data Set')
 plt.show()
 
+'''
+Tip_120211 Sklearn-Model_Selection-Cross_Val_Score
+
+Code:
+'''
+import numpy as np
+from matplotlib import pyplot as plt
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.linear_model import LinearRegression
+
+n_samples = 30
+X = np.sort(np.random.rand(n_samples))
+y = np.cos(1.5*np.pi*X) + np.random.randn(n_samples) * 0.2
+
+X_test = np.linspace(0,1,100)
+plt.plot(X_test, np.cos(1.5*np.pi*X_test),color='red', label=r"真实函数:$y=cos(x)$")
+plt.scatter(X, y, edgecolor='b', s=20, label="样本数据")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.xlim((0, 1))
+plt.ylim((-2, 2))
+plt.legend(loc="best")
+plt.show()
+
+degrees = [1, 4, 15]   
+plt.figure(figsize=(14, 5))
+for i in range(len(degrees)):
+    ax = plt.subplot(1, len(degrees), i + 1)
+    plt.setp(ax, xticks=(), yticks=())
+
+    polynomial_features = PolynomialFeatures(degree=degrees[i],
+                                             include_bias=False)
+    linear_regression = LinearRegression()
+    pipeline = Pipeline([("polynomial_features", polynomial_features),
+                         ("linear_regression", linear_regression)])
+    pipeline.fit(X[:, np.newaxis], y)
+
+    X_test = np.linspace(0, 1, 100)
+    plt.plot(X_test, pipeline.predict(X_test[:, np.newaxis]), color='green',label="模型")
+    plt.plot(X_test, np.cos(1.5*np.pi*X_test), color='red',label="真实关系")
+    plt.scatter(X, y, edgecolor='b', s=20, label="样本数据")
+    plt.xlabel("x")
+    plt.ylabel("y")
+    plt.xlim((0, 1))
+    plt.ylim((-2, 2))
+    plt.legend(loc="best")
+plt.show()
+
+from sklearn.model_selection import cross_val_score
+#利用交叉验证进行模型评估
+for i in range(len(degrees)):
+    polynomial_features = PolynomialFeatures(degree=degrees[i],
+                                             include_bias=False)
+    linear_regression = LinearRegression()
+    pipeline = Pipeline([("polynomial_features", polynomial_features),("linear_regression", linear_regression)])
+    scores = cross_val_score(pipeline, X[:, np.newaxis], y,scoring="neg_mean_squared_error", cv=10)  #利用10折交叉验证计算模型的MSE
+    print("Degree {}　　　MSE = {:.2e}(+/- {:.2e})".format(degrees[i], -scores.mean(), scores.std()))
+
+'''
+Tip_120212 Sklearn-Learn-Curve
+
+Code:
+'''
+import numpy as np
+from matplotlib import pyplot as plt
+from sklearn.svm import SVR
+from sklearn.model_selection import learning_curve
+from sklearn.kernel_ridge import KernelRidge
+
+# 生成数据
+rng = np.random.RandomState(0)
+X = 5 * rng.rand(10000, 1)
+y = np.sin(X).ravel()
+y[::5] += 3 * (0.5 - rng.rand(X.shape[0] // 5))
+
+svr = SVR(kernel='rbf', C=1e1, gamma=0.1) 
+kr = KernelRidge(kernel='rbf', alpha=0.1, gamma=0.1)
+train_sizes, train_scores_svr, test_scores_svr = \
+                   learning_curve(svr, X[:100], y[:100], 
+                   train_sizes=np.linspace(0.1, 1, 10),
+                   scoring="neg_mean_squared_error", cv=10)
+train_sizes_abs, train_scores_kr, test_scores_kr = \
+                   learning_curve(kr, X[:100], y[:100], 
+                   train_sizes=np.linspace(0.1, 1, 10),
+                   scoring="neg_mean_squared_error", cv=10)
+
+plt.figure()
+
+plt.plot(train_sizes, -test_scores_svr.mean(1), 'o-', color="r",
+         label="Support Vector Regression")
+plt.plot(train_sizes, -test_scores_kr.mean(1), 'o-', color="g",
+         label="Kernel Ridgh Regression")
+plt.xlabel("Train Size")
+plt.ylabel("Mean Squared Error")
+plt.title('Learning curves')
+plt.legend(loc="best")
+plt.xlim(0,100)
+
+plt.show()
+
+'''
+Tip_120213 Sklearn-Random-Forest
+
+Code:
+'''
+import numpy as np
+from matplotlib import pyplot as plt
+from sklearn.datasets import make_classification
+from sklearn.ensemble import ExtraTreesClassifier
+
+X, y = make_classification(n_samples=1000,n_features=10,n_informative=3,n_redundant=0,
+                          n_repeated=0,n_classes=2,random_state=0,shuffle=False)
+print(X[:4])
+print(y[:4])
+
+forest = ExtraTreesClassifier(n_estimators=250,random_state=0)
+forest.fit(X, y)
+
+importances = forest.feature_importances_
+std = np.std([tree.feature_importances_ for tree in forest.estimators_],
+             axis=0)
+indices = np.argsort(importances)[::-1]
+
+print("Feature ranking:")
+
+for f in range(X.shape[1]):
+    print("%d. feature %d (%f)" % (f + 1, indices[f], importances[indices[f]]))
+    
+plt.figure()
+plt.title("Feature importances")
+plt.bar(range(X.shape[1]), importances[indices],color="r", yerr=std[indices], align="center")
+plt.xticks(range(X.shape[1]), indices)
+plt.xlim([-1, X.shape[1]])
+plt.show()
+
+'''
+Tip_120214 Sklearn-Isolation-Forest
+
+Code:
+'''
+import numpy as np
+from matplotlib import pyplot as plt
+from sklearn.ensemble import IsolationForest
+
+rng = np.random.RandomState(42)
+
+# 产生训练数据集
+X = 0.3 * rng.randn(100, 2)
+X_train = np.r_[X + 2, X - 2]     
+# 产生一些新的正常的数据点
+X = 0.3 * rng.randn(20, 2)
+X_test = np.r_[X + 2, X - 2]
+# 产生一些异常的新的数据点
+X_outliers = rng.uniform(low=-4, high=4, size=(20, 2))
+
+clf = IsolationForest(max_samples=100, random_state=rng)  #构建模型
+clf.fit(X_train)     #模型训练
+y_pred_train = clf.predict(X_train)
+y_pred_test = clf.predict(X_test)
+y_pred_outliers = clf.predict(X_outliers)
+
+xx, yy = np.meshgrid(np.linspace(-5, 5, 50), np.linspace(-5, 5, 50))
+Z = clf.decision_function(np.c_[xx.ravel(), yy.ravel()])  #注意这里要将xx和yy先进行ravel()
+Z = Z.reshape(xx.shape)     #将Z的维度进行重构
+
+plt.figure(figsize=(8,6))
+plt.title("IsolationForest")
+plt.contourf(xx, yy, Z, cmap=plt.cm.Blues_r)  #画出检索边界，蓝色越深的区域表示异常区域
+
+b1 = plt.scatter(X_train[:, 0], X_train[:, 1], c='white',s=30, edgecolor='k')
+b2 = plt.scatter(X_test[:, 0], X_test[:, 1], c='green',s=30, edgecolor='k')
+c = plt.scatter(X_outliers[:, 0], X_outliers[:, 1], c='red',s=30, edgecolor='k')
+plt.axis('tight')
+plt.xlim((-5, 5))
+plt.ylim((-5, 5))
+plt.legend([b1, b2, c],
+           ["Training","New-Normal", "New-Abnormal"],
+           loc="upper left")
+plt.show()
