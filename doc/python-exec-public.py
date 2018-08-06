@@ -114,6 +114,7 @@ print("%f ** 1/2 = %f" % (aFloat, aFloat ** 0.5))
 print("%f ** 1/2 = %f" % (aFloat, round(aFloat ** 0.5, 2)))
 print("%s ** 1/2 = %.2f" % (aFloatStr, pow(aFloat, 0.5)))
 
+'''
 Tip_020103 随机生成两个10以内的实数（小数点后两位）并输出到屏幕，要求输入他们的和，输出True/False。
 
 Run:
@@ -122,6 +123,7 @@ Please input sum for 4.96 + 4.91 =
 Right!
 
 Code:
+'''
 from random import random
 
 MIN_DELTA = 10 ** -10
@@ -134,14 +136,16 @@ if abs(float(sumStr) - (aFloat+bFloat)) < MIN_DELTA:
 else:
     print("Wrong!")
 
+''' 
 Tip_020104. 随机生成4个[1-10]之间的自然数并输出到屏幕，要求输入24点的算法，输出True/False。
-
+ 
 Run:
 Numbers are: 6, 1, 2, 6: 
 6*1*(6-2)
 Right!
-
+ 
 Code:
+'''
 from random import choice, randint
 
 aInt = choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
@@ -154,7 +158,8 @@ if eval(aStr) == 24:
     print("Right!")
 else:
     print("Wrong!")
- 
+
+''' 
 Tip_020105. 提示用户输入一个整数（X元人民币），输出这笔钱等于多少张50元，10元，5元，1元纸币（优先用大额纸币）。
 
 Run:
@@ -163,6 +168,7 @@ Please input X Yuan:
 72 Yuan = 1 Fifty, 2 Ten, 0 Five, 2 One
 
 Code:
+'''
 aNumStr = input("Please input X Yuan:\n")
 aNum = int(aNumStr)
 
@@ -174,6 +180,7 @@ FiveNum, OneNum = divmod(tmpNum, 5)
 
 print("%d Yuan = %d Fifty, %d Ten, %d Five, %d One" % (aNum, FiftyNum, TenNum, FiveNum, OneNum))
 
+'''
 Tip_020106. 一英寸=2.54厘米。提示用户输入一个英寸数（浮点数），将其换算成浮点数输出，计算时保留两位小数，输出时保留到小数点后四位。
 
 Run:
@@ -182,6 +189,7 @@ Please input Inch:
 2.698000 inch = 6.8500 celi
 
 Code:
+'''
 INCH_CELI = 2.54
 
 aNumStr = input("Please input Inch:\n")
@@ -191,16 +199,21 @@ celiNum = round(inchNum * INCH_CELI, 2)
 
 print("%f inch = %.4f celi" % (inchNum, celiNum))
 
+'''
 Tip_020107. 玛雅人用二十进制计数，如果有个玛雅人跟你说“30”年后是世界末日，请问多少年后是世界末日？
 
 Code:
+'''
 print(int("30", 20))
 
+'''
 Tip_020108. 一些非洲的土著人只会用八进制计数，如果你想给他20瓶可乐换他9只羊，你该怎么告诉他？
 
 Code:
+'''
 print("%o Coco Cola <=> %o Sheep" % (20, 9))
 
+'''
 Tip_020201. 提示用户输入一个字符串，判断该字符串是否包含"apple"子字符串（忽略大小写，Apple, APPLE都算）。
 
 Run:
@@ -209,6 +222,7 @@ I like aPple
 'Apple' in 'I like aPple'
 
 Code:
+'''
 aStr = input("Please input a string:\n")
 
 aStrUpper = aStr.upper()
@@ -217,6 +231,7 @@ if "APPLE" in aStrUpper:
 else:
     print("'Apple' not in '%s'" % aStr)
 
+'''
 Tip_020202. 提示用户输入一个若干个单词，单词要用空白符隔开（两个单词之间可以有多个空白符），程序要将每个单词首字母大写，再用单个空白符连接所有的单词，并输出到屏幕。
 
 Run:
@@ -225,6 +240,7 @@ Please input a string:
 I Like Apple
 
 Code:
+'''
 aStr = input("Please input a string:\n")
 
 aStrTitle = aStr.title()
@@ -233,15 +249,17 @@ aStrNew = " ".join(aList)
 
 print(aStrNew)
 
+''' 
 Tip_020203. 提示用户输入一个字符串，判断该字符串是否回文（回文是指正读反读都一样，注意忽略用户输入的字符串两头的空白），并统计字符串长度。
-
+ 
 Run:
 Please input a string:
    bob
 len = 3
 'bob' is a huiwen string
-
+ 
 Code:
+'''
 aStr = input("Please input a string:\n")
 
 aStr = aStr.strip()
@@ -251,6 +269,7 @@ if aStr == aStr[::-1]:
 else:
     print("'%s' is not a huiwen string" % aStr)
 
+'''
 Tip_020204. 提示用户输入一个字符串，将其中所有的hello替换成HELLO，并将其中第一个world替换成WORLD。
 
 Run:
@@ -259,6 +278,7 @@ hello world hello world hello world
 HELLO WORLD HELLO world HELLO world
 
 Code:
+'''
 aStr = input("Please input a string:\n")
 
 aStr = aStr.replace("hello", "HELLO")
@@ -266,6 +286,7 @@ aStr = aStr.replace("world", "WORLD", 1)
 
 print(aStr)
 
+'''
 Tip_020205. 提示用户输入一个字符串，去掉两头空格，逆序间隔1位输出。
 
 Run:
@@ -274,10 +295,12 @@ Please input a string:
 97531
 
 Code:
+'''
 aStr = input("Please input a string:\n")
 aStr = aStr.strip()
 print(aStr[::-2])
 
+'''
 Tip_020206. 提示用户输入一个字符串，统计其中字母a的个数（不区分大小写，A也算），并输出第一个a在字符串中的位置。
 
 Run:
@@ -286,6 +309,7 @@ haha
 String 'haha' has 2 a(or A), first a(or A) in 1.
 
 Code:
+'''
 aStr = input("Please input a string:\n")
 
 aCount = aStr.lower().count('a')
@@ -293,6 +317,7 @@ aIndex = aStr.lower().find('a')
 
 print("String '%s' has %d a(or A), first a(or A) in %d." % (aStr, aCount, aIndex))
 
+'''
 Tip_020301. 输入若干(>3)个评分，去掉一个最高分，一个最低分，求平均分，保留2位小数。
 
 Run:
@@ -301,6 +326,7 @@ Please input some integer numbers:
 The average is: 7.00.
 
 Code:
+'''
 aStr = input("Please input some integer numbers:\n")
 aNumList = [float(item) for item in aStr.split()]
 if len(aNumList) < 3:
@@ -311,6 +337,7 @@ else:
     avg = sum(bNumList) / len(bNumList)
     print("The average is: %0.2f." % avg)
 
+'''
 Tip_020302. 输入若干(>1)个整数，生成一个长度为10000的随机数列表，列表中的每个数字都是随机从你输入的几个数字中选取的，统计列表中各个数字出现了多少次。
 
 Run:
@@ -329,6 +356,7 @@ Please input some integer numbers:
 # 后面学习散列（集合，字典）的时候，会用更简单的方法去掉重复的行。
 
 Code:
+'''
 from random import choice
 aStr = input("Please input some integer numbers:\n")
 aList = aStr.split()
@@ -341,6 +369,7 @@ else:
     for x,y in cNumList:
         print("%d => %d" % (x, y))
 
+'''
 Tip_020303. 输入5个字符串，去掉字符串两端的空格，按字母顺序逆序输出其中长度大于3的字符串。(按长度排序输出所有字符串，这个在学完函数之后会容易实现)
 
 Run:
@@ -355,6 +384,7 @@ hello
 haha
 
 Code:
+'''
 aList = []
 for i in range(5):
     aStr = input("Please input string %d:\t" % i)
@@ -366,6 +396,7 @@ print("-" * 20)
 for item in bList:
     print(item)
 
+'''
 Tip_020304. 输入一个整数，输出比它小的平方数。
 
 Run:
@@ -374,12 +405,14 @@ Please input an integer:
 Numbers: 1 4 9 16
 
 Code:
+'''
 from math import ceil
 
 aNum = int(input("Please input an integer:\n"))
 aList = [str(i**2) for i in range(1, int(ceil(aNum ** 0.5)))]
 print("Numbers: %s" % " ".join(aList))
 
+'''
 Tip_020305. 输入一个年份，输出其属相，不考虑公历年和农历年之间的差月，比如1983年全年都认为是属猪。
 
 Run:
@@ -388,6 +421,7 @@ Please input an integer:
 ShengXiao: 2012 => Long
 
 Code:
+'''
 SX_LIST = "Shu Niu Hu Tu Long She Ma Yang Hou Ji Gou Zhu".split()
 
 aNum = int(input("Please input an integer:\n"))
@@ -396,6 +430,7 @@ shengXiao = SX_LIST[index]
 
 print("ShengXiao: %d => %s" % (aNum, shengXiao))
 
+'''
 Tip_020306. 输出一个字符串，将其加密(每个字母的ascii加一)输出，再解密输出。
 
 Run:
@@ -406,6 +441,7 @@ J!mpwf!zpv
 I love you
 
 Code:
+'''
 aStr = input("Please input a string:\n")
 
 print("-" * 30)
@@ -414,6 +450,7 @@ print("".join(aList))
 bList = [chr(ord(char)-1) for char in aList]
 print("".join(bList))
 
+'''
 Tip_020307. 输入一个整数，输出比它小的能被三整除的自然数。
 
 Run:
@@ -422,11 +459,13 @@ Please input a integer:
 3 6 9 12 15 18 21 24 27 30 33 36 39 42 45 48
 
 Code:
+'''
 aInt = int(input("Please input a integer:\n"))
 aList = [str(item) for item in range(3, aInt, 3)]
 #aList = [str(item) for item in range(1, aInt) if item % 3 == 0]
 print(" ".join(aList))
 
+'''
 Tip_020401. 让用户输入一行字符串，统计并输出其中每个字符出现的次数。
 Run:
 Please input a Str:
@@ -438,6 +477,7 @@ b => 2
 d => 3
 
 Code:
+'''
 aStr = input("Please input a Str:\n")
 
 aDict = {chr:aStr.count(chr) for chr in set(aStr)}
@@ -455,6 +495,7 @@ print("The stat char list:")
 for tmpKey, tmpValue in aDict.items():
     print("%s => %d" % (tmpKey, tmpValue))
 
+'''
 Tip_020402. 让用户输入A、B两个整数数列，统计并排序输出A数列中独有的整数，B中独有的整数，以及A、B公有的整数。
 Run:
 Please input int list A: 1 3 5 7 9
@@ -464,6 +505,7 @@ Only in B: [6]
 Both in A & B: [5, 7]
 
 Code:
+'''
 aNumStr = input("Please input int list A: ")
 bNumStr = input("Please input int list B: ")
 
@@ -474,6 +516,7 @@ print("Only in A: %s" % sorted(aNumSet - bNumSet))
 print("Only in B: %s" % sorted(bNumSet - aNumSet))
 print("Both in A & B: %s" % sorted(aNumSet & bNumSet))
 
+'''
 Tip_020403. 输入一个句子，按首字母统计句中的单词(限定每个单词都只能由字母组成)，输出统计结果。
 Run:
 Please input a string:
@@ -483,6 +526,7 @@ i => ['it', 'is']
 m => ['my']
 
 Code:
+'''
 aStr = input("Please input a string:\n")
 
 wordList = [word for word in aStr.split() if word.isalpha()]
@@ -497,6 +541,7 @@ print("The stat char list:")
 for tmpKey, tmpValue in aDict.items():
     print("%s => %s" % (tmpKey, tmpValue))
 
+'''
 Tip_020404. 输入一行字符串，按字母顺序输出其中每个字符出现的位置。
 Run:
 Please input a string:
@@ -507,6 +552,7 @@ c => [3]
 d => [4]
 
 Code:
+'''
 aStr = input("Please input a string:\n")
 
 aDict = {}
@@ -517,6 +563,7 @@ for i, char in enumerate(aStr):
 for char in sorted(aDict):
     print(char, "=>", aDict[char])
 
+'''
 Tip_020405 字典格式化有什么好处？
     1. 避免顺序问题
     2. 避免冗余输入
@@ -526,10 +573,12 @@ Run: python cmdLineSum.py 4 5 6
 The sum was 15.00 !
 
 Code:
+'''
 import sys
 floatList = [float(item) for item in sys.argv[1:]]
 print("The sum was %.2f !" % sum(floatList))
 
+'''
 Tip_020502. 使用命令行输入职工信息。
 1. 职工信息包括姓名，性别，婚姻情况，年龄，薪水，职位。
 2. 职工信息中的“职位”字段的缺省值为“staff”。
@@ -546,6 +595,7 @@ marriageFlag =>  True
 role =>  manager
 
 Code:
+'''
 from optparse import OptionParser
 
 if __name__ == '__main__':
@@ -575,6 +625,7 @@ if __name__ == '__main__':
     print("marriageFlag => ", options.marriageFlag)
     print("role => ", options.role)
 
+'''
 Tip_020601 输出被指定的文件中带有指定字符串的行。
 a.txt文件的内容如下：
 test 1 apples
@@ -586,6 +637,7 @@ test 1 apples
 apple store
 
 Code:
+'''
 import sys
 fileName = sys.argv[1]
 subStr = sys.argv[2]
@@ -593,7 +645,8 @@ subStr = sys.argv[2]
 for line in open(fileName):
     if subStr in line:
         print(line, end='')
-        
+
+'''        
 Tip_020602 统计指定的文件中单词的个数，并追加写到文件末尾。
 a.txt文件中内容如下：
 test 1 apples
@@ -603,6 +656,7 @@ pear banana
 Run: python calNum.py a.txt
 
 Code:
+'''
 import sys
 fileName = sys.argv[1]
 
@@ -611,18 +665,20 @@ for line in open(fileName):
     wordCount += len(line.split())
 open(fileName, 'a').write("\n%d" % wordCount)
 
+''' 
 Tip_020603 打印指定文件中的内容，在打印时将A字符串替换为B字符串(原文件中的内容则不改变)
 a.txt文件中内容如下：
 test 1 apples
 apple store
 pear banana
-
+ 
 Run: python replace.py a.txt apple other
 test 1 others
 other store
 pear banana
-
+ 
 Code:
+'''
 import sys
 fileName = sys.argv[1]
 subStr = sys.argv[2]
@@ -631,9 +687,12 @@ repStr = sys.argv[3]
 for line in open(fileName):
     print(line.replace(subStr, repStr), end='')
 
+''' 
 Tip_020604 将字典序列化到文件，再从文件读出
     略
+'''
 
+'''
 Tip_030101. 根据用户的输入（直角边长），用*号打印直角等腰三角形
 Run:
 Please input length:
@@ -645,11 +704,13 @@ Please input length:
 *****
 
 Code:
+'''
 aNum = int(input("Please input length:\n"))
 
 for i in range(1, aNum + 1):
     print("*" * i)
 
+'''
 Tip_030102. 根据用户的输入（腰长），打印等腰三角形。
 Run:
 Please input length:
@@ -661,11 +722,13 @@ Please input length:
 *********
 
 Code:
+'''
 aNum = int(input("Please input length:\n"))
 
 for i in range(1, aNum + 1):
     print(" " * (aNum - i) + "*" * (2*i-1))
 
+'''
 Tip_030103. 打印九九乘法表。
 Run:
 1 * 1 = 1
@@ -676,6 +739,7 @@ Run:
 ……
 
 Code:
+'''
 import sys
 
 for i in range(1, 10):
@@ -691,6 +755,7 @@ for i in range(1, 10):
 		aList.append("%d * %d = %d" % (i, j, i*j))
 	print("\t".join(aList))
 
+'''
 Tip_030104. 编写猜数字游戏
 Run:
 please input number:
@@ -702,6 +767,7 @@ good ,right
 count number times = 2
 
 Code:
+'''
 from random import randint
 
 GUESS_MAX = 5
@@ -726,6 +792,7 @@ while(count < GUESS_MAX):
 else:
     print("answer = %d" % c)
 
+'''
 Tip_030201 实现一个函数sumAny，能满足如下运算：(参数个数是两个或多个，参数彼此之间能做+运算)
 print(sumAny(1, 2))
 print(sumAny(1.2, 2.3, 3.4))
@@ -739,6 +806,7 @@ hello, world!
 [0, 1, 2, 3, 4, 0, 1, 2]
 
 Code:
+'''
 def sumAny(*arg):
     return reduce(lambda x,y:x+y, arg)
 
@@ -747,6 +815,7 @@ print(sumAny(1.2, 2.3, 3.4))
 print(sumAny("hello, ", "world!"))
 print(sumAny([0,1,2,3,4], [0,1,2])
 
+'''
 Tip_030202 打印指定文件中最长的一行，如果有多行并列最长，只打印最靠前的最长的一行。
 a.txt文件中内容如下：
 test 1 apples
@@ -757,18 +826,24 @@ Run: python printLong.py a.txt
 test 1 apples
 
 Code:
+'''
 import sys
 from functools import reduce
 
 fileName = sys.argv[1]
 print(reduce(lambda x,y:x if len(x)>len(y) else y, open(fileName)))
 
+''' 
 Tip_030203 多维列表求和
     略
+'''
 
+'''
 Tip_030204 遍历打印自然数1-30，如果遇到能被2整除的数只打印duck代替，如果遇到能被3整除的数只打印goose代替，如果遇到既能被2又能被3整除的数只打印pig代替。
 	略
+'''
 
+'''
 Tip_030205 打印输出符合如下条件之一的100以内的自然数：
 1. 能被30整除
 2. 个位+十位=10
@@ -778,6 +853,7 @@ Run:
 [0, 5, 16, 19, 27, 28, 30, 37, 38, 46, 49, 55, 60, 64, 73, 82, 90, 91]
 
 Code:
+'''
 funList = [lambda x: x%30==0,
            lambda x: x%10+x/10==10,
            lambda x: x%10-x/10==5]
@@ -787,11 +863,13 @@ def testFun(i):
 
 print(filter(testFun, range(100)))
 
+'''
 Tip_030206 实现一个函数，将字符串序列按长度排序。
 Run:
 ['bool', 'hello', 'smiles', 'objective']
 
 Code:
+'''
 def sortStrbyLen(x, y):
     return cmp(len(x),len(y))
 
@@ -799,6 +877,7 @@ testStrList = ["hello", "smiles", "bool", "objective"]
 
 print(sorted(testStrList, cmp=sortStrbyLen))
 
+'''
 Tip_030207 打印杨辉三角
 Run:
         1
@@ -808,6 +887,7 @@ Run:
     1 4 6 4 1
 	
 Code:
+'''
 N = 5
 
 def nextLine(line):
@@ -824,23 +904,26 @@ for i in range(2, N):
 for i in range(N):
     printLine(N, i, yhList[i])
 
+'''
 Tip_030208 汉诺塔问题
 	略
-
+'''
+    
+''' 
 Tip_040101 打印输出math模块的所有方法属性和字段属性，打印输出其中fsum函数的用法
-
+ 
 Run:
-
+ 
 ['pow', 'fsum', 'cosh', 'ldexp', 'hypot', 'acosh', 'tan', 'asin', 'isnan', 'log', 'fabs', 'floor', 'atanh', 'modf', 'sqrt', 'frexp', 'degrees', 'lgamma', 'log10', 'asinh', 'fmod', 'atan', 'factorial', 'copysign', 'expm1', 'ceil', 'isinf', 'sinh', 'trunc', 'cos', 'tanh', 'radians', 'sin', 'atan2', 'erf', 'erfc', 'exp', 'acos', 'log1p', 'gamma']
 ['__package__', '__doc__', '__file__', '__name__', 'pi', 'e']
-
+ 
 fsum(iterable)
-
+ 
 Return an accurate floating point sum of values in the iterable.
 Assumes IEEE-754 floating point arithmetic.
-
+ 
 Code:
-
+'''
 import math
 
 funList = [attr for attr,value in math.__dict__.items() if callable(value)]
@@ -851,6 +934,7 @@ print(fieldList)
 
 print(math.fsum.__doc__)
 
+'''
 Tip_040102 编写一个模块，使得以下脚本代码运行之后，得到如下输出：
 
 脚本代码：
@@ -878,7 +962,7 @@ FUNCTIONS
 aFun
 
 Code: 
-
+'''
 '''
 Title example
 
@@ -890,6 +974,7 @@ print("Import module: " + __name__)
 def aFun():
     print("aFun")
 
+'''
 Tip_040103 编写一个包，使得一下脚本代码运行之后，得到输出如下：
 
 脚本代码
@@ -917,7 +1002,7 @@ PACKAGE CONTENTS
 3.14159265359
 
 Code:
-
+'''
 '''
 Package Title
 
@@ -925,7 +1010,7 @@ Package Description
 '''
 import math
 
-
+'''
 Tip_040104 输入一个标准库的名字，打印它的属性
 
 Run:
@@ -934,32 +1019,34 @@ Please input module name:math
 {'pow': <built-in function pow>, 'fsum': <built-in function fsum>, 'cosh': <built-in function cosh>, 'ldexp': <built-in function ldexp>, 'hypot': <built-in function hypot>, 'acosh': <built-in function acosh>, 'tan': <built-in function tan>, 'asin': <built-in function asin>, 'isnan': <built-in function isnan>, 'log': <built-in function log>, 'fabs': <built-in function fabs>, 'floor': <built-in function floor>, 'atanh': <built-in function atanh>, 'modf': <built-in function modf>, 'sqrt': <built-in function sqrt>, '__package__': None, 'frexp': <built-in function frexp>, 'degrees': <built-in function degrees>, 'lgamma': <built-in function lgamma>, 'log10': <built-in function log10>, '__doc__': 'This module is always available.  It provides access to the\nmathematical functions defined by the C standard.', 'asinh': <built-in function asinh>, 'fmod': <built-in function fmod>, 'atan': <built-in function atan>, 'factorial': <built-in function factorial>, '__file__': '/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/math.so', 'copysign': <built-in function copysign>, 'expm1': <built-in function expm1>, 'ceil': <built-in function ceil>, 'isinf': <built-in function isinf>, 'sinh': <built-in function sinh>, '__name__': 'math', 'trunc': <built-in function trunc>, 'cos': <built-in function cos>, 'pi': 3.141592653589793, 'e': 2.718281828459045, 'tanh': <built-in function tanh>, 'radians': <built-in function radians>, 'sin': <built-in function sin>, 'atan2': <built-in function atan2>, 'erf': <built-in function erf>, 'erfc': <built-in function erfc>, 'exp': <built-in function exp>, 'acos': <built-in function acos>, 'log1p': <built-in function log1p>, 'gamma': <built-in function gamma>}
 
 Code:
-
+'''
 moduleName = input("Please input module name:")
 aMoObj = __import__(moduleName)
 print(aMoObj.__dict__)
 
-Tip_040201 编写一个类Name，能被如下代码调用：
-
-aName = Name("John Green")
-print(aName.getLastName())
-print(len(aName))
-print(aName.split())
-print(aName.lower())
-
-Run:
-
-Green
-10
-['John', 'Green']
-john green
-
-Code:
+# 
+# Tip_040201 编写一个类Name，能被如下代码调用：
+# 
+# aName = Name("John Green")
+# print(aName.getLastName())
+# print(len(aName))
+# print(aName.split())
+# print(aName.lower())
+# 
+# Run:
+# 
+# Green
+# 10
+# ['John', 'Green']
+# john green
+# 
+# Code:
 
 class Name(str):
     def getLastName(self):
         return self.split()[-1] if self else ""
-  
+
+'''  
 Tip_040202 实现一个队列类FIFO，push/pull
 
 客户端代码/Run：
@@ -972,16 +1059,18 @@ print(aQueue.pull()) # 42
 print(aQueue.pull()) # IndexError
 
 Code:
+'''
 class Queue(list):
     def push(self, i):
         self.append(i)
     def pull(self):
         return self.pop(0)
 
+''' 
 Tip_040203 实现tail功能(每隔1秒检查文件中的内容，并将新增的行输出)
-
+ 
 Code:
-
+'''
 import time
 
 def follow(fileName):
@@ -1000,6 +1089,7 @@ def follow(fileName):
 if __name__ == "__main__":
     follow("a.txt")
 
+'''
 Tip_040204 Tail类
 
 客户端代码:
@@ -1014,21 +1104,24 @@ t.follow(s=5)
 Code:
 
 https://github.com/maodouzi/python-tail
+'''
 
+''' 
 Tip_050101 让用户输入两个实数，输出他们的和。如果用户的输入有误，给出提示。
-
+ 
 Run:
-
+ 
 Please input A: 4
 Please input B: 56
 Sum = 60.0
-
+ 
 Please input A: dd
 Please input B: 3
 Value Error!
 could not convert string to float: dd
-
+ 
 Code:
+'''
 
 aNum = input("Please input A: ")
 bNum = input("Please input B: ")
@@ -1042,6 +1135,7 @@ except ValueError as e:
 
 print("Sum =", sumNum)
 
+'''
 Tip_050201 让用户输入两个实数，输出他们的和。如果用户的输入有误，给出提示。正则表达式。
 
 Run:
@@ -1055,7 +1149,7 @@ Please input B: 0.034
 Sum = 4.534
 
 Code:
-
+'''
 import re
 
 aNum = input("Please input A: ")
@@ -1075,20 +1169,21 @@ if not reFloatStr.search(bNum):
 if flag:
     sumNum = float(aNum) + float(bNum)
     print("Sum =", sumNum)
-	
+
+''' 	
 Tip_050202 统计一个文件所有包含数字的行。
 测试文件如下：
 apple banana 2
 3hello 
 good orange
-
+ 
 Run:
-
+ 
 apple banana 2
 3hello 
-
+ 
 Code:
-
+'''
 import re
 
 reNumStr = re.compile("\d+")
