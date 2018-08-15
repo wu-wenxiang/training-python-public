@@ -1625,13 +1625,19 @@ class HttpConnTest(unittest.TestCase):
         ret = checkWeb("www.bing.com", 80, "/")
         self.assertTrue(ret)
 
+'''
 Tip_100201 SqlAlchemy+Sqlite3，创建表，插入数据，查询数据
 
 Code:
+'''
 
 from sqlalchemy import Column, String, create_engine, MetaData
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+# import logging
+# logging.basicConfig()
+# logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
+
 Base = declarative_base()
 class User(Base):
     __tablename__ = 'user' # 表的名字
@@ -1639,13 +1645,16 @@ class User(Base):
     id = Column(String(20), primary_key=True)
     name = Column(String(20))
 engine = create_engine(r'sqlite:///database.db')
+# engine = create_engine(r'mysql+pymysql://root:a44e604C3279@65.52.172.145:3306/test', echo=True)
 Base.metadata.create_all(engine)
 DBSession = sessionmaker(bind=engine)
 
 session = DBSession()
-new_user = User(id='5', name='Bob')
-session.add(new_user)
-session.commit()
+user = session.query(User).filter(User.id=='5').all()
+if not user:
+    new_user = User(id='5', name='Bob')
+    session.add(new_user)
+    session.commit()
 session.close()
 
 session = DBSession()
@@ -1654,14 +1663,18 @@ print('type:', type(user))
 print('name:', user.name)
 session.close()
 
+'''
 Tip_100401 使用Django实现一个账目管理系统
 
 https://github.com/wu-wenxiang/ZZLARGE-Project-DjangoTest
 https://github.com/wu-wenxiang/Project-Python-Webdev
+'''
 
+'''
 Tip_110101 psutil的使用
 
 Code:
+'''
 
 import datetime
 import psutil
