@@ -1904,6 +1904,70 @@ teacher = session.query(Teacher).get(3)
 print(teacher.classes)
 
 '''
+Tip_100206 XPath
+'''
+# pip install lxml
+# https://doc.scrapy.org/en/xpath-tutorial/topics/xpath-tutorial.html
+# https://www.w3schools.com/xml/xpath_syntax.asp
+# https://cuiqingcai.com/2621.html 
+
+from lxml import etree
+text = '''
+<div>
+    <ul>
+         <li class="item-0"><a href="link1.html">first item</a></li>
+         <li class="item-1"><a href="link2.html">second item</a></li>
+         <li class="item-inactive"><a href="link3.html"><span class="bold">third item</span></a></li>
+         <li class="item-1"><a href="link4.html">fourth item</a></li>
+         <li class="item-0"><a href="link5.html">fifth item</a></li>
+     </ul>
+ </div>
+'''
+html = etree.HTML(text)
+result = etree.tostring(html).decode()
+# html = etree.parse('hello.html')
+# result = etree.tostring(html, pretty_print=True)
+print(result)
+
+print(type(html))
+# 获取所有的 <li> 标签
+result = html.xpath('//li')
+print(result)
+print(len(result))
+print(type(result))
+print(type(result[0]))
+
+# 获取 <li> 标签的所有 class
+result = html.xpath('//li/@class')
+print(result)
+
+# 获取 <li> 标签下 href 为 link1.html 的 <a> 标签
+result = html.xpath('//li/a[@href="link1.html"]')
+print(result)
+
+# 获取 <li> 标签下的所有 <span> 标签
+# 注意这么写是不对的
+# result = html.xpath('//li/span')
+# 因为 / 是用来获取子元素的，而 <span> 并不是 <li> 的子元素，所以，要用双斜杠
+result = html.xpath('//li//span')
+print(result)
+# 获取 <li> 标签下的所有 class，不包括 <li>
+result = html.xpath('//li/a//@class')
+print(result)
+
+# 获取最后一个 <li> 的 <a> 的 href
+result = html.xpath('//li[last()]/a/@href')
+print(result)
+
+# 获取倒数第二个元素的内容
+result = html.xpath('//li[last()-1]/a')
+print(result[0].text)
+
+# 获取 class 为 bold 的标签名
+result = html.xpath('//*[@class="bold"]')
+print(result[0].tag)
+
+'''
 Tip_100401 使用Django实现一个账目管理系统
 
 https://github.com/wu-wenxiang/ZZLARGE-Project-DjangoTest
