@@ -10,7 +10,7 @@
 	- 接下来是安装Java+Eclispe+Pydev的开发环境，如果已经装好PyCharm/VSCode/VS2017等其它Python IDE环境，可以略过下列步骤。
 	- 安装Java，至少1.8以上，一路默认安装
 	- ![Install-Java.png](https://github.com/wu-wenxiang/Media-WebLink/blob/master/qiniu/9da5527f336948b59f2e5f195552cb61-Install-Java.png)
-	- 验证Java是否装好，**重新**打开一个CMD窗口，运行命令：`java --version`
+	- 验证Java是否装好，**重新**打开一个CMD窗口，运行命令：`java -version`
 	- ![Java-Version.png](https://github.com/wu-wenxiang/Media-WebLink/blob/master/qiniu/9da5527f336948b59f2e5f195552cb61-Java-Version.png)
 	- 安装Eclipse，解压缩Eclipse，解压缩Pydev，将Pydev下的两个目录，复制到eclipse目录下，覆盖同名目录
 	- ![Install-Pydev.png](https://github.com/wu-wenxiang/Media-WebLink/blob/master/qiniu/9da5527f336948b59f2e5f195552cb61-Install-Pydev.png)
