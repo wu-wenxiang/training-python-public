@@ -1626,7 +1626,85 @@ class HttpConnTest(unittest.TestCase):
         self.assertTrue(ret)
 
 '''
-Tip_100201 SqlAlchemy+Sqlite3，创建表，插入数据，查询数据
+Tip_100201 MySQL，创建表，插入数据，查询数据
+'''
+# pip install PyMySQL
+import pymysql
+
+connection = pymysql.connect(host='65.52.172.145',
+                             port=3306,
+                             user='root',
+                             password='a44e604C3279',
+                             db='test',
+                             charset='utf8')
+
+# 获取游标
+cursor = connection.cursor()
+
+cursor.execute('DROP TABLE IF EXISTS `users`')
+
+# 创建数据表
+effect_row = cursor.execute('''
+CREATE TABLE `users` (
+  `name` varchar(32) NOT NULL,
+  `age` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+''')
+
+try:
+    connection.begin()
+    
+    # 插入数据(元组或列表)
+    effect_row = cursor.execute('INSERT INTO `users` (`name`, `age`) VALUES (%s, %s)', ('mary', 18))
+    
+    # 插入数据(字典)
+    info = {'name': 'test', 'age': 19}
+    effect_row = cursor.execute('INSERT INTO `users` (`name`, `age`) VALUES (%(name)s, %(age)s)', info)
+    
+    connection.commit()
+except:
+    connection.rollback()
+# 批量插入
+effect_row = cursor.executemany(
+    'INSERT INTO `users` (`name`, `age`) VALUES (%s, %s) ON DUPLICATE KEY UPDATE age=VALUES(age)', [
+        ('hello', 13),
+        ('fake', 28),
+    ])
+
+# 执行查询 SQL
+cursor.execute('SELECT * FROM `users`')
+# 获取单条数据
+ret = cursor.fetchone()
+print(ret)
+# 获取前N条数据
+ret = cursor.fetchmany(3)
+print(ret)
+# 获取所有数据
+ret = cursor.fetchall()
+print(ret)
+
+'''
+Tip_100202 Sqlite3，创建表，插入数据，查询数据
+'''
+import sqlite3
+
+conn = sqlite3.connect('test.db')
+cursor = conn.cursor()
+cursor.execute('drop table if exists user')
+cursor.execute('create table user '
+               '(id varchar(20) primary key, name varchar(20))')
+cursor.execute("insert into user (id, name) "
+               "values ('1', 'Michael')")
+cursor.execute('select * from user')
+rows = cursor.fetchall()
+print(rows)
+cursor.close()
+conn.commit()
+conn.close()
+
+'''
+Tip_100203 SqlAlchemy+Sqlite3，创建表，插入数据，查询数据
 
 Code:
 '''
@@ -1664,7 +1742,7 @@ print('name:', user.name)
 session.close()
 
 '''
-Tip_100202 SqlAlchemy，一对多关系
+Tip_100204 SqlAlchemy，一对多关系
 
 Code:
 '''
@@ -1747,7 +1825,7 @@ print(ret[0].caption)
 print(ret[0].user)
 
 '''
-Tip_100203 SqlAlchemy，多对多关系
+Tip_100205 SqlAlchemy，多对多关系
 
 Code:
 '''
