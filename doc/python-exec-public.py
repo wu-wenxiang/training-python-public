@@ -1664,6 +1664,168 @@ print('name:', user.name)
 session.close()
 
 '''
+Tip_100202 SqlAlchemy，一对多关系
+
+Code:
+'''
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, String, ForeignKey, UniqueConstraint, Index
+from sqlalchemy.orm import sessionmaker, relationship
+from sqlalchemy import create_engine
+
+engine = create_engine(r'sqlite:///database.db')
+Base = declarative_base()
+
+# 单表
+class Test(Base):
+    __tablename__ = 'test'
+    nid = Column(Integer, primary_key=True, autoincrement=True)
+    name = Column(String(32))
+
+# 一对多
+class Team(Base):
+    __tablename__ = 'team'
+    tid = Column(Integer, primary_key=True, autoincrement=True)
+    caption = Column(String(32))
+
+class User(Base):
+    __tablename__ = 'user'
+    nid = Column(Integer, primary_key=True, autoincrement=True)
+    name = Column(String(32))
+    team_id = Column(Integer, ForeignKey('team.tid'))
+    #加上底下这行后，不用使用.join()也可实现联表查询
+    #哪个表做外链，就把relationship加到哪个表
+    favor = relationship("Team", backref='user')
+
+def init_db():
+    Base.metadata.create_all(engine)
+
+def drop_db():
+    Base.metadata.drop_all(engine)
+
+drop_db()
+init_db()
+
+Session = sessionmaker(bind=engine)
+session = Session()
+
+#往team表里插入两条数据
+session.add(Team(caption='dba'))
+session.add(Team(caption='ddd'))
+# session.add(Team(caption='dd2'))
+session.commit()
+
+session.add_all([
+    User(name='zzz',team_id=1),
+    User(name='sss',team_id=2),
+    User(name='ccc',team_id=3),
+])
+session.commit()
+
+ret = session.query(User).filter(User.name=='zzz').all()
+# ret = session.query(User.name).filter(User.name=='zzz').all()
+obj = ret[0]
+print(ret, obj, obj.name)
+
+# 等价于SELECT user.name AS FROM user INNER JOIN team ON team.tid = user.team_id
+ret = session.query(User.name, Team.caption).join(Team).all()
+print(ret)
+
+ret = session.query(User.name, Team.caption).join(Team,isouter=True).all()
+print(ret)
+
+ret = session.query(User).all()
+for obj in ret:
+    print(obj.nid,obj.name, 
+          obj.favor,
+          obj.favor.tid if obj.favor else None,
+          obj.favor.caption if obj.favor else None)
+
+ret = session.query(Team).filter(Team.caption == 'dba').all()
+print(ret[0].tid)
+print(ret[0].caption)
+print(ret[0].user)
+
+'''
+Tip_100203 SqlAlchemy，多对多关系
+
+Code:
+'''
+# coding:utf-8
+from sqlalchemy import create_engine, Column, String, Integer, ForeignKey, Table
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker, relationship
+
+DB_URI = r'sqlite:///database.db'
+# DB_URI = "mysql+mysqldb://root:root@127.0.0.1:3306/python?charset=utf8"
+engine = create_engine(DB_URI)
+Base = declarative_base(engine)
+session = sessionmaker(engine)()
+
+# 创建一个多对多的关系(老师与学生的关系)需要创建一个中间表
+# 创建一个中间表
+teacher_classes = Table(
+    "teacher_classes",
+    Base.metadata,
+    Column("teacher_id", Integer, ForeignKey("teacher.id"), nullable=False, primary_key=True),
+    Column("classes_id", Integer, ForeignKey("classes.id"), nullable=False, primary_key=True)
+)
+
+# 创建老师的映射
+class Teacher(Base):
+    __tablename__ = "teacher"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    teacher_name = Column(String(100))
+    classes = relationship("Classes", secondary=teacher_classes)
+
+    def __repr__(self):
+        return "<Teacher id='%s' teacher_name='%s'>" % (self.id, self.teacher_name)
+
+
+# 创建学生的映射
+class Classes(Base):
+    __tablename__ = "classes"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    classes_name = Column(String(100))
+    teacher = relationship("Teacher", secondary=teacher_classes)
+
+    def __repr__(self):
+        return "<Classes id='%s' classes_name='%s'>" % (self.id, self.classes_name)
+
+# 创建数据库
+Base.metadata.create_all()
+
+# 创建两个老师
+teacher1 = Teacher(teacher_name='admin')
+teacher2 = Teacher(teacher_name='grunt')
+teacher3 = Teacher(teacher_name='shuihen')
+
+# 创建两门课程
+classes1 = Classes(classes_name="java")
+classes2 = Classes(classes_name="python")
+
+# 添加数据
+teacher1.classes = [classes1,classes2]
+teacher2.classes = [classes1,classes2]
+teacher3.classes = [classes1]
+session.add(teacher1)
+session.add(teacher2)
+session.add(teacher3)
+session.commit()
+
+# 查询下数据(根据老师查询课程)
+teacher = session.query(Teacher).first()
+print(teacher.classes)
+
+# 根据课程查询老师
+classes = session.query(Classes).get(1)
+print(classes.teacher)
+
+# 根据老师查询课程
+teacher = session.query(Teacher).get(3)
+print(teacher.classes)
+
+'''
 Tip_100401 使用Django实现一个账目管理系统
 
 https://github.com/wu-wenxiang/ZZLARGE-Project-DjangoTest
