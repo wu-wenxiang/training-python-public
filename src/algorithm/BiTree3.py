@@ -38,12 +38,6 @@ def later_rec(root):
     later_rec(root.rchild)
     postOrderList.append(root.elem)
 
-class MyStack(list):
-    def push(self, x):
-        self.append(x)
-    def pull(self):
-        return self.pop()
-
 def _searchList(root, a):
     if not root:
         return False
