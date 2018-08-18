@@ -1,6 +1,12 @@
 # http://interactivepython.org/courselib/static/pythonds/SortSearch/toctree.html
 
-# O(n**2), O(n)
+class myData(object):
+    def __init__(self, k, v):
+        self.k, self.v = k, v
+
+aList = [myData(1, 5), myData(1, 6)]
+
+# O(n**2), O(n), O(n*log2(n))
 def insert_sort(arr):
     for i in range(1, len(arr)):
         temp = arr[i]
@@ -25,13 +31,13 @@ def selection_sort(arr):
 # O(n**2), O(n**2)/O(n)
 def bubble_sort(arr):
     for i in range(len(arr)):
-#         found = False
+        found = False
         for j in range(1, len(arr)-i):
             if arr[j-1] > arr[j]:
                 arr[j-1], arr[j] = arr[j], arr[j-1]
-#                 found = True
-#         if not found:
-#             break
+                found = True
+        if not found:
+            break
     return arr
 
 # O(nlog(n)), O(n**2)
@@ -45,23 +51,23 @@ def quickSortHelper(alist,first,last):
         quickSortHelper(alist,splitpoint+1,last)
 
 def partition(alist,first,last):
-    pivotvalue = alist[first]
-    leftmark = first+1
-    rightmark = last
+    pivot = alist[first]
+    l = first+1
+    r = last
     
     done = False
     while not done:
-        while leftmark <= rightmark and alist[leftmark] <= pivotvalue:
-            leftmark = leftmark + 1
-        while alist[rightmark] >= pivotvalue and rightmark >= leftmark:
-            rightmark = rightmark - 1
-        if rightmark < leftmark:
+        while l <= r and alist[l] <= pivot:
+            l = l + 1
+        while alist[r] >= pivot and r >= l:
+            r = r - 1
+        if r < l:
             done = True
         else:
-            alist[leftmark], alist[rightmark] = alist[rightmark], alist[leftmark]
-    alist[first], alist[rightmark] = alist[rightmark], alist[first]
+            alist[l], alist[r] = alist[r], alist[l]
+    alist[first], alist[r] = alist[r], alist[first]
 
-    return rightmark
+    return r
 
 # O(nlog(n)), O(nlog(n)), O(n)
 def merge_sort(alist):

@@ -4,7 +4,6 @@ class LNode:
         self.elem = elm
         self.next = nxt
 
-
 if __name__ == '__main__':
     llist1 = LNode(1, None)
     pnode = llist1

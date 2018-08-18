@@ -94,7 +94,7 @@ def suffix_demo():
     print(suffix_exp_evaluator("1"))
     print(suffix_exp_evaluator("1 2 +"))
     print(suffix_exp_evaluator("1 3 + 2 *"))
-    print(suffix_exp_evaluator("1 3 + 2 5 - *"))
+#     print(suffix_exp_evaluator("1 3 + 2 5 - *"))
 
 
 #####################################################
@@ -176,12 +176,12 @@ def demo_trans():
 
 
 if __name__ == "__main__":
-    check_pares("")
-    check_pares("()")
-    check_pares("([]{})")
-    check_pares("([]{}]")
-    check_pares("(abbvbb[hhh]jhg{lkii288}9000)000fhjsh")
-    check_pares("jkdsjckd(mfkk[fdjjfk],,,{kckjfc}jskdjkc]kkk")
+#     check_pares("")
+#     check_pares("()")
+#     check_pares("([]{})")
+#     check_pares("([]{}]")
+#     check_pares("(abbvbb[hhh]jhg{lkii288}9000)000fhjsh")
+#     check_pares("jkdsjckd(mfkk[fdjjfk],,,{kckjfc}jskdjkc]kkk")
  
     suffix_demo()
     # suffix_exp_calculator()

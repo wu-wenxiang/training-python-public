@@ -22,11 +22,13 @@ def gen_pnext0(p):
     """
     i, k, m = 0, -1, len(p)
     pnext = [-1] * m
+    print(pnext)
     while i < m - 1:  # generate pnext[i+1]
         while k >= 0 and p[i] != p[k]:
             k = pnext[k]
         i, k = i + 1, k + 1
         pnext[i] = k  # set a pnext entry
+        print('=>', pnext)
     return pnext
 
 
@@ -38,6 +40,7 @@ def gen_pnext(p):
     """
     i, k, m = 0, -1, len(p)
     pnext = [-1] * m
+    print('=>', pnext)
     while i < m - 1:  # generate pnext[i+1]
         while k >= 0 and p[i] != p[k]:
             k = pnext[k]
@@ -46,6 +49,7 @@ def gen_pnext(p):
             pnext[i] = pnext[k]
         else:
             pnext[i] = k
+        print('=>', pnext)
     return pnext
 
 
@@ -81,11 +85,14 @@ def matching(t, p):
 
 
 def matching1(t, p):
+    print(gen_pnext0(p))
     return KMPmatching1(t, p, gen_pnext0(p))
 
 
 t = "BBC ABCDAB ABCDABCDABDE"
+t = "ABCDABE"
 p = "ABCDABD"
 
 if __name__ == '__main__':
-    print(matching1(t, p))
+    gen_pnext(p)
+#     print(matching1(p))

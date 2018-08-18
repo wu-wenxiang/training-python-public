@@ -4,7 +4,7 @@
 class QueueUnderflow(ValueError):
     pass
 
-class SQueue():
+class SQueue(object):
     def __init__(self, init_len=8):
         self.len = init_len  # length of mem-block
         self.elems = [0] * init_len

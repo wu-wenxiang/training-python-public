@@ -126,7 +126,6 @@ def test1():
     while not pq.is_empty():
         print(pq.dequeue())
 
-
 def test2():
     print("Test class PrioQueue:")
     pq = PrioQueue()
@@ -134,7 +133,6 @@ def test2():
         pq.enqueue(randint(0, 30))
     while not pq.is_empty():
         print(pq.dequeue())
-
 
 def test3():
     print("Test function heap_sort:")
