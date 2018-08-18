@@ -15,7 +15,9 @@ def dijkstra_shortest_paths(graph, v0):
     count = 0
     cands = PrioQueue([(0, v0, v0)])  # 初始队列
     while count < vnum and not cands.is_empty():
+        print(cands)
         plen, u, vmin = cands.dequeue()  # 取路径最短顶点
+        print(plen, u, vmin)
         if pathes[vmin]: continue  # 如果其最短路径已知则继续
         pathes[vmin] = (u, plen)  # 记录新确定的最短路径
         for v, w in graph.out_edges(vmin):  # 考察经由新 U 顶点的路径

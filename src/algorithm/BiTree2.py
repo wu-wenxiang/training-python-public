@@ -1,5 +1,6 @@
 # coding=utf-8
 # https://blog.csdn.net/Bone_ACE/article/details/46718683
+import re
 
 class Node(object):
     """节点类"""
@@ -8,8 +9,11 @@ class Node(object):
         self.lchild = lchild
         self.rchild = rchild
     def __repr__(self):
-        return '(%s<-%s->%s)' % \
-            (self.lchild, self.elem, self.rchild)
+        ret = '(%s<-%s->%s)' % (self.lchild, self.elem, self.rchild)
+        ret = ret.replace('None<-', '')
+        ret = ret.replace('->None', '')
+        ret = re.sub(r'\((\d+)\)', r'\1', ret)
+        return ret
 
 class Tree(object):
     """树类"""
@@ -90,7 +94,7 @@ class Tree(object):
                 myStack.append(node)
                 node = node.lchild
             node = myStack.pop()            #while结束表示当前节点node为空，即前一个节点没有左子树了
-            print(node.elem),
+            print(node.elem)
             node = node.rchild                  #开始查看它的右子树
 
 
@@ -108,9 +112,9 @@ class Tree(object):
                 myStack1.append(node.lchild)
             if node.rchild:
                 myStack1.append(node.rchild)
-            myStack2.append(node)
+            myStack2.append(node.elem)
         while myStack2:                         #将myStack2中的元素出栈，即为后序遍历次序
-            print(myStack2.pop().elem),
+            print(myStack2.pop())
 
 
     def level_queue(self, root):
@@ -135,29 +139,21 @@ if __name__ == '__main__':
     tree = Tree()          #新建一个树对象
     for elem in elems:                  
         tree.add(elem)           #逐个添加树的节点
-    print(tree)
-    ret = str(tree)
-    ret = ret.replace('None<-', '')
-    ret = ret.replace('->None', '')
-    print(ret)
-    import re
-    print(re.findall(r'\((\d+)\)', ret))
-    ret = re.sub(r'\((\d+)\)', r'\1', ret)
-    print(ret)
+        print(tree)
 
     print('队列实现层次遍历:')
     tree.level_queue(tree.root)
-
-    print('\n\n递归实现先序遍历:')
-    tree.front_digui(tree.root)
-    print('\n递归实现中序遍历:')
-    tree.middle_digui(tree.root)
-    print('\n递归实现后序遍历:')
-    tree.later_digui(tree.root)
-
-    print('\n\n堆栈实现先序遍历:')
-    tree.front_stack(tree.root)
-    print('\n堆栈实现中序遍历:')
-    tree.middle_stack(tree.root)
-    print('\n堆栈实现后序遍历:')
-    tree.later_stack(tree.root)
+ 
+#     print('\n\n递归实现先序遍历:')
+#     tree.front_digui(tree.root)
+#     print('\n递归实现中序遍历:')
+#     tree.middle_digui(tree.root)
+#     print('\n递归实现后序遍历:')
+#     tree.later_digui(tree.root)
+# 
+#     print('\n\n堆栈实现先序遍历:')
+#     tree.front_stack(tree.root)
+#     print('\n堆栈实现中序遍历:')
+#     tree.middle_stack(tree.root)
+#     print('\n堆栈实现后序遍历:')
+#     tree.later_stack(tree.root)

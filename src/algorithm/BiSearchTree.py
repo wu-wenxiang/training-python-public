@@ -102,5 +102,6 @@ a = [49, 38, 65, 97, 60, 76, 13, 27, 5, 1]
 bst = BST(a)  # 创建二叉查找树
 print(bst)
 # bst.inOrderTraverse(bst.root)  # 中序遍历
-# bst.delete(bst.root, 49)
+bst.delete(bst.root, 49)
+print(bst)
 # bst.inOrderTraverse(bst.root)

@@ -16,7 +16,7 @@ class PrioQue(object):
     def __init__(self, elist=[]):
         self.elems = list(elist)
         self.elems.sort()
-
+    
     def is_empty(self):
         return self.elems == []
 
@@ -48,6 +48,10 @@ class PrioQueue(object):
         self.elems = list(elist)
         if elist != []:
             self.buildheap()
+    
+    def __repr__(self):
+        return '; '.join(str(i) for i in self.elems)
+
 
     def is_empty(self):
         return self.elems == []

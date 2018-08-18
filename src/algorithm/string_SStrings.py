@@ -89,8 +89,7 @@ def matching1(t, p):
     return KMPmatching1(t, p, gen_pnext0(p))
 
 
-t = "BBC ABCDAB ABCDABCDABDE"
-t = "ABCDABE"
+t = "ABCDABEABC ABCDAB ABCDABCDABDE"
 p = "ABCDABD"
 
 if __name__ == '__main__':
