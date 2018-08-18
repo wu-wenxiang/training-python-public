@@ -85,7 +85,6 @@ def findNearestPreNode_Stack(root, a, b):
     stackList = [i for i,j in zip(myStack1, myStack2) if i==j]
 #     print(stackList)
     return stackList[-1]
-    
 
 if __name__ == '__main__':
     preOrder = open('preOrder.txt').read().split(',')
