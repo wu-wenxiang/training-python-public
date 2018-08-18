@@ -38,17 +38,17 @@ def later_rec(root):
     later_rec(root.rchild)
     postOrderList.append(root.elem)
 
-def _searchList(root, a):
+def _checkNodeInBiTree(root, a):
     if not root:
         return False
     if root.elem == a:
         return True
-    return _searchList(root.lchild, a) or _searchList(root.rchild, a)
+    return _checkNodeInBiTree(root.lchild, a) or _checkNodeInBiTree(root.rchild, a)
 
 def searchList(root, a, b):
-    return _searchList(root, a) and _searchList(root, b)
+    return _checkNodeInBiTree(root, a) and _checkNodeInBiTree(root, b)
 
-def findNearestPreNode(root, a, b):
+def findNearestPreNode_Rec(root, a, b):
     node = root
     while node:
         if searchList(node.lchild, a, b):
@@ -57,6 +57,35 @@ def findNearestPreNode(root, a, b):
             node = node.rchild
         else:
             return node.elem
+
+class MyStack(list):
+    def push(self, x):
+        self.append(x)
+    def pull(self):
+        self.pop()
+
+def _searchStack(root, item, myStack):
+    if not root:
+        return False
+    myStack.push(root.elem)
+    if root.elem == item:
+        return True
+    if (not _searchStack(root.lchild, item, myStack)) \
+        and (not _searchStack(root.rchild, item, myStack)):
+        myStack.pop()
+        return False
+    else:
+        return True
+
+def findNearestPreNode_Stack(root, a, b):
+    myStack1, myStack2 = MyStack(), MyStack()
+    _searchStack(root, 6, myStack1)
+    _searchStack(root, 8, myStack2)
+#     print(myStack1, myStack2)
+    stackList = [i for i,j in zip(myStack1, myStack2) if i==j]
+#     print(stackList)
+    return stackList[-1]
+    
 
 if __name__ == '__main__':
     preOrder = open('preOrder.txt').read().split(',')
@@ -71,6 +100,7 @@ if __name__ == '__main__':
     postOrder = ','.join(map(str, postOrderList))
     print(postOrder)
     
-#     print(_searchList(root, 6))
-    print(findNearestPreNode(root, 6, 8))
+#     print(_checkNodeInBiTree(root, 6))
+    print(findNearestPreNode_Rec(root, 6, 8))
+    print(findNearestPreNode_Stack(root, 6, 8))
     
