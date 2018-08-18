@@ -1,9 +1,9 @@
 """ Dictionary and searching 
 """
 
-from 树.BiTree1 import BiTNode
+from BiTree1 import BiTNode
 from Assoc import Assoc
-from 字典.DictBTree import DictBTree
+from DictBTree import DictBTree
 
 # 支持动态操作的排序树： AVL 二叉树和树
 class AVLNode(BiTNode):

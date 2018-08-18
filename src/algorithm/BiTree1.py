@@ -49,7 +49,7 @@ def postorder(t, proc):
     proc(t.data)
 
 
-from 队列的实现方式.SQueue import *
+from myQueue.SQueue import *
 
 
 def levelorder(t, proc):
@@ -63,7 +63,7 @@ def levelorder(t, proc):
         proc(t.data)
 
 
-from 栈的实现.SStack import *
+from stack_SStack import *
 
 
 def preorder_nonrec(t, proc):

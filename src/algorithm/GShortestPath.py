@@ -1,8 +1,8 @@
 """ classes and functions for binary trees 
 """
 
-from 队列的实现方式.PrioQueue import PrioQueue
-from 图.Graph import *
+from myQueue.PrioQueue import PrioQueue
+from Graph import *
 
 inf = float("inf") # infinity
 

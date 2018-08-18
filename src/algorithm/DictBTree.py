@@ -1,8 +1,8 @@
 """ Dictionary and searching 
 """
 
-from 树.BiTree1 import BiTNode
-from 栈的实现.SStack import *
+from BiTree1 import BiTNode
+from stack_SStack import *
 from Assoc import Assoc
 
 def bt_search(btree, key):
