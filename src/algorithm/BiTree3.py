@@ -20,11 +20,8 @@ def buildTree(preOrder, inOrder):
     index = inOrder.index(root)
     ltreeInOrder = inOrder[:index]
     ltreePreOrder = preOrder[1:index+1]
-    rtreeInOrder = []
-    rtreePreOrder = []
-    if index+1 < len(inOrder):
-        rtreeInOrder = inOrder[index+1:]
-        rtreePreOrder = preOrder[index+1:]
+    rtreeInOrder = inOrder[index+1:]
+    rtreePreOrder = preOrder[index+1:]
 #     print(root, ltreeInOrder, rtreeInOrder)
 #     print(root, ltreePreOrder, rtreePreOrder)
     ltree = buildTree(ltreePreOrder, ltreeInOrder)
