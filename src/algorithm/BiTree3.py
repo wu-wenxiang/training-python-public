@@ -1,3 +1,8 @@
+'''
+题目1：给定二叉树的前序和中序遍历结果，需要输出后序遍历结果
+题目2：需要进一步求出给定2个节点的最近公共祖先节点
+'''
+
 import re
 
 class Node(object):
@@ -84,9 +89,11 @@ def findNearestPreNode_Stack(root, a, b):
     return stackList[-1]
 
 if __name__ == '__main__':
-    preOrder = open('preOrder.txt').read().split(',')
+#     preOrder = open('preOrder.txt').read().split(',')
+    preOrder = '1,2,4,7,3,5,8,9,6'.split(',')
     preOrder = list(map(int, preOrder))
-    inOrder = open('inOrder.txt').read().split(',')
+#     inOrder = open('inOrder.txt').read().split(',')
+    inOrder = '4,7,2,1,8,5,9,3,6'.split(',')
     inOrder = list(map(int, inOrder))
 #     print(preOrder, inOrder)
     root = buildTree(preOrder, inOrder)
