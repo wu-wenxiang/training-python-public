@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*- 
 import pandas as pd
+import time
 
 def getProvinceData(csv):
     provinceData = pd.read_csv(csv, header=None, dtype=str)
@@ -18,10 +19,11 @@ def getCityData(csv, provinceId):
     return cityData
 
 def getTownData(csv, cityData):
+    cityDict = cityData.to_dict('index')
     townData = pd.read_csv(csv, header=None, dtype=str)
     townData.columns = ['区域ID', '区域名称', '市区域ID']
-    townData = townData[[i in cityData.index for i in townData['市区域ID']]]
-    townData['省区域ID'] = townData['市区域ID'].apply(lambda x:cityData.loc[x]['上级区域ID'])
+    townData = townData[[i in cityDict for i in townData['市区域ID']]]
+    townData['省区域ID'] = townData['市区域ID'].apply(lambda x:cityDict[x]['上级区域ID'])
     # 务必先加column后索引，否则要重新索引
     townData.set_index('区域ID', inplace=True)
     townData = townData[~townData.index.duplicated(keep='first')]
@@ -45,6 +47,7 @@ def getBsDataFromCache(csv):
     return bsData
 
 if __name__ == '__main__':
+    startTime = time.time()
     provinceData = getProvinceData(r'../data/省区域.csv')
     provinceId = provinceData.loc['河南省']['区域ID']
     cityData = getCityData(r'../data/市区域.csv', provinceId)
@@ -59,4 +62,4 @@ if __name__ == '__main__':
                   len(bsData)]
     output.write('\n'.join(map(str, outputList))) 
     output.close()
-    print('Run finished.')
+    print('Run finished, cost: %.2f sec' % (time.time()-startTime))

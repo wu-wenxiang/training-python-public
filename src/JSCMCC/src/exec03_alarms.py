@@ -1,12 +1,15 @@
 # -*- coding: UTF-8 -*- 
 import pandas as pd
+import time
 from exec01_count import getCityData, getProvinceData, getBsDataFromCache
 from exec02_citys import getAlarmDataFromCache
 
-def filterAlarmData(alarmData):
+def filterAlarmData(alarmData, tsStart, tsEnd):
     alarmData = alarmData[alarmData['网管告警ID'] == '007-103-00-040012']
     alarmData = alarmData[(alarmData['工程状态'] != '退网')
                           & (alarmData['工程状态'] != '工程')]
+    alarmData = alarmData[(alarmData['告警发生时间'] < tsEnd) & 
+                          (alarmData['告警恢复时间'] >= tsStart)]
     return alarmData
 
 def buildAlarmCount(alarmData):
@@ -47,13 +50,14 @@ def buildAlarmStat(alarmCount, num, alarmId, alarmName):
     return alarmStat
  
 if __name__ == '__main__':
+    startTime = time.time()
     provinceData = getProvinceData(r'../data/省区域.csv')
     provinceId = provinceData.loc['河南省']['区域ID']
     cityData = getCityData(r'../data/市区域.csv', provinceId)
     bsData = getBsDataFromCache(r'../tmp/_bsData.csv')
     alarmData = getAlarmDataFromCache(r'../tmp/_alarmData.csv')
-    
-    alarmData = filterAlarmData(alarmData)
+    tsStart, tsEnd = pd.datetime(2018,8,4), pd.datetime(2018,8,9)
+    alarmData = filterAlarmData(alarmData, tsStart, tsEnd)
 #     alarmData[alarmData['地市']=='1005'].to_csv(r'../tmp/_alarmFilter.csv')
     alarmCount = buildAlarmCount(alarmData)
     alarmStat2 = buildAlarmStat(alarmCount, 60, '007-103-00-840002', '本地网大面积断站二级预警')
@@ -68,4 +72,4 @@ if __name__ == '__main__':
         line = ','.join('"%s"' % row[i] for i in columns)
         output.write('%s\n' % line)
     output.close()
-    print('Run finished.')
+    print('Run finished, cost: %.2f sec' % (time.time()-startTime))
