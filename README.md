@@ -14,7 +14,5 @@
 - 专题
 	- [设计模式](http://blog.wuwenxiang.net/Design-Pattern)
 	- [Django](https://github.com/wu-wenxiang/Training-Django-Public)
-- 试题
-	- [A卷](https://github.com/wu-wenxiang/Training-Python/blob/master/Case/DongFangRuiTong/Python-25-A.docx)
-	- [B卷](https://github.com/wu-wenxiang/Training-Python/blob/master/Case/DongFangRuiTong/Python-25-B.docx)
-	- [答案](https://github.com/wu-wenxiang/Training-Python/blob/master/Case/DongFangRuiTong/Python%E8%AF%95%E9%A2%98%E7%AD%94%E6%A1%88.txt)
+	- [单元测试](http://blog.wuwenxiang.net/Python-Unittest)
+	- [机器学习算法归类](http://blog.wuwenxiang.net/Machine-Learning)
