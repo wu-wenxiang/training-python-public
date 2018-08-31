@@ -2028,14 +2028,17 @@ print(p.name())
 print(p.username())
 p.communicate()
 
+'''
 Tip_110201 如何使用Fabric实现自动化部署？
 
 参考：https://github.com/wu-wenxiang/Project-Python-Webdev
+'''
 
+'''
 Tip_120101 Numpy快速入门
 
 Code:
-
+'''
 # -*- coding: utf-8 -*
 import numpy as np #一般以np作为numpy的别名
 a = np.array([2, 0, 1, 5]) #创建数组
@@ -2046,10 +2049,11 @@ a.sort() #将a的元素从小到大排序，此操作直接修改a，因此这�
 b= np.array([[1, 2, 3], [4, 5, 6]]) #创建二维数组
 print(b*b) #输出数组的平方阵，即[[1, 4, 9], [16, 25, 36]]
 
+'''
 Tip_120102 Pandas快速入门
 
 Code:
-
+'''
 # -*- coding: utf-8 -*-
 import pandas as pd 
 
@@ -2064,10 +2068,36 @@ print(d.describe())
 pd.read_excel('data.xls') #读取Excel文件，创建DataFrame。
 pd.read_csv('data.csv', encoding = 'utf-8') #读取文本格式的数据，一般用encoding指定编码。
 
-Tip_120103 scipy快速入门
+'''
+Tip_120103 Pandas，如何实现在多列值情况下的Vlookup
 
 Code:
+'''
+import pandas as pd
+ 
+data = {'name': ['Alice', 'Bob', 'Charles', 'David', 'Eric'],
+        'year': [2017, 2016, 2016, 2017, 2017],
+        'salary': [40000, 20000, 30000, 20000, 30000]}
+ 
+df = pd.DataFrame(data)
 
+df2 = pd.DataFrame({'name': ['Alice', 'Bob'],
+                    'year': [2017, 2016]})
+
+df_new = df.set_index(['name','year'])
+
+df2Dict = df2.to_dict('index')
+rows = [df2Dict[i] for i in sorted(df2Dict)]
+rows = [df_new.loc[i['name'], i['year']]['salary'] for i in rows]
+df2['salary'] = pd.Series(rows)
+
+print(df2)
+
+'''
+Tip_120104 scipy快速入门
+
+Code:
+'''
 # -*- coding: utf-8 -*
 #求解非线性方程组2x1-x2^2=1,x1^2-x2=2
 from scipy.optimize import fsolve #导入求解方程组的函数
@@ -2087,10 +2117,11 @@ def g(x): #定义被积函数
 pi_2, err = integrate.quad(g, -1, 1) #积分结果和误差
 print(pi_2 * 2) #由微积分知识知道积分结果为圆周率pi的一半
 
-Tip_120104 绘制方程曲线，y = (1-x**2)**0.5，x的范围从-1到1
+'''
+Tip_120105 绘制方程曲线，y = (1-x**2)**0.5，x的范围从-1到1
 
 Code:
-
+'''
 # -*- coding: utf-8 -*-
 import numpy as np
 import matplotlib.pyplot as plt #导入Matplotlib
