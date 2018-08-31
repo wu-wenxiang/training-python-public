@@ -2094,7 +2094,52 @@ df2['salary'] = pd.Series(rows)
 print(df2)
 
 '''
-Tip_120104 scipy快速入门
+Tip_120104 Pandas SQL应用
+
+Code:
+'''
+from sqlalchemy import Column, String, create_engine, MetaData
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
+
+Base = declarative_base()
+class User(Base):
+    __tablename__ = 'user' # 表的名字
+    # 表的结构:
+    id = Column(String(20), primary_key=True)
+    name = Column(String(20))
+    def __repr__(self):
+        return '<{}::{}>'.format(self.id, self.name)
+    
+engine = create_engine(r'sqlite:///database.db')
+Base.metadata.drop_all(engine)
+Base.metadata.create_all(engine)
+
+DBSession = sessionmaker(bind=engine)
+session = DBSession()
+new_user = User(id='5', name='Bob')
+session.add(new_user)
+session.commit()
+session.close()
+
+import pandas as pd
+df_old = pd.read_sql('user', con=engine)
+df_old.set_index('id', inplace=True)
+
+df = pd.DataFrame({'id': [str(i) for i in range(10, 12)], 
+                   'name': ['Name-{}'.format(i) for i in range(10, 12)]})
+df.set_index('id', inplace=True)
+df = df.append(df_old)
+df.to_sql('user', con=engine, if_exists='replace')
+
+session = DBSession()
+users = session.query(User).all()
+for user in users:
+    print(user)
+session.close()
+
+'''
+Tip_120105 scipy快速入门
 
 Code:
 '''
@@ -2118,7 +2163,7 @@ pi_2, err = integrate.quad(g, -1, 1) #积分结果和误差
 print(pi_2 * 2) #由微积分知识知道积分结果为圆周率pi的一半
 
 '''
-Tip_120105 绘制方程曲线，y = (1-x**2)**0.5，x的范围从-1到1
+Tip_120106 绘制方程曲线，y = (1-x**2)**0.5，x的范围从-1到1
 
 Code:
 '''
