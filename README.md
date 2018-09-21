@@ -16,4 +16,4 @@
 	- [Django](https://github.com/wu-wenxiang/Training-Django-Public)
 	- [单元测试](http://blog.wuwenxiang.net/Python-Unittest)
 	- [机器学习算法归类](http://blog.wuwenxiang.net/Machine-Learning)
-	- [自动化运维](https://raw.githubusercontent.com/wu-wenxiang/Training-Python-Public/master/doc/automation.md)
+	- [自动化运维](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/automation.md)
