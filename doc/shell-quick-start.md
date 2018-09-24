@@ -1,4 +1,4 @@
-Shell脚本快速入门入门
+Shell脚本快速入门
 ====================
 
 ## 参考资料
@@ -136,17 +136,17 @@ Shell脚本快速入门入门
 		- 这种方式运行的脚本，不需要在第一行指定解释器信息，写了也会被忽略
 
 ## 变量
-- 定义变量时，变量名不加美元符号（$），如：
+- **定义**变量时，变量名**不加美元符号`$`**，如：
 	- `your_name="qinjx"`
-	- 注意，变量名和等号之间不能有空格，这可能和你熟悉的所有编程语言都不一样
+	- 注意，变量名和等号之间**不能有空格**，这可能和你熟悉的所有编程语言都不一样
 	- 除了显式地直接赋值，还可以用语句给变量赋值，如：```for file in `ls /etc` ```
 - 使用变量
-	- 使用一个定义过的变量，只要在变量名前面加美元符号即可，如：
+	- **使用**一个定义过的变量，只要在变量名前面**加美元符号`$`**即可，如：
 	
 			your_name="qinjx"
 			echo $your_name
 			echo ${your_name}
-	- 变量名外面的花括号是可选的，加不加都行，加花括号是为了帮助解释器识别变量的边界，比如下面这种情况：
+	- 变量名外面的花括号是可选的，**但请记得加上**，加花括号是为了帮助解释器识别变量的边界，比如下面这种情况：
 	
 			for skill in Ada Coffe Action Java; do
 				echo "I am good at ${skill}Script"
@@ -161,7 +161,7 @@ Shell脚本快速入门入门
 			
 			your_name="alibaba"
 			echo $your_name
-	- 这样写是合法的，但注意，第二次赋值的时候不能写$your_name="alibaba"，使用变量的时候才加美元符。
+	- 这样写是合法的，但注意，第二次赋值的时候**不能写**`$your_name="alibaba"`，使用变量的时候才加美元符。
 
 ## 注释
 - 以“#”开头的行就是注释，会被解释器忽略。
@@ -219,11 +219,30 @@ Shell脚本快速入门入门
 
 		string="alibaba is a great company"
 		echo `expr index "$string" is` # 输出：3
-		# 这个语句的意思是：找出字母i在这名话中的位置
-		# 要在linux下运行，mac下会报错
+		# 这个语句的意思是：找出字母i或者s在这个字符串中首次出现的位置
+		# 要在linux下运行，mac下会报错，因为mac下的expr不支持这样计算
 - 更多，参见本文档末尾的参考资料中[Advanced Bash-Scripting Guid Chapter 10.1](http://tldp.org/LDP/abs/html/string-manipulation.html)
 
 ## 数组
+- 赋值
+	
+		array=(var1 var2 var3)
+		array[0]=var1
+		array[1]=var2
+		output=(`shell command`) # 输出的行作为数组的元素 
+- 求长度
+	- `${#array[@]}` 
+	- `${#array[*]}`
+- 引用数组
+	- `echo ${array[n]}`
+- 连接数组
+	- `arr3=(${arr1[@]} ${arr2[@]})`
+- 遍历数组
+	
+		fl=(`ls`)
+		for i in ${fl[@]};do
+			echo ${i}
+			done
 
 ## 管道
 
@@ -401,6 +420,9 @@ Shell脚本快速入门入门
 	- 删除
 - xargs
 - curl
+- expr
+	- ```COUNT=`expr ${COUNT} + 1` ```
+	- `COUNT=$(expr ${COUNT} + 1)`
 
 ## 综合案例
 
