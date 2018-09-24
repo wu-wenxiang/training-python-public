@@ -20,3 +20,7 @@
 	- [自动化运维](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/automation.md)
 	- [Shell基础](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/shell-quick-start.md)
 	- [万矿入门](http://blog.wuwenxiang.net/WindQuant)
+- 工具集
+	- [process monitor](https://docs.microsoft.com/en-us/sysinternals/downloads/procmon)
+	- [network monitor](https://www.microsoft.com/en-us/download/4865)
+	- [sysinternals](https://docs.microsoft.com/zh-cn/sysinternals/)
