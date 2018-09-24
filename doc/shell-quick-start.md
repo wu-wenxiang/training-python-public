@@ -247,6 +247,9 @@ Shell脚本快速入门
 ## 管道
 
 ## 条件判断
+- `==` is for string comparisons. `==` is a bash-specific alias for `=`
+- `-eq` is for numeric ones. The same family as `-lt`, `-le`, `-gt`, `-ge`, and `-ne`
+- `[[ "$x" == "$y" ]]`双括号护体 :-)，或者`[ "x$x" == "x$y" ]`，避免变量为空引起语法错误
 
 ## 流程控制
 - 和Java、PHP等语言不一样，sh的流程控制不可为空
