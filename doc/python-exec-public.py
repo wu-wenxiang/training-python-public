@@ -2297,7 +2297,10 @@ worksheet.write(3, 0, 123.456)
 workbook.close()
 
 '''
-Tip_110105 
+Tip_110105 pexpect
+
+https://pexpect.readthedocs.io/en/stable/examples.html
+https://github.com/pexpect/pexpect
 '''
 
 '''
