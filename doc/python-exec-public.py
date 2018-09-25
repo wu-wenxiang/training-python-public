@@ -2037,6 +2037,233 @@ ret = p.communicate()
 print(ret[0].decode())
 
 '''
+Tip_110102 IPy
+'''
+# https://github.com/autocracy/python-ipy/
+
+from IPy import IP
+ip = IP('127.0.0.0/30')
+for x in ip:
+    print(x)
+# 127.0.0.0
+# 127.0.0.1
+# 127.0.0.2
+# 127.0.0.3
+
+ip2 = IP('0x7f000000/30')
+print(ip == ip2) # True
+
+print(ip.reverseNames())
+# ['0.0.0.127.in-addr.arpa.', '1.0.0.127.in-addr.arpa.', '2.0.0.127.in-addr.arpa.', '3.0.0.127.in-addr.arpa.']
+print(ip.reverseName())
+# '0-3.0.0.127.in-addr.arpa.'
+print(ip.iptype())
+# 'LOOPBACK' / 'PRIVATE'
+
+print(IP('10.0.0.0/8').version())
+# 4
+print(IP('::1').version())
+# 6
+print(IP(0x7f000001))
+# 127.0.0.1
+print(IP('0x7f000001'))
+# 127.0.0.1
+print(IP('127.0.0.1'))
+# 127.0.0.1
+print(IP('10'))
+# 10.0.0.0
+print(IP('1080:0:0:0:8:800:200C:417A'))
+# 1080::8:800:200c:417a
+print(IP('1080::8:800:200C:417A'))
+# 1080::8:800:200c:417a
+print(IP('::1'))
+# ::1
+print(IP('::13.1.68.3'))
+# ::d01:4403
+print(IP('127.0.0.0/8'))
+# 127.0.0.0/8
+print(IP('127.0.0.0/255.0.0.0'))
+# 127.0.0.0/8
+print(IP('127.0.0.0-127.255.255.255'))
+# 127.0.0.0/8
+
+# Derive network address
+print(IP('127.0.0.1/255.0.0.0', make_net=True))
+# 127.0.0.0/8
+print(IP('127.0.0.1').make_net('255.0.0.0'))
+# 127.0.0.0/8
+
+# Convert address to string
+# Nearly all class methods which return a string have an optional parameter 'wantprefixlen' which controls if the prefixlen or netmask is printed. Per default the prefilen is always shown if the network contains more than one address:
+# 
+# wantprefixlen == 0            / None                  1.2.3.0
+# wantprefixlen == 1            /prefix                 1.2.3.0/24
+# wantprefixlen == 2            /netmask                1.2.3.0/255.255.255.0
+# wantprefixlen == 3            -lastip                 1.2.3.0-1.2.3.255
+# You can also change the defaults on an per-object basis by fiddling with the class members:
+# 
+# NoPrefixForSingleIp
+# WantPrefixLen
+# Examples of string conversions:
+# 
+print(IP('10.0.0.0/32').strNormal())
+# '10.0.0.0'
+print(IP('10.0.0.0/24').strNormal())
+# '10.0.0.0/24'
+print(IP('10.0.0.0/24').strNormal(0))
+# '10.0.0.0'
+print(IP('10.0.0.0/24').strNormal(1))
+# '10.0.0.0/24'
+print(IP('10.0.0.0/24').strNormal(2))
+# '10.0.0.0/255.255.255.0'
+print(IP('10.0.0.0/24').strNormal(3))
+# '10.0.0.0-10.0.0.255'
+ip = IP('10.0.0.0')
+print(ip)
+# 10.0.0.0
+ip.NoPrefixForSingleIp = None
+print(ip)
+# 10.0.0.0/32
+ip.WantPrefixLen = 3
+print(ip)
+# 10.0.0.0-10.0.0.0
+
+# Work with multiple networks
+from IPy import IP, IPSet
+print(IP('10.0.0.0/22') - IP('10.0.2.0/24'))
+# IPSet([IP('10.0.0.0/23'), IP('10.0.3.0/24')])
+print(IPSet([IP('10.0.0.0/23'), IP('10.0.3.0/24'), IP('10.0.2.0/24')]))
+# IPSet([IP('10.0.0.0/22')])
+s = IPSet([IP('10.0.0.0/22')])
+s.add(IP('192.168.1.0/29'))
+print(s)
+# IPSet([IP('10.0.0.0/22'), IP('192.168.1.0/29')])
+s.discard(IP('192.168.1.2'))
+print(s)
+# IPSet([IP('10.0.0.0/22'), IP('192.168.1.0/31'), IP('192.168.1.3'), IP('192.168.1.4/30')])
+
+# IPSet supports the set method isdisjoint:
+print(s.isdisjoint(IPSet([IP('192.168.0.0/16')])))
+# False
+print(s.isdisjoint(IPSet([IP('172.16.0.0/12')])))
+# True
+
+# IPSet supports intersection:
+print(s & IPSet([IP('10.0.0.0/8')]))
+# IPSet([IP('10.0.0.0/22')])
+
+'''
+Tip_110103 dnspython
+'''
+# http://www.dnspython.org/examples.html
+# https://github.com/rthalley/dnspython
+
+# Get the MX target and preference of a name:
+ 
+import dns.resolver
+ 
+answers = dns.resolver.query('dnspython.org', 'MX')
+for rdata in answers:
+    print('Host', rdata.exchange, 'has preference', rdata.preference)
+           
+# Transfer a zone from a server and print it with the names sorted in DNSSEC order:
+# import dns.query
+# import dns.zone
+#  
+# z = dns.zone.from_xfr(dns.query.xfr('204.152.189.147', 'dnspython.org'))
+# names = z.nodes.keys()
+# names.sort()
+# for n in names:
+#     print(z[n].to_text(n))
+           
+# Use DNS dynamic update to set the address of a host to a value specified on the command line:
+ 
+# import dns.query
+# import dns.tsigkeyring
+# import dns.update
+# import sys
+#  
+# keyring = dns.tsigkeyring.from_text({
+#     'host-example.' : 'XXXXXXXXXXXXXXXXXXXXXX=='
+# })
+#  
+# update = dns.update.Update('dyn.test.example', keyring=keyring)
+# update.replace('host', 300, 'a', sys.argv[1])
+#  
+# response = dns.query.tcp(update, '10.0.0.1')
+# print(response)
+           
+# Manipulate domain names:
+ 
+import dns.name
+ 
+n = dns.name.from_text('www.dnspython.org')
+o = dns.name.from_text('dnspython.org')
+print(n.is_subdomain(o))         # True
+print(n.is_superdomain(o))       # False
+print(n > o)                     # True
+rel = n.relativize(o)            # rel is the relative name 'www'
+n2 = rel + o
+print(n2 == n)                   # True
+print(n.labels)                  # ('www', 'dnspython', 'org', '')
+           
+# Generate reverse mapping information
+ 
+# Usage: reverse.py ...
+#
+# This demo script will load in all of the zones specified by the
+# filenames on the command line, find all the A RRs in them, and
+# construct a reverse mapping table that maps each IP address used to
+# the list of names mapping to that address.  The table is then sorted
+# nicely and printed.
+#
+# Note!  The zone name is taken from the basename of the filename, so
+# you must use filenames like "/wherever/you/like/dnspython.org" and
+# not something like "/wherever/you/like/foo.db" (unless you're
+# working with the ".db" GTLD, of course :)).
+#
+# If this weren't a demo script, there'd be a way of specifying the
+# origin for each zone instead of constructing it from the filename.
+ 
+import dns.zone
+import dns.ipv4
+import os.path
+import sys
+ 
+reverse_map = {}
+ 
+for filename in sys.argv[1:]:
+    zone = dns.zone.from_file(filename, os.path.basename(filename),
+                              relativize=False)
+    for (name, ttl, rdata) in zone.iterate_rdatas('A'):
+        l = reverse_map.get(rdata.address)
+        if l is None:
+            l = []
+            reverse_map[rdata.address] = l
+        l.append(name)
+ 
+keys = reverse_map.keys()
+for k in sorted(keys, key=lambda a1: dns.ipv4.inet_aton(a1)):
+    v = reverse_map[k]
+    v.sort()
+    l = map(str, v)     # convert names to strings for prettier output
+    print(k, l)
+           
+# Convert IPv4 and IPv6 addresses to/from their corresponding DNS reverse map names:
+ 
+import dns.reversename
+n = dns.reversename.from_address("127.0.0.1")
+print(n)
+print(dns.reversename.to_address(n))
+           
+# Convert E.164 numbers to/from their corresponding ENUM names:
+ 
+import dns.e164
+n = dns.e164.from_e164("+1 555 1212")
+print(n)
+print(dns.e164.to_e164(n))
+
+'''
 Tip_110201 如何使用Fabric实现自动化部署？
 
 参考：https://github.com/wu-wenxiang/Project-Python-Webdev

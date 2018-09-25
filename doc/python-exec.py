@@ -34,7 +34,7 @@ if __name__ == '__main__':
 # Tip_002 StockSpider-KLine
 
 # -*- coding: utf-8 -*-
-# pip install -i https://pypi.tuna.tsinghua.edu.cn/simple pyecharts
+# pip install -i https://pypi.tuna.tsinghua.edu.cn/simple pyecharts==0.5.5 --upgrade
 
 import requests
 from lxml import etree
