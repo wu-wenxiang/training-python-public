@@ -2003,13 +2003,17 @@ print(psutil.disk_io_counters(perdisk=True))
 print(psutil.net_io_counters())
 print(psutil.net_io_counters(pernic=True))
 
+print(psutil.net_if_addrs()) # 获取网络接口信息
+print(psutil.net_if_stats()) # 获取网络接口状态
+# print(psutil.net_connections()) # need admin permission
+
 print(psutil.users())
 print(psutil.boot_time())
 print(datetime.datetime.fromtimestamp(psutil.boot_time()).strftime('%Y-%m-%d %H:%M:%S'))
 
 print(psutil.pids())
-print(psutil.Process(8068))
-p = psutil.Process(8068)
+print(psutil.Process(1800))
+p = psutil.Process(1800)
 print(p.name())
 print(p.exe())
 print(p.cwd())
@@ -2023,10 +2027,13 @@ print(p.memory_info())
 print(p.connections())
 print(p.num_threads())
 
-p = psutil.Popen(['python', '-c', 'print("hello")'], stdout=PIPE)
+print(psutil.test())
+
+p = psutil.Popen(['ls', '-l'], stdout=PIPE)
 print(p.name())
 print(p.username())
-p.communicate()
+ret = p.communicate()
+print(ret[0].decode())
 
 '''
 Tip_110201 如何使用Fabric实现自动化部署？
