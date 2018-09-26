@@ -1,8 +1,7 @@
 ## Learning-Python
 - 加入微信群：微信 -> 通讯录 -> 新的朋友 -> 添加朋友 -> 面对面建群
 - 搭建开发环境
-	- [Eclipse+Pydev](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/Python-Dev-Env.md)
-	- [Anaconda+Pycharm](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/Python-Pycharm-Anaconda.md)
+	- [Eclipse+Pydev](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/Installation-Eclipse-Pydev.md)
 - 学习资料
 	- [逆向法学习](http://blog.wuwenxiang.net/Python-Questions)
 - 编程练习
