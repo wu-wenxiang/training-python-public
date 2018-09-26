@@ -2304,6 +2304,27 @@ https://github.com/pexpect/pexpect
 '''
 
 '''
+Tip_110106 redis
+'''
+
+# http://redis.io/topics/quickstart
+# http://redis.io/commands
+# https://github.com/andymccurdy/redis-py
+
+import redis
+r = redis.StrictRedis(host='65.52.172.145', port=6379, db=0)
+r.set('foo', 'bar')
+print(r.get('foo').decode())
+
+for key, value in (('A', '1'), ('B', '2'), ('C', '3')):
+    r.set(key, value)
+for key in r.scan_iter():
+    print(key.decode(), r.get(key).decode())
+# A 1
+# B 2
+# C 3
+
+'''
 Tip_110201 如何使用Fabric实现自动化部署？
 
 参考：https://github.com/wu-wenxiang/Project-Python-Webdev
