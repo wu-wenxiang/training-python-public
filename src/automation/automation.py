@@ -104,16 +104,18 @@ Tip_010302 SSH
 '''
 import paramiko, socket
 
+paramiko.util.log_to_file('ssh.log')
 ssh_con=paramiko.SSHClient()
 ssh_con.load_system_host_keys()
 ssh_con.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 try:
-    ssh_con.connect(hostname='<host>',username='<username>',password='<password>')
+    ssh_con.connect(hostname='65.52.172.145',username='pear',password='a44e604C32792')
 except paramiko.AuthenticationException:
     print("Auth Failed!")
 except socket.error:
     print("Server is unreachable!")
 else:
-    stdin,stdout,stderr = ssh_con.exec_command('<command>')
+    stdin,stdout,stderr = ssh_con.exec_command('uname -a')
     print(stdout.read())
+finally:
     ssh_con.close()
