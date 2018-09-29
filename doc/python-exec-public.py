@@ -2480,6 +2480,13 @@ plt.legend() #显示图例
 plt.show() #显示作图结果
 
 '''
+Tip_120107 PyEcharts
+'''
+# https://github.com/d3/d3/wiki/Gallery
+# https://github.com/pyecharts/pyecharts
+# https://github.com/pyecharts/flask_demo
+
+'''
 Tip_120201 Sklearn-Preprocessing
 
 Code:
