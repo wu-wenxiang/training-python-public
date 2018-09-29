@@ -110,6 +110,8 @@ ssh_con.load_system_host_keys()
 ssh_con.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 try:
     ssh_con.connect(hostname='65.52.172.145',username='pear',password='a44e604C32792')
+    # paramiko.transport: Authentication type (publickey) not permitted
+    # ssh_con.connect(ip,username=user,password=passwd,look_for_keys=False)
 except paramiko.AuthenticationException:
     print("Auth Failed!")
 except socket.error:
@@ -119,3 +121,21 @@ else:
     print(stdout.read())
 finally:
     ssh_con.close()
+
+'''
+Tip_010303 Fab
+'''
+
+# http://www.fabfile.org/
+import paramiko
+from fabric import Connection
+
+paramiko.util.log_to_file('ssh.log')
+result = Connection(host="pear@65.52.172.145", 
+    connect_kwargs={"password": "a44e604C3279", "look_for_keys": False}).run('uname -s', hide=True)
+msg = "Ran {0.command!r} on {0.connection.host}, got stdout:\n{0.stdout}"
+print(msg.format(result))
+
+# 应该也可以用配置文件完成
+# http://www.fabfile.org/upgrading.html:
+# -k/--no-keys which prevents Paramiko’s automatic loading of key files such as ~/.ssh/id_rsa Removed Use environment variables to set the connect_kwargs.look_for_keys config value to False.
