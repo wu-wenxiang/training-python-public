@@ -827,6 +827,7 @@ test 1 apples
 
 Code:
 '''
+
 import sys
 from functools import reduce
 
@@ -1094,7 +1095,7 @@ Tip_040204 Tail类
 
 客户端代码:
 def printLine(txt):
-    ''' Prints received text '''
+    """ Prints received text """
     print(txt)
 
 t = Tail('/var/log/syslog')
@@ -1193,6 +1194,7 @@ for line in open("test.txt"):
     if reNumStr.search(line):
         print(line)
 
+'''
 Tip_050203 找出一个文件中所有整数，打印输出它们的和。
 测试文件如下：
 apple banana 23
@@ -1204,6 +1206,7 @@ Run:
 40
 
 Code:
+'''
 
 import re
 
@@ -1217,7 +1220,7 @@ for line in open("test.txt"):
 print(aList)
 print(sum(aList))
 
-
+'''
 Tip_050204. 随机生成4个[1-10]之间的自然数并输出到屏幕，要求输入24点的算法，输出True/False。
 
 Run:
@@ -1226,6 +1229,7 @@ Numbers are: 6, 1, 2, 6:
 Right!
 
 Code:
+'''
 import random
 import re
 
@@ -1251,6 +1255,7 @@ while True:
     else:
         print(False)
 
+'''
 Tip_050301 编写装饰器makebold和makeitalic
 
 客户端代码：
@@ -1265,6 +1270,7 @@ Run:
 <b><i>hello world</i></b>
 	
 Code:
+'''
 def makebold(fn):
     def wrapped():
         return "<b>" + fn() + "</b>"
@@ -1282,9 +1288,11 @@ def hello():
 
 print(hello())
 
+'''
 Tip_060201 完成Basic Auth验证，取得API信息
 
 Code:
+'''
 import urllib.request
 import urllib.response
 import ssl
@@ -1312,10 +1320,11 @@ try:
 except IOError as e:
     print (e)
 
+'''
 Tip_060301 编写一个多线程执行的Demo，每个线程打印出线程名，模拟IO密集型和CPU密集型两种情况。
 
 Code:
-
+'''
 import time, threading, random
 
 def doWork():
@@ -1334,10 +1343,11 @@ aThread.join()
 bThread.join()
 print(time.time()-startTime)
 
+'''
 Tip_060302 编写Demo验证线程竞争情况
 
 Code:
-
+'''
 import time, threading, random
 a = 0
 lock = threading.Lock()
@@ -1359,10 +1369,11 @@ aThread.join()
 bThread.join()
 print(a)
 
+'''
 Tip_060303 像管理线程一样管理进程
 
 Code:
-
+'''
 import time, multiprocessing, random, logging, sys
 
 def doWork():
@@ -1382,10 +1393,11 @@ if __name__ == "__main__":
     bProcess.join()
     print("== ", time.time() - startTime)
 
+'''
 Tip_060304 进程池Demo
 
 Code:
-
+'''
 import time, multiprocessing, random
 
 def doWork(j):
@@ -1402,10 +1414,11 @@ if __name__ == "__main__": # Bug
     print(aList)
     print(time.time() - startTime)
 
+'''
 Tip_060305 线程池
 
 Code:
-
+'''
 import time, multiprocessing.dummy, random
 
 def doWork(j):
@@ -1422,11 +1435,13 @@ if __name__ == "__main__": # Bug
     print(aList)
     print(time.time() - startTime)
 
+'''
 Tip_060306 Subprocess获取中文输出
 
 Code:
 项目右键/property/Resource/Text-File-Encoding/Other/Utf-8
-######## test2.py ######### 
+'''
+
 # -*- utf-8 -*-
 ret = u'哈'
 print(ret)
@@ -1441,6 +1456,7 @@ ret = subprocess.check_output([r'C:\Users\pear\AppData\Local\Programs\Python\Pyt
 print(ret)
 print(ret.decode('utf-8'))
 
+'''
 Tip_070101 Scrapy Demo，获取http://quotes.toscrape.com/tag/humor/中的箴言
 
 [官方文档] https://docs.scrapy.org/en/latest/
@@ -1449,7 +1465,7 @@ Tip_070101 Scrapy Demo，获取http://quotes.toscrape.com/tag/humor/中的箴言
 scrapy runspider /Users/wxdev_mac/eclipse-workspace/test3/test.py -o test.json 
 
 Code:
-
+'''
 import scrapy
 
 class QuotesSpider(scrapy.Spider):
@@ -1469,6 +1485,7 @@ class QuotesSpider(scrapy.Spider):
         if next_page is not None:
             yield response.follow(next_page, self.parse)
 
+'''
 Tip_080101 TK，编写加法计算器
 
 +---------------+
@@ -1480,7 +1497,7 @@ Tip_080101 TK，编写加法计算器
 +---------------+
 
 Code: 
-
+'''
 from tkinter import Label, Frame, Tk, Button, Entry
 from tkinter import RIGHT, LEFT
 # from tkinter.filedialog import askopenfilename
@@ -1508,14 +1525,16 @@ btn.pack(side=RIGHT)
 
 tk.mainloop()
 
+'''
 Tip_090101 如何在一个虚拟环境中运行Python项目？不同的Python版本/Module版本。
 
 参考：https://github.com/maodouzi/LearningDjango-1-4
-
+'''
+'''
 Tip_100101 为如下方法编写单元测试，要求覆盖整数加法，字符串加法，类型不匹配抛出异常三种情况
 
 Code:
-
+'''
 import unittest
 
 def add(x, y):
@@ -1532,10 +1551,11 @@ class ATest(unittest.TestCase):
         self.skipTest("Skip due to Bug #13452")
         self.assertEqual(add("hello", "string"), "hellostring")
 
+'''
 Tip_100102 单元测试，获取大于20000的数字
 
 Code:
-
+'''
 import unittest
 import sys, re
 
@@ -1587,10 +1607,11 @@ class FixtureTest(unittest.TestCase):
 if __name__ == '__main__':
     unittest.main()
 
+'''
 Tip_100103 Mock，为checkWeb编写Unittest，Mock模拟http.client模块中的对象
 
 Code:
-
+'''
 import unittest, http.client, socket
 from unittest.mock import MagicMock, create_autospec
 
