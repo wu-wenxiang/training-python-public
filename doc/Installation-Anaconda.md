@@ -26,3 +26,4 @@
 - 验证Anaconda安装完成
 	- **重新打开**一个cmd窗口，运行：`python --version`
 	- 出现：`Python 3.6.5 :: Anaconda, Inc.`，表示Python安装成功。
+- [入门文档](http://docs.anaconda.com/anaconda/user-guide/getting-started/)
