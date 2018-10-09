@@ -8,6 +8,7 @@ env
 .project
 .pydevproject
 .settings
+.ipynb_checkpoints
 
 # User-specific files
 *.suo
