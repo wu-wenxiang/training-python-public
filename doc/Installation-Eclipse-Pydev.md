@@ -2,7 +2,7 @@
 
 ### 注意事项
 - 本文描述了`Eclipse+Pydev`IDE开发环境的安装和配置过程。
-- 本文用到的软件都可以在[这里](http://url.cn/52g5jKH)下载
+- 本文用到的软件都可以在[这里](https://share.weiyun.com/57jaLHW)下载
 	- Java
 	- Eclipse
 	- Pydev
