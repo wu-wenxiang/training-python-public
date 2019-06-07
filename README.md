@@ -8,7 +8,7 @@
 	- [Python基础练习](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/python-exec-public.py)，纯净TXT版代码在[这里](https://raw.githubusercontent.com/wu-wenxiang/Training-Python-Public/master/doc/python-exec-public.py)
 	- [有趣的编程练习题](http://blog.wuwenxiang.net/Python-Interesting-Programming)：[针对性练习题](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/python-exec.py)
 - 代码/数据：
-	- [航空客户价值分析](https://share.weiyun.com/55vfSMw)
+	- [航空客户价值分析](https://share.weiyun.com/5Qf3vAO)
 	- [其它数据分析练习](https://share.weiyun.com/5w0Qj5T)
 	- [网站日志分析](https://share.weiyun.com/5zY4yG9)
 - 专题
