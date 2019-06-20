@@ -1615,8 +1615,8 @@ Code:
 import unittest, http.client, socket
 from unittest.mock import MagicMock, create_autospec
 
-import unittest, http.client, socket
-from mock import MagicMock, create_autospec
+# import unittest, http.client, socket
+# from mock import MagicMock, create_autospec
 
 def checkWeb(addr, port, resource):
     resource.lstrip(r'/')
