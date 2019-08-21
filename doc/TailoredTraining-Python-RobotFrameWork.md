@@ -24,7 +24,7 @@
 | | | | [Debug](#debug) |
 | | | | [Decorator](#decorator) |
 | | | | [Memory Management](#memory-management) |
-| | | | [Timeme & Space Complexity](#timeme--space-complexity) |
+| | | | [Time & Space Complexity](#time--space-complexity) |
 | | | [lab-07 RobotFrameWork](#lab-07-robotframework) | [Quick Start](#quick-start) |
 | | | | [Demo](#demo) |
 
@@ -96,7 +96,7 @@
 
 ### Memory Management
 
-### Timeme & Space Complexity
+### Time & Space Complexity
 
 ## lab-07 RobotFrameWork
 
