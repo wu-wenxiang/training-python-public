@@ -1,4 +1,4 @@
-## 安装PyCharm
+## 安装 VS Code
 
 ### 注意事项
 - 本文是VSCode的安装和配置文档
