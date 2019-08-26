@@ -106,17 +106,26 @@
 1. [函数] **Python中的实参传递有哪些特殊的语法？**
 1. [函数] **Python中的形参传递有哪些特殊的语法？**
 1. [函数] 函数传参和Return返回值时实际发生了什么？重映射？浅拷贝？深拷贝？
-1. [函数] **Lambda函数的概念和语法如何？**
-1. [函数] 如何理解和编写递归函数？优势：语义明确；劣势：性能隐患。斐波那契数列，递归，递推。
-1. [函数] **什么是高阶函数？**
-1. [函数] 闭包closure是什么？如何用闭包实现加法器？有状态的函数。FP与OOP。
-1. [函数] **如何使用高阶函数？Map/Filter/Reduce/Sort/Max/偏函数**，`from functools import reduce`
 
 ## lab-02 Common Usage Modules
 
 ### OS/SYS
 
+1. [联合] Python如何调用Bash？os.system, subprocess
+1. [联合] Bash如何调用Python？
+1. [联合] sys模块主要用于处理什么问题？常用方法有哪些？
+1. [联合] os模块主要用于处理什么问题？常用方法有哪些？
+1. [目录] **如何遍历一个目录？**
+1. [目录] **如何创建和使用临时文件，临时目录？**
+1. [目录] shutil模块有哪些常用方法？copy/copy2/copytree/rmtree/move
+1. [系统] **psutil模块如何监控CPU/Memory/Network/Disk等资源？**
+
 ### I/O
+
+1. [网络] **IPy模块的使用范围和使用方法是怎样的？**
+1. [网络] Python如何处理常见的网络协议？Telnet/FTP/Socket/Http/LDAP/SSH/SFTP/SMTP/POP3/IMAP
+1. [网络] Twisted框架的底层实现是怎样的？
+1. [网络] Twisted框架的基本使用方法是怎样的？在Windows上如何安装Python3-Twist框架？[知乎](https://www.zhihu.com/question/52281800), [Python Extension Packages for Windows](https://www.lfd.uci.edu/~gohlke/pythonlibs/#twisted)
 
 ## lab-03 Object Oriented
 
@@ -147,32 +156,89 @@
 
 ### Numpy & Pandas
 
+1. [类库] **如何理解和使用Numpy模块中的ndarray对象？** boardcast, 随机数生成，点乘，索引（布尔数组删选）
+1. [类库] **如何理解和使用Pandas中的DataFrame对象？** 读写文件，columns，index，apple，根据Index定位
+
 ### Scipy & SkLearn
 
+1. [类库] 如何使用Scipy解非线性方程组？
+1. [类库] 如何使用Scipy做数值积分？
+1. [类库] **如何使用Scikit-Lean完成回归、分类、聚类运算？** [参考](http://blog.wuwenxiang.net/Machine-Learning)
+
 ### Matplotlib
+
+1. [类库] **如何使用Matplotlib绘制解析几何图形？**
 
 ## lab-05 Pythonic Code Style
 
 ### Functional Programming
 
+1. [函数] **Lambda函数的概念和语法如何？**
+1. [函数] 如何理解和编写递归函数？优势：语义明确；劣势：性能隐患。斐波那契数列，递归，递推。
+1. [函数] **什么是高阶函数？**
+1. [函数] 闭包closure是什么？如何用闭包实现加法器？有状态的函数。FP与OOP。
+1. [函数] **如何使用高阶函数？Map/Filter/Reduce/Sort/Max/偏函数**，`from functools import reduce`
+
 ### Iterator & Generator
 
+1. [生成] **什么是迭代环境，迭代器和迭代协议？Python2和Python3有何区别？`next`和`__next__`**
+1. [生成] **如何编写生成器函数和生成器表达式？**
+1. [生成] **生成器函数的执行逻辑是怎样的？**
+
 ### PEP8
+
+1. [代码] 用于代码风格检查的 IDE 插件
+1. [代码] 用于代码风格检查的 CI 插件
 
 ## lab-06 Other Categories
 
 ### Parallel Process
 
+1. [并行] **如何处理子进程和管道？subprocess**
+1. [并行] **如何编写多线程应用？**
+1. [并行] **线程join操作有什么作用？**
+1. [并行] **什么是后台线程？Daemon**
+1. [并行] **什么是线程竞争？**
+1. [并行] **如何实现线程同步？锁、信号量**
+1. [并行] 什么是全局解释器锁GIL？
+1. [并行] 哪些Python内置对象是线程安全的？哪些不是？
+1. [并行] 如何像管理线程一样管理进程？
+1. [并行] **如何开启和使用进程池？**
+1. [并行] **如何开启和使用线程池？**
+1. [并行] **Async异步语法应如何使用？**
+1. [并行] 异步的底层实现是怎样的？使用时有哪些陷阱？
+
 ### Debug
+
+1. [PDB] Pdb的使用和局限性是怎样的？
+1. [Dump] 如何收集Dump？
+1. [Windbg] 如何使用Windbg分析PVM内存？
+1. [GDB] 如何使用Windbg分析PVM内存？
 
 ### Decorator
 
+1. [装饰] 什么是装饰器模式？
+1. [装饰] **什么是Python中的装饰器语法？如何使用？**
+1. [装饰] 装饰器语法有哪些语法变化？装饰器类，多重装饰，装饰器参数
+
 ### Memory Management
 
+1. [内存] GC机制
+
 ### Time & Space Complexity
+
+1. [算法] 常见的算法
+1. [算法] 标准库的各类算法模块
+1. [算法] 第三方算法模块
 
 ## lab-07 RobotFrameWork
 
 ### Quick Start
 
+1. [RobotFramework] What & Why
+1. [RobotFramework] 10 mins quick start
+1. [RobotFramework] 基本概念
+
 ### Demo
+
+1. [RobotFramework] 在生产环境的应用案例介绍
