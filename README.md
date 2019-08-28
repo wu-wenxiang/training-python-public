@@ -12,6 +12,7 @@
     - [其它数据分析练习](https://share.weiyun.com/5w0Qj5T)
     - [网站日志分析](https://share.weiyun.com/5zY4yG9)
 - 专题
+    - [算法](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/algorithms.md)
     - [设计模式](http://blog.wuwenxiang.net/Design-Pattern)
     - [Django](https://github.com/wu-wenxiang/Training-Django-Public)
     - [单元测试](http://blog.wuwenxiang.net/Python-Unittest)

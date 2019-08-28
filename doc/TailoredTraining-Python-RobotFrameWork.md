@@ -32,7 +32,7 @@
     reCmp=re.compile('^\s*#+\s+(.+)$')
     aList = [reCmp.search(i).groups()[0].strip() for i in aStr.split('\n') if reCmp.search(i)]
     bList = [(i, '-'.join(i.split()).lower().replace('&','').replace('/','')) for i in aList]
-    template = '| | | | [%s](%s) |'
+    template = '| | | | [%s](#%s) |'
     print('\n'.join(template % i for i in bList))
 
 ## lab-00 Python Environment
