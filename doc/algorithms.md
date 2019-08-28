@@ -1,7 +1,5 @@
 # Algorithm
 
-## lab-00 Prerequisites
-
 | Date | Time | Title | Content |
 | ---- | ---- | ----- | ------- |
 | 课前准备 | N/A | [lab-00 Prerequisites](#lab-00-prerequisites) | [Python 数据结构和算法](#python-数据结构和算法) |
@@ -18,6 +16,8 @@
 | 第 4 天 | 上午 | [lab-10 深度优先和广度优先](#lab-10-深度优先和广度优先) | |
 | | | [lab-11 流量与切割](#lab-11-流量与切割) | |
 | | 下午 | [lab-12 NP困难](#lab-12-np困难) | |
+
+## lab-00 Prerequisites
 
 ### Python 数据结构和算法
 1. 标准库
