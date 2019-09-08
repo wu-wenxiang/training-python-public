@@ -18,42 +18,154 @@
 ## lab-00 Reference
 
 - [LeetCode](https://github.com/wu-wenxiang/Training-Python-Public/tree/master/src/leetcode)
+- [timeit](https://docs.python.org/3.7/library/timeit.html)
+
+    ```python
+    def test():
+        """Stupid test function"""
+        L = [i for i in range(100)]
+
+    if __name__ == '__main__':
+        import timeit
+        print(timeit.timeit("test()", setup="from __main__ import test"))
+    ```
+
+    ```python
+    def f(x):
+        return x**2
+    def g(x):
+        return x**4
+    def h(x):
+        return x**8
+
+    import timeit
+    print(timeit.timeit('[func(42) for func in (f,g,h)]', globals=globals()))
+    ```
+
+- [cProfile](https://docs.python.org/3/library/profile.html)
+
+    ```python
+    import cProfile
+    import re
+    cProfile.run('re.compile("foo|bar")')
+    ```
 
 ## lab-01 基础模型
 
 ### lab-01-01 数组
 
-```python
-```
+- list vs [array](https://docs.python.org/3/library/array.html)
 
-Demo: [118. 杨辉三角](https://leetcode-cn.com/problems/pascals-triangle/)
+    ```python
+    from array import array
 
-```python
-class Solution:
-    def generate(self, numRows):
-        triangle = [[1] * i for i in range(1, 3)]
-        for i in range(3, numRows+1):
-            old_row = triangle[i-2]
-            new_row = [1] * i
-            new_row[1:-1] = [i+j for i,j in zip(old_row[:-1], old_row[1:])]
-            triangle.append(new_row)
-        return triangle[:numRows]
+    array('l')
+    array('u', 'hello \u2641')
+    array('l', [1, 2, 3, 4, 5])
+    array('d', [1.0, 2.0, 3.14])
+    array('d', [1.0, 2.0, 3.14]).tolist()
+    ```
+
+- [numpy](https://docs.scipy.org/doc/numpy/user/quickstart.html)
+- Demo: [118. 杨辉三角](https://leetcode-cn.com/problems/pascals-triangle/)
+
+    ```python
+    class Solution:
+        def generate(self, numRows):
+            triangle = [[1] * i for i in range(1, 3)]
+            for i in range(3, numRows+1):
+                old_row = triangle[i-2]
+                new_row = [1] * i
+                new_row[1:-1] = [i+j for i,j in zip(old_row[:-1], old_row[1:])]
+                triangle.append(new_row)
+            return triangle[:numRows]
 
 
-if __name__ == '__main__':
-    solution = Solution()
-    print(solution.generate(5))
-```
+    if __name__ == '__main__':
+        solution = Solution()
+        print(solution.generate(5))
+    ```
 
-### 链表
+### lab-01-02 链表
 
-Demo：[2. 两数相加](https://leetcode-cn.com/problems/add-two-numbers/)
+- Demo：[2. 两数相加](https://leetcode-cn.com/problems/add-two-numbers/)
 
-Demo：变化
+### lab-01-03 栈
 
-### 栈、列表和背包（集合）
+- Demo：变化，逆序转顺序
+- Demo：[844. 比较含退格的字符串](https://leetcode-cn.com/problems/backspace-string-compare/)
 
-- 标准库的实现
+    ```python
+    class Solution:
+        def backspaceCompare(self, S: str, T: str) -> bool:
+            return self.process(S) == self.process(T)
+
+        def process(self, aStr):
+            stack = []
+            for i in aStr:
+                if i == '#' and stack:
+                    stack.pop()
+                elif i != '#':
+                    stack.append(i)
+            return ''.join(stack)
+    ```
+
+### lab-01-03 标准库的实现
+
+- namedtuple：返回 tuple 的子类
+
+    ```python
+    >>> from collections import namedtuple
+    >>> Point = namedtuple('Point', ['x', 'y'])
+    >>> p = Point(1, 2)
+    >>> p.x
+    1
+
+    类似的，如果要用坐标和半径表示一个圆，也可以用namedtuple定义：
+    # namedtuple('名称', [属性list]):
+    Circle = namedtuple('Circle', ['x', 'y', 'r'])
+    ```
+
+- deque：实现了高效插入和删除操作的双向列表（list按索引访问元素很快，但是插入和删除元素就很慢，因为list是线性存储，数据量大的时候，插入和删除效率很低）
+
+    ```python
+    >>> from collections import deque
+    >>> q = deque(['a', 'b', 'c'])
+    >>> q.append('x')
+    >>> q.appendleft('y')
+    >>> q
+    deque(['y', 'a', 'b', 'c', 'x'])
+    ```
+
+    deque除了实现list的append()和pop()外，还支持appendleft()和popleft()。栈和队列。
+
+- defaultdict：key不存在时，返回一个默认值
+
+    ```python
+    >>> from collections import defaultdict
+    >>> dd = defaultdict(lambda: 'N/A')
+    >>> dd['key1'] = 'abc'
+    >>> dd['key1'] # key1存在
+    'abc'
+    >>> dd['key2'] # key2不存在，返回默认值
+    'N/A'
+    ```
+
+- Counter：计数器
+
+    ```python
+    >>> from collections import Counter
+    >>> c = Counter()
+    >>> for ch in 'programming':
+    ...     c[ch] = c[ch] + 1
+    ...
+    >>> c
+    Counter({'g': 2, 'm': 2, 'r': 2, 'a': 1, 'i': 1, 'o': 1, 'n': 1, 'p': 1})
+    >>> Counter('programming')
+    Counter({'r': 2, 'g': 2, 'm': 2, 'p': 1, 'o': 1, 'a': 1, 'i': 1, 'n': 1})
+    >>> c['tt']
+    0
+    ```
 
 ## lab-02 排序
 
@@ -190,6 +302,27 @@ if __name__ == '__main__':
     print(bisearch2(myList, -1))  # None
 ```
 
+- Demo：[327. 区间和的个数](https://leetcode-cn.com/problems/count-of-range-sum/)
+
+    ```python
+    from bisect import bisect_left, bisect_right, insort_right
+
+
+    class Solution:
+        def countRangeSum(self, nums, lower, upper):
+            p = [0]
+            for a in nums:
+                p.append(p[-1] + a)
+            walked = []
+            ans = 0
+            for a in p[::-1]:
+                l, r = a + lower, a + upper
+                i, j = bisect_left(walked, l), bisect_right(walked, r)
+                ans += j - i
+                insort_right(walked, a)
+            return ans
+    ```
+
 ### lab-03-02 二分排序
 
 ```python
@@ -211,24 +344,16 @@ if __name__ == '__main__':
 
 ### lab-03-03 散列表：哈希查找
 
-```python
-
-```
-
-Demo: [1. 两数之和](https://leetcode-cn.com/problems/two-sum/)
-
-- 暴力解法：`O(n**2)`
-- 结合二分查找：`O(n*logN)`
-- 数组映射：`O(n)`
-- 字典映射：[leetcode-0001.py](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/src/leetcode/leetcode-0001.py)
-- 多个版本
-
-Demo: [3. 无重复字符的最长子串](https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/)
-
-- 暴力解法：`O(n**3)`
-- 优化：`O(n**2)`
-- 滑动窗口：[leetcode-0003.py](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/src/leetcode/leetcode-0003.py)，`O(n)`
-
+- Demo: [1. 两数之和](https://leetcode-cn.com/problems/two-sum/)
+    - 暴力解法：`O(n**2)`
+    - 结合二分查找：`O(n*logN)`
+    - 数组映射：`O(n)`
+    - 字典映射：[leetcode-0001.py](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/src/leetcode/leetcode-0001.py)
+    - 多个版本
+- Demo: [3. 无重复字符的最长子串](https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/)
+    - 暴力解法：`O(n**3)`
+    - 优化：`O(n**2)`
+    - 滑动窗口：[leetcode-0003.py](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/src/leetcode/leetcode-0003.py)，`O(n)`
 - 二叉查找树
 - 平衡查找树
 
@@ -294,7 +419,7 @@ if __name__ == '__main__':
 
 ## lab-09 贪心算法
 
-- 优先
+- 局部优先
 
 ## lab-10 广度优先
 
