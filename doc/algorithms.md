@@ -27,9 +27,9 @@
 
 ## lab-02 排序
 
-### 普通排序：选择排序
+### lab-02-01 选择排序
 
-```
+```python
 def findSmallest(a):
     s = 0
     for i, j in enumerate(a):
@@ -52,7 +52,7 @@ if __name__ == '__main__':
     print(selectionSort(myList))
 ```
 
-### 注入比较逻辑
+### lab-02-02 注入比较逻辑
 
 ```python
 def findSmallest(a, key=lambda x: x):
@@ -77,7 +77,7 @@ if __name__ == '__main__':
     print(selectionSort(myList, key=lambda x: str(x)))
 ```
 
-### 快速排序
+### lab-02-03 快速排序
 
 ```python
 def quickSort(a):
@@ -93,7 +93,7 @@ if __name__ == '__main__':
     print(quickSort(myList))
 ```
 
-### 归并排序
+### lab-02-04 归并排序
 
 ```python
 def merge(l, r):
@@ -123,8 +123,61 @@ if __name__ == '__main__':
 
 ## lab-03 查找
 
-- 二分查找
-- 二分排序
+### lab-03-01 二分查找
+
+```python
+import bisect
+
+
+def bisearch(a, x):
+    lo = 0
+    hi = len(a) - 1
+    while lo <= hi:
+        mid = (lo + hi) // 2
+        if x == a[mid]:
+            return mid
+        elif x < a[mid]:
+            hi = mid - 1
+        else:
+            lo = mid + 1
+    return None
+
+
+def bisearch2(a, x):
+    left = bisect.bisect_left(a, x)
+    right = bisect.bisect_right(a, x)
+    if left == right:
+        return None
+    return left
+
+
+if __name__ == '__main__':
+    myList = [1, 3, 5, 7, 9, 11]
+    print(bisearch(myList, 3))  # 1
+    print(bisearch2(myList, 3))  # 1
+    print(bisearch(myList, -1))  # None
+    print(bisearch2(myList, -1))  # None
+```
+
+### lab-03-02 二分排序
+
+```python
+import bisect
+
+
+def bisort(a):
+    ret = []
+    for i in a:
+        bisect.insort(ret, i)
+    return ret
+
+
+if __name__ == '__main__':
+    myList = [1, 13, 75, 71, 9, 41]
+    print(sorted(myList))
+    print(bisort(myList))
+```
+
 - 二叉查找树
 - 平衡查找树
 - 散列表
@@ -147,7 +200,36 @@ if __name__ == '__main__':
 ## lab-06 递归
 
 - 分而治之：基线条件和归纳法
-- 加法问题
+
+### lab-06-02 加法问题
+
+```python
+from functools import reduce
+
+
+def fact(x):
+    if x <= 1:
+        return 1
+    else:
+        return x * fact(x - 1)
+
+
+def fact2(x):
+    if x <= 1:
+        return 1
+    ret = 1
+    for i in range(1, x + 1):
+        ret *= i
+    return ret
+
+
+if __name__ == '__main__':
+    factNum = 5
+    print(reduce(lambda x, y: x * y, range(1, factNum + 1), 1))
+    print(fact(factNum))
+    print(fact2(factNum))
+```
+
 - 斐波那契数列
 - 分地问题（最小公约数问题）
 
