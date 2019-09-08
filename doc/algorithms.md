@@ -17,7 +17,9 @@
 
 ## lab-00 Reference
 
-- [LeetCode](https://github.com/wu-wenxiang/Training-Python-Public/tree/master/src/leetcode)
+- [LeetCode题目](https://leetcode-cn.com/problemset/algorithms/)
+    - [部分答案](https://github.com/wu-wenxiang/Training-Python-Public/tree/master/src/leetcode)
+    - 参考：[https://github.com/qiyuangong/leetcode](https://github.com/qiyuangong/leetcode)
 - [timeit](https://docs.python.org/3.7/library/timeit.html)
 
     ```python
