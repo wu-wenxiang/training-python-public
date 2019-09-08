@@ -21,8 +21,38 @@
 
 ## lab-01 基础模型
 
-- 数组和链表
-- 栈、列表和背包（集合）
+### lab-01-01 数组
+
+```python
+```
+
+Demo: [118. 杨辉三角](https://leetcode-cn.com/problems/pascals-triangle/)
+
+```python
+class Solution:
+    def generate(self, numRows):
+        triangle = [[1] * i for i in range(1, 3)]
+        for i in range(3, numRows+1):
+            old_row = triangle[i-2]
+            new_row = [1] * i
+            new_row[1:-1] = [i+j for i,j in zip(old_row[:-1], old_row[1:])]
+            triangle.append(new_row)
+        return triangle[:numRows]
+
+
+if __name__ == '__main__':
+    solution = Solution()
+    print(solution.generate(5))
+```
+
+### 链表
+
+Demo：[2. 两数相加](https://leetcode-cn.com/problems/add-two-numbers/)
+
+Demo：变化
+
+### 栈、列表和背包（集合）
+
 - 标准库的实现
 
 ## lab-02 排序
@@ -83,9 +113,10 @@ if __name__ == '__main__':
 def quickSort(a):
     if len(a) < 2:
         return a
-    l = quickSort([i for i in a[1:] if i <= a[0]])
-    r = quickSort([i for i in a[1:] if i > a[0]])
-    return l + [a[0]] + r
+    left = quickSort([i for i in a[1:] if i <= a[0]])
+    right = quickSort([i for i in a[1:] if i > a[0]])
+    return left + [a[0]] + right
+
 
 if __name__ == '__main__':
     myList = [1, 13, 75, 71, 9, 41]
@@ -178,9 +209,28 @@ if __name__ == '__main__':
     print(bisort(myList))
 ```
 
+### lab-03-03 散列表：哈希查找
+
+```python
+
+```
+
+Demo: [1. 两数之和](https://leetcode-cn.com/problems/two-sum/)
+
+- 暴力解法：`O(n**2)`
+- 结合二分查找：`O(n*logN)`
+- 数组映射：`O(n)`
+- 字典映射：[leetcode-0001.py](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/src/leetcode/leetcode-0001.py)
+- 多个版本
+
+Demo: [3. 无重复字符的最长子串](https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/)
+
+- 暴力解法：`O(n**3)`
+- 优化：`O(n**2)`
+- 滑动窗口：[leetcode-0003.py](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/src/leetcode/leetcode-0003.py)，`O(n)`
+
 - 二叉查找树
 - 平衡查找树
-- 散列表
 
 ## lab-04 图
 
