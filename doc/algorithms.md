@@ -2,8 +2,6 @@
 
 | Date | Time | Title | Content |
 | ---- | ---- | ----- | ------- |
-| 课前准备 | N/A | [lab-00 Prerequisites](#lab-00-prerequisites) | [Python 数据结构和算法](#python-数据结构和算法) |
-| | | | [Python 科学计算](#python-科学计算) | 
 | 第 1 天 | 上午 | [lab-01 基础模型](#lab-01-基础模型) | |
 | | | [lab-02 排序](#lab-02-排序) | |
 | | 下午 | [lab-03 查找](#lab-03-查找) | |
@@ -17,31 +15,111 @@
 | | | [lab-11 流量与切割](#lab-11-流量与切割) | |
 | | 下午 | [lab-12 NP困难](#lab-12-np困难) | |
 
-## lab-00 Prerequisites
+## lab-00 Reference
 
-### Python 数据结构和算法
-1. 标准库
-2. 三方库
-
-### Python 科学计算
-1. numpy
-2. pandas
-3. scipy
-4. sklearn
-5. matplotlib
+- [LeetCode](https://github.com/wu-wenxiang/Training-Python-Public/tree/master/src/leetcode)
 
 ## lab-01 基础模型
 
 - 数组和链表
-    - 
 - 栈、列表和背包（集合）
 - 标准库的实现
 
 ## lab-02 排序
 
-- 普通排序：选择排序
-- 高级排序：快速排序、归并排序
-- 堆
+### 普通排序：选择排序
+
+```
+def findSmallest(a):
+    s = 0
+    for i, j in enumerate(a):
+        if j < a[s]:
+            s = i
+    return s
+
+
+def selectionSort(a):
+    for i in range(len(a) - 1):
+        s = findSmallest(a[(i + 1):]) + i + 1
+        if a[i] > a[s]:
+            a[i], a[s] = a[s], a[i]
+    return a
+
+
+if __name__ == '__main__':
+    myList = [1, 13, 75, 71, 9, 41]
+    print(sorted(myList))
+    print(selectionSort(myList))
+```
+
+### 注入比较逻辑
+
+```python
+def findSmallest(a, key=lambda x: x):
+    s = 0
+    for i, j in enumerate(a):
+        if key(j) < key(a[s]):
+            s = i
+    return s
+
+
+def selectionSort(a, key=lambda x: x):
+    for i in range(len(a) - 1):
+        s = findSmallest(a[(i + 1):], key) + i + 1
+        if key(a[i]) > key(a[s]):
+            a[i], a[s] = a[s], a[i]
+    return a
+
+
+if __name__ == '__main__':
+    myList = [1, 13, 75, 71, 9, 41]
+    print(sorted(myList, key=lambda x: str(x)))
+    print(selectionSort(myList, key=lambda x: str(x)))
+```
+
+### 快速排序
+
+```python
+def quickSort(a):
+    if len(a) < 2:
+        return a
+    l = quickSort([i for i in a[1:] if i <= a[0]])
+    r = quickSort([i for i in a[1:] if i > a[0]])
+    return l + [a[0]] + r
+
+if __name__ == '__main__':
+    myList = [1, 13, 75, 71, 9, 41]
+    print(sorted(myList))
+    print(quickSort(myList))
+```
+
+### 归并排序
+
+```python
+def merge(l, r):
+    if not l or not r:
+        return l + r
+    if l < r:
+        return [l[0]] + merge(l[1:], r)
+    else:
+        return [r[0]] + merge(l, r[1:])
+
+
+def mergeSort(a):
+    # print(a)
+    if len(a) < 2:
+        return a
+    m = len(a) // 2
+    return merge(mergeSort(a[:m]), mergeSort(a[m:]))
+
+
+if __name__ == '__main__':
+    myList = [1, 13, 75, 71, 9, 41]
+    print(sorted(myList))
+    print(mergeSort(myList))
+```
+
+### 堆
 
 ## lab-03 查找
 
