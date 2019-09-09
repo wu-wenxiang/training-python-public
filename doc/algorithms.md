@@ -340,11 +340,11 @@ if __name__ == '__main__':
                                    0
 
                   1                                 2
-    
+
           3               4                5               6
-    
+
       7       8       9       10      11      12      13      14
-    
+
     15 16   17 18   19 20   21 22   23 24   25 26   27 28   29 30
     ```
 
@@ -463,7 +463,7 @@ if __name__ == '__main__':
             result = []
             self.helper(root, result)
             return result
-            
+
         def helper(self, root, result):
             if root:
                 result.append(root.val)
@@ -490,9 +490,9 @@ if __name__ == '__main__':
                 :rtype: List[int]
                 """
                 if not root: return []
-                
+
                 result, stack = [], [root]
-            
+
                 while stack:
                     cur_node = stack.pop() # 访问根节点，直接进行操作(输出到数组)
                     result.append(cur_node.val)
@@ -500,7 +500,7 @@ if __name__ == '__main__':
                         stack.append(cur_node.right)
                     if cur_node.left: # 后入栈左节点，这样下一轮循环先访问左节点，维护了访问顺序
                         stack.append(cur_node.left)
-                        
+
                 return result
         ```
 
@@ -526,19 +526,19 @@ if __name__ == '__main__':
                 """
                 if root is None: return []
                 result, stack = [], []
-                
+
                 p_node = root # 当前访问节点指针
                 while p_node or stack:
-                    
+
                     while p_node: # 把所有当前访问节点的左孩子都入栈
                         stack.append(p_node)
                         p_node = p_node.left
-                    
+
                     cur_node = stack.pop() # 操作栈顶节点，如果是第一次运行到这步，那么这是整棵树的最左节点
                     result.append(cur_node.val) # 因为已经保证没有左节点，可以访问根节点
                     if cur_node.right:
-                    	p_node = cur_node.right # 将指针指向当前节点的右节点
-                
+                        p_node = cur_node.right # 将指针指向当前节点的右节点
+
                 return result
         ```
 
@@ -563,9 +563,9 @@ if __name__ == '__main__':
                 :rtype: List[int]
                 """
                 if root is None: return []
-                
+
                 result, stack = [], [(root, False)]
-                
+
                 while stack:
                     cur_node, visited = stack.pop()
                     if visited: # 只有访问状态为True的节点才能被操作
@@ -576,7 +576,7 @@ if __name__ == '__main__':
                             stack.append((cur_node.right, False))
                         if cur_node.left:
                             stack.append((cur_node.left, False))
-                            
+
                 return result
         ```
 
@@ -590,7 +590,7 @@ if __name__ == '__main__':
                 if root is None: return []
                 
                 result, stack = [], [root]
-            
+
                 while stack:
                     cur_node = stack.pop()
                     result.append(cur_node.val)
@@ -598,7 +598,7 @@ if __name__ == '__main__':
                         stack.append(cur_node.left)
                     if cur_node.right: # 修改顺序
                         stack.append(cur_node.right)
-                        
+
                 return result[::-1] # 反序操作
         ```
 
@@ -644,7 +644,7 @@ if __name__ == '__main__':
                 if root is None: return []
                 # 在本节点的操作，左右孩子互换
                 root.left, root.right = root.right, root.left
-                # 已经搞定的左右孩子，使用递归的思路写出函数表达式  
+                # 已经搞定的左右孩子，使用递归的思路写出函数表达式
                 self.invertTree(root.right) # 下面两句的顺序并不重要
                 self.invertTree(root.left)
                 return root
@@ -656,10 +656,10 @@ if __name__ == '__main__':
                 """
                 :type root: TreeNode
                 :rtype: TreeNode
-                """   
+                """
                 if root is None: return []
                 stack = [root]
-                
+
                 while stack:
                     cur_node = stack.pop()
                     # 对当前节点进行操作
@@ -667,7 +667,7 @@ if __name__ == '__main__':
                     # 进行入栈操作，保证访问到每一个节点
                     if cur_node.left: stack.append(cur_node.left)
                     if cur_node.right: stack.append(cur_node.right)
-                    
+
                 return root
         ```
 
