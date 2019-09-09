@@ -693,6 +693,40 @@ if __name__ == '__main__':
         - 如果我们给的p,q节点都小于node节点，那么他们最近的公共祖先一定在node左边。
         - 如果我们给的p,q节点都大于node节点，那么他们最近的公共祖先一定在ndoe右边。
         - 如果一小一大，那么node一定是最近的公众祖先。
+    - Demo: [1038. 从二叉搜索树到更大和树](https://leetcode-cn.com/problems/binary-search-tree-to-greater-sum-tree/submissions/)
+
+        ```python
+        # Definition for a binary tree node.
+        # class TreeNode:
+        #     def __init__(self, x):
+        #         self.val = x
+        #         self.left = None
+        #         self.right = None
+
+        class Solution:
+            def bstToGst(self, root: TreeNode) -> TreeNode:
+                tmp = None
+
+                if root is None: return []
+                result, stack = [], []
+
+                p_node = root # 当前访问节点指针
+                while p_node or stack:
+
+                    while p_node: # 把所有当前访问节点的左孩子都入栈
+                        stack.append(p_node)
+                        p_node = p_node.right
+
+                    cur_node = stack.pop() # 操作栈顶节点，如果是第一次运行到这步，那么这是整棵树的最左节点
+                    if tmp != None:
+                        cur_node.val += tmp
+                    tmp = cur_node.val
+                    result.append(cur_node.val) # 因为已经保证没有左节点，可以访问根节点
+                    if cur_node.left:
+                        p_node = cur_node.left # 将指针指向当前节点的右节点
+
+                return root
+        ```
 
 - [二叉查找树](https://baike.baidu.com/item/二叉排序树)
 - [平衡二叉查找树 AVL](https://zhuanlan.zhihu.com/p/56066942)
