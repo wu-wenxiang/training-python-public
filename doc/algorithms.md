@@ -230,6 +230,15 @@ if __name__ == '__main__':
     print(selectionSort(myList, key=lambda x: str(x)))
 ```
 
+- Demo：对一个列表进行模拟排序（不实际排序，而是返回排序后的原始索引值）
+
+    ```python
+    >>> aList = [1, 3, 4, 2, 5, 2]
+    >>> aDict = {i:j for i,j in enumerate(aList)}
+    >>> print(sorted(aDict, key=lambda x: aDict[x]))
+    [0, 3, 5, 1, 2, 4]
+    ```
+
 ### lab-02-03 快速排序
 
 ```python
@@ -327,6 +336,18 @@ if __name__ == '__main__':
     (1, 'write spec')
     ```
 
+    ```
+                                   0
+
+                  1                                 2
+    
+          3               4                5               6
+    
+      7       8       9       10      11      12      13      14
+    
+    15 16   17 18   19 20   21 22   23 24   25 26   27 28   29 30
+    ```
+
 ## lab-03 查找
 
 ### lab-03-01 二分查找
@@ -422,8 +443,238 @@ if __name__ == '__main__':
 
 - [满二叉树](https://baike.baidu.com/item/满二叉树)
 - [完全二叉树](https://baike.baidu.com/item/完全二叉树)
-- [二叉排序树](https://baike.baidu.com/item/二叉排序树)
-- [平衡查找树](https://zhuanlan.zhihu.com/p/56066942)
+- Demo：[treelib](https://treelib.readthedocs.io/en/latest/)
+- 二叉树的遍历
+
+    ![](http://songwenjie.vip/blog/180426/jlIAfhlcL3.png?imageslim)
+
+    ```python
+    class TreeNode:
+        def __init__(self, x):
+            self.val = x
+            self.left = None
+            self.right = None
+    ```
+
+    - 前序遍历：中、左、右：[Leetcode 44. Binary Tree Preorder Traversal](https://leetcode.com/problems/binary-tree-preorder-traversal/)
+
+        ```python
+        def preorderTraversal1(self, root):
+            result = []
+            self.helper(root, result)
+            return result
+            
+        def helper(self, root, result):
+            if root:
+                result.append(root.val)
+                self.helper(root.left, result)
+                self.helper(root.right, result)
+        ```
+
+        ```python
+        class Solution:
+            def preorderTraversal(self, root):
+                """
+                :type root: TreeNode
+                :rtype: List[int]
+                """
+                if root is None: return []
+                return [] if root is None else [root.val] + self.preorderTraversal(root.left) + self.preorderTraversal(root.right)
+        ```
+
+        ```python
+        class Solution:
+            def preorderTraversal(self, root):
+                """
+                :type root: TreeNode
+                :rtype: List[int]
+                """
+                if not root: return []
+                
+                result, stack = [], [root]
+            
+                while stack:
+                    cur_node = stack.pop() # 访问根节点，直接进行操作(输出到数组)
+                    result.append(cur_node.val)
+                    if cur_node.right: # 先入栈右节点
+                        stack.append(cur_node.right)
+                    if cur_node.left: # 后入栈左节点，这样下一轮循环先访问左节点，维护了访问顺序
+                        stack.append(cur_node.left)
+                        
+                return result
+        ```
+
+    - 中序遍历：左、中、右，适用排序，[94. Binary Tree Inorder Traversal](https://leetcode.com/problems/binary-tree-inorder-traversal/)
+
+        ```python
+        class Solution:
+            def inorderTraversal(self, root):
+                """
+                :type root: TreeNode
+                :rtype: List[int]
+                """
+                if root is None: return []
+                return [] if root is None else self.inorderTraversal(root.left) + [root.val] + self.inorderTraversal(root.right)
+        ```
+
+        ```python
+        class Solution:
+            def inorderTraversal(self, root):
+                """
+                :type root: TreeNode
+                :rtype: List[int]
+                """
+                if root is None: return []
+                result, stack = [], []
+                
+                p_node = root # 当前访问节点指针
+                while p_node or stack:
+                    
+                    while p_node: # 把所有当前访问节点的左孩子都入栈
+                        stack.append(p_node)
+                        p_node = p_node.left
+                    
+                    cur_node = stack.pop() # 操作栈顶节点，如果是第一次运行到这步，那么这是整棵树的最左节点
+                    result.append(cur_node.val) # 因为已经保证没有左节点，可以访问根节点
+                    if cur_node.right:
+                    	p_node = cur_node.right # 将指针指向当前节点的右节点
+                
+                return result
+        ```
+
+    - 后序遍历：左、右、中，适用删除节点，判断相同子树。[145. Binary Tree Postorder Traversal](https://leetcode.com/problems/binary-tree-postorder-traversal/)
+
+        ```python
+        class Solution:
+            def postorderTraversal(self, root):
+                """
+                :type root: TreeNode
+                :rtype: List[int]
+                """
+                if root is None: return []
+                return [] if root is None else self.postorderTraversal(root.left) + self.postorderTraversal(root.right) + [root.val]
+        ```
+
+        ```python
+        class Solution:
+            def postorderTraversal(self, root):
+                """
+                :type root: TreeNode
+                :rtype: List[int]
+                """
+                if root is None: return []
+                
+                result, stack = [], [(root, False)]
+                
+                while stack:
+                    cur_node, visited = stack.pop()
+                    if visited: # 只有访问状态为True的节点才能被操作
+                        result.append(cur_node.val)
+                    else:
+                        stack.append((cur_node, True))
+                        if cur_node.right:
+                            stack.append((cur_node.right, False))
+                        if cur_node.left:
+                            stack.append((cur_node.left, False))
+                            
+                return result
+        ```
+
+        ```python
+        class Solution:
+            def preorderTraversal(self, root):
+                """
+                :type root: TreeNode
+                :rtype: List[int]
+                """
+                if root is None: return []
+                
+                result, stack = [], [root]
+            
+                while stack:
+                    cur_node = stack.pop()
+                    result.append(cur_node.val)
+                    if cur_node.left: # 修改顺序
+                        stack.append(cur_node.left)
+                    if cur_node.right: # 修改顺序
+                        stack.append(cur_node.right)
+                        
+                return result[::-1] # 反序操作
+        ```
+
+    - 层级遍历：广度优先，[102. Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/)，[107. Binary Tree Level Order Traversal 2](https://leetcode.com/problems/binary-tree-level-order-traversal-ii/)
+
+        ```python
+        from collections import deque
+
+        class Solution:
+            def levelOrder(self, root):
+                """
+                :type root: TreeNode
+                :rtype: List[List[int]]
+                """
+                if root is None: return []
+                result, queue = [], deque([root])
+                
+                while queue:
+                    level_len = len(queue) # 记录现在队列中的节点数量
+                    level_nodes = [] # 每层输出
+                    while level_len > 0: # 具体出队入队操作，保证本层所有节点的子节点都入队
+                        cur_node = queue.popleft()
+                        level_nodes.append(cur_node.val)
+                        if cur_node.left:
+                            queue.append(cur_node.left)
+                        if cur_node.right:
+                            queue.append(cur_node.right)
+                        level_len -= 1
+                    result.append(level_nodes)
+                
+                return result
+        ```
+
+    - Demo：[226. Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree)，Brew
+
+        ```python
+        class Solution:
+            def invertTree(self, root):
+                """
+                :type root: TreeNode
+                :rtype: TreeNode
+                """
+                if root is None: return []
+                # 在本节点的操作，左右孩子互换
+                root.left, root.right = root.right, root.left
+                # 已经搞定的左右孩子，使用递归的思路写出函数表达式  
+                self.invertTree(root.right) # 下面两句的顺序并不重要
+                self.invertTree(root.left)
+                return root
+        ```
+
+        ```python
+        class Solution:
+            def invertTree(self, root):
+                """
+                :type root: TreeNode
+                :rtype: TreeNode
+                """   
+                if root is None: return []
+                stack = [root]
+                
+                while stack:
+                    cur_node = stack.pop()
+                    # 对当前节点进行操作
+                    cur_node.left, cur_node.right = cur_node.right, cur_node.left
+                    # 进行入栈操作，保证访问到每一个节点
+                    if cur_node.left: stack.append(cur_node.left)
+                    if cur_node.right: stack.append(cur_node.right)
+                    
+                return root
+        ```
+
+- [二叉查找树](https://baike.baidu.com/item/二叉排序树)
+- [平衡二叉查找树](https://zhuanlan.zhihu.com/p/56066942)
+- [红黑树](https://zhuanlan.zhihu.com/p/31805309)
+- Demo：[bintrees](https://pypi.org/project/bintrees/)
 
 ## lab-04 图
 
