@@ -689,6 +689,11 @@ if __name__ == '__main__':
             };
         ```
 
+    - Demo: leetcode 235. 二叉搜索树的最近公共祖先
+        - 如果我们给的p,q节点都小于node节点，那么他们最近的公共祖先一定在node左边。
+        - 如果我们给的p,q节点都大于node节点，那么他们最近的公共祖先一定在ndoe右边。
+        - 如果一小一大，那么node一定是最近的公众祖先。
+
 - [二叉查找树](https://baike.baidu.com/item/二叉排序树)
 - [平衡二叉查找树 AVL](https://zhuanlan.zhihu.com/p/56066942)
 - [红黑树](https://zhuanlan.zhihu.com/p/31805309)：红黑树并不追求完全平衡，它只要求部分地达到平衡要求，降低了对旋转的要求，从而提高了性能。
