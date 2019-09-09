@@ -671,9 +671,27 @@ if __name__ == '__main__':
                 return root
         ```
 
+    - Demo: leetcode 104. 二叉树的最大深度，类似111
+
+        ```c++
+        class Solution {
+            public:
+                //求节点root的深度
+                int maxDepth(TreeNode* root) {
+                    //终止条件
+                    if(root == NULL){ 
+                        return 0;
+                    }
+                    
+                    return 1 + max(maxDepth(root -> left), maxDepth(root -> right));
+                    
+                }
+            };
+        ```
+
 - [二叉查找树](https://baike.baidu.com/item/二叉排序树)
-- [平衡二叉查找树](https://zhuanlan.zhihu.com/p/56066942)
-- [红黑树](https://zhuanlan.zhihu.com/p/31805309)
+- [平衡二叉查找树 AVL](https://zhuanlan.zhihu.com/p/56066942)
+- [红黑树](https://zhuanlan.zhihu.com/p/31805309)：红黑树并不追求完全平衡，它只要求部分地达到平衡要求，降低了对旋转的要求，从而提高了性能。
 - Demo：[bintrees](https://pypi.org/project/bintrees/)
 
 ## lab-04 图
