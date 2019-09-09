@@ -52,6 +52,15 @@
     cProfile.run('re.compile("foo|bar")')
     ```
 
+- 生成测试随机序列
+
+    ```python
+    import random
+
+    loopN = 1000000
+    aList = [random.randint(1, loopN) for i in range(loopN)]
+    ```
+
 ## lab-01 基础模型
 
 ### lab-01-01 数组
@@ -264,7 +273,59 @@ if __name__ == '__main__':
     print(mergeSort(myList))
 ```
 
-### 堆
+### lab-02-05 排序算法案例
+
+- Demo：[56. 合并区间](https://leetcode-cn.com/problems/merge-intervals/submissions/)
+
+    ```python
+    class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        aList = sorted(intervals)
+        bList = []
+        for i in aList:
+            if bList and bList[-1][1] >= i[0]:
+                bList[-1][1] = max(i[1], bList[-1][1])
+            else:
+                bList.append(i)
+        return bList
+    ```
+
+- Demo: 测试排序算法速度
+
+### lab-02-06 堆排序
+
+- 定义
+
+    **Heaps are binary trees for which every parent node has a value less than or equal to any of its children.** This implementation uses arrays for which `heap[k] <= heap[2*k+1]` and `heap[k] <= heap[2*k+2]` for all k, counting elements from zero. For the sake of comparison, non-existing elements are considered to be infinite. The interesting property of a heap is that its smallest element is always the root, heap[0].
+
+    | | 入队 | 出队 |
+    | :-- | :-- | :-- |
+    | 普通数组	| O(1) | O(n) |
+    | 顺序数组 | O(n) | O(1) |
+    | 堆 | O(lgn) | O(lgn) |
+
+- [heapq — Heap queue algorithm](https://docs.python.org/3.7/library/heapq.html)
+
+    ```python
+    >>> def heapsort(iterable):
+    ...     h = []
+    ...     for value in iterable:
+    ...         heappush(h, value)
+    ...     return [heappop(h) for i in range(len(h))]
+    ...
+    >>> heapsort([1, 3, 5, 7, 9, 2, 4, 6, 8, 0])
+    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    ```
+
+    ```python
+    >>> h = []
+    >>> heappush(h, (5, 'write code'))
+    >>> heappush(h, (7, 'release product'))
+    >>> heappush(h, (1, 'write spec'))
+    >>> heappush(h, (3, 'create tests'))
+    >>> heappop(h)
+    (1, 'write spec')
+    ```
 
 ## lab-03 查找
 
@@ -356,8 +417,13 @@ if __name__ == '__main__':
     - 暴力解法：`O(n**3)`
     - 优化：`O(n**2)`
     - 滑动窗口：[leetcode-0003.py](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/src/leetcode/leetcode-0003.py)，`O(n)`
-- 二叉查找树
-- 平衡查找树
+
+### lab-03-04 二叉树
+
+- [满二叉树](https://baike.baidu.com/item/满二叉树)
+- [完全二叉树](https://baike.baidu.com/item/完全二叉树)
+- [二叉排序树](https://baike.baidu.com/item/二叉排序树)
+- [平衡查找树](https://zhuanlan.zhihu.com/p/56066942)
 
 ## lab-04 图
 
