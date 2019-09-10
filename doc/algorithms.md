@@ -100,6 +100,25 @@
 ### lab-01-02 链表
 
 - Demo：[2. 两数相加](https://leetcode-cn.com/problems/add-two-numbers/)
+- leetcode206.反转链表
+- leetcode92 Reverse Linked List II
+- leetcode83 Remove Duplicates from Sorted List**
+- leetcode86 Partition List
+- leetcode328 Odd Even Linked List
+- leetcode2 Add Two Numbers**
+- leetcode445 Add Two Numbers II**
+- leetcode203. 删除链表中的节点
+- leetcode 82. Remove Duplicates from Sorted List II
+- leetcode 21. Merge Two Sorted Lists
+- leetcode 24. 两两交换链表中的节点
+- leetcode 25. Reverse Nodes in k-Group
+- leetcode 147. Insertion Sort List
+- leetcode 148. Sort List
+- leetcode237. 删除链表中的节点
+- leetcode 19. Remove Nth Node From End of List
+- leetcode 61. Rotate List
+- leetcode 143. Reorder List
+- leetcode234. Palindrome Linked List
 
 ### lab-01-03 栈
 
@@ -177,6 +196,9 @@
     >>> c['tt']
     0
     ```
+
+- leetcode 347. 前K个高频元素
+- leetcode 23
 
 ## lab-02 排序
 
@@ -693,6 +715,11 @@ if __name__ == '__main__':
         - 如果我们给的p,q节点都小于node节点，那么他们最近的公共祖先一定在node左边。
         - 如果我们给的p,q节点都大于node节点，那么他们最近的公共祖先一定在ndoe右边。
         - 如果一小一大，那么node一定是最近的公众祖先。
+    - Demo：leetcode 98
+    - Demo：leetcode 450
+    - Demo：leetcode 108
+    - Demo：leetcode 230
+    - Demo：leetcode 236
     - Demo: [1038. 从二叉搜索树到更大和树](https://leetcode-cn.com/problems/binary-search-tree-to-greater-sum-tree/submissions/)
 
         ```python
@@ -1235,6 +1262,13 @@ if __name__ == '__main__':
     print(len(largest_components))  # 4
     ```
 
+### 习题
+
+- 克隆图
+- leetcode 279. 完全平方数
+- leetcode 127.
+- leetcode 126.
+
 ## lab-05 字符串
 
 - 字符串排序
@@ -1278,6 +1312,7 @@ if __name__ == '__main__':
 
 ### lab-06-03 斐波那契数列
 
+- leetcode 70. 爬楼梯
 - 生成器解法
 - 递归解法
 - 递归+标记解法
@@ -1293,6 +1328,8 @@ if __name__ == '__main__':
     print(fib(1000))
     print(fibDict)
     ```
+- leetcode 120
+- leetcode 64
 
 ### lab-06-04 分地问题（最小公约数问题）
 
@@ -1307,12 +1344,78 @@ def greatestCommonDivisor(m, n):
 print(greatestCommonDivisor(16, 12))
 ```
 
+### lab-06-05 习题
+
+- leetcode 17. 电话号码的字母组合
+- leetcode 93
+- leetcode 131
+
 ## lab-07 回溯
+
+[回溯法](https://baike.baidu.com/item/%E5%9B%9E%E6%BA%AF%E6%B3%95)（探索与回溯法）是一种选优搜索法，又称为试探法，按选优条件向前搜索，以达到目标。但当探索到某一步时，发现原先选择并不优或达不到目标，就退回一步重新选择，这种走不通就退回再走的技术为回溯法，而满足回溯条件的某个状态的点称为"回溯点"。
+
+### lab-07-01 全排列
+
+- leetcode 46. 全排列
+- leetcode 47
+
+### lab-07-02 组合
+
+- leetcode 77. 组合
+- leetcode 39
+- leetcode 40
+- leetcode 216
+- leetcode 78
+- leetcode 90
+- leetcode 401
+
+### lab-07-03 二维平面上的回溯法
+
+- leetcode79. 单词搜索
+- leetcode 200. 岛屿的个数
+- leetcode 130
+- leetcode 417
+
+### lab-07-04 经典人工智能
+
+- leetcode 51. N皇后
+- leetcode 52
+- leetcode 37
 
 ## lab-08 动态规划
 
-- 背包问题
-- 最长公共子串
+### lab-08-01 背包问题
+
+- leetcode 322
+- leetcode 377
+- leetcode 474
+- leetcode 139
+- leetcode 494
+
+### lab-08-02 最长公共子串
+
+### lab-08-03 发现重叠子问题
+
+- leetcode 343. 整数拆分
+- leetcode 279
+- leetcode 91
+- leetcode 62
+- leetcode 63
+
+### lab-08-04 状态的定义和状态转移
+
+- leetcode 198. 打家劫舍
+- leetcode 213
+- leetcode 337
+- leetcode 309
+
+### lab-08-05 滑动窗口和区间累计问题
+
+- leetcode 209. 长度最小的子数组
+- leetcode 167. 两数之和 II - 输入有序数组
+- leetcode 112. 路径总和
+- leetcode 257. 二叉树的所有路径，类似：leetcode 113，leetcode 129
+- leetcode 437. 路径总和 III
 
 ## lab-09 贪心算法
 
