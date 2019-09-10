@@ -875,197 +875,365 @@ if __name__ == '__main__':
 
 ### lab-04-04 最小生成树
 
-对于图的操作，还有一个最常用的就是找到最小生成树，最小生成树就是用最少的边连接所有顶点。对于给定的一组顶点，可能有很多种最小生成树，但是最小生成树的边的数量 E 总是比顶点 V 的数量小1，即：`V = E + 1`
+- 无权图
+    - 最小生成树就是用最少的边连接所有顶点。对于给定的一组顶点，可能有很多种最小生成树，但是最小生成树的边的数量 E 总是比顶点 V 的数量小1，即：`V = E + 1`
+    - 这里不用关心边的长度，不是找最短的路径（会在带权图中讲解），而是找最少数量的边，可以基于深度优先搜索和广度优先搜索来实现。
+    - 比如基于深度优先搜索，我们记录走过的边，就可以创建一个最小生成树。因为DFS 访问所有顶点，但只访问一次，它绝对不会两次访问同一个顶点，但她看到某条边将到达一个已访问的顶点，它就不会走这条边，它从来不遍历那些不可能的边，因此，DFS 算法走过整个图的路径必定是最小生成树。
+- 有权图
+    - [Prim算法](https://zh.wikipedia.org/wiki/%E6%99%AE%E6%9E%97%E5%A7%86%E7%AE%97%E6%B3%95)，ElogE，或者ElogV
+        - 以某一个点开始，寻找当前该点可以访问的所有的边
+        - 在已经寻找的边中发现最小边，这个边必须有一个点还没有访问过，将还没有访问的点加入我们的集合，记录添加的边
+        - 寻找当前集合可以访问的所有边，重复2的过程，直到没有新的点可以加入
+        - 此时由所有边构成的树即为最小生成树
+    - [Kruskal算法](https://zh.wikipedia.org/wiki/%E5%85%8B%E9%B2%81%E6%96%AF%E5%85%8B%E5%B0%94%E6%BC%94%E7%AE%97%E6%B3%95)，ElogE
+        - 新建图G，G中拥有原图中相同的节点，但没有边
+        - 将原图中所有的边按权值从小到大排序
+        - 从权值最小的边开始，如果这条边连接的两个节点于图G中不在同一个连通分量中，则添加这条边到图G中
+        - 重复3，直至图G中所有的节点都在同一个连通分量中
 
-这里不用关心边的长度，不是找最短的路径（会在带权图中讲解），而是找最少数量的边，可以基于深度优先搜索和广度优先搜索来实现。
-
-比如基于深度优先搜索，我们记录走过的边，就可以创建一个最小生成树。因为DFS 访问所有顶点，但只访问一次，它绝对不会两次访问同一个顶点，但她看到某条边将到达一个已访问的顶点，它就不会走这条边，它从来不遍历那些不可能的边，因此，DFS 算法走过整个图的路径必定是最小生成树。
-
-### lab-04-05 最短路径
+### lab-04-05 最短路径：有向图
 
 - 无权图中的最短路径算法的就是广度优先遍历
-- 有权无向图的最短路径算法是迪克斯特拉算法
+- 有权图的最短路径算法是迪克斯特拉算法 n*n, nlogn
+    - 找到最近的节点
+    - 对该节点的邻居，检查是否有更短路径，如果有就更新
+    - 重复上述过程，直到每一个节点都做了
+    - 计算最终路径
+    
+    ![](https://github.com/wangkuiwu/datastructs_and_algorithm/blob/master/pictures/graph/dijkstra/02.jpg?raw=true&_=3711516)
+- 扩展：负权，[贝尔曼福德算法](https://zh.wikipedia.org/wiki/%E8%B4%9D%E5%B0%94%E6%9B%BC-%E7%A6%8F%E7%89%B9%E7%AE%97%E6%B3%95) V*E
 
 ### lab-04-06 类库：networkx
 
-[networkx](https://networkx.github.io/documentation/stable/tutorial.html)
+- 文档：[networkx](https://networkx.github.io/documentation/stable/tutorial.html)
+- 基本操作
 
-```python
-import networkx as nx
-import matplotlib.pyplot as plt
-
-
-# 1.创建一个图
-g = nx.Graph()
-g.clear     # 将图上元素清空
+    ```python
+    import networkx as nx
+    import matplotlib.pyplot as plt
 
 
-# 2.节点
-g.add_node(1)           # 添加一个节点
-g.add_node("a")
-g.add_node("spam")
-# g.add_nodes_from([2, 3])
-nodes_list = [2, 3]     # 添加一组节点
-g.add_nodes_from(nodes_list)
-
-g.add_node("spam")          # 添加了一个名为spam的节点
-g.add_nodes_from("spam")    # 添加了4个节点，名为s,p,a,m
-H = nx.path_graph(10)
-g.add_nodes_from(H)         # 将0~9加入了节点, 请勿使用g.add_node(H)
-
-node_name = "spam"
-g.remove_node(node_name)        # 删除节点
-g.remove_nodes_from("spam")
-print('g.nodes:', g.node())     # 0-9共10个节点打印出来
+    # 1.创建一个图
+    g = nx.Graph()
+    g.clear     # 将图上元素清空
 
 
-# 3.边
-g.add_edge(1, 2)        # 添加一条边
-e = (2, 3)
-g.add_edge(*e)          # 直接g.add_edge(e)数据类型不对，*是将元组中的元素取出
-g.add_edges_from([(0, 9), (1, 3), (1, 4)])  # 添加一组边
+    # 2.节点
+    g.add_node(1)           # 添加一个节点
+    g.add_node("a")
+    g.add_node("spam")
+    # g.add_nodes_from([2, 3])
+    nodes_list = [2, 3]     # 添加一组节点
+    g.add_nodes_from(nodes_list)
 
-n = 10
-H = nx.path_graph(n)
-g.add_edges_from(H.edges())     # 添加了0~1,1~2 ... n-2~n-1这样的n-1条连续的边
+    g.add_node("spam")          # 添加了一个名为spam的节点
+    g.add_nodes_from("spam")    # 添加了4个节点，名为s,p,a,m
+    H = nx.path_graph(10)
+    g.add_nodes_from(H)         # 将0~9加入了节点, 请勿使用g.add_node(H)
 
-edge_name = (0, 9)
-edges_list = [(1, 3), (1, 4)]
-g.remove_edge(*edge_name)       # 删除边
-g.remove_edges_from(edges_list)
-print('g.edges:', g.edges())
-
-
-# 4.查看信息
-g.number_of_nodes()     # 查看点的数量
-g.number_of_edges()     # 查看边的数量
-g.nodes()               # 返回所有点的信息(list)
-g.edges()               # 返回所有边的信息(list中每个元素是一个tuple)
-print([i for i in g.neighbors(1)])  # 所有与1这个点相连的点的信息以列表的形式返回
-print(g[1])             # 查看所有与1相连的边的属性，格式输出：{0: {}, 2: {}} 表示1和0相连的边没有设置任何属性（也就是{}没有信息），同理1和2相连的边也没有任何属性
+    node_name = "spam"
+    g.remove_node(node_name)        # 删除节点
+    g.remove_nodes_from("spam")
+    print('g.nodes:', g.node())     # 0-9共10个节点打印出来
 
 
-# 5.图的属性设置
-g = nx.Graph(day="Monday")
-g.graph                     # {'day': 'Monday'}
+    # 3.边
+    g.add_edge(1, 2)        # 添加一条边
+    e = (2, 3)
+    g.add_edge(*e)          # 直接g.add_edge(e)数据类型不对，*是将元组中的元素取出
+    g.add_edges_from([(0, 9), (1, 3), (1, 4)])  # 添加一组边
 
-g.graph['day'] = 'Tuesday'  # 修改属性
-g.graph                     # {'day': 'Tuesday'}
+    n = 10
+    H = nx.path_graph(n)
+    g.add_edges_from(H.edges())     # 添加了0~1,1~2 ... n-2~n-1这样的n-1条连续的边
 
-
-# 6.点的属性设置
-g.add_node('benz', money=10000, fuel="1.5L")
-print(g.node['benz'])           # {'fuel': '1.5L', 'money': 10000}
-print(g.node['benz']['money'])  # 10000
-print(g.nodes(data=True))       # data默认false就是不输出属性信息，修改为true，会将节点名字和属性信息一起输出
-
-
-# 7.边的属性设置
-g.clear()
-n = 10
-H = nx.path_graph(n)
-g.add_nodes_from(H)
-g.add_edges_from(H.edges())
-g[1][2]['color'] = 'blue'
-
-g.add_edge(1, 2, weight=4.7)
-g.add_edges_from([(3, 4), (4, 5)], color='red')
-g.add_edges_from([(1, 2, {'color': 'blue'}), (2, 3, {'weight': 8})])
-g[1][2]['weight'] = 4.7
+    edge_name = (0, 9)
+    edges_list = [(1, 3), (1, 4)]
+    g.remove_edge(*edge_name)       # 删除边
+    g.remove_edges_from(edges_list)
+    print('g.edges:', g.edges())
 
 
-# 8.不同类型的图（有向图Directed graphs , 重边图 Multigraphs）
-# Directed graphs
-DG = nx.DiGraph()
-DG.add_weighted_edges_from([(1, 2, 0.5), (3, 1, 0.75), (1, 4, 0.3)])    # 添加带权值的边
-print(DG.out_degree(1))                     # 打印结果：2 表示：找到1的出度
-print(DG.out_degree(1, weight='weight'))    # 打印结果：0.8 表示：从1出去的边的权值和，这里权值是以weight属性值作为标准，如果你有一个money属性，那么也可以修改为weight='money'，那么结果就是对money求和了
-print(list(DG.successors(1)))               # [2,4] 表示1的后继节点有2和4
-print(list(DG.predecessors(1)))             # [3] 表示只有一个节点3有指向1的连边
-
-# Multigraphs
-MG = nx.MultiGraph()
-MG.add_weighted_edges_from([(1, 2, .5), (1, 2, .75), (2, 3, .5)])
-print(MG.degree(weight='weight'))   # {1: 1.25, 2: 1.75, 3: 0.5}
-GG = nx.Graph()
-for n, nbrs in MG.adjacency():
-    for nbr, edict in nbrs.items():
-        minvalue = min([d['weight'] for d in edict.values()])
-        GG.add_edge(n, nbr, weight=minvalue)
-print(GG.degree(weight='weight'))     # [(1, 0.5), (2, 1.0), (3, 0.5)]
-print(nx.shortest_path(GG, 1, 3))     # [1, 2, 3]
+    # 4.查看信息
+    g.number_of_nodes()     # 查看点的数量
+    g.number_of_edges()     # 查看边的数量
+    g.nodes()               # 返回所有点的信息(list)
+    g.edges()               # 返回所有边的信息(list中每个元素是一个tuple)
+    print([i for i in g.neighbors(1)])  # 所有与1这个点相连的点的信息以列表的形式返回
+    print(g[1])             # 查看所有与1相连的边的属性，格式输出：{0: {}, 2: {}} 表示1和0相连的边没有设置任何属性（也就是{}没有信息），同理1和2相连的边也没有任何属性
 
 
-# 9.图的遍历
-g = nx.Graph()
-g.add_weighted_edges_from([(1, 2, 0.125), (1, 3, 0.75), (2, 4, 1.2), (3, 4, 0.375)])
-for n, nbrs in g.adjacency():       # n表示每一个起始点，nbrs是一个字典，字典中的每一个元素包含了这个起始点连接的点和这两个点连边对应的属性
-    print(n, nbrs)
-    for nbr, eattr in nbrs.items():
-        # nbr表示跟n连接的点，eattr表示这两个点连边的属性集合，这里只设置了weight，如果你还设置了color，那么就可以通过eattr['color']访问到对应的color元素
-        data = eattr['weight']
-        if data < 0.5:
-            print('(%d, %d, %.3f)' % (n, nbr, data))
+    # 5.图的属性设置
+    g = nx.Graph(day="Monday")
+    g.graph                     # {'day': 'Monday'}
+
+    g.graph['day'] = 'Tuesday'  # 修改属性
+    g.graph                     # {'day': 'Tuesday'}
 
 
-# 10.图生成和图上的一些操作
-# subgraph(G, nbunch)      - induce subgraph of G on nodes in nbunch
-# union(G1,G2)             - graph union
-# disjoint_union(G1,G2)    - graph union assuming all nodes are different
-# cartesian_product(G1,G2) - return Cartesian product graph
-# compose(G1,G2)           - combine graphs identifying nodes common to both
-# complement(G)            - graph complement
-# create_empty_copy(G)     - return an empty copy of the same graph class
-# convert_to_undirected(G) - return an undirected representation of G
-# convert_to_directed(G)   - return a directed representation of G
+    # 6.点的属性设置
+    g.add_node('benz', money=10000, fuel="1.5L")
+    print(g.node['benz'])           # {'fuel': '1.5L', 'money': 10000}
+    print(g.node['benz']['money'])  # 10000
+    print(g.nodes(data=True))       # data默认false就是不输出属性信息，修改为true，会将节点名字和属性信息一起输出
 
 
-# 11.图上分析
-g = nx.Graph()
-g.add_edges_from([(1, 2), (1, 3)])
-g.add_node("spam")
-print(list(nx.connected_components(g)))   # [[1, 2, 3], ['spam']] 表示返回g上的不同连通块
-print(sorted(dict(nx.degree(g)).items(), reverse=True, key=lambda x: x[1]))  # [(1, 2), (2, 1), (3, 1), ('spam', 0)]
+    # 7.边的属性设置
+    g.clear()
+    n = 10
+    H = nx.path_graph(n)
+    g.add_nodes_from(H)
+    g.add_edges_from(H.edges())
+    g[1][2]['color'] = 'blue'
 
-G = nx.Graph()
-e = [('a', 'b', 0.3), ('b', 'c', 0.6), ('a', 'c', 0.5), ('c', 'd', 1.2)]
-G.add_weighted_edges_from(e)
-# 'a'可到达节点的list
-print(list(nx.dfs_postorder_nodes(G, 'a')))
-print(list(nx.dfs_preorder_nodes(G, 'a')))
-# 获取两点间的简单路径
-print(list(nx.all_simple_paths(G, 'a', 'd')))
-print(list(nx.all_simple_paths(G, 'a', 'd', cutoff=2)))     # cutoff为截断常数
-# 最短路径
-print(nx.shortest_path(G))
-print(nx.shortest_path(G, 'a', 'd'))
-print(nx.has_path(G, 'a', 'd'))
-# dijkstra 最短路径
-print(nx.dijkstra_path(G, 'a', 'd'))
-print(nx.dijkstra_path_length(G, 'a', 'd'))
+    g.add_edge(1, 2, weight=4.7)
+    g.add_edges_from([(3, 4), (4, 5)], color='red')
+    g.add_edges_from([(1, 2, {'color': 'blue'}), (2, 3, {'weight': 8})])
+    g[1][2]['weight'] = 4.7
 
 
-# 12.图的绘制
-pos = nx.spring_layout(G)
-fig = plt.figure(figsize=(13, 8))
-fig1 = fig.add_subplot(221)
-nx.draw(G, with_labels=True, font_weight='bold', width=2)
+    # 8.不同类型的图（有向图Directed graphs , 重边图 Multigraphs）
+    # Directed graphs
+    DG = nx.DiGraph()
+    DG.add_weighted_edges_from([(1, 2, 0.5), (3, 1, 0.75), (1, 4, 0.3)])    # 添加带权值的边
+    print(DG.out_degree(1))                     # 打印结果：2 表示：找到1的出度
+    print(DG.out_degree(1, weight='weight'))    # 打印结果：0.8 表示：从1出去的边的权值和，这里权值是以weight属性值作为标准，如果你有一个money属性，那么也可以修改为weight='money'，那么结果就是对money求和了
+    print(list(DG.successors(1)))               # [2,4] 表示1的后继节点有2和4
+    print(list(DG.predecessors(1)))             # [3] 表示只有一个节点3有指向1的连边
 
-fig2 = fig.add_subplot(222)
-e = dict([((u, v,), d['weight']) for u, v, d in G.edges(data=True)])
-nx.draw_networkx_labels(G, pos, edges_label=e)
-nx.draw_networkx(G, pos, with_labels=True, font_weight='bold', width=2, edge_cmap=plt.cm.Reds)
-plt.axis('on')
+    # Multigraphs
+    MG = nx.MultiGraph()
+    MG.add_weighted_edges_from([(1, 2, .5), (1, 2, .75), (2, 3, .5)])
+    print(MG.degree(weight='weight'))   # {1: 1.25, 2: 1.75, 3: 0.5}
+    GG = nx.Graph()
+    for n, nbrs in MG.adjacency():
+        for nbr, edict in nbrs.items():
+            minvalue = min([d['weight'] for d in edict.values()])
+            GG.add_edge(n, nbr, weight=minvalue)
+    print(GG.degree(weight='weight'))     # [(1, 0.5), (2, 1.0), (3, 0.5)]
+    print(nx.shortest_path(GG, 1, 3))     # [1, 2, 3]
 
-fig3 = fig.add_subplot(223)
-nx.draw_circular(DG, with_labels=True, font_weight='bold', width=2)
 
-fig4 = fig.add_subplot(224)
-nx.draw_random(DG, with_labels=True, font_weight='bold', width=2)
-plt.show()
-```
+    # 9.图的遍历
+    g = nx.Graph()
+    g.add_weighted_edges_from([(1, 2, 0.125), (1, 3, 0.75), (2, 4, 1.2), (3, 4, 0.375)])
+    for n, nbrs in g.adjacency():       # n表示每一个起始点，nbrs是一个字典，字典中的每一个元素包含了这个起始点连接的点和这两个点连边对应的属性
+        print(n, nbrs)
+        for nbr, eattr in nbrs.items():
+            # nbr表示跟n连接的点，eattr表示这两个点连边的属性集合，这里只设置了weight，如果你还设置了color，那么就可以通过eattr['color']访问到对应的color元素
+            data = eattr['weight']
+            if data < 0.5:
+                print('(%d, %d, %.3f)' % (n, nbr, data))
 
-[画图的示例](https://zhuanlan.zhihu.com/p/36700425)
+
+    # 10.图生成和图上的一些操作
+    # subgraph(G, nbunch)      - induce subgraph of G on nodes in nbunch
+    # union(G1,G2)             - graph union
+    # disjoint_union(G1,G2)    - graph union assuming all nodes are different
+    # cartesian_product(G1,G2) - return Cartesian product graph
+    # compose(G1,G2)           - combine graphs identifying nodes common to both
+    # complement(G)            - graph complement
+    # create_empty_copy(G)     - return an empty copy of the same graph class
+    # convert_to_undirected(G) - return an undirected representation of G
+    # convert_to_directed(G)   - return a directed representation of G
+
+
+    # 11.图上分析
+    g = nx.Graph()
+    g.add_edges_from([(1, 2), (1, 3)])
+    g.add_node("spam")
+    print(list(nx.connected_components(g)))   # [[1, 2, 3], ['spam']] 表示返回g上的不同连通块
+    print(sorted(dict(nx.degree(g)).items(), reverse=True, key=lambda x: x[1]))  # [(1, 2), (2, 1), (3, 1), ('spam', 0)]
+
+    G = nx.Graph()
+    e = [('a', 'b', 0.3), ('b', 'c', 0.6), ('a', 'c', 0.5), ('c', 'd', 1.2)]
+    G.add_weighted_edges_from(e)
+    # 'a'可到达节点的list
+    print(list(nx.dfs_postorder_nodes(G, 'a')))
+    print(list(nx.dfs_preorder_nodes(G, 'a')))
+    # 获取两点间的简单路径
+    print(list(nx.all_simple_paths(G, 'a', 'd')))
+    print(list(nx.all_simple_paths(G, 'a', 'd', cutoff=2)))     # cutoff为截断常数
+    # 最短路径
+    print(nx.shortest_path(G))
+    print(nx.shortest_path(G, 'a', 'd'))
+    print(nx.has_path(G, 'a', 'd'))
+    # dijkstra 最短路径
+    print(nx.dijkstra_path(G, 'a', 'd'))
+    print(nx.dijkstra_path_length(G, 'a', 'd'))
+
+
+    # 12.图的绘制
+    pos = nx.spring_layout(G)
+    fig = plt.figure(figsize=(13, 8))
+    fig1 = fig.add_subplot(221)
+    nx.draw(G, with_labels=True, font_weight='bold', width=2)
+
+    fig2 = fig.add_subplot(222)
+    e = dict([((u, v,), d['weight']) for u, v, d in G.edges(data=True)])
+    nx.draw_networkx_labels(G, pos, edges_label=e)
+    nx.draw_networkx(G, pos, with_labels=True, font_weight='bold', width=2, edge_cmap=plt.cm.Reds)
+    plt.axis('on')
+
+    fig3 = fig.add_subplot(223)
+    nx.draw_circular(DG, with_labels=True, font_weight='bold', width=2)
+
+    fig4 = fig.add_subplot(224)
+    nx.draw_random(DG, with_labels=True, font_weight='bold', width=2)
+    plt.show()
+    ```
+
+- [画图的示例](https://zhuanlan.zhihu.com/p/36700425)
+
+    ```python
+    import networkx as nx
+    import matplotlib.pyplot as plt
+    import pylab
+
+    G = nx.DiGraph()
+
+    G.add_edges_from([('A', 'B'), ('C', 'D'), ('G', 'D')], weight=1)
+    G.add_edges_from([('D', 'A'), ('D', 'E'), ('B', 'D'), ('D', 'E')], weight=2)
+    G.add_edges_from([('B', 'C'), ('E', 'F')], weight=3)
+    G.add_edges_from([('C', 'F')], weight=4)
+
+    val_map = {'A': 1.0,
+               'D': 0.8,
+               'H': 0.0}
+
+    values = [val_map.get(node, 0.1) for node in G.nodes()]
+    print(values)
+    edge_labels = dict([((u, v,), d['weight']) for u, v, d in G.edges(data=True)])
+    print(edge_labels)
+    red_edges = [('C', 'D'), ('D', 'A')]
+    edge_colors = ['black' if not edge in red_edges else 'red' for edge in G.edges()]
+    print(edge_colors)
+
+    pos = nx.spring_layout(G)
+    nx.draw_networkx_labels(G, pos, font_size=15, font_color='w', font_family='Arial')
+    nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_size=15, font_family='Arial')
+    nx.draw(G, pos, node_color=values, node_size=1000, edge_color=edge_colors, width=2, edge_cmap=plt.cm.Reds)
+    pylab.show()
+    ```
+
+- Prim 最小生成树
+
+    ```python
+    import matplotlib.pyplot as plt
+    import networkx as nx
+
+
+    def prim(G, s):
+        dist = {}               # dist记录到节点的最小距离
+        parent = {}             # parent记录最小生成树的双亲表
+        q = list(G.nodes())     # q包含所有未被生成树覆盖的节点
+        max_dist = 9999.99      # max_dist表示正无穷，即两节点不邻接
+
+        # 初始化数据
+        # 所有节点的最小距离设为max_dist，父节点设为None
+        for v in G.nodes():
+            dist[v] = max_dist
+            parent[v] = None
+        # 到开始节点s的距离设为0
+        dist[s] = 0
+
+        # 不断从q中取出“最近”的节点加入最小生成树
+        # 当q为空时停止循环，算法结束
+        while q:
+            # 取出“最近”的节点u，把u加入最小生成树
+            u = q[0]
+            for v in q:
+                if dist[v] < dist[u]:
+                    u = v
+            q.remove(u)
+
+            # 更新u的邻接节点的最小距离
+            for v in G.adj[u]:
+                if (v in q) and (G[u][v]['weight'] < dist[v]):
+                    parent[v] = u
+                    dist[v] = G[u][v]['weight']
+        # 算法结束，以双亲表的形式返回最小生成树
+        return parent
+
+
+    def draw(G, edge_style='solid', edge_colors='k', edge_width=2, tree_colors='y'):
+        pos = nx.spring_layout(G)
+        nx.draw(G, pos,
+                arrows=True,
+                with_labels=True,
+                node_size=1000,
+                font_size=23,
+                font_family='times new roman',
+                font_width='bold',
+                nodelist=G.nodes(),
+                style=edge_style,
+                edge_color=edge_colors,
+                width=edge_width,
+                node_color=tree_colors,
+                alpha=0.5)
+        plt.show()
+
+
+    if __name__ == '__main__':
+        G_data = [(1, 2, 1.3), (1, 3, 2.1), (1, 4, 0.9), (1, 5, 0.7), (1, 6, 1.8), (1, 7, 2.0), (1, 8, 1.8), (2, 3, 0.9),
+                  (2, 4, 1.8), (2, 5, 1.2), (2, 6, 2.8), (2, 7, 2.3), (2, 8, 1.1), (3, 4, 2.6), (3, 5, 1.7), (3, 6, 2.5),
+                  (3, 7, 1.9), (3, 8, 1.0), (4, 5, 0.7), (4, 6, 1.6), (4, 7, 1.5), (4, 8, 0.9), (5, 6, 0.9), (5, 7, 1.1),
+                  (5, 8, 0.8), (6, 7, 0.6), (6, 8, 1.0), (7, 8, 0.5)]
+
+        G = nx.Graph()
+        G.add_weighted_edges_from(G_data)   # 添加赋权边
+        tree = prim(G, 1)                   # 获取最小生成树
+        print('Minimum Spanning Tree: ', tree)
+
+        tree_edges = [(u, v) for u, v in tree.items()]  # 将生成树转成边的格式
+        G.add_edges_from(tree_edges)
+        G.remove_node(None)
+
+        TG = nx.Graph()
+        TG.add_edges_from(tree_edges)
+        TG.remove_node(None)
+
+        tree_degree = []
+        tree_colors = []
+        for i in G.node:
+            tree_degree.append((i, TG.degree[i]))
+            if TG.degree[i] >= 3:
+                tree_colors.append('r')
+            elif TG.degree[i] >= 2:
+                tree_colors.append('g')
+            else:
+                tree_colors.append('y')
+        print('Tree Degree:', tree_degree)
+
+        tree_edges_zf = tree_edges + [(v, u) for u, v in tree.items()]
+
+        edge_colors = ['red' if edge in tree_edges_zf else 'black' for edge in G.edges]
+        edge_style = ['solid' if edge in tree_edges_zf else 'dashed' for edge in G.edges]
+        edge_width = [3 if edge in tree_edges_zf else 1.5 for edge in G.edges]
+
+        draw(G, edge_style, edge_colors, edge_width, tree_colors)
+    ```
+
+- 最大通联成分
+
+    ```python
+    import matplotlib.pyplot as plt
+    import networkx as nx
+
+    G = nx.path_graph(4)
+    G.add_path([10, 11, 12])
+    nx.draw(G, with_labels=True, label_size=1000, node_size=1000, font_size=20)
+    plt.show()
+
+    for c in sorted(nx.connected_components(G), key=len, reverse=True):     # 从大到小显示节点数较多的连通子图集合
+        print(c)                # 结果是{0,1,2,3}
+        print(type(c))          # 类型是set
+        print(len(c))           # 长度分别是4和3（因为reverse=True，降序排列）
+
+    largest_components = max(nx.connected_components(G), key=len)  # 高效找出最大的联通成分，其实就是sorted里面的No.1
+    print(largest_components)       # 找出最大联通成分，返回是一个set{0,1,2,3}
+    print(len(largest_components))  # 4
+    ```
 
 ## lab-05 字符串
 
@@ -1077,7 +1245,7 @@ plt.show()
 
 ## lab-06 递归
 
-- 分而治之：基线条件和归纳法
+分而治之：基线条件和归纳法
 
 ### lab-06-02 加法问题
 
@@ -1108,12 +1276,38 @@ if __name__ == '__main__':
     print(fact2(factNum))
 ```
 
-- 斐波那契数列
-- 分地问题（最小公约数问题）
+### lab-06-03 斐波那契数列
+
+- 生成器解法
+- 递归解法
+- 递归+标记解法
+
+    ```python
+    fibDict = {1: 1, 2: 2}
+
+    def fib(n):
+        if n not in fibDict:
+            fibDict[n] = fib(n-1) + fib(n-2)
+        return fibDict[n]
+
+    print(fib(1000))
+    print(fibDict)
+    ```
+
+### lab-06-04 分地问题（最小公约数问题）
+
+```python
+def greatestCommonDivisor(m, n):
+    if m < n:
+        m, n = n, m 
+    if m % n == 0:
+        return n
+    return greatestCommonDivisor(n, m % n)
+
+print(greatestCommonDivisor(16, 12))
+```
 
 ## lab-07 回溯
-
-- 深度优先算法
 
 ## lab-08 动态规划
 
@@ -1125,9 +1319,6 @@ if __name__ == '__main__':
 - 局部优先
 
 ## lab-10 广度优先
-
-- 广度优先搜索
-- 迪克斯特拉算法
 
 ## lab-11 流量与切割
 
