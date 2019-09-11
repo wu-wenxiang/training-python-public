@@ -1547,7 +1547,7 @@ print(greatestCommonDivisor(16, 12))
 
 - leetcode 64 最小路径和
 
-    ```
+    ```python
     class Solution:
         def minPathSum(self, grid: List[List[int]]) -> int:
             m, n = len(grid), len(grid[0])
