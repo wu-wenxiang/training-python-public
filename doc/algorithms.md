@@ -1601,8 +1601,6 @@ print(greatestCommonDivisor(16, 12))
             return grid[m-1][n-1]
     ```
 
-### lab-08-04 零钱兑换问题
-
 - leetcode 322 零钱兑换问题
 
     ```python
@@ -1625,6 +1623,20 @@ print(greatestCommonDivisor(16, 12))
 ### lab-08-04 发现重叠子问题
 
 - leetcode 343. 整数拆分
+
+    ```python
+    class Solution:
+        def integerBreak(self, n: int) -> int:
+            aList = [0, 1]
+            bList = aList[:]
+            for i in range(2, n+1):
+                retList = [j*aList[i-j] for j in range(1, i//2+1)]
+                bList.append(max(retList))
+                aList.append(max(bList[i], i))
+            print(aList, bList)
+            return bList[n]
+    ```
+
 - leetcode 279
 - leetcode 91
 - leetcode 62
@@ -1632,8 +1644,23 @@ print(greatestCommonDivisor(16, 12))
 
 ### lab-08-05 状态的定义和状态转移
 
-- leetcode 198. 打家劫舍
-- leetcode 213
+- leetcode 198. 打家劫舍：`f(k) = max(f(k–2)+A[k], f(k-1))`
+
+    ```python
+    class Solution:
+        def rob(self, nums: List[int]) -> int:
+            if not nums:
+                return 0
+            if len(nums) < 3:
+                return max(nums)
+            maxsumList = [nums[0], max(nums[:2])]
+            for i in range(2, len(nums)):
+                maxsumList.append(max(maxsumList[i-1], maxsumList[i-2]+nums[i]))
+            print(maxsumList)
+            return max(maxsumList)
+    ```
+
+- leetcode 213 打家劫舍 II
 - leetcode 337
 - leetcode 309
 
