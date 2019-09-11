@@ -1386,14 +1386,59 @@ print(greatestCommonDivisor(16, 12))
 ### lab-07-01 全排列
 
 - leetcode 46. 全排列
+
+    ```python
+    class Solution:
+        def permute(self, nums: List[int]) -> List[List[int]]:
+            nums = nums[:]
+            ret = []
+            if len(nums) == 1:
+                return [nums]
+            for i in range(len(nums)):
+                # print(i, '=>', nums[i], nums[:i]+nums[i+1:])
+                ret += [[nums[i]]+j for j in self.permute(nums[:i]+nums[i+1:])]
+            return ret
+    ```
+
 - leetcode 47
 - leetcode 17. 电话号码的字母组合
+
+    ```python
+    class Solution:
+        def letterCombinations(self, digits: str) -> List[str]:
+            aDict = {'2':'abc', '3':'def', '4':'ghi', '5':'jkl', '6':'mno',
+                    '7':'pqrs', '8':'tuv', '9':'wxyz'}
+            ret = ['']
+            for i in digits:
+                print(i, aDict[i])
+                tmp = []
+                for j in aDict[i]:
+                    tmp += [k+j for k in ret]
+                ret = tmp
+
+            if ret == ['']:
+                ret = []
+            return ret
+    ```
+
 - leetcode 93
 - leetcode 131
 
 ### lab-07-02 组合
 
 - leetcode 77. 组合
+
+    ```python
+    class Solution:
+        def combine(self, n: int, k: int) -> List[List[int]]:
+            if k == 1:
+                return [[i] for i in range(n, 0, -1)]
+            ret = []
+            for j in range(n, 0, -1):
+                ret += [i+[j] for i in self.combine(j-1, k-1)]
+            return ret
+    ```
+
 - leetcode 39
 - leetcode 40
 - leetcode 216
@@ -1462,26 +1507,19 @@ print(greatestCommonDivisor(16, 12))
 
     | 名胜 | 时间（天） | 评分 |
     | :-- | :-- | :-- |
-    | 大教堂 | 0.5 | 7 |
+    | 大教堂1 | 0.5 | 7 |
     | 剧场 | 0.5 | 6 |
     | 美术馆 | 1 | 9 |
     | 博物馆 | 2 | 9 |
-    | 大教堂 | 0.5 | 8 |
+    | 大教堂2 | 0.5 | 8 |
 
     | | 0.5 | 1 | 1.5 | 2 |
     | :-- | :-- | :-- | :-- | :-- |
-    | 大教堂 |   |     |     |     |
+    | 大教堂1 |   |     |     |     |
     | 剧场   |   |     |     |     |
     | 美术馆 |   |     |     |     |
     | 博物馆 |   |     |     |     |
-    | 大教堂 |   |     |     |     |
-
-- 类似习题
-    - leetcode 322
-    - leetcode 377
-    - leetcode 474
-    - leetcode 139
-    - leetcode 494
+    | 大教堂2 |   |     |     |     |
 
 ### lab-08-02 最长公共子串
 
@@ -1562,6 +1600,27 @@ print(greatestCommonDivisor(16, 12))
 
             return grid[m-1][n-1]
     ```
+
+### lab-08-04 零钱兑换问题
+
+- leetcode 322 零钱兑换问题
+
+```python
+class Solution:
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        dp = {0: 0}
+        for i in range(1, amount+1):
+            aList = [dp[i-c]+1 for c in coins if (i-c) in dp]
+            if aList:
+                dp[i] = min(aList)
+
+        return dp.get(amount, -1)
+```
+
+- leetcode 377
+- leetcode 474
+- leetcode 139
+- leetcode 494
 
 ### lab-08-04 发现重叠子问题
 
