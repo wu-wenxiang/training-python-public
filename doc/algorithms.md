@@ -1605,17 +1605,17 @@ print(greatestCommonDivisor(16, 12))
 
 - leetcode 322 零钱兑换问题
 
-```python
-class Solution:
-    def coinChange(self, coins: List[int], amount: int) -> int:
-        dp = {0: 0}
-        for i in range(1, amount+1):
-            aList = [dp[i-c]+1 for c in coins if (i-c) in dp]
-            if aList:
-                dp[i] = min(aList)
+    ```python
+    class Solution:
+        def coinChange(self, coins: List[int], amount: int) -> int:
+            dp = {0: 0}
+            for i in range(1, amount+1):
+                aList = [dp[i-c]+1 for c in coins if (i-c) in dp]
+                if aList:
+                    dp[i] = min(aList)
 
-        return dp.get(amount, -1)
-```
+            return dp.get(amount, -1)
+    ```
 
 - leetcode 377
 - leetcode 474
