@@ -99,30 +99,28 @@
 
 ### lab-01-02 链表
 
-- Demo：[2. 两数相加](https://leetcode-cn.com/problems/add-two-numbers/)
-- leetcode206.反转链表
-- leetcode92 Reverse Linked List II
-- leetcode83 Remove Duplicates from Sorted List**
-- leetcode86 Partition List
-- leetcode328 Odd Even Linked List
-- leetcode2 Add Two Numbers**
-- leetcode445 Add Two Numbers II**
-- leetcode203. 删除链表中的节点
+- Demo：[2. 两数相加](https://leetcode-cn.com/problems/add-two-numbers/)，变化，逆序转顺序
+- leetcode 206.反转链表
+- leetcode 92 Reverse Linked List II
+- leetcode 83 Remove Duplicates from Sorted List
+- leetcode 86 Partition List
+- leetcode 328 Odd Even Linked List
+- leetcode 445 Add Two Numbers II
+- leetcode 203. 删除链表中的节点
 - leetcode 82. Remove Duplicates from Sorted List II
 - leetcode 21. Merge Two Sorted Lists
 - leetcode 24. 两两交换链表中的节点
 - leetcode 25. Reverse Nodes in k-Group
 - leetcode 147. Insertion Sort List
 - leetcode 148. Sort List
-- leetcode237. 删除链表中的节点
+- leetcode 237. 删除链表中的节点
 - leetcode 19. Remove Nth Node From End of List
 - leetcode 61. Rotate List
 - leetcode 143. Reorder List
-- leetcode234. Palindrome Linked List
+- leetcode 234. Palindrome Linked List
 
 ### lab-01-03 栈
 
-- Demo：变化，逆序转顺序
 - Demo：[844. 比较含退格的字符串](https://leetcode-cn.com/problems/backspace-string-compare/)
 
     ```python
@@ -198,7 +196,7 @@
     ```
 
 - leetcode 347. 前K个高频元素
-- leetcode 23
+- leetcode 23 合并K个排序链表，nlogn
 
 ## lab-02 排序
 
@@ -1264,10 +1262,49 @@ if __name__ == '__main__':
 
 ### 习题
 
-- 克隆图
-- leetcode 279. 完全平方数
-- leetcode 127.
-- leetcode 126.
+- [leetcode 133. 克隆图](https://leetcode-cn.com/problems/clone-graph/)
+
+    ```python
+    """
+    # Definition for a Node.
+    class Node:
+        def __init__(self, val, neighbors):
+            self.val = val
+            self.neighbors = neighbors
+    """
+    class Solution:
+        def cloneGraph(self, node: 'Node') -> 'Node':
+            stack = [node]
+            markSet = set([node])
+            nodeDict = {}
+            while stack:
+                _node = stack.pop()
+                nodeDict[_node.val] = Node(_node.val, _node.neighbors[:])
+                print(_node.val)
+                for i in _node.neighbors:
+                    if i not in markSet:
+                        stack.append(i)
+                        markSet.add(i)
+            print(nodeDict.keys())
+
+            for k, v in nodeDict.items():
+                for i in range(len(v.neighbors)):
+                    print(k, '=>', v.neighbors[i].val)
+                    v.neighbors[i] = nodeDict[v.neighbors[i].val]
+            return nodeDict[node.val]
+    ```
+
+- leetcode 279 完全平方数
+- leetcode 127 单词接龙
+
+    ```python
+    def isLike(self, a, b):
+        diffList = [ord(i)-ord(j) for i,j in zip(a, b)]
+        diffList = [i for i in diffList if i != 0]
+        return len(diffList) == 1
+    ```
+
+- leetcode 126 单词接龙 II：遍历所有路径问题
 
 ## lab-05 字符串
 
@@ -1328,8 +1365,6 @@ if __name__ == '__main__':
     print(fib(1000))
     print(fibDict)
     ```
-- leetcode 120
-- leetcode 64
 
 ### lab-06-04 分地问题（最小公约数问题）
 
@@ -1344,12 +1379,6 @@ def greatestCommonDivisor(m, n):
 print(greatestCommonDivisor(16, 12))
 ```
 
-### lab-06-05 习题
-
-- leetcode 17. 电话号码的字母组合
-- leetcode 93
-- leetcode 131
-
 ## lab-07 回溯
 
 [回溯法](https://baike.baidu.com/item/%E5%9B%9E%E6%BA%AF%E6%B3%95)（探索与回溯法）是一种选优搜索法，又称为试探法，按选优条件向前搜索，以达到目标。但当探索到某一步时，发现原先选择并不优或达不到目标，就退回一步重新选择，这种走不通就退回再走的技术为回溯法，而满足回溯条件的某个状态的点称为"回溯点"。
@@ -1358,6 +1387,9 @@ print(greatestCommonDivisor(16, 12))
 
 - leetcode 46. 全排列
 - leetcode 47
+- leetcode 17. 电话号码的字母组合
+- leetcode 93
+- leetcode 131
 
 ### lab-07-02 组合
 
@@ -1371,8 +1403,8 @@ print(greatestCommonDivisor(16, 12))
 
 ### lab-07-03 二维平面上的回溯法
 
-- leetcode79. 单词搜索
-- leetcode 200. 岛屿的个数
+- leetcode 79. 单词搜索
+- leetcode 200. 岛屿的个数 O(n)
 - leetcode 130
 - leetcode 417
 
@@ -1386,15 +1418,152 @@ print(greatestCommonDivisor(16, 12))
 
 ### lab-08-01 背包问题
 
-- leetcode 322
-- leetcode 377
-- leetcode 474
-- leetcode 139
-- leetcode 494
+- 背包承重为4磅，如何组合，使得价值最大
+
+    | | 重量(磅) | 价值($) |
+    | :-- | :-- | :-- |
+    | 音响 | 4 | 3000 |
+    | 笔记本 | 3 | 2000 |
+    | 吉他 | 1 | 1500 |
+
+- 暴力解法，2**n
+- 动态规划
+
+    | | 1 | 2 | 3 | 4 |
+    | :-- | :-- | :-- | :-- | :-- |
+    | 吉他(G) | 1500/G | 1500/G | 1500/G | 1500/G |
+    | 音响(S) | 1500/G | 1500/G | 1500/G | 3000/S |
+    | 笔记本(L) | 1500/G | 1500/G | 2000/L | 3500/LG |
+
+    ```python
+    cell[i][j] = max(cell[i-1][j], 当前物品价值+cell[i-1][j-当前物品重量])
+    ```
+
+- 加入一个手机（重量为1，价值为2000）
+
+    | | 1 | 2 | 3 | 4 |
+    | :-- | :-- | :-- | :-- | :-- |
+    | 吉他(G) | 1500/G | 1500/G | 1500/G | 1500/G |
+    | 音响(S) | 1500/G | 1500/G | 1500/G | 3000/S |
+    | 笔记本(L) | 1500/G | 1500/G | 2000L | 3500/LG |
+    | 手机(I) | 2000/G | 3500/IG | 3500/IG | 4000/IL |
+
+- 行的顺序改变：音响 / 笔记本 / 吉他
+
+    | | 1 | 2 | 3 | 4 |
+    | :-- | :-- | :-- | :-- | :-- |
+    | 音响(S) | 0/ | 0/ | 0/ | 3000/S |
+    | 笔记本(L) | 0/ | 0/ | 2000/L | 3000/S |
+    | 吉他(G) | 1500/G | 1500/G | 2000/L | 3500/LG |
+
+- 增加一件更小的商品，比如项链，0.5磅
+- 拿一部分会怎样？贪心算法
+- 旅行行程问题
+
+    | 名胜 | 时间（天） | 评分 |
+    | :-- | :-- | :-- |
+    | 大教堂 | 0.5 | 7 |
+    | 剧场 | 0.5 | 6 |
+    | 美术馆 | 1 | 9 |
+    | 博物馆 | 2 | 9 |
+    | 大教堂 | 0.5 | 8 |
+
+    | | 0.5 | 1 | 1.5 | 2 |
+    | :-- | :-- | :-- | :-- | :-- |
+    | 大教堂 |   |     |     |     |
+    | 剧场   |   |     |     |     |
+    | 美术馆 |   |     |     |     |
+    | 博物馆 |   |     |     |     |
+    | 大教堂 |   |     |     |     |
+
+- 类似习题
+    - leetcode 322
+    - leetcode 377
+    - leetcode 474
+    - leetcode 139
+    - leetcode 494
 
 ### lab-08-02 最长公共子串
 
-### lab-08-03 发现重叠子问题
+- 最长公共子串
+
+    ```python
+    if a[i] == b[j]:
+        cell[i][j] == cell[i-1][j-1]+1
+    else:
+        cell[i][j] == 0
+    ```
+
+    | | F | O | S | H |
+    | :-- | :-- | :-- | :-- | :-- |
+    | F | 1 | 0 | 0 | 0 |
+    | O | 0 | 2 | 0 | 0 |
+    | R | 0 | 0 | 0 | 0 |
+    | T | 0 | 0 | 0 | 0 |
+
+    | | F | O | S | H |
+    | :-- | :-- | :-- | :-- | :-- |
+    | F | 1 | 0 | 0 | 0 |
+    | I | 0 | 0 | 0 | 0 |
+    | S | 0 | 0 | 1 | 0 |
+    | H | 0 | 0 | 0 | 2 |
+
+- 最长公共子串序列
+
+    ```python
+    if a[i] == b[j]:
+        cell[i][j] == cell[i-1][j-1]+1
+    else:
+        cell[i][j] == max(cell[i-1][j], cell[i][j-1])
+    ```
+
+    | | F | O | S | H |
+    | :-- | :-- | :-- | :-- | :-- |
+    | F | 1 | 1 | 1 | 1 |
+    | O | 1 | 2 | 2 | 2 |
+    | R | 1 | 2 | 2 | 2 |
+    | T | 1 | 2 | 2 | 2 |
+
+    | | F | O | S | H |
+    | :-- | :-- | :-- | :-- | :-- |
+    | F | 1 | 1 | 1 | 1 |
+    | I | 1 | 1 | 1 | 1 |
+    | S | 1 | 1 | 2 | 2 |
+    | H | 1 | 1 | 2 | 3 |
+
+### lab-08-03 dp最短路径问题
+
+- leetcode 120 三角形最小路径和
+
+    ```python
+    class Solution:
+        def minimumTotal(self, triangle: List[List[int]]) -> int:
+            mini, M = triangle[-1], len(triangle)
+            for i in range(M - 2, -1, -1):
+                for j in range(len(triangle[i])):
+                    mini[j] = triangle[i][j] + min(mini[j], mini[j+1])
+            return mini[0]
+    ```
+
+- leetcode 64 最小路径和
+
+    ```
+    class Solution:
+        def minPathSum(self, grid: List[List[int]]) -> int:
+            m, n = len(grid), len(grid[0])
+            for i in range(m):
+                for j in range(n):
+                    if i - 1 >= 0 and j - 1 >= 0:
+                        grid[i][j] += min(grid[i-1][j], grid[i][j-1])
+                    elif i - 1 >= 0:
+                        grid[i][j] += grid[i-1][j]
+                    elif j - 1 >= 0:
+                        grid[i][j] += grid[i][j-1]
+
+            return grid[m-1][n-1]
+    ```
+
+### lab-08-04 发现重叠子问题
 
 - leetcode 343. 整数拆分
 - leetcode 279
@@ -1402,14 +1571,14 @@ print(greatestCommonDivisor(16, 12))
 - leetcode 62
 - leetcode 63
 
-### lab-08-04 状态的定义和状态转移
+### lab-08-05 状态的定义和状态转移
 
 - leetcode 198. 打家劫舍
 - leetcode 213
 - leetcode 337
 - leetcode 309
 
-### lab-08-05 滑动窗口和区间累计问题
+### lab-08-06 滑动窗口和区间累计问题
 
 - leetcode 209. 长度最小的子数组
 - leetcode 167. 两数之和 II - 输入有序数组
@@ -1420,6 +1589,7 @@ print(greatestCommonDivisor(16, 12))
 ## lab-09 贪心算法
 
 - 局部优先
+- Leetcode : 455. Assign Cookies (Easy)
 
 ## lab-10 广度优先
 
