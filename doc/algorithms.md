@@ -608,7 +608,7 @@ if __name__ == '__main__':
                 :rtype: List[int]
                 """
                 if root is None: return []
-                
+
                 result, stack = [], [root]
 
                 while stack:
@@ -635,7 +635,7 @@ if __name__ == '__main__':
                 """
                 if root is None: return []
                 result, queue = [], deque([root])
-                
+
                 while queue:
                     level_len = len(queue) # 记录现在队列中的节点数量
                     level_nodes = [] # 每层输出
@@ -648,7 +648,7 @@ if __name__ == '__main__':
                             queue.append(cur_node.right)
                         level_len -= 1
                     result.append(level_nodes)
-                
+
                 return result
         ```
 
@@ -702,9 +702,9 @@ if __name__ == '__main__':
                     if(root == NULL){ 
                         return 0;
                     }
-                    
+
                     return 1 + max(maxDepth(root -> left), maxDepth(root -> right));
-                    
+
                 }
             };
         ```
@@ -924,7 +924,7 @@ if __name__ == '__main__':
     - 对该节点的邻居，检查是否有更短路径，如果有就更新
     - 重复上述过程，直到每一个节点都做了
     - 计算最终路径
-    
+
     ![](https://github.com/wangkuiwu/datastructs_and_algorithm/blob/master/pictures/graph/dijkstra/02.jpg?raw=true&_=3711516)
 - 扩展：负权，[贝尔曼福德算法](https://zh.wikipedia.org/wiki/%E8%B4%9D%E5%B0%94%E6%9B%BC-%E7%A6%8F%E7%89%B9%E7%AE%97%E6%B3%95) V*E
 
@@ -1441,6 +1441,49 @@ print(greatestCommonDivisor(16, 12))
 - leetcode 79. 单词搜索
 - leetcode 200. 岛屿的个数 O(n)
 - leetcode 130 被围绕的区域
+
+    ```python
+    class Solution:
+        def loop(self, i1, i2, j1, j2):
+            for x in range(j1, j2+1):
+                yield i1, x
+            for x in range(i1+1, i2+1):
+                yield x, j2
+            for x in range(j2-1, j1, -1):
+                yield i2, x
+            for x in range(i2, i1, -1):
+                yield x, j1
+
+        def solve(self, board):
+            if not board or not board[0]:
+                return
+
+            for i,j in self.loop(0, len(board)-1, 0, len(board[0])-1):
+                if board[i][j] == 'X':
+                    continue
+                board[i][j] = 'B'
+                stack = [(i,j)]
+                while stack:
+                    x, y = stack.pop(0)
+                    if x-1>=0 and board[x-1][y] == 'O':
+                        board[x-1][y] = 'B'
+                        stack.append((x-1, y))
+                    if x+1<=len(board)-1 and board[x+1][y] == 'O':
+                        board[x+1][y] = 'B'
+                        stack.append((x+1, y))
+                    if y-1>=0 and board[x][y-1] == 'O':
+                        board[x][y-1] = 'B'
+                        stack.append((x, y-1))
+                    if y+1<=len(board[0])-1 and board[x][y+1] == 'O':
+                        board[x][y+1] = 'B'
+                        stack.append((x, y+1))
+
+            for i in range(len(board)):
+                for j in range(len(board[0])):
+                    board[i][j] = board[i][j].replace('O', 'X')
+                    board[i][j] = board[i][j].replace('B', 'O')
+    ```
+
 - leetcode 417
 
 ### lab-07-04 经典人工智能
@@ -1688,13 +1731,13 @@ print(greatestCommonDivisor(16, 12))
             :type wordList: List[str]
             :rtype: int
             """
-    
+
             if endWord not in wordList or not endWord or not beginWord or not wordList:
                 return 0
-    
+
             # Since all words are of same length.
             L = len(beginWord)
-    
+
             # Dictionary to hold combination of words that can be formed,
             # from any given word. By changing one letter at a time.
             all_combo_dict = defaultdict(list)
@@ -1703,8 +1746,8 @@ print(greatestCommonDivisor(16, 12))
                     # Key is the generic word
                     # Value is a list of words which have the same intermediate generic word.
                     all_combo_dict[word[:i] + "*" + word[i+1:]].append(word)
-    
-    
+
+
             # Queue for BFS
             queue = [(beginWord, 1)]
             # Visited to make sure we don't repeat processing same word.
@@ -1714,7 +1757,7 @@ print(greatestCommonDivisor(16, 12))
                 for i in range(L):
                     # Intermediate words for current word
                     intermediate_word = current_word[:i] + "*" + current_word[i+1:]
-    
+
                     # Next states are all the words which share the same intermediate state.
                     for word in all_combo_dict[intermediate_word]:
                         # If at any point if we find what we are looking for
@@ -1738,10 +1781,10 @@ print(greatestCommonDivisor(16, 12))
         def findLadders(self, beginWord: str, endWord: str, wordList: List[str]) -> List[List[str]]:
             if endWord not in wordList or not endWord or not beginWord or not wordList:
                 return []
-    
+
             # Since all words are of same length.
             L = len(beginWord)
-            
+
             # Dictionary to hold combination of words that can be formed,
             # from any given word. By changing one letter at a time.
             all_combo_dict = defaultdict(set)
@@ -1750,15 +1793,15 @@ print(greatestCommonDivisor(16, 12))
                     # Key is the generic word
                     # Value is a list of words which have the same intermediate generic word.
                     all_combo_dict[word[:i] + "*" + word[i+1:]].add(word)
-    
-    
+
+
             # Queue for BFS
             queue = [(beginWord, 1, [beginWord])]
             # Visited to make sure we don't repeat processing same word.
             visited = {beginWord: 1}
-            
+
             retList = []
-            
+
             while queue:
                 current_word, level, current_path = queue.pop(0)      
                 # print(current_word, level, current_path)
@@ -1767,7 +1810,7 @@ print(greatestCommonDivisor(16, 12))
                 for i in range(L):
                     # Intermediate words for current word
                     intermediate_word = current_word[:i] + "*" + current_word[i+1:]
-    
+
                     # Next states are all the words which share the same intermediate state.
                     # print('--->', all_combo_dict[intermediate_word])
                     for word in all_combo_dict[intermediate_word]:
@@ -1828,33 +1871,33 @@ print(greatestCommonDivisor(16, 12))
 
         ```python
         print(__doc__)
-        
+
         import numpy as np
         import matplotlib.pyplot as plt
         from matplotlib.colors import ListedColormap
         from sklearn import neighbors, datasets
-        
+
         n_neighbors = 15
-        
+
         # import some data to play with
         iris = datasets.load_iris()
-        
+
         # we only take the first two features. We could avoid this ugly
         # slicing by using a two-dim dataset
         X = iris.data[:, :2]
         y = iris.target
-        
+
         h = .02  # step size in the mesh
-        
+
         # Create color maps
         cmap_light = ListedColormap(['#FFAAAA', '#AAFFAA', '#AAAAFF'])
         cmap_bold = ListedColormap(['#FF0000', '#00FF00', '#0000FF'])
-        
+
         for weights in ['uniform', 'distance']:
             # we create an instance of Neighbours Classifier and fit the data.
             clf = neighbors.KNeighborsClassifier(n_neighbors, weights=weights)
             clf.fit(X, y)
-        
+
             # Plot the decision boundary. For that, we will assign a color to each
             # point in the mesh [x_min, x_max]x[y_min, y_max].
             x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
@@ -1862,12 +1905,12 @@ print(greatestCommonDivisor(16, 12))
             xx, yy = np.meshgrid(np.arange(x_min, x_max, h),
                                  np.arange(y_min, y_max, h))
             Z = clf.predict(np.c_[xx.ravel(), yy.ravel()])
-        
+
             # Put the result into a color plot
             Z = Z.reshape(xx.shape)
             plt.figure()
             plt.pcolormesh(xx, yy, Z, cmap=cmap_light)
-        
+
             # Plot also the training points
             plt.scatter(X[:, 0], X[:, 1], c=y, cmap=cmap_bold,
                         edgecolor='k', s=20)
@@ -1875,6 +1918,6 @@ print(greatestCommonDivisor(16, 12))
             plt.ylim(yy.min(), yy.max())
             plt.title("3-Class classification (k = %i, weights = '%s')"
                       % (n_neighbors, weights))
-        
+
         plt.show()
         ```
