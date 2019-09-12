@@ -1440,14 +1440,14 @@ print(greatestCommonDivisor(16, 12))
 
 - leetcode 79. 单词搜索
 - leetcode 200. 岛屿的个数 O(n)
-- leetcode 130
+- leetcode 130 被围绕的区域
 - leetcode 417
 
 ### lab-07-04 经典人工智能
 
-- leetcode 51. N皇后
-- leetcode 52
-- leetcode 37
+- leetcode 51 N皇后（n!）
+- leetcode 52 N皇后 II
+- leetcode 37 解数独问题
 
 ## lab-08 动态规划
 
