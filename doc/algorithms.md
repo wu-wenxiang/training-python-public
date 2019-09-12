@@ -1295,16 +1295,6 @@ if __name__ == '__main__':
     ```
 
 - leetcode 279 完全平方数
-- leetcode 127 单词接龙
-
-    ```python
-    def isLike(self, a, b):
-        diffList = [ord(i)-ord(j) for i,j in zip(a, b)]
-        diffList = [i for i in diffList if i != 0]
-        return len(diffList) == 1
-    ```
-
-- leetcode 126 单词接龙 II：遍历所有路径问题
 
 ## lab-05 字符串
 
@@ -1660,7 +1650,7 @@ print(greatestCommonDivisor(16, 12))
             return max(maxsumList)
     ```
 
-- leetcode 213 打家劫舍 II
+- leetcode 213 打家劫舍 II，循环列表等于f([:-1])+f([1:])
 - leetcode 337
 - leetcode 309
 
@@ -1674,18 +1664,217 @@ print(greatestCommonDivisor(16, 12))
 
 ## lab-09 贪心算法
 
-- 局部优先
+- 局部优先解刚好就是全局最优解
 - Leetcode : 455. Assign Cookies (Easy)
 
 ## lab-10 广度优先
 
+- leetcode 127 单词接龙
+
+    ```python
+    def isLike(self, a, b):
+        diffList = [ord(i)-ord(j) for i,j in zip(a, b)]
+        diffList = [i for i in diffList if i != 0]
+        return len(diffList) == 1
+    ```
+
+    ```python
+    from collections import defaultdict
+    class Solution(object):
+        def ladderLength(self, beginWord, endWord, wordList):
+            """
+            :type beginWord: str
+            :type endWord: str
+            :type wordList: List[str]
+            :rtype: int
+            """
+    
+            if endWord not in wordList or not endWord or not beginWord or not wordList:
+                return 0
+    
+            # Since all words are of same length.
+            L = len(beginWord)
+    
+            # Dictionary to hold combination of words that can be formed,
+            # from any given word. By changing one letter at a time.
+            all_combo_dict = defaultdict(list)
+            for word in wordList:
+                for i in range(L):
+                    # Key is the generic word
+                    # Value is a list of words which have the same intermediate generic word.
+                    all_combo_dict[word[:i] + "*" + word[i+1:]].append(word)
+    
+    
+            # Queue for BFS
+            queue = [(beginWord, 1)]
+            # Visited to make sure we don't repeat processing same word.
+            visited = {beginWord: True}
+            while queue:
+                current_word, level = queue.pop(0)      
+                for i in range(L):
+                    # Intermediate words for current word
+                    intermediate_word = current_word[:i] + "*" + current_word[i+1:]
+    
+                    # Next states are all the words which share the same intermediate state.
+                    for word in all_combo_dict[intermediate_word]:
+                        # If at any point if we find what we are looking for
+                        # i.e. the end word - we can return with the answer.
+                        if word == endWord:
+                            return level + 1
+                        # Otherwise, add it to the BFS Queue. Also mark it visited
+                        if word not in visited:
+                            visited[word] = True
+                            queue.append((word, level + 1))
+                    all_combo_dict[intermediate_word] = []
+            return 0
+    ```
+
+- leetcode 126 单词接龙 II：遍历所有路径问题
+
+    ```python
+    from collections import defaultdict
+
+    class Solution:
+        def findLadders(self, beginWord: str, endWord: str, wordList: List[str]) -> List[List[str]]:
+            if endWord not in wordList or not endWord or not beginWord or not wordList:
+                return []
+    
+            # Since all words are of same length.
+            L = len(beginWord)
+            
+            # Dictionary to hold combination of words that can be formed,
+            # from any given word. By changing one letter at a time.
+            all_combo_dict = defaultdict(set)
+            for word in wordList:
+                for i in range(L):
+                    # Key is the generic word
+                    # Value is a list of words which have the same intermediate generic word.
+                    all_combo_dict[word[:i] + "*" + word[i+1:]].add(word)
+    
+    
+            # Queue for BFS
+            queue = [(beginWord, 1, [beginWord])]
+            # Visited to make sure we don't repeat processing same word.
+            visited = {beginWord: 1}
+            
+            retList = []
+            
+            while queue:
+                current_word, level, current_path = queue.pop(0)      
+                # print(current_word, level, current_path)
+                if retList and level >= len(retList[0]):
+                    continue
+                for i in range(L):
+                    # Intermediate words for current word
+                    intermediate_word = current_word[:i] + "*" + current_word[i+1:]
+    
+                    # Next states are all the words which share the same intermediate state.
+                    # print('--->', all_combo_dict[intermediate_word])
+                    for word in all_combo_dict[intermediate_word]:
+                        # print('----->', word)
+                        # If at any point if we find what we are looking for
+                        # i.e. the end word - we can return with the answer.
+                        if word == endWord:
+                            retList.append(current_path+[word])
+                            # print('**', retList)
+                        # Otherwise, add it to the BFS Queue. Also mark it visited
+                        elif (word not in visited or level <= visited[word]) and (not retList or level < len(retList[0])):
+                            # print('=>', (word, level + 1, current_path+[word]))
+                            visited[word] = level
+                            queue.append((word, level + 1, current_path+[word]))
+                    # all_combo_dict[intermediate_word] = set([])
+            return retList
+    ```
+
 ## lab-11 流量与切割
 
-- 最大流
-- 最小割
+- [最大流最小割](https://zh.wikipedia.org/wiki/%E6%9C%80%E5%A4%A7%E6%B5%81%E6%9C%80%E5%B0%8F%E5%89%B2%E5%AE%9A%E7%90%86)
 
 ## lab-12 NP困难
 
-- 旅行商问题
-- 遗传算法
-- K临近算法（KNN）
+- [旅行商问题](https://zh.wikipedia.org/wiki/%E6%97%85%E8%A1%8C%E6%8E%A8%E9%94%80%E5%91%98%E9%97%AE%E9%A2%98)
+    - 无向加权图
+    - 到达所有点的最短路径
+- [遗传算法](https://zh.wikipedia.org/wiki/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95)
+    - 问题：`3x+4y+5z<100`
+    - 可行解：[1,2,3]、[1,3,2]、[3,2,1]称为染色体，元素称为基因
+    - 适应度函数
+        - 遗传算法在运行的过程中会进行N次迭代，每次迭代都会生成若干条染色体
+        - 适应度函数会给本次迭代中生成的所有染色体打个分，来评判这些染色体的适应度
+        - 然后将适应度较低的染色体淘汰掉，只保留适应度较高的染色体
+        - 从而经过若干次迭代后染色体的质量将越来越优良。
+    - 交叉
+        - 遗传算法每一次迭代都会生成N条染色体，在遗传算法中，这每一次迭代就被称为一次“进化”。
+        - 每次进化新生成的染色体通过“交叉”产生，也称为交配
+        - 一般用赌轮算法，不用随机产生
+    - 变异
+        - 交叉能保证每次进化留下优良的基因，但它仅仅是对原有的结果集进行选择，基因还是那么几个，只不过交换了他们的组合顺序。
+        - 这只能保证经过N次进化后，计算结果更接近于局部最优解，而永远没办法达到全局最优解，为了解决这一个问题，引入变异。
+        - 当我们通过交叉生成了一条新的染色体后，需要在新染色体上随机选择若干个基因，然后随机修改基因的值，从而给现有的染色体引入了新的基因，突破了当前搜索的限制，更有利于算法寻找到全局最优解。
+    - 复制
+        - 每次进化中，为了保留上一代优良的染色体，需要将上一代中适应度最高的几条染色体直接原封不动地复制给下一代。
+        - 假设每次进化都需生成N条染色体，那么每次进化中，通过交叉方式需要生成N-M条染色体，剩余的M条染色体通过复制上一代适应度最高的M条染色体而来
+    - 遗传算法的流程
+        1. 在算法初始阶段，它会随机生成一组可行解，也就是第一代染色体。
+        1. 然后采用适应度函数分别计算每一条染色体的适应程度，并根据适应程度计算每一条染色体在下一次进化中被选中的概率
+        1. 通过“交叉”，生成N-M条染色体
+        1. 再对交叉后生成的N-M条染色体进行“变异”操作
+        1. 然后使用“复制”的方式生成M条染色体
+        1. 到此为止，N条染色体生成完毕！紧接着分别计算N条染色体的适应度和下次被选中的概率
+        1. 这就是一次进化的过程，紧接着进行新一轮的进化。
+- [K近邻算法（KNN）](https://zh.wikipedia.org/wiki/%E6%9C%80%E8%BF%91%E9%84%B0%E5%B1%85%E6%B3%95)
+    - [Sklearn整理](http://blog.wuwenxiang.net/Machine-Learning)
+    - [Nearest Neighbors 官方文档](https://scikit-learn.org/stable/modules/neighbors.html)
+
+        ```python
+        print(__doc__)
+        
+        import numpy as np
+        import matplotlib.pyplot as plt
+        from matplotlib.colors import ListedColormap
+        from sklearn import neighbors, datasets
+        
+        n_neighbors = 15
+        
+        # import some data to play with
+        iris = datasets.load_iris()
+        
+        # we only take the first two features. We could avoid this ugly
+        # slicing by using a two-dim dataset
+        X = iris.data[:, :2]
+        y = iris.target
+        
+        h = .02  # step size in the mesh
+        
+        # Create color maps
+        cmap_light = ListedColormap(['#FFAAAA', '#AAFFAA', '#AAAAFF'])
+        cmap_bold = ListedColormap(['#FF0000', '#00FF00', '#0000FF'])
+        
+        for weights in ['uniform', 'distance']:
+            # we create an instance of Neighbours Classifier and fit the data.
+            clf = neighbors.KNeighborsClassifier(n_neighbors, weights=weights)
+            clf.fit(X, y)
+        
+            # Plot the decision boundary. For that, we will assign a color to each
+            # point in the mesh [x_min, x_max]x[y_min, y_max].
+            x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
+            y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
+            xx, yy = np.meshgrid(np.arange(x_min, x_max, h),
+                                 np.arange(y_min, y_max, h))
+            Z = clf.predict(np.c_[xx.ravel(), yy.ravel()])
+        
+            # Put the result into a color plot
+            Z = Z.reshape(xx.shape)
+            plt.figure()
+            plt.pcolormesh(xx, yy, Z, cmap=cmap_light)
+        
+            # Plot also the training points
+            plt.scatter(X[:, 0], X[:, 1], c=y, cmap=cmap_bold,
+                        edgecolor='k', s=20)
+            plt.xlim(xx.min(), xx.max())
+            plt.ylim(yy.min(), yy.max())
+            plt.title("3-Class classification (k = %i, weights = '%s')"
+                      % (n_neighbors, weights))
+        
+        plt.show()
+        ```
