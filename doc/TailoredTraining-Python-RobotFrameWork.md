@@ -235,10 +235,44 @@
 
 ### Quick Start
 
-1. [RobotFramework] What & Why
-1. [RobotFramework] 10 mins quick start
+1. [RobotFramework] What & Why？[Github](https://github.com/robotframework/robotframework)，[验收测试](http://softwaretestingfundamentals.com/acceptance-testing/)，[robotframework-userguide-cn.readthedocs.io](https://robotframework-userguide-cn.readthedocs.io/zh_CN/latest/GettingStarted/Introduction.html)
+1. [RobotFramework] 10 mins quick start，[WebDemo](https://github.com/robotframework/WebDemo    
+    - 安装python3.7环境, 使用pip3安装robot framework
+    
+        ```shell
+        pip install robotframework
+        ```
+
+        安装完成后可以在终端使用`robot --help`查询当前 robotframework 相关版本信息和帮助信息以及简单的案例
+    - 接下来下载官方测试用例到本地(此处需要用到git工具从github拉取项目到本地)进行运行
+
+        ```shell
+        ## 从github上clone Robot Framework官方测试项目到本地
+        git clone https://github.com/robotframework/WebDemo
+        
+        ## 进入项目目录
+        cd WebDemo
+
+        ## 安装所需模块
+        pip install -r requirements.txt
+
+        ## 用火狐浏览器做测试, 安装最新版火狐, 在https://github.com/mozilla/geckodriver/releases下载最新版本的geckodriver, 解压后放到一个在环境变量中的目录
+
+        ## 用Python运行项目, 运行后在浏览器访问localhost:7272, 看到login page则运行成功
+        python demoapp\server.py
+        ```
+
+    - 再次打开一个cmd终端, 对项目进行robot测试
+
+        ```shell
+        # 此时应当cd到Webdemo项目的根目录
+        robot login_tests
+        运行成功后会看到火狐浏览器打开自动访问localhost:7272页面, 并且自动输入账号密码进行测试, 成功后会在cmd终端输出pass, 如果有问题则会在终端输出 faild和相关问题
+        ```
+
 1. [RobotFramework] 基本概念
 
 ### Demo
 
-1. [RobotFramework] 在生产环境的应用案例介绍
+1. [RobotFramework] [How To Write Good Test Cases](https://github.com/robotframework/HowToWriteGoodTestCases/blob/master/HowToWriteGoodTestCases.rst)
+1. [RobotFramework] [RobotFramework User Guide.html](https://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html)
