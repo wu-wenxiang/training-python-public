@@ -8,8 +8,8 @@
 | | | | [IDE Configuration](#ide-configuration) |
 | 第 1 天 | 上午 | [lab-01 Python Basic](#lab-01-python-basic) | [Quick Start](#quick-start) |
 | | | | [Data Structure](#data-structure) |
-| | | | [Functions](#functions) |
-| | 下午 | [lab-02 Common Usage Modules](#lab-02-common-usage-modules) | [OS/SYS](#ossys) |
+| | 下午 | | [Functions](#functions) |
+| | | [lab-02 Common Usage Modules](#lab-02-common-usage-modules) | [OS/SYS](#ossys) |
 | | | | [I/O](#io) |
 | | | [lab-03 Object Oriented](#lab-03-object-oriented) | [Class & Instance](#class--instance) |
 | | | | [Operator Overloading](#operator-overloading) |
@@ -156,7 +156,7 @@
 
 ### Numpy & Pandas
 
-1. [类库] **如何理解和使用Numpy模块中的ndarray对象？** boardcast, 随机数生成，点乘，索引（布尔数组删选）
+1. [类库] **如何理解和使用Numpy模块中的ndarray对象？** [boardcast](https://www.runoob.com/numpy/numpy-broadcast.html), 随机数生成，点乘，索引（布尔数组删选）
 1. [类库] **如何理解和使用Pandas中的DataFrame对象？** 读写文件，columns，index，apple，根据Index定位
 
 ### Scipy & SkLearn
