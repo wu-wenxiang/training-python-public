@@ -9,8 +9,8 @@
 | 第 1 天 | 上午 | [lab-01 Python Basic](#lab-01-python-basic) | [Quick Start](#quick-start) |
 | | | | [Data Structure](#data-structure) |
 | | | | [Functions](#functions) |
-| | | [lab-02 Common Usage Modules](#lab-02-common-usage-modules) | [OS/SYS](#ossys) |
-| | 下午 | | [I/O](#io) |
+| | 下午 | [lab-02 Common Usage Modules](#lab-02-common-usage-modules) | [OS/SYS](#ossys) |
+| | | | [I/O](#io) |
 | | | [lab-03 Object Oriented](#lab-03-object-oriented) | [Class & Instance](#class--instance) |
 | | | | [Operator Overloading](#operator-overloading) |
 | | | | [Inheritance & Composition](#inheritance--composition) |
