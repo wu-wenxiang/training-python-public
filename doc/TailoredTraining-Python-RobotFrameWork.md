@@ -236,7 +236,7 @@
 ### Quick Start
 
 1. [RobotFramework] What & Why？[Github](https://github.com/robotframework/robotframework)，[验收测试](http://softwaretestingfundamentals.com/acceptance-testing/)，[robotframework-userguide-cn.readthedocs.io](https://robotframework-userguide-cn.readthedocs.io/zh_CN/latest/GettingStarted/Introduction.html)
-1. [RobotFramework] 10 mins quick start，[WebDemo](https://github.com/robotframework/WebDemo    
+1. [RobotFramework] 10 mins quick start，[WebDemo](https://github.com/robotframework/WebDemo)
     - 安装python3.7环境, 使用pip3安装robot framework
     
         ```shell
@@ -249,7 +249,7 @@
         ```shell
         ## 从github上clone Robot Framework官方测试项目到本地
         git clone https://github.com/robotframework/WebDemo
-        
+
         ## 进入项目目录
         cd WebDemo
 
