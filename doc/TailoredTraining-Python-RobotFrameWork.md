@@ -212,8 +212,8 @@
 
 1. [PDB] [Pdb](https://docs.python.org/3/library/pdb.html)的使用和局限性是怎样的？
 1. [Dump] 如何收集Dump？
-1. [Windbg] 如何使用Windbg分析PVM内存？
-1. [GDB] 如何使用Windbg分析PVM内存？
+1. [Windbg] [如何使用Windbg分析PVM内存？](http://blog.wuwenxiang.net/Windows-Debug-Symbol-Debugger)
+1. [GDB] 如何使用GDB分析PVM内存？
 
 ### Decorator
 
