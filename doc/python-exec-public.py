@@ -2004,6 +2004,7 @@ Code:
 # https://github.com/giampaolo/psutil
 import datetime
 import psutil
+import pprint
 from subprocess import PIPE
 
 print(psutil.cpu_times())
@@ -2025,7 +2026,7 @@ print(psutil.disk_io_counters(perdisk=True))
 print(psutil.net_io_counters())
 print(psutil.net_io_counters(pernic=True))
 
-print(psutil.net_if_addrs()) # 获取网络接口信息
+pprint.pprint(psutil.net_if_addrs()) # 获取网络接口信息
 print(psutil.net_if_stats()) # 获取网络接口状态
 # print(psutil.net_connections()) # need admin permission
 
