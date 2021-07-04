@@ -36,7 +36,7 @@
 
 ## 课程
 - 系统信息处理
-	- [Shell基础](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/shell-quick-start.md)：[练习题](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/src/automation/automation.sh)，[纯净版](https://raw.githubusercontent.com/wu-wenxiang/Training-Python-Public/master/src/automation/automation.sh)
+	- [Shell基础](shell-quick-start.md)：[练习题](../src/automation/automation.sh)
 	- Python与Bash联合编程
 	- 目录和文件处理
 	- 网络协议客户端

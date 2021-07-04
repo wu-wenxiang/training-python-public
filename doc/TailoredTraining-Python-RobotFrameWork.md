@@ -38,15 +38,15 @@
 ## lab-00 Python Environment
 
 ### Python Installation
-- **推荐**：[单独安装 Python](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/Installation-Python.md)，3.7 版本
+- **推荐**：[单独安装 Python](Installation-Python.md)，3.7 版本
 - 其它选项：
-    - [Anacoda（ 包含Python ）](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/Installation-Anaconda.md)，3.7 版本
+    - [Anacoda（ 包含Python ）](Installation-Anaconda.md)，3.7 版本
 
 ### IDE Configuration
-- **推荐**：[Eclipse+Pydev](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/Installation-Eclipse-Pydev.md)
+- **推荐**：[Eclipse+Pydev](Installation-Eclipse-Pydev.md)
 - 其它选项：
-    - [VS Code](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/Installation-VSCode.md)
-    - [PyCharm](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/Installation-PyCharm.md)
+    - [VS Code](Installation-VSCode.md)
+    - [PyCharm](Installation-PyCharm.md)
 
 ## lab-01 Python Basic
 
@@ -54,7 +54,7 @@
 
 1. [开始] **Python在编程语言世界中的处于什么样的位置？**[TIOBE](https://tiobe.com/tiobe-index/)
 1. [开始] **Python有什么样的特质和设计哲学？**简单优于繁复，明确优于晦涩，解决一个问题只用一种方法。
-1. [开始] **作为一个初入门者，我们应该怎样学习编程？**[如何成为一名黑客-Eric-S-Raymond](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/%E5%A6%82%E4%BD%95%E6%88%90%E4%B8%BA%E4%B8%80%E5%90%8D%E9%BB%91%E5%AE%A2-Eric-S-Raymond.pdf)
+1. [开始] **作为一个初入门者，我们应该怎样学习编程？**[如何成为一名黑客-Eric-S-Raymond](%E5%A6%82%E4%BD%95%E6%88%90%E4%B8%BA%E4%B8%80%E5%90%8D%E9%BB%91%E5%AE%A2-Eric-S-Raymond.pdf)
 1. [开始] **应该选择Python2还是Python3开始学习，以及进行开发？**[参考](https://wiki.python.org/moin/Python2orPython3)，用Python3
 1. [开始] **有哪些优秀的Python学习资源可以参考？** [Python学习手册5th](https://book.douban.com/subject/30364619/)，[Python3标准库](https://book.douban.com/subject/30346181/)
 1. [环境] **如何查阅Python帮助文档？** pydoc, help, chm

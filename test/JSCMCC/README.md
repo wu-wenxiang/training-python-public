@@ -1,5 +1,5 @@
 ## 数据统计
-1. **省/市/区县/基站信息**的资料在[这里](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/test/JSCMCC/data/)
+1. **省/市/区县/基站信息**的资料在[这里](../test/JSCMCC/data/)
 1. `省区域.csv`、`市区域.csv`、`县区区域.csv`文件中每行数据中的字段以英文逗号`,`分隔，具体格式说明如下：
 
 	| 序号 | 字段名称 | 类型 | 备注 |

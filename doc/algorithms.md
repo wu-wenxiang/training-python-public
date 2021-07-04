@@ -18,7 +18,7 @@
 ## lab-00 Reference
 
 - [LeetCode题目](https://leetcode-cn.com/problemset/algorithms/)
-    - [部分答案](https://github.com/wu-wenxiang/Training-Python-Public/tree/master/src/leetcode)
+    - [部分答案](../src/leetcode)
     - 参考：[https://github.com/qiyuangong/leetcode](https://github.com/qiyuangong/leetcode)
 - [timeit](https://docs.python.org/3.7/library/timeit.html)
 
@@ -452,12 +452,12 @@ if __name__ == '__main__':
     - 暴力解法：`O(n**2)`
     - 结合二分查找：`O(n*logN)`
     - 数组映射：`O(n)`
-    - 字典映射：[leetcode-0001.py](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/src/leetcode/leetcode-0001.py)
+    - 字典映射：[leetcode-0001.py](../src/leetcode/leetcode-0001.py)
     - 多个版本
 - Demo: [3. 无重复字符的最长子串](https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/)
     - 暴力解法：`O(n**3)`
     - 优化：`O(n**2)`
-    - 滑动窗口：[leetcode-0003.py](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/src/leetcode/leetcode-0003.py)，`O(n)`
+    - 滑动窗口：[leetcode-0003.py](../src/leetcode/leetcode-0003.py)，`O(n)`
 
 ### lab-03-04 二叉树
 
