@@ -38,14 +38,15 @@
 ## lab-00 Python Environment
 
 ### Python Installation
+
 - **推荐**：[单独安装 Python](Installation-Python.md)，3.7 版本
 - 其它选项：
     - [Anacoda（ 包含Python ）](Installation-Anaconda.md)，3.7 版本
 
 ### IDE Configuration
-- **推荐**：[Eclipse+Pydev](Installation-Eclipse-Pydev.md)
+- **推荐**：[VS Code](Installation-VSCode.md)
 - 其它选项：
-    - [VS Code](Installation-VSCode.md)
+    - [Eclipse+Pydev](Installation-Eclipse-Pydev.md)
     - [PyCharm](Installation-PyCharm.md)
 
 ## lab-01 Python Basic
