@@ -41,7 +41,7 @@
 
 - 加入微信群：微信 -> 通讯录 -> 新的朋友 -> 添加朋友 -> 面对面建群
 - 搭建开发环境
-    - **推荐**：[VS Code](Installation-VSCode.md)
+    - **推荐**：[VS Code](doc/Installation-VSCode.md)
     - [Eclipse+Pydev](doc/Installation-Eclipse-Pydev.md)
 - 学习资料
     - [逆向法学习](http://blog.wuwenxiang.net/Python-Questions)
