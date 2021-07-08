@@ -55,7 +55,7 @@
 - 专题
     - [算法](doc/algorithms.md)
     - [设计模式](http://blog.wuwenxiang.net/Design-Pattern)
-    - [Django](https://github.com/wu-wenxiang/Training-Django-Public)
+    - Django：[Github](https://github.com/wu-wenxiang/Training-Django-Public) 或 [Gitee](https://gitee.com/wu-wen-xiang/training-django)
     - [单元测试](http://blog.wuwenxiang.net/Python-Unittest)
     - [机器学习](http://blog.wuwenxiang.net/Machine-Learning)
     - [自动化运维](doc/automation.md)
