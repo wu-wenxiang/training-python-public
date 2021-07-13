@@ -1,11 +1,11 @@
-## 安装Anaconda
+# 安装Anaconda
 
-### 注意事项
+## 1. 注意事项
 
 - 本文是 Anaconda 的安装文档
 - 适用的操作系统：Win7 - Win11
 
-### 安装步骤
+## 2. 安装步骤
 
 - 下载 Anaconda
 	- [下载页面](https://www.anaconda.com/download/#windows)，选择3版本
@@ -40,4 +40,31 @@
 - 验证 Anaconda 安装完成
 	- **重新打开**一个cmd窗口，运行：`python --version`
 	- 出现：`Python 3.6.5 :: Anaconda, Inc.`，表示Python安装成功。
-- [入门文档](http://docs.anaconda.com/anaconda/user-guide/getting-started/)
+
+## 3. 参考文档
+
+- [Anoconda 入门文档](http://docs.anaconda.com/anaconda/user-guide/getting-started/)
+- [Anaconda Navigtor 的使用](https://docs.anaconda.com/anaconda/navigator/getting-started)
+- [Conda](https://conda.io/docs/user-guide/getting-started.html)
+- [Jupyter notebook 的使用](https://jupyter-notebook.readthedocs.io/en/latest/notebook.html)，[Running the Notebook](https://jupyter.readthedocs.io/en/latest/running.html)
+
+	```console
+	$ pip install jupyter
+
+	$ jupyter notebook --generate-config
+	Writing default config to: /Users/wxdev_mac/.jupyter/jupyter_notebook_config.py
+
+	$ jupyter notebook password
+	Enter password: 
+	Verify password: 
+	[NotebookPasswordApp] Wrote hashed password to /Users/wxdev_mac/.jupyter/jupyter_notebook_config.json
+
+	$ cat /Users/wxdev_mac/.jupyter/jupyter_notebook_config.json
+	{
+		"NotebookApp": {
+			"password": "sha1:1425316e1d8f:63015b34f2e6aed7be2773b187da8902ff826ef6"
+		}
+	}
+
+	jupyter notebook --no-browser
+	```
