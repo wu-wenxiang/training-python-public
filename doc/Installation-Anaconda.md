@@ -66,5 +66,5 @@
 		}
 	}
 
-	jupyter notebook --no-browser
+	$jupyter notebook --no-browser
 	```
