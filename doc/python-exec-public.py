@@ -807,13 +807,15 @@ hello, world!
 
 Code:
 '''
+from functools import reduce
+
 def sumAny(*arg):
     return reduce(lambda x,y:x+y, arg)
 
 print(sumAny(1, 2))
 print(sumAny(1.2, 2.3, 3.4))
 print(sumAny("hello, ", "world!"))
-print(sumAny([0,1,2,3,4], [0,1,2])
+print(sumAny([0,1,2,3,4], [0,1,2]))
 
 '''
 Tip_030202 打印指定文件中最长的一行，如果有多行并列最长，只打印最靠前的最长的一行。
@@ -1235,7 +1237,8 @@ import re
 
 reCmp = re.compile(r'^[\d+\-*/()]+$')
 
-while True:
+# while True:
+for i in range(100):
     intList = [random.randint(1,10) for i in range(4)]
     aStr = input('Numbers: %s' % intList)
     aStr = re.sub(r'\s+', '', aStr)
@@ -1425,7 +1428,7 @@ def doWork(j):
     print("%s: start... : %s" % (multiprocessing.dummy.current_process().name, time.time()))
     ret = j
     ret = sum([random.random() for i in range(10000000)])
-    print("%s: stop...  : %s" % (multiprocessing.dummy.current_process().name, time.time())
+    print("%s: stop...  : %s" % (multiprocessing.dummy.current_process().name, time.time()))
     return j,ret
 
 if __name__ == "__main__": # Bug
@@ -2363,6 +2366,7 @@ Code:
 '''
 # -*- coding: utf-8 -*
 import numpy as np #一般以np作为numpy的别名
+
 a = np.array([2, 0, 1, 5]) #创建数组
 print(a) #输出数组
 print(a[:3]) #引用前三个数字（切片）
