@@ -41,6 +41,8 @@
 	- **重新打开**一个cmd窗口，运行：`python --version`
 	- 出现：`Python 3.6.5 :: Anaconda, Inc.`，表示Python安装成功。
 
+- 如果发现 `import numpy` 或者 pandas 时报错：`numpy：DLL load failed while importing _multiarray_umath: 找不到指定的模块`，是需要把 `C:\ProgramData\anaconda3\Library\bin` 添加到 Path 环境变量，[参考](https://www.cnblogs.com/maomaozi/p/14619961.html)
+
 ## 3. 参考文档
 
 - [Anoconda 入门文档](http://docs.anaconda.com/anaconda/user-guide/getting-started/)
