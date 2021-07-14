@@ -30,8 +30,8 @@
 |        | 下午 |      | Web 开发：Flask |
 |        |     |      | Web 开发：Django |
 |        |     |      | GUI-TK         |
-| 第 4 天 | 上午 |     | 数据分析基础：Numpy & [Pandas](pdf/Pandas-Cheat-Sheet.pdf) & Scipy |
-|        |     |      | 数据绘图：[Matplotlib](pdf/Matplotlib-Cheat-Sheet.pdf) |
+| 第 4 天 | 上午 |     | 数据分析基础：Numpy & [Pandas](doc/pdf/Pandas-Cheat-Sheet.pdf) & Scipy |
+|        |     |      | 数据绘图：[Matplotlib](doc/pdf/Matplotlib-Cheat-Sheet.pdf) |
 |        |     |      | 机器学习基础：Sklearn |
 |        | 下午 |      | 数据挖掘：价值分析模型 |
 |        |     |      | 数据挖掘：情绪分析模型 |
