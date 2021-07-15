@@ -2546,11 +2546,11 @@ binarizer = preprocessing.Binarizer(threshold=0.0)
 binarizer.fit(X_train)  
 print(binarizer.transform(X_train))
 
-from sklearn.preprocessing import Imputer
+from sklearn.impute import SimpleImputer
 X = [[np.nan, 2], [6, np.nan], [7, 6]]
 print('原数据：')
 print(X)
-imp = Imputer(missing_values='NaN', strategy='mean', axis=0) 
+imp = SimpleImputer(missing_values=np.nan, strategy='mean') 
 print('----------')
 print('按列均值填充缺失：')
 imp.fit(X)
