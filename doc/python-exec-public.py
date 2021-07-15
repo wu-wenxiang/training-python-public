@@ -2892,7 +2892,7 @@ from mpl_toolkits.mplot3d import Axes3D
 from sklearn import manifold, datasets
 
 print('带入数据集')
-X, color = datasets.samples_generator.make_swiss_roll(n_samples=1500)
+X, color = datasets.make_swiss_roll(n_samples=1500)
 print(X.shape, color.shape)
 
 fig = plt.figure(figsize=(7,5))
@@ -2933,8 +2933,8 @@ X = np.sort(np.random.rand(n_samples))
 y = np.cos(1.5*np.pi*X) + np.random.randn(n_samples) * 0.2
 
 X_test = np.linspace(0,1,100)
-plt.plot(X_test, np.cos(1.5*np.pi*X_test),color='red', label=r"真实函数:$y=cos(x)$")
-plt.scatter(X, y, edgecolor='b', s=20, label="样本数据")
+plt.plot(X_test, np.cos(1.5*np.pi*X_test),color='red', label=r"original function:$y=cos(x)$")
+plt.scatter(X, y, edgecolor='b', s=20, label="sample dataset")
 plt.xlabel("x")
 plt.ylabel("y")
 plt.xlim((0, 1))
@@ -2956,9 +2956,9 @@ for i in range(len(degrees)):
     pipeline.fit(X[:, np.newaxis], y)
 
     X_test = np.linspace(0, 1, 100)
-    plt.plot(X_test, pipeline.predict(X_test[:, np.newaxis]), color='green',label="模型")
-    plt.plot(X_test, np.cos(1.5*np.pi*X_test), color='red',label="真实关系")
-    plt.scatter(X, y, edgecolor='b', s=20, label="样本数据")
+    plt.plot(X_test, pipeline.predict(X_test[:, np.newaxis]), color='green',label=f"{degrees[i]}: Model")
+    plt.plot(X_test, np.cos(1.5*np.pi*X_test), color='red',label=f"{degrees[i]}: Real Relationship")
+    plt.scatter(X, y, edgecolor='b', s=20, label=f"{degrees[i]}: Sample Dataset")
     plt.xlabel("x")
     plt.ylabel("y")
     plt.xlim((0, 1))
@@ -2993,16 +2993,18 @@ X = 5 * rng.rand(10000, 1)
 y = np.sin(X).ravel()
 y[::5] += 3 * (0.5 - rng.rand(X.shape[0] // 5))
 
+N = 100
+
 svr = SVR(kernel='rbf', C=1e1, gamma=0.1) 
 kr = KernelRidge(kernel='rbf', alpha=0.1, gamma=0.1)
 train_sizes, train_scores_svr, test_scores_svr = \
-                   learning_curve(svr, X[:100], y[:100], 
-                   train_sizes=np.linspace(0.1, 1, 10),
-                   scoring="neg_mean_squared_error", cv=10)
+                   learning_curve(svr, X[:N], y[:N], 
+                   train_sizes=np.linspace(0.1, 1, 20),
+                   scoring="neg_mean_squared_error")
 train_sizes_abs, train_scores_kr, test_scores_kr = \
-                   learning_curve(kr, X[:100], y[:100], 
-                   train_sizes=np.linspace(0.1, 1, 10),
-                   scoring="neg_mean_squared_error", cv=10)
+                   learning_curve(kr, X[:N], y[:N], 
+                   train_sizes=np.linspace(0.1, 1, 20),
+                   scoring="neg_mean_squared_error")
 
 plt.figure()
 
@@ -3011,10 +3013,12 @@ plt.plot(train_sizes, -test_scores_svr.mean(1), 'o-', color="r",
 plt.plot(train_sizes, -test_scores_kr.mean(1), 'o-', color="g",
          label="Kernel Ridgh Regression")
 plt.xlabel("Train Size")
+# 真实值-预测值，然后平方之后求和平均。线性回归用 MSE 作为损失函数
 plt.ylabel("Mean Squared Error")
+# 学习曲线是不同训练集大小，模型在训练集和验证集上的得分变化曲线
 plt.title('Learning curves')
 plt.legend(loc="best")
-plt.xlim(0,100)
+plt.xlim(0,N)
 
 plt.show()
 
@@ -3033,6 +3037,7 @@ X, y = make_classification(n_samples=1000,n_features=10,n_informative=3,n_redund
 print(X[:4])
 print(y[:4])
 
+# 随机森林随机分裂属性形成不同的决策树，然后取决策树的分类结果中分类最多的那一个作为最终结果
 forest = ExtraTreesClassifier(n_estimators=250,random_state=0)
 forest.fit(X, y)
 
@@ -3073,6 +3078,9 @@ X_test = np.r_[X + 2, X - 2]
 # 产生一些异常的新的数据点
 X_outliers = rng.uniform(low=-4, high=4, size=(20, 2))
 
+# 用一个随机超平面来切割数据空间，直到每个子空间里面只有一个数据点为止
+# 密度很高的簇是被切分很多次才会停止切割，低密度的点很容易就停到一个子空间了
+# 用于检测异常点
 clf = IsolationForest(max_samples=100, random_state=rng)  #构建模型
 clf.fit(X_train)     #模型训练
 y_pred_train = clf.predict(X_train)
