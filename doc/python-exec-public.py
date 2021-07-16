@@ -873,12 +873,10 @@ Run:
 
 Code:
 '''
-def sortStrbyLen(x, y):
-    return cmp(len(x),len(y))
 
 testStrList = ["hello", "smiles", "bool", "objective"]
 
-print(sorted(testStrList, cmp=sortStrbyLen))
+print(sorted(testStrList, key=len))
 
 '''
 Tip_030207 打印杨辉三角
@@ -911,7 +909,23 @@ for i in range(N):
 Tip_030208 汉诺塔问题
 	略
 '''
-    
+
+'''
+Tip_030209 写一个选择排序，增加 key 参数
+'''
+
+aDict = {'apple': 3.5, 'pear': 5.3, 'orange': 4.2, 'banana': 3.6, 'mango': 6.8}
+
+def mySort(aList, key=lambda x:x):
+    for i, _ in enumerate(aList):
+        for x in range(i+1, len(aList)):
+            if key(aList[i]) < key(aList[x]):
+                aList[i], aList[x] = aList[x], aList[i]
+    return aList
+
+print(mySort([1, 5, 3, 6, 2]))
+print(mySort(list(aDict.keys()), lambda x:aDict[x]))
+
 ''' 
 Tip_040101 打印输出math模块的所有方法属性和字段属性，打印输出其中fsum函数的用法
  
@@ -1063,11 +1077,16 @@ print(aQueue.pull()) # IndexError
 
 Code:
 '''
-class Queue(list):
-    def push(self, i):
-        self.append(i)
+
+class Queue(object):
+    def __init__(self):
+        self.__list = []
+    def push(self, x):
+        self.__list.append(x)
     def pull(self):
-        return self.pop(0)
+        return self.__list.pop(0)
+    def __len__(self):
+        return len(self.__list)
 
 ''' 
 Tip_040203 实现tail功能(每隔1秒检查文件中的内容，并将新增的行输出)
