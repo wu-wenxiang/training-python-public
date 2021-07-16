@@ -49,16 +49,12 @@
 - 编程练习
     - [Python基础练习](doc/python-exec-public.py)
     - [有趣的编程练习题](http://blog.wuwenxiang.net/Python-Interesting-Programming)：[针对性练习题](doc/python-exec.py)
-- 代码/数据：
-    - [航空客户价值分析](https://share.weiyun.com/MY69BvxM)
-    - [其它数据分析练习](https://share.weiyun.com/5w0Qj5T)
-    - [网站日志分析](https://share.weiyun.com/5zY4yG9)
 - 专题
     - [算法](doc/algorithms.md)
     - [设计模式](http://blog.wuwenxiang.net/Design-Pattern)
     - Django：[Github](https://github.com/wu-wenxiang/Training-Django-Public) 或 [Gitee](https://gitee.com/wu-wen-xiang/training-django)
     - [单元测试](http://blog.wuwenxiang.net/Python-Unittest)
-    - [机器学习](http://blog.wuwenxiang.net/Machine-Learning)
+    - [机器学习](http://blog.wuwenxiang.net/Machine-Learning)，[练习](src/data-analysis)
     - [自动化运维](doc/automation.md)
     - [Shell基础](doc/shell-quick-start.md)
     - [万矿入门](http://blog.wuwenxiang.net/WindQuant)
