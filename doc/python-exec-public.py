@@ -831,10 +831,12 @@ Code:
 '''
 
 import sys
-from functools import reduce
+# from functools import reduce
 
 fileName = sys.argv[1]
-print(reduce(lambda x,y:x if len(x)>len(y) else y, open(fileName)))
+# print(reduce(lambda x,y:x if len(x)>len(y) else y, open(fileName)))
+print(max(open(fileName), key=len))
+
 
 ''' 
 Tip_030203 多维列表求和
