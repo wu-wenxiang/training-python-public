@@ -2519,7 +2519,8 @@ import numpy as np
 import matplotlib.pyplot as plt #导入Matplotlib
 
 # 设置全局字体（兼容 Windows 和苹果），解决中文表现为方块问题
-plt.rcParams['font.sans-serif'] = ['SimHei', 'Arial Unicode MS']
+# 可以在 C:\Windows\Fonts 下查找
+plt.rcParams['font.sans-serif'] = ['SimHei', 'SimSun', 'Arial Unicode MS']
 # 解决 - 表现为方块的问题
 plt.rcParams['axes.unicode_minus'] = False
 
