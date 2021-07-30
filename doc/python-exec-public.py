@@ -2518,6 +2518,11 @@ Code:
 import numpy as np
 import matplotlib.pyplot as plt #导入Matplotlib
 
+# 设置全局字体（兼容 Windows 和苹果），解决中文表现为方块问题
+plt.rcParams['font.sans-serif'] = ['SimHei', 'Arial Unicode MS']
+# 解决 - 表现为方块的问题
+plt.rcParams['axes.unicode_minus'] = False
+
 x = np.linspace(-1, 1, 1000) #作图的变量自变量
 y = (1-x**2)**0.5 #因变量y
 
