@@ -53,7 +53,7 @@
     - [算法](doc/algorithms.md)
     - [设计模式](http://blog.wuwenxiang.net/Design-Pattern)
     - Django：[Github](https://github.com/wu-wenxiang/Training-Django-Public) 或 [Gitee](https://gitee.com/wu-wen-xiang/training-django)
-    - [单元测试](http://blog.wuwenxiang.net/Python-Unittest)
+    - [自动化测试](doc/autotest.md)
     - [机器学习](http://blog.wuwenxiang.net/Machine-Learning)，[练习](src/data-analysis)
     - [自动化运维](doc/automation.md)
     - [Shell基础](doc/shell-quick-start.md)
@@ -62,5 +62,3 @@
     - [process monitor](https://docs.microsoft.com/en-us/sysinternals/downloads/procmon)
     - [network monitor](https://www.microsoft.com/en-us/download/4865)
     - [sysinternals](https://docs.microsoft.com/zh-cn/sysinternals/)
-- 定制培训
-    - [2019.09: Python & RobotFrameWork](doc/TailoredTraining-Python-RobotFrameWork.md)
