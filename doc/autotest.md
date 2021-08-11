@@ -63,14 +63,13 @@
 
     ![](images/testing-gRPC-vs-RestAPI.jpeg)
 
-- Rest API Demo：[Github](https://github.com/wu-wenxiang/rest_api_demo) & [Gitee](https://gitee.com/wu-wen-xiang/rest_api_demo)
-    - 对象s + CRUD
-- 常用的 API 测试辅助工具有哪些？各自用于什么场景？
-    - Netmon / Wireshark / tcpdump
-    - Fiddler
-    - Postman
+- Rest API Demo：[Github](https://github.com/wu-wenxiang/rest_api_demo) & [Gitee](https://gitee.com/wu-wen-xiang/rest_api_demo)，对象s + CRUD    
 
 ### 4.2 常见工具
+
+- Netmon / Wireshark / tcpdump
+- Fiddler
+- Postman
 
 ### 4.3 Requests
 
@@ -79,6 +78,8 @@
 ### 4.5 Tempest
 
 ### 4.6 RobotFramwork
+
+[Github](https://github.com/wu-wenxiang/training-python-public/blob/master/doc/TailoredTraining-Python-RobotFrameWork.md#lab-07-robotframework) 或 [Gitee](https://gitee.com/wu-wen-xiang/training-python/blob/master/doc/TailoredTraining-Python-RobotFrameWork.md#lab-07-robotframework)
 
 ## 5. E2E 测试
 
