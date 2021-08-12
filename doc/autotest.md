@@ -466,7 +466,11 @@
         'required': ['name', 'owner'],
         'title': 'The root schema',
         'type': 'object'}
+        ```
 
+        不管用哪种方式（genson 自动生成 / online 网站转换 / 手写）获取到 schema，拿到 schema 之后可以开始验证：
+
+        ```python
         >>> jsonschema.validate(data, schema=schema)
         >>> schema['required']
         ['name', 'owner']
