@@ -32,6 +32,13 @@
 
     ![](images/testing-stages.png)
 
+### 1.3 参考
+
+1. Six Options for More Efficient Tests: <https://www.testim.io/blog/python-test-automation/>
+1. PYTHON TEST AUTOMATION: <https://automationpanda.com/2020/11/09/learning-python-test-automation/>
+1. <https://www.activestate.com/blog/the-best-python-tools-for-test-automation/>
+1. <https://www.softwaretestinghelp.com/python-testing-frameworks/>
+
 ## 2. 单元测试
 
 [Python 单元测试](http://blog.wuwenxiang.net/Python-Unittest)
@@ -217,7 +224,7 @@
         | @ | N/A | 属性 |
         | [] | [] | 下标操作符 |
         | \| | [,] | 多选 |
-        | N/A | [start:end:step] | 切片 |
+        | N/A | [start:eand:step] | 切片 |
         | [] | ?() | 过滤表达式 |
         | N/A | () | script 表达式 |
         | () | N/A | 分组 |
@@ -428,6 +435,7 @@
 
 ### 4.4 Pytest & Requests
 
+- 文档参考：<https://docs.pytest.org/en/6.2.x/usage.html#cmdline>
 - 接口测试断言
 
     ```python
