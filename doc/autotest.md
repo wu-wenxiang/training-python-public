@@ -97,11 +97,42 @@
 1. [pytest 的 setup/teardown 方法](https://www.cnblogs.com/hiyong/p/14163271.html)
 1. [pytest fixture 用法](https://www.cnblogs.com/hiyong/p/14163280.html)
 1. [pytest 参数化用例](https://www.cnblogs.com/hiyong/p/14163287.html)
+
+    ```python
+    import pytest
+    from functools import reduce
+
+
+    def sumAny(*args):
+        return reduce(lambda x,y: x+y, args)
+
+    # if __name__ == '__main__':
+    #     print(sumAny(1, 2, 3, 4))
+    #     print(sumAny(1.2, 2.34))
+    #     print(sumAny("test", "hello"))
+    #     print(sumAny([1, 2, 3], ['hello']))
+
+
+    class Test_Demo():
+        @pytest.mark.parametrize("args, result", [
+            ((1, 2, 3, 4), 10),
+            ((1.2, 2.34), 3.54),
+            (("test", "hello"), 'testhello'),
+            (([1, 2, 3], ['hello']), [1, 2, 3, 'hello'])])
+        def test_case1(self, args, result):
+            ret = sumAny(*args)
+            assert ret == result
+
+
+    if __name__ == '__main__':
+        pytest.main()
+    ```
+
 1. [pytest + allure 生成测试报告](https://www.cnblogs.com/hiyong/p/14163298.html)
 
 ## 3. 数据库操作
 
-[Demo](python-exec-public.py)：
+[Demo](python-exec-public.py#L1757)：
 
 - DB Driver
 - SqlAlchemy ORM 模型
@@ -125,6 +156,14 @@
 
 - Rest API Demo：[Github](https://github.com/wu-wenxiang/rest_api_demo) & [Gitee](https://gitee.com/wu-wen-xiang/rest_api_demo)，对象s + CRUD
 
+    ```bash
+    docker stop rest-api-demo
+    docker rm rest-api-demo
+    docker run -d -p 9999:8888 --name=rest-api-demo maodouzi/rest-api-demo:3.9.6
+
+    # 访问：http://<外网IP>:9999/api/
+    ```
+
 ### 4.2 常见工具
 
 - Netmon / Wireshark / tcpdump
@@ -135,9 +174,16 @@
 
 - 准备
     - 参考文档：[中文](https://docs.python-requests.org/zh_CN/latest/) 或 [英文](https://docs.python-requests.org/en/master/)
-    - 安装：`pip install requests`
+    - 安装：`pip3 install requests`
     - http 请求响应测试接口：<https://httpbin.testing-studio.com/>，源码：[Github](https://github.com/postmanlabs/httpbin)
 - 常见接口请求
+
+    ```python
+    >>> import requests
+    >>> r = requests.post('http://<外网IP>:9999/api/', json={'name': 'testNewCategories'})
+    >>> r.status_code
+    200
+    ```
 
     ```python
     >>> import requests
@@ -152,7 +198,7 @@
     >>> r.encoding
     'utf-8'
 
-    >>> r = requests.post('http://httpbin.org/post', data = {'key':'value'})
+    >>> r = requests.post('http://httpbin.org/post', data={'key': 'value'})
     >>> import json
     >>> json.loads(r.text)
     {'args': {}, 'data': '', 'files': {}, 'form': {'key': 'value'}, 'headers': {'Accept': '*/*', 'Accept-Encoding': 'gzip, deflate', 'Content-Length': '9', 'Content-Type': 'application/x-www-form-urlencoded', 'Host': 'httpbin.org', 'User-Agent': 'python-requests/2.25.1', 'X-Amzn-Trace-Id': 'Root=1-61145403-5e8bb0f66830a61e47862530'}, 'json': None, 'origin': '101.85.192.4', 'url': 'http://httpbin.org/post'}
@@ -237,7 +283,7 @@
         | N/A | () | script 表达式 |
         | () | N/A | 分组 |
 
-    - jsonpath 库可用于处理 json 数据：<https://pypi.org/project/jsonpath/>，`pip install jsonpath`
+    - jsonpath 库可用于处理 json 数据：<https://pypi.org/project/jsonpath/>，`pip3 install jsonpath`
 
         ```python
         >>> import requests
@@ -262,7 +308,7 @@
         ```
 
     - 把 json 格式转成 schema，在线生成 schema 网址：https://jsonschema.net/
-    - jsonschema 是使用 JSON Schema 的 Python库，通过 `pip install jsonschema` 命令安装。
+    - jsonschema 是使用 JSON Schema 的 Python库，通过 `pip3 install jsonschema` 命令安装。
 
         ```python
         >>> import requests
@@ -291,13 +337,35 @@
         }
         ```
 
-        把这个粘贴到 https://jsonschema.net/ 进行转换，得到 schema json
+        可以用 [genson](http://github.com/wolverdude/genson/) 生成 schema：`pip3 install genson`
+
+        ```python
+        >>> from genson import SchemaBuilder
+        >>> builder = SchemaBuilder()
+        >>> schema = {
+        ...     "name" : "training-python-public",
+        ...     "owner" : {
+        ...         "login" : "wu-wenxiang",
+        ...     },
+        ... }
+        >>> builder.add_object(schema)
+        >>> pprint.pprint(builder.to_schema())
+        {'$schema': 'http://json-schema.org/schema#',
+        'properties': {'name': {'type': 'string'},
+                        'owner': {'properties': {'login': {'type': 'string'}},
+                                'required': ['login'],
+                                'type': 'object'}},
+        'required': ['name', 'owner'],
+        'type': 'object'}
+        >>> schema = builder.to_schema()
+        ```
+
+        也可以把之前的 json 粘贴到 https://jsonschema.net/ 进行转换，得到 schema
 
         ![](images/testing-jsonschema.png)
 
-        也可以用 [genson](http://github.com/wolverdude/genson/) 生成 schema，但我还没测试过
-
         ```python
+        # 把网站得到的 json schema 拿过来
         >>> aStr='''{
         ...     "$schema": "http://json-schema.org/draft-07/schema",
         ...     "$id": "http://example.com/example.json",
@@ -435,7 +503,7 @@
         ```
 
     - 和 JSON Schema 一样，也有一个 XML Schema，用于解析 xml 文档，文档参考：https://www.w3.org/2001/XMLSchema
-    - Python库安装： pip install xmlschema
+    - Python库安装： pip3 install xmlschema
 - hamcrest 断言
     - 除了常用的 Assert 断言以外，有一个功能更加强大的断言方法叫 Hamcrest 断言，具有丰富的断言匹配器，支持多种语言，官网地址：<http://hamcrest.org/>
     - PyHamcrest GitHub：<https://github.com/hamcrest/PyHamcrest>
