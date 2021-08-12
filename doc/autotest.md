@@ -91,6 +91,14 @@
     - unittest 默认执行全部用例，也可以通过加载 testsuit，执行部分用例。
     - pytest 可以通过 @pytest.mark 来标记类和方法，pytest.main 加入参数("-m")可以只运行标记的类和方法
 
+### 2.2 Pytest
+
+1. [pytest 安装及用例执行](https://www.cnblogs.com/hiyong/p/14163263.html)
+1. [pytest 的 setup/teardown 方法](https://www.cnblogs.com/hiyong/p/14163271.html)
+1. [pytest fixture 用法](https://www.cnblogs.com/hiyong/p/14163280.html)
+1. [pytest 参数化用例](https://www.cnblogs.com/hiyong/p/14163287.html)
+1. [pytest + allure 生成测试报告](https://www.cnblogs.com/hiyong/p/14163298.html)
+
 ## 3. 数据库操作
 
 [Demo](python-exec-public.py)：
