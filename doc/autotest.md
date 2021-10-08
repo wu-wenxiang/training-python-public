@@ -547,6 +547,12 @@
 
 [Github](https://github.com/wu-wenxiang/training-python-public/blob/master/doc/TailoredTraining-Python-RobotFrameWork.md#lab-07-robotframework) 或 [Gitee](https://gitee.com/wu-wen-xiang/training-python/blob/master/doc/TailoredTraining-Python-RobotFrameWork.md#lab-07-robotframework)
 
+### 4.7 更多的 Restful API 测试框架
+
+- 汇总：<https://github.com/atinfo/awesome-test-automation/blob/master/python-test-automation.md#rest-api-testing>
+- <https://github.com/schemathesis/schemathesis>
+- <https://github.com/cdent/gabbi>
+
 ## 5. E2E 测试
 
 ### 5.1 Python & Selenium
