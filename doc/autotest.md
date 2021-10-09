@@ -549,9 +549,145 @@
 
 ### 4.7 更多的 Restful API 测试框架
 
-- 汇总：<https://github.com/atinfo/awesome-test-automation/blob/master/python-test-automation.md#rest-api-testing>
-- <https://github.com/schemathesis/schemathesis>
-- <https://github.com/cdent/gabbi>
+汇总：<https://github.com/atinfo/awesome-test-automation/blob/master/python-test-automation.md#rest-api-testing>
+
+#### 4.7.1 Gabbi
+
+参考：<https://github.com/cdent/gabbi>
+
+启动 Restful API Demo
+
+```bash
+docker stop rest-api-demo
+docker rm rest-api-demo
+docker run -d -p 9999:8888 --name=rest-api-demo maodouzi/rest-api-demo:3.9.6
+```
+
+测试脚本：
+
+```yaml
+# test.yaml
+fixtures:
+  - ConfigFixture
+  - SampleDataFixture
+
+defaults:
+  ssl: False
+  request_headers:
+    content-type: application/json
+    accept: application/json
+
+tests:
+  - name: list categories
+    url: /api/blog/categories/
+    method: GET
+    status: 200
+    response_json_paths:
+      $.`len` : 3
+      $.[0].name: Sci-Fi
+  - name: get categories
+    url: /api/blog/categories/1
+    method: GET
+    status: 200
+    response_json_paths:
+      $.name: Sci-Fi
+  - name: post categories
+    url: /api/blog/categories/
+    method: POST
+    data:
+      id: 123456789
+      name: smith
+    status: 201
+  - name: list categories
+    url: /api/blog/categories/
+    method: GET
+    status: 200
+    response_json_paths:
+      $.`len` : 4
+  - name: update categorie
+    url: /api/blog/categories/123456789
+    method: PUT
+    data:
+      name: smith2
+    status: 204
+  - name: get categories
+    url: /api/blog/categories/123456789
+    method: GET
+    status: 200
+    response_json_paths:
+      $.name: smith2
+  - name: delete categorie
+    url: /api/blog/categories/123456789
+    method: DELETE
+    status: 204
+  - name: list categories
+    url: /api/blog/categories/
+    method: GET
+    status: 200
+    response_json_paths:
+      $.`len` : 3
+```
+
+测试
+
+```console
+$ pip3 install gabbi
+
+$ gabbi-run localhost:9999 < test.yaml
+... ✓ gabbi-runner.input_list_categories
+... ✓ gabbi-runner.input_get_categories
+... ✓ gabbi-runner.input_post_categories
+... ✓ gabbi-runner.input_list_categories
+... ✓ gabbi-runner.input_update_categorie
+... ✓ gabbi-runner.input_get_categories
+... ✓ gabbi-runner.input_delete_categorie
+... ✓ gabbi-runner.input_list_categories
+
+
+$ gabbi-run -v all localhost:9999 < test.yaml
+... #### list categories ####
+> GET http://localhost:9999/api/blog/categories/
+> content-type: application/json
+> accept: application/json
+> user-agent: gabbi/2.3.0 (Python urllib3)
+< 200 OK
+< Content-Type: application/json
+< Content-Length: 168
+< Server: Werkzeug/0.16.1 Python/3.9.6
+< Date: Sat, 09 Oct 2021 08:08:41 GMT
+[
+  {
+    "id": 1,
+    "name": "Sci-Fi"
+  },
+  {
+    "id": 2,
+    "name": "Politics"
+  },
+  {
+    "id": 3,
+    "name": "Tech"
+  }
+]
+```
+
+可以参考：https://gabbi.readthedocs.io/en/latest/jsonpath.html 处理返回。
+
+遗留问题：
+
+1. 输出校验 JSON-Schema
+2. 输入复用数据结构 - 变量
+
+#### 4.7.2 schemathesis
+
+<https://github.com/schemathesis/schemathesis>
+
+```bash
+pip3 install schemathesis
+schemathesis run  http://localhost:9999/api/swagger.json
+```
+
+参考：<https://schemathesis.readthedocs.io/en/stable/python.html#lazy-loading>
 
 ## 5. E2E 测试
 
