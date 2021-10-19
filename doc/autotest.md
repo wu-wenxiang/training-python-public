@@ -715,6 +715,10 @@ schemathesis run  http://localhost:9999/api/swagger.json
 
 ## 5. E2E 测试
 
+在面向前端的开发框架 Vue/React 中，cypress 更加方便。
+
+在偏后端的 django Web 框架中，整合 Selenium，同样可以达到类似的效果。参考《Test-Driven Development with Python》，书中就很好的将基于 Selenium 的 UI 测试与 Django 开发很好的结合起来。
+
 ### 5.1 Python & Selenium
 
 ### 5.2 Cypress
