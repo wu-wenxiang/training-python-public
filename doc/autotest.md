@@ -37,25 +37,31 @@
 2013/10 Google 软件测试之道
 
 - 研发流程应该是怎样的？
-    - 发布应该是小差量而频繁，测试策略与发布匹配
-    - 所有的 Google 项目都有设计文档。这是一个动态、不断更新的文档
-    - 不明确则不测试，在项目试验初级阶段(产品概念上还没有完全确定成型)强调测试是一件非常愚蠢的事情
-    - 只有能加速开发过程的自动化测试才有意义、测试不应该拖慢开发的速度。坚持项目快速发布
-    - 在代码变更提交到版本控制系统之后，自动化运行所有测试
+    - 敏捷发布：发布应该是小差量而频繁，测试策略与发布匹配
+    - 敏捷文档：所有的 Google 项目都有设计文档。这是一个动态、不断更新的文档
+    - 持续集成：在代码变更提交到版本控制系统之后，自动化运行所有测试
+    - 非明确不测试：在项目试验初级阶段(产品概念上还没有完全确定成型)强调测试是一件非常愚蠢的事情
+    - 结果导向：只有能加速开发过程的自动化测试才有意义、测试不应该拖慢开发的速度。坚持项目快速发布
 - 测试团队应该是怎样的？
-    - 小而精的特种部队，依靠的是出色的战术和高级武器
-    - 选用不合适的人来填充名额永远要比等待合适的人员更糟糕
-    - 一切能自动化的都应该自动化，手动测试倾向于测试新功能、用户体验、隐私之类东西，Android 最依赖手动测试
+    - 小而精的特种部队：依靠的是出色的战术和高级武器
+    - 宁缺毋滥：选用不合适的人来填充名额永远要比等待合适的人员更糟糕
+    - 一切能自动化的都应该自动化：手动测试倾向于测试新功能、用户体验、隐私之类东西，Android 最依赖手动测试
 - 测试工程师应该是怎样的？
-    - 测试开发工程师：是一个编码能力很强的程序员，可以写功能代码，也是一个很强的测试者
-    - 测试工程师：首先是产品专家，其次是善于进行价值分析，执行价值驱动的工程师（发现 bug 后思考：影响如何？是否在用户可达之路？是否还有更多的路径导致相同的 bug？是否存在可能影响数据和其他应用？然后可以判断是否将 bug 加入回归测试集，将其自动化）
+    - 测试开发工程师：
+        - 是一个编码能力很强的程序员，可以写功能代码
+        - 也是一个很强的测试者，具备测试思维
+    - 测试工程师：
+        - 首先是产品专家
+        - 其次是善于进行价值分析，执行价值驱动的工程师（发现 bug 后思考：影响如何？是否在用户可达之路？是否还有更多的路径导致相同的 bug？是否存在可能影响数据和其他应用？然后可以判断是否将 bug 加入回归测试集，将其自动化）
 - 测试用例应该是怎样的？
     - 研发代码是去创建，重点在考虑用户、使用场景和数据流程上；而测试代码主要思路是去破坏、怎样写测试代码用以扰乱分离用户及其数据
     - 每个测试和其他测试之间是独立的，使它们能够以任意顺序来执行
     - 测试不做任何数据持久化方面的工作，这测试用例离开测试环境的时候，要保证测试执行前后环境的状态一致
     - 对每一个重要的缺陷修复都要增加一个测试用例与之对应
     - 不要把所有的精力都放在前端
-    - 使用与应用程序开发语言相同的编程语言来编写测试
+    - 尽量使用与应用程序开发语言相同的编程语言来编写测试
+        - 方便复用标准库
+        - 方便收敛技术栈（测试与开发能角色互换）
     - 20% 的用例覆盖率 80% 的使用场景，把这 20% 自动化而别管剩下的
 
 1. Six Options for More Efficient Tests: <https://www.testim.io/blog/python-test-automation/>
@@ -164,16 +170,426 @@
 
 ## 4. 接口测试
 
-### 4.1 基本概念
+### 4.1 REST API 接口基本概念
 
 - [什么是 Restful API 设计？](https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm)
     - 客户端-服务器约束：用户界面问题与数据存储分开
     - 无状态约束：会话状态完全保留在客户端
     - [统一接口约束](https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm#sec_5_2)
+- REST API 设计的两大核心原则
+    - API 应该作用于 Resource（资源）上
+    - 对资源的操作应使用对应语义的几种操作，包括：GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS
+- REST API 设计中的常见注意事项
+    1. 用户注册：`POST /users`，资源即为 users。API 中的资源一般与你的数据模型（也就是数据库的表）是一一对应的。如果要创建管理员，创建“管理员”，`POST /admins` 是否合适？思考数据库中是否会有一张 admin 表？
+    1. 资源的命名，一般为英文的复数。比如说 users 而不是 user
+    1. 服务不应该只有 POST 和 GET
+
+        ```
+        GET /tickets - 列出所有车票
+        GET /tickets/9839 - 列出 id 为 9839 这张车票的信息
+        POST /tickets - 创建一张车票
+        PUT /tickets/9839 - 更新 9839 这张车票的信息
+        PATCH /tickets/9839 - 部分修改 983 这张车票的信息，比如只修改车票价格
+        DELETE /tickets/9839 - 删掉 9839 这张车票
+
+        HEAD 请求用于获取某个资源的元数据 metadata，比如，该资源是否存在，该资源的内容长度是多少等等。
+        OPTIONS 请求用于获取某个资源所支持的 Request 类型，在 OPTIONS 请求的 Response 中会包含Allow头信息，比如：Allow: GET HEAD，上述例子表示该资源只支持GET请求与HEAD请求。值得注意的是，在 OPTIONS 请求中，不同的 Request 头信息会影响最终返回的 Response 结果。比如，在 OPTIONS 请求中加入正确的 Authorization 信息，得到的访问权限就可能更高。
+        ```
+
+    1. 如何在 API 中表示实体（数据库表）间关系
+
+        ```
+        GET /owners/  - 获取所有主人信息
+
+        GET /owners/1/pets/ 获取 id 为 1 的主人的所有宠物
+        GET /pets/?owner=1 也可以
+
+        GET /pets/ - 获取所有宠物信息（宠物店所有宠物）
+        GET /pets/13 - 直接获取 id 为 13 的宠物
+        ```
+
+    1. REST API Endpoint 中都是资源，因此理论上不能有动词，只能有名词。那如何表示一个动作，比如登陆
+        - POST /users/login
+        - 如果你是以 token 密钥的方式登录的话，也许可以改为 POST /users/token，即创建一个 user token
+        - Github 把加星端点设计为 PUT /gists/:id/star，把取消加星设计为 DELETE /gitsts/:id/star。这样就完美地遵循了 REST 名词作为资源的准则，把动词"加星“完美地用 PUT/DELETE 两个操作
+    1. REST API 如何区分版本？
+
+        ```
+        GET /v1/indexes/
+        GET /v1/indexes/abc/
+        POST /v1/indexes/
+        ```
+
+    1. REST API 应该返回什么？JSON，没有其它选项。建议打开 Pretty Print 和 Gzip。在 JSON 稍变得复杂之后，如果没有 Pretty print 的 JSON 将会变得完全不可读。虽然打开 Pretty print 会增加一些空白字符，但是由于打开 Gzip 压缩，这些空白字符所占用的空间都会被压缩掉，所以并不用担心网络传输时，JSON 变得更大更慢。现在的浏览器或者客户端工具会自动解析 JSON，所以这一条不一定。
+
+        ```json
+        {"name":"大话西游","actor":"周星驰"}
+
+        {
+            "name": "大话西游",
+            "actor": "周星驰"
+        }
+        ```
+
+    1. 返回结果（Response）针对不同操作，服务器向用户返回的结果应该符合以下规范。
+
+        ```
+        GET /collection：返回资源对象的列表（数组）
+        GET /collection/resource：返回单个资源对象
+        POST /collection：返回新生成的资源对象
+        PUT /collection/resource：返回完整的资源对象
+        PATCH /collection/resource：返回完整的资源对象
+        DELETE /collection/resource：返回一个空文档
+        ```
+
+    1. RESTful API 最好使用 Hypermedia as the Engine of Application State（超媒体作为应用状态的引擎），即返回结果中提供链接，连向其他API方法，超文本链接可以建立更好的文本浏览，使得用户不查文档，也知道下一步应该做什么。比如，当用户向api.example.com的根目录发出请求，会得到这样一个文档。
+
+        ```json
+        {
+            "link": {
+                "rel":   "collection https://www.example.com/zoos",
+                "href":  "https://api.example.com/zoos",
+                "title": "List of zoos",
+                "type":  "application/vnd.yourformat+json"
+            }
+        }
+        ```
+
+        上面代码表示，文档中有一个 link 属性，用户读取这个属性就知道下一步该调用什么 API 了。rel 表示这个 API 与当前网址的关系（collection 关系，并给出该 collection 的网址），href 表示 API 的路径，title 表示 API 的标题，type 表示返回类型。
+
+    1. 认证（Authentication）API 的身份认证尽量使用 OAuth 2.0 框架。
+    1. 过滤信息
+
+        ```
+        ?limit=10：指定返回记录的数量
+        ?offset=10：指定返回记录的开始位置。
+        ?page_number=2&page_size=100：指定第几页，以及每页的记录数。
+        ?sortby=name&order=asc：指定返回结果按照哪个属性排序，以及排序顺序。
+        ?animal_type_id=1：指定筛选条件
+        参数的设计允许存在冗余，即允许API路径和URL参数偶尔有重复。比如，
+        GET /zoo/ID/animals 与 GET /animals?zoo_id=ID 的含义是相同的。
+        ```
+
+    1. 排序
+    1. 错误处理
+
+        ```json
+        {
+          "errors": [
+            {
+              "userMessage": "Sorry, the requested resource does not exist",
+              "internalMessage": "No car found in the database",
+              "code": 34,
+              "more info": "http://dev.mwaysolutions.com/blog/api/v1/errors/12345"
+            }
+          ]
+        }
+        ```
+
+- 常见误区
+    - 接口中滥用动词
+
+        ```
+        /getAllCars
+        /createNewCar
+        /deleteAllRedCars
+
+        查询某个对象接口：GET /app/getImportantApp
+        查询列表接口：GET /app/list
+        保存对象接口：POST /app/save
+        删除对象接口：POST /app/delete
+        更新对象接口：POST /app/batchUpdate
+
+        /posts/show/1
+        应该 /posts/1，然后用 GET 方法表示 show
+
+        某些动作是 HTTP 动词表示不了的，应该把动作做成一种资源。比如网上汇款，从账户 1 向账户 2 汇款 500 元
+
+        POST /accounts/1/transfer/500/to/2
+        更好的写法：POST /transaction?from=1&to=2&amount=500.00
+        ```
+
+    - URI 中路径大小写问题
+
+        ```
+        URL 中路径最好是小写，不要有驼峰式写法
+
+        POST /orderItems/v1/1001
+
+        POST /orders/v1/items/1001
+        POST /order-items/v1/1001
+        ```
+
 - [如何判断服务是否以正确的值响应？](https://restfulapi.net/http-status-codes/)
-    - 200 / 201 / 204
-    - 400 / 401 / 403 / 419
-    - 500 / 503
+
+    ```
+    1xx 信息，请求收到，继续处理。范围保留用于底层HTTP的东西，你很可能永远也用不到。
+    2xx 成功，行为被成功地接受、理解和采纳
+    3xx 重定向，为了完成请求，必须进一步执行的动作
+    4xx 客户端错误，请求包含语法错误或者请求无法实现。范围保留用于响应客户端做出的错误，例如。他们提供不良数据或要求不存在的东西。这些请求应该是幂等的，而不是更改服务器的状态。
+    5xx 范围的状态码是保留给服务器端错误用的。这些错误常常是从底层的函数抛出来的，甚至
+    开发人员也通常没法处理，发送这类状态码的目的以确保客户端获得某种响应。
+    当收到5xx响应时，客户端不可能知道服务器的状态，所以这类状态码是要尽可能的避免。
+    ```
+
+    - 200 OK - [GET]：服务器成功返回用户请求的数据，该操作是幂等的（Idempotent）。
+    - 201 CREATED - [POST/PUT/PATCH]：用户新建或修改数据成功。
+    - 202 Accepted - [*]：表示一个请求已经进入后台排队（异步任务）
+    - 204 NO CONTENT - [DELETE]：用户删除数据成功。
+    - 400 INVALID REQUEST - [POST/PUT/PATCH]：用户发出的请求有错误，服务器没有进行新建或修改数据的操作，该操作是幂等的。
+    - 401 Unauthorized - [*]：表示用户没有权限（令牌、用户名、密码错误）。
+    - 403 Forbidden - [*]：表示用户得到授权（与401错误相对），但是访问是被禁止的。
+    - 404 NOT FOUND - [*]：用户发出的请求针对的是不存在的记录，服务器没有进行操作，该操作是幂等的。
+    - 406 Not Acceptable - [GET]：用户请求的格式不可得（比如用户请求JSON格式，但是只有XML格式）。
+    - 410 Gone -[GET]：用户请求的资源被永久删除，且不会再得到的。
+    - 422 Unprocesable entity - [POST/PUT/PATCH]：当创建一个对象时，发生一个验证错误。
+    - 500 INTERNAL SERVER ERROR - [*]：服务器发生错误，用户将无法判断发出的请求是否成功。
+- Swagger API 标准
+
+    Swagger 是一个规范和完整的框架，用于生成、描述、调用和可视化RESTful风格的Web服务。Swagger 的目标是对 REST API 定义一个标准的和语言无关的接口，可让人和计算机无需访问源码、文档或网络流量监测就可以发现和理解服务的能力。
+
+    Swagger 规范定义了一组描述一个 API 所需的文件格式，类似于描述 Web 服务的 WSDL。通过 Swagger 进行 REST API 的正确定义，用户可以理解远程服务并使用最少实现逻辑与远程服务进行交互。与为底层编程所实现的接口类似，Swagger 消除了调用服务时可能会有的猜测。Swagger 这类 API 文档工具可以满足下列需求：
+
+    - 支持 API 自动生成同步的在线文档
+    - 这些文档可用于项目内部 API 审核
+    - 方便测试人员了解 API
+    - 这些文档可作为客户产品文档的一部分进行发布
+    - 支持 API 规范生成代码，生成的客户端和服务器端骨架代码可以加速开发和测试速度
+    - 通常情况下，API 的 Swagger 描述为 JSON 文件，也可使用 YAML 描述的文件
+
+    ```json
+    {
+        "swagger": "2.0",
+        "info": {
+            "version": "1.0.0",
+            "title": "Swagger Petstore (Simple)",
+            "description": "A sample API that uses a petstore as an example to demonstrate features in the swagger-2.0 specification",
+            "termsOfService": "http://helloreverb.com/terms/",
+            "contact": {
+            "name": "Swagger API team",
+            "email": "foo@example.com",
+            "url": "http://swagger.io"
+            },
+            "license": {
+            "name": "MIT",
+            "url": "http://opensource.org/licenses/MIT"
+            }
+        },
+        "host": "petstore.swagger.io",
+        "basePath": "/api",
+        "schemes": [
+            "http"
+        ],
+        "consumes": [
+            "application/json"
+        ],
+        "produces": [
+            "application/json"
+        ],
+        "paths": {
+            "/pets": {
+            "get": {
+                "description": "Returns all pets from the system that the user has access to",
+                "operationId": "findPets",
+                "produces": [
+                "application/json",
+                "application/xml",
+                "text/xml",
+                "text/html"
+                ],
+                "parameters": [
+                {
+                    "name": "tags",
+                    "in": "query",
+                    "description": "tags to filter by",
+                    "required": false,
+                    "type": "array",
+                    "items": {
+                    "type": "string"
+                    },
+                    "collectionFormat": "csv"
+                },
+                {
+                    "name": "limit",
+                    "in": "query",
+                    "description": "maximum number of results to return",
+                    "required": false,
+                    "type": "integer",
+                    "format": "int32"
+                }
+                ],
+                "responses": {
+                "200": {
+                    "description": "pet response",
+                    "schema": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/pet"
+                    }
+                    }
+                },
+                "default": {
+                    "description": "unexpected error",
+                    "schema": {
+                    "$ref": "#/definitions/errorModel"
+                    }
+                }
+                }
+            },
+            "post": {
+                "description": "Creates a new pet in the store.  Duplicates are allowed",
+                "operationId": "addPet",
+                "produces": [
+                "application/json"
+                ],
+                "parameters": [
+                {
+                    "name": "pet",
+                    "in": "body",
+                    "description": "Pet to add to the store",
+                    "required": true,
+                    "schema": {
+                    "$ref": "#/definitions/newPet"
+                    }
+                }
+                ],
+                "responses": {
+                "200": {
+                    "description": "pet response",
+                    "schema": {
+                    "$ref": "#/definitions/pet"
+                    }
+                },
+                "default": {
+                    "description": "unexpected error",
+                    "schema": {
+                    "$ref": "#/definitions/errorModel"
+                    }
+                }
+                }
+            }
+            },
+            "/pets/{id}": {
+            "get": {
+                "description": "Returns a user based on a single ID, if the user does not have access to the pet",
+                "operationId": "findPetById",
+                "produces": [
+                "application/json",
+                "application/xml",
+                "text/xml",
+                "text/html"
+                ],
+                "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "description": "ID of pet to fetch",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }
+                ],
+                "responses": {
+                "200": {
+                    "description": "pet response",
+                    "schema": {
+                    "$ref": "#/definitions/pet"
+                    }
+                },
+                "default": {
+                    "description": "unexpected error",
+                    "schema": {
+                    "$ref": "#/definitions/errorModel"
+                    }
+                }
+                }
+            },
+            "delete": {
+                "description": "deletes a single pet based on the ID supplied",
+                "operationId": "deletePet",
+                "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "description": "ID of pet to delete",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }
+                ],
+                "responses": {
+                "204": {
+                    "description": "pet deleted"
+                },
+                "default": {
+                    "description": "unexpected error",
+                    "schema": {
+                    "$ref": "#/definitions/errorModel"
+                    }
+                }
+                }
+            }
+            }
+        },
+
+        "definitions": {
+            "pet": {
+            "type": "object",
+            "required": [
+                "id",
+                "name"
+            ],
+            "properties": {
+                "id": {
+                "type": "integer",
+                "format": "int64"
+                },
+                "name": {
+                "type": "string"
+                },
+                "tag": {
+                "type": "string"
+                }
+            }
+            },
+            "newPet": {
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "id": {
+                "type": "integer",
+                "format": "int64"
+                },
+                "name": {
+                "type": "string"
+                },
+                "tag": {
+                "type": "string"
+                }
+            }
+            },
+            "errorModel": {
+            "type": "object",
+            "required": [
+                "code",
+                "message"
+            ],
+            "properties": {
+                "coe": {
+                "type": "integer",
+                "format": "int32"
+                },
+                "message": {
+                "type": "string"
+                }
+            }
+            }
+        }
+    }
+    ```
+
 - Restful API 和 GRPC 接口的自动化测试有哪些异同？gRPC 提供了许多优势，但它有一个主要障碍：浏览器兼容性低。因此，gRPC 的用例一般局限在内部/私有系统
 
     ![](images/testing-gRPC-vs-RestAPI.jpeg)
