@@ -1276,6 +1276,12 @@ schemathesis run  http://localhost:9999/api/swagger.json
 
 [rally 官方文档](https://docs.openstack.org/rally/latest/)
 
+### 6.4 Profiling
+
+[Ceilometer 调优-01](https://xcodest.me/ceilometer-performance-analysis.html)
+
+[Ceilometer 调优-02](https://xcodest.me/ceilometer-performance-analysis-ii.html)
+
 ## 7. 容错测试
 
 ## 8. CI/CD
