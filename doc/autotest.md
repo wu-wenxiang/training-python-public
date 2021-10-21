@@ -983,6 +983,60 @@
 
 ### 4.5 Tempest
 
+[tempest 快速入门](https://docs.openstack.org/tempest/latest/overview.html)
+
+![](images/tempest-instruction.png)
+
+运行用例的方法
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt  -e .
+tempest run -r tempest_plugin --config-file etc/tempest.conf # 跑全部测试
+tempest run -r tempest_plugin.tests.scenario.ecs.test_keypair --config-file etc/tempest.conf # 指定文件跑测试
+stestr run -n tempest_plugin.tests.scenario.ecs.test_keypair # 可以使用pdb
+```
+
+test_demo：
+
+```python
+from tel_tempest_plugin.tests.scenario import base
+from tempest.lib import decorators
+
+class DemoTest(base.BaseTest):
+
+    def setUp(self):
+        super(DemoTest, self).setUp()
+
+    def tearDown(self):
+        super(DemoTest, self).tearDown()
+
+    @decorators.idempotent_id('2be136b3-4fd0-8836-0b61-428f36d91b87')
+    def test_httpbin(self):
+
+        _, msg = self.tel_client.get_httpbin()
+        print(msg)
+```
+
+tel_client：
+
+```python
+from tel_tempest_plugin.services import base
+
+class TelClient(base.TelClient):
+    """Base Tempest REST client for Aviv API v1."""
+    version = ''
+    uri_prefix = ''
+
+    @base.handle_errors
+    def get_httpbin(self):
+        resp, login_info = self._create_request('get')
+        return resp, login_info
+```
+
+运行结果： ![](images/tempest-run.png)
+
 ### 4.6 RobotFramwork
 
 [Github](https://github.com/wu-wenxiang/training-python-public/blob/master/doc/TailoredTraining-Python-RobotFrameWork.md#lab-07-robotframework) 或 [Gitee](https://gitee.com/wu-wen-xiang/training-python/blob/master/doc/TailoredTraining-Python-RobotFrameWork.md#lab-07-robotframework)
@@ -1113,10 +1167,65 @@ $ gabbi-run -v all localhost:9999 < test.yaml
 
 可以参考：https://gabbi.readthedocs.io/en/latest/jsonpath.html 处理返回。
 
-遗留问题：
+拓展问题：
 
-1. 输出校验 JSON-Schema
-2. 输入复用数据结构 - 变量
+1. 怎么处理有状态应用？比如登录？
+    - [处理 cookie](https://gabbi.readthedocs.io/en/latest/format.html?highlight=History#immediately-prior-test)
+    - [获取历史 Response](https://gabbi.readthedocs.io/en/latest/format.html?highlight=History#any-previous-test)
+    - [Response 字符串类型转换，比如转化成 int/float 等](https://gabbi.readthedocs.io/en/latest/format.html?highlight=History#casting)
+
+    ```yaml
+    fixtures:
+    - ConfigFixture
+    - SampleDataFixture
+
+    defaults:
+    ssl: False
+    request_headers:
+        content-type: application/json
+        accept: application/json
+
+    tests:
+    - name: get /indexApi/getEnCode
+        url: /indexApi/getEnCode
+        method: GET
+        status: 200
+        response_json_paths:
+        $.respCode: "00"
+    - name: post /init/userLogin
+        url: /init/userLogin
+        method: POST
+        data:
+        login_name: admin
+        password: Aa111111
+        enCode: $RESPONSE['$.text']
+        request_headers:
+        cookie: $COOKIE
+        status: 200
+        response_json_paths:
+        $.respCode: "00"
+    - name: post /log/getLog
+        url: /log/getLog
+        method: POST
+        request_headers:
+        cookie: $COOKIE
+        status: 200
+        response_json_paths:
+        $.respCode: "00"
+    - name: post /log/setLog
+        url: /log/setLog
+        method: POST
+        skip: true
+        data:
+        id: $RESPONSE['$.data.list[0].id']
+        request_headers:
+        cookie: $COOKIE
+        status: 200
+        response_json_paths:
+        $.respCode: "00"
+    ```
+
+1. [怎么使用变量？](https://gabbi.readthedocs.io/en/latest/faq.html?highlight=var#can-i-have-variables-in-my-yaml-file)
 
 #### 4.7.2 schemathesis
 
@@ -1139,16 +1248,33 @@ schemathesis run  http://localhost:9999/api/swagger.json
 
 ### 5.2 Cypress
 
+1. [为什么 Cypress 更好？](https://docs.cypress.io/guides/overview/why-cypress)
+1. [安装 npm](https://opendev.org/skyline/skyline-console#local-environment)
+1. [安装 Cypress](https://docs.cypress.io/guides/getting-started/installing-cypress)
+1. [Demo-001](https://gitee.com/wu-wen-xiang/cypress-demo-todo)
+1. [Demo-002](https://gitee.com/wu-wen-xiang/cypress-demo/)
+
 ## 6. 压力测试
 
-检测指标
+### 6.1 基本概念
 
-- 并发数
-- 响应时间：3 秒 - 30 秒
+压力测试（Stress Testing），也称为强度测试是为了发现在什么条件下应用程序的性能会变得不可接受。具体操作是通过模拟实际应用的软硬件环境及用户使用过程的系统负荷，长时间或超大负荷地运行测试软件，来测试被测系统的性能、可靠性、稳定性等。压力测试需要确定一个系统的瓶颈或者不能接收的性能点，来获得系统能提供的最大的服务级别。
 
-### 6.1 工具 JMeter
+负载测试（Load Testing）通常被定义为给被测系统加上它所能操作的最大任务数的过程，负载测试有时也会被称为“容量测试”或者“耐久性测试/持久性测试”，其目标是确定并确保系统在超出最大预期工作量的情况下仍能正常运行。对于WEB应用来讲，负载则是并发用户或者HTTP连接的数量。负载测试通过测试系统在资源超负荷情况下的表现，以发现设计上的错误或验证系统的负载能力。在这种测试中，将使测试对象承担不同的工作量，以评测和评估测试对象在不同工作量条件下的性能行为，以及持续正常运行的能力。
 
-### 6.2 Rally
+性能测试（Performance Testing）的目的不是去找系统 Bugs，而是排除系统的性能瓶颈，并为回归测试建立一个基准。而性能测试的操作，实际上就是一个非常小心受控的测量分析过程：“运行负载试验->测度性能->调试系统”。在理想的情况下，被测应用在这个时候已经是足够稳定，所以这个过程得以顺利进行。性能测试还有另一个目标就是建立一组被测系统的基准数据。应用在网络上的性能测试重点是利用成熟先进的自动化技术进行网络应用性能监控、网络应用性能分析和网络预测。
+
+三种测试的目的截然不同，但其测试操作的环节都是基本一致的，因此通常在测试过程中混合处理性能测试、负载测试、压力测试。
+
+基本流程：压测 -> 性能指标观测 -> 代码 profiling -> 调整代码 -> 继续压测
+
+### 6.2 压测工具
+
+[压测工具比较](https://gitee.com/wu-wen-xiang/go-stress-testing#5%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7%E7%9A%84%E6%AF%94%E8%BE%83)
+
+### 6.3 Rally
+
+[rally 官方文档](https://docs.openstack.org/rally/latest/)
 
 ## 7. 容错测试
 
