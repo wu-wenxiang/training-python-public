@@ -31,7 +31,7 @@
 ## 注意 ⚠️
 
 - *斜体表示引用*
-- **未经允许，请勿转载**
+- **未经允许，禁止转载**
 
 ## 1. 基础
 
@@ -508,7 +508,7 @@
 
 [返回目录](#课程目录)
 
-## 5. 算法和设计模式相关
+## 5. 算法和设计模式相关 TODO
 
 [返回目录](#课程目录)
 
@@ -516,13 +516,111 @@
 
 [返回目录](#课程目录)
 
+- 时间复杂度和空间复杂度
+- 排序算法
+    - 选择排序 O(n)=n²
+
+        *searches the smallest value and swap it with the first value, then the same with the next position and with the next, and next and so on...*
+
+        Best case: ，Worst case: O(n)=n²
+
+        ![](images/sort-selection.gif)
+
+    - 插入排序 O(n)=n²
+
+        *Turn the first card, then turn the others till you find a smaller one and then you would swap them.*
+
+        ![](images/sort-insertion.gif)
+
+    - 冒泡排序 O(n)=n²
+
+        *It compares two neighboring values with each other and swap them if they are in the wrong order. It continues with next position right.*
+
+        ![](images/sort-bubble.gif)
+
+    - 快速排序 O(n)=n*log(n)
+
+        *It chooses a value and order all values which are smaller in front of the pivot and all bigger ones behind it. It does that in a more and more smooth range with more and more pivots.*
+
+        ![](images/sort-quick.gif)
+
+    - 归并排序 O(n)=n*log(n)
+
+        *It splits up the list in multiple lists with one or two elements. It is ordering them and then it begins to merge the lists again to bigger lists.*
+
+        ![](images/sort-merge.gif)
+
+    - 不同排序算法用于不同数据集中的情形
+
+        ![](images/sort-all.gif)
+
+    通用排序算法的时间算法复杂度极限是 n*log(n)，但非通用算法是可以突破极限的，比如有穷集合的排序。
+
+- 算法全貌
+
+    ```
+    各类排序算法
+    随机算法
+    分治策略
+    二叉树
+    红黑树
+    动态规划
+    贪心算法
+    摊还分析
+    B 树
+    图算法
+    多线程算法
+    矩阵
+    线性规划
+    快速傅立叶变换
+    数论算法
+    NP 完全性
+    计算几何学
+    近似算法
+    ```
+
+- 算法的参考资料
+    - [算法参考书]()
+    - leetcode
+    - 习题参考
+
 ### 5.2 算法实践
 
 [返回目录](#课程目录)
 
+在工作中，我们不会有太多机会《算法概论》中的各类经典算法，因此这里仅涉及一些工作中可能遇到的算法技巧。
+
+#### 5.2.1 二进制和位运算
+
+- 位运算
+    - 运算符：`<<  >>  &  |  ^  ~`
+    - 一个数做右移运算时，高位填充 0
+    - 一个数与全 0 异或不变，与全 1 异或即为取反
+- 例子
+    - 判断 x 是否 2 的平方数：`x & (x-1) == 0`
+    - flag 置位：`x | flag`
+    - flag 清零：`x & ~flag`
+
+#### 5.2.2 序列算法
+
+- 字符串循环左移2位：abcdefg -> cdefgab
+- 逐词反转：apple pear orange -> elppa raep egnaro
+- 实现 Buffer，写满即覆盖最前面的内容
+- 实现最小固定长度队列，若持续向队列推送数据，只保留最小的 N 个以内的值
+- 固定长度栈
+
+#### 5.2.3 散列算法
+
+- 计数器（字典唱票算法）：aabbcccdd -> {'a':2, 'b':2, 'c':3, 'd':2,}
+- 集合算法
+
 ### 5.3 设计模式实践
 
 [返回目录](#课程目录)
+
+#### 5.3.1 装饰器
+
+#### 5.3.2 迭代器和生成器
 
 ## 6. 系统相关
 
