@@ -5,7 +5,7 @@
 
 ## 学习进度安排
 
-- [Python 21 小时](doc/learning-python-in-21-hours.md)
+- [Python 3 日谈](doc/learning-python-in-3-days.md)
 - [Python 4 日谈](doc/learning-python-in-4-days.md)
 
 ## 参考
