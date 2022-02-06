@@ -141,7 +141,7 @@
 
 参考：[用 VSCode 编写和调试 Python 程序](Installation-VSCode.md)
 
-> 练习作业：在 VSCode 中运行 python 程序
+> 练习作业：在 VSCode 中运行 python 程序。看到下图表示执行成功
 >
 >    ![](images/vscode-run.png)
 
@@ -254,10 +254,10 @@
 - 取整运算
 
     ```python
-    保留整数部分：int(3.54) -> 3
-    向上取整：math.ceil(3.14) -> 4
-    向下取整：math.floor(3.14) -> 3
-    四舍五入：round(3.14) -> 3, round(3.54) -> 4
+    截尾取整 int(3.54) -> 3
+    向上取整 math.ceil(3.14) -> 4
+    向下取整 math.floor(3.14) -> 3
+    四舍五入 round(3.14) -> 3, round(3.54) -> 4
     ```
 
 - 字符串转换成整数
@@ -304,11 +304,13 @@
         ```
 
 > 练习作业：随机生成两个 10 以内的实数（精确到小数点后两位）并输出到屏幕，要求用户输入它们的和，然后判断用户的输入值，然后输出 True/False。
+>
 > ```python
-> 程序运行后界面上显示：Please input sum for 4.96 + 4.91 =
-> 然后用户输入：9.87
-> 程序输出：True!
+> 程序运行后界面上显示 Please input sum for 4.96 + 4.91 =
+> 然后用户输入 9.87
+> 程序输出 True
 > ```
+>
 > [参考](python-exec-public.py#L117-138)
 
 ## 2. 进阶
