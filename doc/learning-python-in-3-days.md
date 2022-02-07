@@ -69,9 +69,14 @@
 
 #### 1.1.3 什么是 Pythonic 的编程思维？
 
-- Python 是工程，不是艺术（解决同一个问题用同一种方法）
-- 简单优于复杂
-- 明确优于晦涩（复杂优于难懂，要始终保持代码的易读性，“让易读的代码进行性能优化”远比“让高效的代码变得易读”要容易）
+- **Python 是工程，不是艺术（解决同一个问题用同一种方法）**
+    - Python 中的 None 只有一种写法，不能写成 none / null / nul / Null / NONE
+    - Python 中的分支结构只有 if/else，没有 switch
+    - Python 中的 for 循环也只有一种写法 `for i in items: ...`
+- **简单优于复杂**
+    - Python 只有很少的语法糖，比如装饰器
+    - Python 的对象属性设计基本都是可以自圆其说的
+- **明确优于晦涩**（复杂优于难懂，要始终保持代码的易读性，“让易读的代码进行性能优化”远比“让高效的代码变得易读”要容易）
 
 更具体一点：
 
@@ -440,11 +445,196 @@
 >
 > [参考](python-exec-public.py#L252-271)
 
+> **练习作业**：提示用户输入一个句子，去掉行首行末的空白，单词之间的空白统一格式化成一个空格。
+>
+> ```python
+> 输入 "It is      my  book. "
+> 输出 "It is my book."
+> ```
+>
+> [参考](python-exec-public.py#L252-271)
+
 #### 1.4.4 元组（tuple）
+
+- 元组的初始化
+
+    ```python
+    t = (0, "Ni", 1, 0)
+    t = (0,) # 单元素元组的末尾要加上逗号，以区别括号运算符，这里若没有逗号就等于0
+    t = (0, "Ni", 1, (4, 5,)) # 元组可以嵌套另一个元组或者其它任意对象
+    t = tuple("hello") # 从其它可迭代对象生成元组
+    ```
+
+- 元组是**不可变的引用序列对象**
+    - 元组是序列，序列元素是引用（临时变量）
+    - 元组是不可变对象
+- 元组赋值运算
+
+    ```python
+    >>> a, b = 4, 5
+    >>> (a, b) = 4, 5
+    >>> a, b = (4, 5)
+    >>> (a, b) = (4, 5)
+    >>> (a, b) = (b, a+b)
+    >>> a, b = b, a+b
+    >>> a, b = divmod(5, 3)
+    ```
+
+- 序列的通用表达式和函数
+
+    ```python
+    if x in s / if x not in s
+
+    if "ha" in "haha":
+        print(True)
+
+    for x in s:
+        print(x)
+
+    s + t, s += t
+    "hello" + " world!"
+    对可变序列对象，s+=t会改变s对象本身
+
+    s * n, n * s
+    "hello" * 5
+
+    s[i], s[i:j], s[i:j:k]
+    len(s), min(s), max(s)
+
+    sorted()
+    sorted([1, 4, 3, 2]) # 排序后生成一个新的列表并返回
+    ```
 
 #### 1.4.5 列表（list）
 
-#### 1.4.6 集合（set）
+- 列表的初始化
+
+    ```python
+    t = [0, "Ni", 1, 3]
+    t = [0, "Ni", 1, [4, 5]] # 列表可以嵌套另一个列表或者其它任意对象
+    t = list("haha") # 从其它可迭代对象生成列表
+    t = list(range(3)) # 生成数字列表：[0, 1, 2]
+    ```
+
+- 列表是可变的引用序列对象
+    - 列表是序列，序列元素是引用（临时变量）
+    - 列表是可变对象
+- 列表常用方法
+
+    ```python
+    # append / extend
+    aList = [1, 3, 2, 4, 7, 6]
+    aList.append([4, 5]) # 不生成新的列表对象，而是改变原对象本身
+    aList.extend([4, 5])
+
+    # sort
+    aList.sort()
+
+    # insert
+    aList.insert(1, 4)
+
+    # reverse
+    aList.reverse()
+
+    # pop / remove
+    aList.pop() # 删除并返回最后一个元素
+    aList.remove(1) # 删除指定的元素，没有返回值
+    ```
+
+- 列表常用运算
+
+    ```python
+    # del L2[i:j]
+    del aList[2]
+    del aList[0: 1] # 删除变量和映射关系，而非删除对象本身
+
+    # L2[k] = N / L2[i:j] = L3
+    aList[2] = 5 # k不可以越界访问
+    aList[1:2] = [4, 5, 6] # 等号左边的索引仍然代表一个左闭右开的区间，等号右边的列表表示填入的内容。
+
+    zip()将多个列表合成一个元组对列表
+    list(zip([1, 2, 3], ["apple","pear","banana"]))
+    ```
+
+- 列表解析
+
+    列表解析的本质是：
+
+    - 遍历可迭代对象的每一个元素
+    - 将遍历到的元素代入前端的表达式进行运算
+    - 用运算结果生成一个新的列表对象
+
+    列表解析举例
+
+    ```python
+    [i**2 for i in range(5)]
+    [str(i) for i in range(5) if i > 3]
+    [ord(i) for i in "hello"]
+    ```
+
+#### 1.4.6 序列和散列
+
+序列和散列都是可迭代对象
+
+- 序列包括：字符串/元组/列表
+    - 元素有序排列
+    - 元素可以重复
+- 散列包括：集合/不可变集合/字典
+    - 元素没有顺序
+    - 元素（键）不可以重复
+
+#### 1.4.7 集合（set）
+
+- 集合的初始化
+
+    ```python
+    x = set("hello") # 从其它可迭代对象生成集合
+    ```
+
+- 集合表示一些元素的无序集合
+
+    无重复元素，可以用于剔除序列中的重复元素
+
+- 集合只能包含可以计算哈希值的对象（hashable）
+
+    Python 内建的不可变对象都是 hashable 的，元组是 hashable 的，列表不是
+
+    ```python
+    >>> set([range(5), range(3)])
+    Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+    TypeError: unhashable type: 'list'
+    ```
+
+- 集合的常用运算
+
+    ```python
+    x - y # 差集
+    x & y # 交集
+    x | y # 并集
+    x ^ y # 外集
+    x < y # 真子集
+    x <= y # 子集
+    x >= y # 超集
+    ```
+
+- 集合的常用方法
+
+    ```python
+    aSet.update(bSet)
+    aSet.intersection_update(bSet)
+    aSet.difference_update(bSet)
+    aSet.symmetric_difference_update(bSet)
+    aSet.add(x)
+    aSet.remove(x)
+    aSet.discard(x) # remove if exist
+    aSet.pop()
+    aSet.clear()
+    ```
+
+- 不可变的集合（frozenset），不可变对象
+
+    frozenset 和 set 的关系，相当于 tuple 和 list 的关系
 
 #### 1.4.7 字典（dict）
 
