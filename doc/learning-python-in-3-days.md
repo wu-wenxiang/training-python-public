@@ -71,11 +71,12 @@
 
 - **Python 是工程，不是艺术（解决同一个问题用同一种方法）**
     - Python 中的 None 只有一种写法，不能写成 none / null / nul / Null / NONE
+    - True/False 也只有一种写法，不能写成 true / TRUE
     - Python 中的分支结构只有 if/else，没有 switch
     - Python 中的 for 循环也只有一种写法 `for i in items: ...`
 - **简单优于复杂**
     - Python 只有很少的语法糖，比如装饰器
-    - Python 的对象属性设计基本都是可以自圆其说的
+    - Python 的对象属性设计基本都是可以自圆其说的，包括切片和 range 的开闭区间一致性，装饰器没有黑魔法，for 中的 while，迭代器的设计，等等。
 - **明确优于晦涩**（复杂优于难懂，要始终保持代码的易读性，“让易读的代码进行性能优化”远比“让高效的代码变得易读”要容易）
 
 更具体一点：
@@ -180,6 +181,47 @@
         - 强制缩进 / 所见即所得
         - 没有大括号 / 小括号 / 分号（其实可以有，但会被鄙视）
         - 标准输出：`print(...)`
+
+    - python 的分支结构语法
+
+        ```python
+        if 5 > 3:
+            print("5 > 3")
+        elif 5 > 4:
+            print("5 > 4")
+        else:
+            print("5 < 4") 
+
+        # 三目运算符
+        d = 32 if 15 > 14 else 16
+        ```
+
+    - 比较运算符：`>, >=, <, <=, !=, ==, is`，同类型对象之间的比较有意义，不同类型之间比较无意义。
+
+        == 表示值相等，is 表示引用相同
+
+        支持：4>3>2, 5>4<6>5>3，只要所有相邻两个值关系成立，结果即为 True
+
+        冷知识（用不到，单纯介绍）：序列的比较是从头开始，依次比较每一个元素；集合的比较是：子集/超集；字典的比较是将 key 排序，然后逐个比较 key 值
+
+    - 逻辑运算符：not, and, or，存在短路效应
+    - python 的循环语法
+
+        ```python
+        # while 循环
+        i = 0
+        while i < 10:
+            print(i)
+            i += 1
+        else:
+            print(i)
+
+        # for 循环
+        for i in range(10):
+            print(i)
+        else:
+            print(i)
+        ```
 
 #### 1.2.5 帮助文档 Pydoc
 
@@ -638,6 +680,74 @@
 
 #### 1.4.7 字典（dict）
 
+- 字典的初始化
+
+    ```python
+    aDict = {'apple': 1.5, 'pear': 2.3}
+    aDict = dict(apple = 1.5, pear = 2.3)
+    aDict = dict([("apple",1.5), ("pear",2.3)])
+    ```
+
+- 键只能是 hashable 的对象，不能重复，通常用字符串或者数字
+- 值可以是任意对象，可以重复
+- 字典的常用方法
+
+    ```python
+    aDict.items()
+    aDict.keys()
+    aDict.values()
+    aDict.copy()
+    aDict.get(k[,x])
+    aDict.setdefault(k[,x])
+    aDict.pop(k[,x])
+    aDict.clear()
+    ```
+
+- 字典的常见运算
+    - 访问字典中的元素
+
+        ```python
+        aDict = {"apple":1.5, "banana":2.4}
+        print(aDict["apple"])
+        print(aDict["pear"]) # 访问不存在的键会报错
+        ```
+
+    - 添加一个元素
+
+        ```python
+        aDict["pear"] = 3.2
+        ```
+
+    - pprint.pprint，用于 Debug 时更清晰地 Dump 复杂对象
+    - 基于字典的格式化
+
+        ```python
+        "%(n)d %(x)s %(n)d" % {"n":1, "x": "spam"}
+        '{a},{b}'.format(a=18,b='kzc')
+
+        aDict = {"n":1, "x": "spam"}
+        f'{aDict["n"]} {aDict["x"]}'  # '1 spam'
+        ```
+
+- 散列的通用运算
+
+    ```python
+    # if x in hash / if x not in hash
+    if "h" in set("ha"):
+        print(True)
+    if "h" in aDict:
+        print(True)   # 判断aDict中是否有"h"这个键
+
+    for x in h:
+        print(x)
+
+    len(s), min(s), max(s)
+
+    sorted # 对散列元素排序后生成一个列表
+    sorted(set(1, 4, 5))
+    sorted(aDict)
+    ```
+
 ## 2. 进阶
 
 [返回目录](#课程目录)
@@ -811,6 +921,23 @@
 #### 5.3.1 装饰器
 
 #### 5.3.2 迭代器和生成器
+
+- 迭代环境
+
+    ```python
+    any(s) / all(s) # s 是布尔类型的迭代
+    sum(seq) # seq 是数字
+    max(seq) / min(seq)
+
+    for x in h:
+        print(x)
+
+    len(s), min(s), max(s)
+
+    sorted # 对散列元素排序后生成一个列表
+    sorted(set(1, 4, 5))
+    sorted(aDict)
+    ```
 
 ## 6. 系统相关
 
