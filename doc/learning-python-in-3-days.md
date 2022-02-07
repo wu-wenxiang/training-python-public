@@ -1029,6 +1029,10 @@
 
 [返回目录](#课程目录)
 
+- 命令行参数
+    - sys.argv，命令行参数列表
+    - optparse，较好地封装了 sys.argv
+
 ### 6.2 父子进程调用
 
 [返回目录](#课程目录)
@@ -1036,6 +1040,103 @@
 ### 6.3 文件和目录
 
 [返回目录](#课程目录)
+
+- 文件对象初始化
+
+    ```python
+    aFile = open('a.txt', 'w')
+    # 打开模式:  'r', 'w', 'a', 'w+'，默认以只读打开
+
+    # 文件对象的字段属性
+    >>> aFile.name
+    'a.txt'
+    >>> aFile.mode
+    'w'
+    ```
+
+- 读文件
+
+    ```python
+    aFile = open('a.txt')
+    aFile.read()
+    aFile.read(N)
+    aFile.readline()
+    aFile.readlines()
+
+    # 以读模式打开的文件对象是一个可迭代对象，迭代时自动按行读取
+    for line in open('a.txt'):
+        print(line)
+    ```
+
+- 写文件
+
+    ```python
+    outputFile = open('a.txt', 'w')
+    outputFile.write('test contents')
+    outputFile.close()
+    # 'a'是追加
+
+    aFile.writelines(aList)
+    # 等同于下面的
+    for line in aList:
+        aFile.write(line)
+    ```
+
+- 文件常用方法
+
+    ```python
+    flush # 有缓存的文件对象才需要
+    seek # 重新定位偏移量
+    tell
+    truncate
+    fileno
+    close # 记得 close，否则可能造成文件描述符泄漏
+    ```
+
+- 标准输入输出
+    - 标准输入 `input() == sys.stdin.readline().rstrip('\n')`
+    - 标准输出 `print(aStr) == sys.stdout.write(aStr+'\n')`
+    - 标准错误 sys.stderr，和标准输出类似，但没有缓存
+
+    Python进程起来时，系统会自动为这三个变量绑定标准输入输出对象
+
+    标准输出的重定向
+
+    ```python
+    output = open('a.txt', 'a')
+    sys.stdout = output
+    print('haha')
+    ```
+
+- Python 对象的序列化（到文件）
+
+    ```python
+    aFile = open('test.txt', 'w')
+    import pickle
+    pickle.dump({"a":1, "b":2}, aFile)
+    aFile.close()
+
+    bFile = open('test.txt')
+    cDict = pickle.load(bFile)
+    ```
+
+- 写入二进制文件
+
+    ```python
+    aFile = open('test.bin', 'wb')
+    import struct
+    bytes = struct.pack('>i4sh',7,'spam', 8)
+    aFile.write(bytes)
+    aFile.close()
+    ```
+
+- 读取二进制文件
+
+    ```python
+    aFile = open('test.bin', 'rb')
+    data = aFile.read()
+    values = struct.unpack('>i4sh', data)
+    ```
 
 ### 6.4 并行计算
 
