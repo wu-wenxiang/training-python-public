@@ -182,7 +182,7 @@
         - 没有大括号 / 小括号 / 分号（其实可以有，但会被鄙视）
         - 标准输出：`print(...)`
 
-    - python 的分支结构语法
+    - python 的分支结构语法（if/elif/else）
 
         ```python
         if 5 > 3:
@@ -190,7 +190,7 @@
         elif 5 > 4:
             print("5 > 4")
         else:
-            print("5 < 4") 
+            print("5 < 4")
 
         # 三目运算符
         d = 32 if 15 > 14 else 16
@@ -222,6 +222,8 @@
         else:
             print(i)
         ```
+
+        **注意这里的 else，如果由 break 跳出循环，就不会执行 else block，反之就会执行**
 
 #### 1.2.5 帮助文档 Pydoc
 
@@ -369,6 +371,23 @@
         5 // -2 -> -3
         ```
 
+- 数字的常用函数
+
+    ```python
+    int(x)
+    float(x)
+    divmod(x, y)
+    pow(x, y)
+    round(x, n)
+    abs(x)
+
+    sum(seq)
+    max(seq)
+    min(seq)
+
+    eval(aStr)
+    ```
+
 > **练习作业**：随机生成两个 10 以内的实数（精确到小数点后两位）并输出到屏幕，要求用户输入它们的和，然后判断用户的输入值，然后输出 True/False。
 >
 > ```python
@@ -494,7 +513,7 @@
 > 输出 "It is my book."
 > ```
 >
-> [参考](python-exec-public.py#L252-271)
+> [参考](python-exec-public.py#L234-251)
 
 #### 1.4.4 元组（tuple）
 
@@ -614,6 +633,26 @@
     [ord(i) for i in "hello"]
     ```
 
+> **练习作业**：提示用户输入若干（>3）个评分，去掉一个最高分，一个最低分，求平均分，保留2位小数。
+>
+> ```python
+> Please input some integer numbers:
+> 9 7 5 0 100
+> The average is: 7.00.
+> ```
+>
+> [参考](python-exec-public.py#L320-338)
+
+> **练习作业**：提示用户输入一个整数，输出比它小的能被三整除的自然数。
+>
+> ```python
+> Please input a integer:
+> 50
+> 3 6 9 12 15 18 21 24 27 30 33 36 39 42 45 48
+> ```
+>
+> [参考](python-exec-public.py#L453-466)
+
 #### 1.4.6 序列和散列
 
 序列和散列都是可迭代对象
@@ -678,6 +717,10 @@
 
     frozenset 和 set 的关系，相当于 tuple 和 list 的关系
 
+> **练习作业**：translations 由哪些不同的字母组成？
+
+> **练习作业**：smiles 和 translations 这两个单词有哪些共有字母（s/i/l），哪些独有的字母（比如 smile 有 m/e）？
+
 #### 1.4.7 字典（dict）
 
 - 字典的初始化
@@ -728,6 +771,20 @@
         aDict = {"n":1, "x": "spam"}
         f'{aDict["n"]} {aDict["x"]}'  # '1 spam'
         ```
+
+> **练习作业**：提示用户输入一行字符串，统计并输出其中每个字符出现的次数。
+>
+> ```python
+> Please input a Str:
+> abcdcdabcd
+> The stat char list:
+> a => 2
+> c => 3
+> b => 2
+> d => 3
+> ```
+>
+> [参考](python-exec-public.py#L468-497)
 
 - 散列的通用运算
 
@@ -912,7 +969,32 @@
 #### 5.2.3 散列算法
 
 - 计数器（字典唱票算法）：aabbcccdd -> {'a':2, 'b':2, 'c':3, 'd':2,}
+
+    > **练习作业**：提示用户输入一个句子，按首字母统计句中的单词（限定每个单词都只能由字母组成），输出统计结果。
+    >
+    > ```python
+    > Please input a string:
+    > it is my book.
+    > The stat char list:
+    > i => ['it', 'is']
+    > m => ['my']
+    > ```
+    >
+    > [参考](python-exec-public.py#L519-543)
+
 - 集合算法
+
+    > **练习作业**：提示用户输入 A、B 两个整数数列，统计并排序输出 A 数列中独有的整数，B 中独有的整数，以及 A、B 公有的整数。
+    >
+    > ```python
+    > Please input int list A: 1 3 5 7 9
+    > Please input int list B: 5 6 7
+    > Only in A: [1, 3, 9]
+    > Only in B: [6]
+    > Both in A & B: [5, 7]
+    > ```
+    >
+    > [参考](python-exec-public.py#L498-518)
 
 ### 5.3 设计模式实践
 
