@@ -653,6 +653,20 @@
 >
 > [参考](python-exec-public.py#L453-466)
 
+> 思考题：
+>
+> ```python
+> a = [[0]] * 3
+> a[0][0] = 1
+>
+> print(a) # 结果是？
+>
+> # 进一步思考下以下两者的区别：
+> a = [0]
+> [a for i in range(3)]
+> [[0] for i in range(3)]
+>```
+
 #### 1.4.6 序列和散列
 
 序列和散列都是可迭代对象
@@ -812,6 +826,64 @@
 ### 2.1 高阶函数
 
 [返回目录](#课程目录)
+
+#### 2.1.1 函数
+
+- 函数对象的属性
+    - 函数名称：`__name__`
+    - 输入参数（个数和默认值）
+    - 函数体
+    - 返回值
+    - 函数文档：`__doc__`
+- 函数定义的过程
+    - 产生一个函数对象
+    - 将这个函数对象和函数名变量建立映射关系
+    - 多次定义同名函数，则后定义的会简单覆盖前面的
+
+    ```python
+    def add(a, b=3):
+        """
+        add function
+        >>> add(4, 5) 9
+        """
+        return a + b
+
+    print(add.__name__)
+    print(add.__doc__)
+    print(add(4, 5), add(7))
+    ```
+
+- 函数内的变量访问规则
+    - LEGB：Local（函数内有赋值运算的变量就是 local 变量）/Enclosed/Global/Built-in
+    - 如果确实要在函数中修改全局变量，需要用 global 修饰符
+
+    > 思考题（以下代码的运行结果是？）：
+    >
+    > ```python
+    > a = 42
+    >
+    > def aFun():
+    >     a += 1
+    >
+    > aFun()
+    > print(a)
+    >```
+
+- 默认参数
+
+    > 思考题（以下代码有什么问题？）：
+    >
+    > ```python
+    > import time
+    >
+    > def myLog(msg, timestamp=time.time()):
+    >     print(f'[{timestamp}]::{msg}')
+    >
+    > myLog("test")
+    > myLog("test", time.time())
+    > time.sleep(2)
+    > myLog("test")
+    >```
 
 ### 2.2 类和实例
 
