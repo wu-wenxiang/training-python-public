@@ -22,6 +22,7 @@
 |        |     |                   | [3.2 自动化测试](#32-自动化测试) |
 |        |     |                   | [3.3 自动化任务](#33-自动化任务) |
 |        |     |      | [3.4 开发规范](#34-开发规范) |
+|        |     |      | [3.5 模块和发布](#35-模块和打包) |
 |        | 下午 | [4. Web](#4-web-开发) | [4.1 MVC 框架](#41-mvc-框架) |
 |        |     |                   | [4.2 Restful API](#42-restful-api) |
 |        |     |                   | [4.3 服务部署](#43-服务部署) |
@@ -871,6 +872,11 @@
     > print(a)
     >```
 
+- 命名空间用来避免变量名冲突
+    - 函数对象：局部变量
+    - [模块对象](#351-模块)：模块的属性（模块中的全局变量和函数）
+    - 类对象：类的属性（字段和方法）
+    - 实例对象：实例的属性（字段和方法）
 - 函数的实参写法
     - 普通传参 `add(4, 5)`
     - 命名传参 `add(b=5, a=4)`
@@ -1073,6 +1079,116 @@
 ### 3.4 开发规范
 
 [返回目录](#课程目录)
+
+### 3.5 模块和打包
+
+[返回目录](#课程目录)
+
+#### 3.5.1 模块
+
+- 模块对象的本质
+    - 就是 Python 文件
+    - 文件名必须符合变量的命名规则
+
+    import 模块对象的流程
+
+    - 预编译模块对应的 Python 文件为 pyc 文件
+    - 运行一遍这个 pyc 文件
+    - 若该对象模块已经存在，再次 import 时不会重复运行其对应的 pyc 文件
+- 顶层脚本的概念
+    - 当一个 Python 文件直接被 Python 解释器启动，这个 Python 文件被称为该进程的顶层脚本。
+    - 顶层脚本和模块
+        - 顶层脚本的文件名可以不符合变量的命名规则
+        - 顶层文件在运行前，不会被预编译成 pyc 文件
+        - 一个进程中的顶层文件可以是另一个进程里的普通模块（只要它符合模块的命名规则）
+- 包对象的本质
+    - 包含 `__init__.py` 模块的文件夹
+    - 文件夹的命名必须符合变量的命名规则
+    - 包对象是特殊的模块对象
+
+        ```python
+        >>> import testPkg
+        >>> testPkg
+        <module 'testPkg' from 'testPkg/__init__.pyc'>
+        ```
+    - import 包对象就是预编译和运行对应的 `__init__.py` 文件
+- import 的注意事项
+    - **不同的 import 方式，访问到的是相同的模块对象，因为实际只会 import 一次**
+
+        ```python
+        >>> import testPkg
+        >>> testPkg.testModule
+        <module 'testPkg.testModule' from 'testPkg/testModule.py'>
+        >>> from testPkg import testModule
+        >>> testModule
+        <module 'testPkg.testModule' from 'testPkg/testModule.py'>
+        >>> from testPkg import testModule as fakeModule
+        >>> fakeModule
+        <module 'testPkg.testModule' from 'testPkg/testModule.py'>
+        >>> id(testPkg.testModule), id(testModule), id(fakeModule)
+        (4454769784, 4454769784, 4454769784)
+        ```
+
+    - **import 会逐个运行模块路径上的所有包和模块一次且仅运行一次。初次 import 的过程，是运行一个模块，然后将其关心的对象映射到一个变量。**
+
+        ```python
+        import aModule
+        import aPkg
+        from aPkg import aModule
+        from aPkg import aModule as bModule
+        from aPkg.aModule import aVar as bVar
+        from aModule import *
+        ```
+
+    - `__import__` 的用法
+
+        ```python
+        sys = __import__('sys')
+        # 等价于 import sys
+        ```
+
+    - `__import__` 和 `import` 的区别
+        - import 是语句，import 模块必须 hardcode 在代码里
+        - `__import__` 是函数，所以可以动态的 import 输入字符串所对应的模块
+- 模块的搜索路径
+    - `sys.path` 中包含的路径
+
+        `sys.path` 和 `sys.argv` 一样，是进程起来时被自动赋值的变量，值从父进程的环境变量里读取
+
+    - 当前目录
+    - 可以访问到的包对象 `from math import pi`
+- reload 的作用
+    - `from imp import reload`
+    - reload 只对模块对象起作用
+    - reload 可以完成模块的再次加载
+
+    ```python
+    import time
+    import testModule
+    from imp import reload
+
+    while True:
+        import testModule
+        # reload(testModule)
+        testModule.echo()
+        time.sleep(2)
+    ```
+
+- 模块的常用方法
+
+    ```python
+    __name__
+
+    if __name__ == '__main__':
+        print(f'hello, {__name__}')
+
+    # python -m test
+
+    __dict__
+    __doc__
+    ```
+
+#### 3.5.2 打包
 
 ## 4. Web 开发
 
