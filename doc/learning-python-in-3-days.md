@@ -1048,6 +1048,270 @@
 
 [返回目录](#课程目录)
 
+#### 2.2.1 类的定义和实例化
+
+```python
+class AClass(object):
+    """
+    AClass Spec
+
+    This a AClass
+    """
+    aField = "testField"
+    def aMethod(self):
+        print("testMethod")
+
+print(AClass.__name__)
+print(AClass.__doc__)
+print(AClass.__dict__)
+print(AClass.__base__)
+```
+
+- 类对象的属性
+    - 类名称: `__name__`
+    - 类文档: `__doc__`
+    - 类的属性字典: `__dict__`
+    - 类的第一个父类: `__base__`
+- 类定义的过程
+    - 产生一个类对象
+    - 将这个类对象和类名变量建立映射关系
+    - 多次定义同名类，则后定义的会简单覆盖前面的
+- 新式类/经典类
+    - Python 3 中默认是新式类
+    - 在 Python 2 中，新式类需要继承 object，经典类不继承 object
+
+```python
+class AClass(object):
+    aVar = "testVar"
+    bVar = [1,2,3]
+aObj, bObj = AClass(), AClass()
+
+print(aObj, bObj)
+print(aObj.__class__, bObj.__class__)
+print(aObj.aVar, aObj.bVar)
+
+aObj.aVar = "newString"
+print(aObj.aVar, bObj.aVar, AClass.aVar)
+
+aObj.bVar[2] = "newItem"
+print(aObj.bVar, bObj.bVar, AClass.bVar)
+
+aObj.newVar = "newVar"
+# AClass.newVar = "newVar"
+print(aObj.newVar, AClass.newVar)
+```
+
+- 实例化的本质
+
+    以类对象为模版，生成实例对象的过程
+
+    ```python
+    str(object='') -> string
+    >>> str()
+    ''
+    >>> str(42)
+    '42'
+    ```
+
+- 实例对象的属性
+    - 类信息: `__class__`
+    - 访问实例对象的属性时，如果发现没有，会去它的类对象中查找
+    - 实例对象可以有自己的属性，并且可以动态增加
+- ***[了解即可] 伪私有属性***
+
+    属性的访问权限
+
+    - 私有属性：只能在其所属类的代码中被调用
+    - 公有属性：能在所属类以外的代码中被调用
+
+    私有属性的作用
+
+    - 约束类库的接口
+    - 增加类库代码的安全性
+    - 确保客户端代码的兼容性
+
+    伪私有属性
+
+    - Python中所有的属性都是公有的
+    - 为了约束接口，Python增加了伪私有属性：在定义类时，以双下划线为前缀的属性即为伪私有属性。Python会自动帮你加上类前缀。
+    - 注意：在定义好类之后，再添加以双下划线为前缀的属性，不是伪私有属性。
+- 方法属性
+    - 类的方法属性本质上都是成员方法
+    - 成员方法带有一个 self 参数，并位于形参列表的第一位
+    - self 代表的就是类的实例对象
+
+    特殊的方法属性
+
+    - 类方法 `@classmethod`
+    - 静态方法 `@staticmethod`
+    - 属性 `@property`
+
+#### 2.2.2 钩子方法和运算符重载
+
+- 钩子方法（Hook）/ 魔术方法（Magic method）
+
+    Hook 方法通常不会被直接 call 到，而是被绑定在其它方法或者运算符上
+
+    ```python
+    3+5 -> (3).__add__(5)
+    str(3) -> (3).__str__()
+    ```
+
+- 运算符重载
+
+    除了显示的运算符，隐式的运算也被包含在运算符重载的范畴中，比如实例化，点号运算，括号运算等都算在内。
+
+    - 初始化方法: `__init__`
+
+        ```python
+        class Test(object):
+            def __init__(self, param):
+                    self.param = param
+            def testMethod(self):
+                    print(self.param)
+
+        a = Test("haha")
+            a.testMethod()
+        ```
+
+    - 字符串方法：`__str__` 和 `__repr__`
+
+        ```python
+        class Test(object):
+            def __str__(self):
+                return "str"
+            def __repr__(self):
+                return "repr"
+
+        a = Test()
+        print(a, str(a), repr(a))
+        ```
+
+        `str()` 和 `print` 在找不到 `__str__` 方法会去找 `__repr__`，`repr()` 则不会找 `__str__`，所以应该优先实现 `__repr__` 方法。
+
+    - 点号运算符（访问属性）：`__getattr__`
+
+        ```python
+        class Test(object):
+            def __init__(self, param):
+                self.param = param
+            def __getattr__(self, param):
+                print(param + "not found!")
+
+        a = Test("haha")
+        print(a.param)
+        a.dddd
+        ```
+
+    - 括号运算符（函数调用）：`__call__`
+
+        ```python
+        class A(object):
+            def __call__(self):
+                return 42
+
+        a = A()
+        print a()
+        ```
+
+        与函数相比，实例对象有什么优势？
+
+        - 纵向扩展：类的继承
+        - 更好的封装：可以将子函数封装成类的成员方法
+
+        “闭包”和类
+
+        ```python
+        def addN(n):
+            def add(x):
+                return x+N
+            return add
+
+        class addN(object):
+            def __init__(n):
+                self.n = n
+            def __call__(x):
+                return x+self.n
+
+        add3, add4 = addN(3), addN(4)
+        print(add3(42), add4(42))
+        ```
+
+    -  其它运算符重载
+
+        ```python
+        __new__
+        __cmp__
+        __index__
+        __lt__, __le__, __gt__, __ge__, __eq__, __ne__
+        __add__, __sub__, __mul__, __div__
+        __del__
+        ```
+
+-  动态属性
+    - 为类对象动态绑定属性，影响所有的实例
+    - 为实例对象动态动态绑定属性，影响单一实例
+
+    属性绑定: `__slot__`
+
+    ```python
+    class Student(object):
+        __slots__ = ('name', 'age')
+    s = Student()
+    s.name = 'Michael'
+    s.age = 25
+    s.score = 99 # AttributeError
+    ```
+
+    slots 定义的属性仅对当前类起作用，对继承的子类是不起作用的，除非在子类中也定义 slots，这样子类允许定义的属性就是自身的 `__slots__` 加上父类的 `__slots__`。
+
+#### 2.2.3 继承和组合
+
+- 继承的意义
+    - 子类获得父类所有的属性和方法
+    - 分层抽象，结构明确
+- 继承树
+
+    ```
+                child
+                /    \
+        father_1    father_2
+        /       \    /    \
+    ff_1    ff_2  gg_1   gg_2
+    ```
+
+- 多继承时的属性查找顺序
+    - 子类中属性或方法的查询顺序：由上而下，从左到右。
+    - 若查完整棵树没有找到，抛出异常。
+    - 经典类深度优先，由左及右。新类广度优先。
+- 类继承中的常用方法
+
+    isinstance 用于判断一个对象的类型
+
+    ```python
+    >>> isinstance(1, int)
+    True
+    >>> isinstance(1, (int, str))
+    True
+    ```
+
+    super
+
+    ```python
+    # 用于在新式类中调用父类方法
+    # 实际不止是在调用父类方法那么简单
+
+    class AClass(object):
+        def __init__(self):
+            print("Aclass")
+
+    class BClass(AClass):
+        def __init__(self):
+            super().__init__()
+            print("BClass")
+    bVar = BClass()
+    ```
+
 ### 2.3 设计模式简介
 
 [返回目录](#课程目录)
