@@ -13,7 +13,7 @@
 |        |      |                  | [1.2 开发环境搭建](#12-开发环境搭建) |
 |        |      |                  | [1.3 变量和对象](#13-变量和对象) |
 |        |      |                  | [1.4 基本对象类型](#14-基本对象类型) |
-|        | 下午 | [2. 进阶](#2-进阶) | [2.1 高阶函数](#21-高阶函数) |
+|        | 下午 | [2. 进阶](#2-进阶) | [2.1 函数和高阶函数](#21-函数和高阶函数) |
 |        |      |                  | [2.2 类和实例](#22-类和实例) |
 |        |      |                  | [2.3 设计模式简介](#23-设计模式简介) |
 |        |      |                  | [2.4 正则表达式](#24-正则表达式) |
@@ -113,7 +113,6 @@
     - 服务注册和服务发现
     - 对接时序数据库
     - 计量和监控（ceilometer 等）
-
 - 程序语言以外的部分
     - 系统（容器、虚拟化）、存储、网络和知识
     - 算法和数据结构
@@ -526,6 +525,8 @@
     t = tuple("hello") # 从其它可迭代对象生成元组
     ```
 
+    元组赋值：`a,b,c = 1,2,3`
+
 - 元组是**不可变的引用序列对象**
     - 元组是序列，序列元素是引用（临时变量）
     - 元组是不可变对象
@@ -823,11 +824,11 @@
 
 [返回目录](#课程目录)
 
-### 2.1 高阶函数
+### 2.1 函数和高阶函数
 
 [返回目录](#课程目录)
 
-#### 2.1.1 函数
+#### 2.1.1 函数的定义和调用
 
 - 函数对象的属性
     - 函数名称：`__name__`
@@ -854,7 +855,8 @@
     ```
 
 - 函数内的变量访问规则
-    - LEGB：Local（函数内有赋值运算的变量就是 local 变量）/Enclosed/Global/Built-in
+    - LEGB：Loca /Enclosed/Global/Built-in
+    - 凡是函数内有赋值运算的变量就是 local 变量
     - 如果确实要在函数中修改全局变量，需要用 global 修饰符
 
     > 思考题（以下代码的运行结果是？）：
@@ -869,21 +871,172 @@
     > print(a)
     >```
 
-- 默认参数
+- 函数的实参写法
+    - 普通传参 `add(4, 5)`
+    - 命名传参 `add(b=5, a=4)`
+    - 元组传参 `add(*(4, 5))`
+    - 字典传参 `add(**{'a':4, 'b':5})`
+- 函数的形参写法
+    - 序列变长参数 `def echo(*args): print(args)`
+    - 字典变长参数 `def echo(**kwargs): print(kwargs)`
+    - 形参顺序
+        - 非默认参数要放在默认参数前面
+        - 定长参数列表要放在变长参数前面
 
-    > 思考题（以下代码有什么问题？）：
-    >
-    > ```python
-    > import time
-    >
-    > def myLog(msg, timestamp=time.time()):
-    >     print(f'[{timestamp}]::{msg}')
-    >
-    > myLog("test")
-    > myLog("test", time.time())
-    > time.sleep(2)
-    > myLog("test")
-    >```
+            ```python
+            def echo(arg, *args):
+                print(arg, args)
+            ```
+
+        - 序列变长参数要放在字典变长参数前面
+
+            ```python
+            def echo(arg, *args, **kwargs):
+                print(arg, args, kwargs)
+            ```
+
+    - 默认参数
+
+        **注意：默认参数的值在函数定义时确定**
+
+        > 思考题（以下代码有什么问题？）：
+        >
+        > ```python
+        > import time
+        >
+        > def myLog(msg, timestamp=time.time()):
+        >     print(f'[{timestamp}]::{msg}')
+        >
+        > myLog("test")
+        > time.sleep(2)
+        > myLog("test", time.time())
+        >```
+
+        **注意：默认参数的值尽量不要是可变参数**
+
+        > 思考题（以下代码有什么问题？）：
+        >
+        > ```python
+        > import time
+        >
+        > def addItem(aList=[], i=42):
+        >     aList.append(i)
+        >     return aList
+        >
+        > print(addItem([1,2,3], 4))
+        > print(addItem())
+        >```
+
+- 函数的参数和返回值
+    - 参数传递和接收返回值的本质都是映射关系的建立
+        - 参数传递本质上就是将实参对象和形参变量建立映射关系
+        - 接收返回值本质上就是将返回值对象和接收返回值的变量建立映射关系
+        - 如果希望传入参数和函数外部的逻辑解耦，需要传入实参的浅拷贝或者深拷贝。
+    - 返回值可以是多个，但本质上是一个元组
+        - `return 3,5` == `return (3,5)`
+        - `a, b = fun()` == `aTuple = fun(); a, b = aTuple`
+
+#### 2.1.2 高阶函数
+
+- Lambda 函数
+
+    ```python
+    fun = lambdax: x**2
+
+    fun(3)
+    (lambda x: x ** 2)(3)
+    ```
+
+    lambda 的使用场合
+
+    - 定义只用一次的简单函数
+    - 尤其用于 callback 场合
+
+- 回调函数
+
+    回调 callback 的定义
+
+    - 回调本质上是将函数对象 A 作为一个参数传递给另一个函数或方法 B 。
+    - B函数被调用时，会在函数体中调用 A 函数对象
+
+    因为 A 函数对象是在运行时作为实参动态传递给B函数，所以 B 函数在定义时并不知道 A 函数的具体信息
+
+    回调函数的适用场合
+
+    - 事件驱动编程模型，比如 [TK-GUI](python-exec-public.py#L1512-1550)
+    - 异步编程模型
+
+- map
+
+    `map(fun, aIter[, bIter...])`
+
+    map函数的本质
+
+    - 第一个参数是函数对象，后续参数是一个或多个可迭代对象
+    - 会将可迭代对象的每一个元素作为参数传递给函数对象，并将返回值组 合成一个生成器返回
+
+    举例
+
+    - `map((lambda x:x+10), range(5))`
+    - `map(pow, [1, 2, 3], [2, 3, 4])`
+
+- filter
+
+    `filter(fun, iters)`
+
+    filter函数的本质
+
+    - 第一个参数是函数对象，第二个参数是一个可迭代对象
+    - 会将可迭代对象的每一个元素作为参数传递给函数对象，并将返回值为 True的可迭代对象组合成一个生成器返回
+
+    举例
+
+    - `filter((lambda x: x>0), range(-5,5))`
+    - `filter(lambda x: sum(x) > 10, zip([5, 6, 7], [4, 5, 6]))`
+
+- reduce
+
+    ```python
+    from functools import reduce
+    reduce(fun, iters[, initial])
+    ```
+
+    reduce函数的本质
+
+    - 第一个参数是函数对象，第二个参数是一个可迭代对象，第三个可选参数是初始值
+    - 无初始值
+
+        ```python
+        reduce(lambda x,y: x+y, [1,2,3,4,5]) -> ((((1+2)+3)+4)+5)
+        reduce(lambda x,y: x+y, []) -> TypeError
+
+        ```
+    - 有初始值
+
+        ```python
+        reduce(lambda x,y: x+y, [1,2,3,4,5], 10) -> (((((10+1)+2)+3)+4)+5)
+        reduce(lambda x,y: x+y, [], 10) -> 10
+        ```
+
+- 其它
+    - sort/sorted/key
+
+        `sorted(['10','apple','e'], key=len)`
+
+    - min/max 等
+    - 偏函数：为函数对象设置新的默认参数
+
+        ```python
+        def int2(x, base=2):
+            return int(x, base)
+
+        >>> int2('1000000')
+        64
+        >>> import functools
+        >>> int2 = functools.partial(int, base=2)
+        >>> int2('1010101')
+        85
+        ```
 
 ### 2.2 类和实例
 
@@ -1068,11 +1221,110 @@
     >
     > [参考](python-exec-public.py#L498-518)
 
+#### 5.2.4 递归和递推
+
+- 栈的概念
+    - 一个进程中可能包含多个线程
+    - 每一个线程都有自己的栈空间，用于存储该线程独有的数据，比如局部变量
+- 函数和栈
+    - 当一个函数在线程中被调用时，该函数调用时的参数/局部变量/返回值会逐个压入栈中保存
+    - 函数调用结束再逐个弹出销毁
+- 递归函数
+    - 定义：函数定义中调用自身
+    - 使用场合：特别适合用递归思想实现的算法
+    - 使用限制
+        - 要避免无限递归造成：StackOverflow
+        - 递归需要频繁的出栈入栈，注重性能的算法要避免递归
+
+    ```python
+    def aFun(N):
+        print("N = %d" % N)
+
+        if N > 2:
+            return
+        else:
+            aFun(N+1)
+
+    aFun(0)
+    ```
+
+- 递推往往比递归更有效率
+
+    斐波那契数列
+
+    ```python
+    def fib(n):
+        if n < 3:
+            return n
+        else:
+            return fib(n-1) + fib(n-2)
+
+    fib(40)
+    ```
+
+    ```python
+    fibList = []
+
+    for i in range(100):
+        if i < 2:
+            fibList.append(i+1)
+        else:
+            fibList.append(fibList[i-1] + fibList[i-2])
+
+    print(fibList)
+    ```
+
 ### 5.3 设计模式实践
 
 [返回目录](#课程目录)
 
 #### 5.3.1 装饰器
+
+斐波那契数列
+
+```python
+import functools
+
+def memoize(fn):
+    known=dict()
+
+    @functools.wraps(fn)
+    def memoizer(*args):
+        if args not in known:
+            known[args] = fn(*args)
+        return known[args]
+
+    return memoizer
+```
+
+```python
+@memoize
+def nsum(n):
+    '''返回前n个数字的和'''
+    assert(n>=0), 'n must be <= 0'
+    return 0 if n==0 else n + nsum(n-1)
+
+@memoize
+def fibonacci(n):
+    '''返回斐波那契数列的第n个数'''
+    assert(n>=0), 'n must be >= 0'
+    return n if n in (0,1) else fibonacci(n-1) + fibonacci(n-2)
+```
+
+```python
+from timeit import Timer
+
+measure=[
+    {'exec':'fibonacci(100)', 'import':'fibonacci','func':fibonacci},
+    {'exec':'nsum(200)','import':'nsum','func':nsum}
+]
+
+for m in measure:
+    t=Timer(
+        '{}'.format(m['exec']),
+        'from__main__import{}'.format(m['import']))
+    print('name:{},doc:{},executing:{},time:{}'.format(m['func'].__name__, m['func'].__doc__, m['exec'],t.timeit()))
+```
 
 #### 5.3.2 迭代器和生成器
 
