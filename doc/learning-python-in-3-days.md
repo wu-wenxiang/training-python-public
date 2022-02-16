@@ -1181,12 +1181,12 @@ print(aObj.newVar, AClass.newVar)
         ```python
         class Test(object):
             def __init__(self, param):
-                    self.param = param
+                self.param = param
             def testMethod(self):
-                    print(self.param)
+                print(self.param)
 
         a = Test("haha")
-            a.testMethod()
+        a.testMethod()
         ```
 
     - 字符串方法：`__str__` 和 `__repr__`
@@ -1226,7 +1226,7 @@ print(aObj.newVar, AClass.newVar)
                 return 42
 
         a = A()
-        print a()
+        print(a())
         ```
 
         与函数相比，实例对象有什么优势？
@@ -1326,6 +1326,9 @@ print(aObj.newVar, AClass.newVar)
             print("BClass")
     bVar = BClass()
     ```
+
+- [继承优于组合的例子](python-exec-public.py#L1046-1066)
+- [组合优于继承的例子](python-exec-public.py#L1068-1092)
 
 ### 2.3 正则表达式
 
