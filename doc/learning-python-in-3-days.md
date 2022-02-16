@@ -1028,8 +1028,24 @@
 
         `sorted(['10','apple','e'], key=len)`
 
+        ```python
+        fruits = {'apple':10, 'pear': 4.5, 'banana': 5.8, 'mango':6.7, 'orange':2.8}
+
+        for k in sorted(fruits, key=lambda x:fruits[x]):
+            print(f'{k}\t=>\t{fruits[k]}')
+
+        def mySort(aList, key=lambda x:x):
+            for i in range(len(aList)):
+                for j in range(i, len(aList)):
+                    if key(aList[i]) > key(aList[j]):
+                        aList[i], aList[j] = aList[j], aList[i]
+            return aList
+
+        print(mySort([1,2,3,6,5,4]))
+        ```
+
     - min/max 等
-    - 偏函数：为函数对象设置新的默认参数
+    - 偏函数：为函数对象设置新的默认参数（返回值是函数）
 
         ```python
         def int2(x, base=2):
