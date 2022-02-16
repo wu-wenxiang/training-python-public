@@ -1859,6 +1859,108 @@ commit message 要求
 
 [返回目录](#课程目录)
 
+#### 3.2.1 unittest 模块
+
+unittest 基于 Kent 和 Erich 提出的 XUnit 框架设计的，同样的设计模式在很多语言都有，包括 C/Java/C# 等等
+
+XUnit 框架包括两个部分：固件和测试本身。固件是测试所需的外部资源，通常会 hook 在测试过程中，比如：setUp/tearDown
+
+- setUp 用于在每个测试用例开始之前准备资源
+- tearDown 用于在每个测试用例结束之后完成清理工作
+
+```python
+import unittest
+
+class FixtureTest(unittest.TestCase):
+    def setUp(self):
+        print('In setUp')
+    def tearDown(self):
+        print('In tearDown')
+
+    def testCaseA(self):
+        print('In test1')
+        self.assertEqual(42, 22+20)
+    def testCaseB(self):
+        print('In test2')
+        self.assertTrue(True)
+
+if __name__ == '__main__':
+    unittest.main()
+```
+
+![](images/unittest-workflow.gif)
+
+常用的测试：
+
+- 断言真值 assertTrue / assertFalse
+- 相等性测试 assertEqual / assertNotEqual
+- 近似测试 assertAlmostEqual
+- [异常测试](python-exec-public.py#L1557-1576) assertRaises
+
+> 思考题：[实现一个函数，找出字符串中大于 20000 的数字集](python-exec-public.py#L1578-1628)
+
+Mock
+
+- return_value: 被作为函数调用时的返回值
+- side_effect: 被调用时
+    - 抛出异常
+    - 根据参数得到不同的返回值
+    - 模拟生成器
+- patch: 自动 Mock 模块的属性
+- patch.object: 在环境管理器中 Mock 对象的属性
+- patch.dict: 在环境管理器中 Mock 字典
+- MagicMock: 自动 Mock 对象的所有魔术方法
+- create_autospec:
+    - Mock 对象拥有和原对象相同的字段和方法
+    - 对于方法或函数对象，还拥有相同的签名
+
+> 思考题：[Mock 案例](python-exec-public.py#L1630-1668)
+
+#### 3.2.2 Pytest vs unittest
+
+参考 [单元测试](autotest.md#2-单元测试)
+
+#### 3.2.3 doctest
+
+在文档中编写测试
+
+```python
+def my_function(a, b):
+    """
+    >>> my_function(2, 4)
+    6
+    >>> my_function('a', 3)
+    'aaa'
+    """
+    return a * b
+
+python -m doctest -v test.py
+```
+
+- 扩展
+    - ELLIPSIS
+    - Traceback
+    - BLANKLINE / REPORT_NDIFF / REPORT_CDIFF / NORMALIZE_WHITESPACE
+- doctest vs unittest
+    - unittest 是单元测试，功能全面
+    - doctest 是文档测试，写法简单，主要是为了保证示例正确
+- doctest适用场合
+    - 简单的接口测试: 基于字符串的相等性测试
+    - 模块/类/函数，文档可用性测试
+
+#### 3.2.4 PDB 调试
+
+- 交互式调试工具
+    - Onlaunch / 暂停程序 / 查看变量 / 逐步监视程序执行
+    - 不能用于 Attach 调试 / 多线程支持有限
+- 启动调试工具
+    - 程序设置断点：`import pdb; pdb.set_trace()`
+    - 调试工具接口
+        - 在调用栈中移动 / 检查和修改变量的值 / 控制程序执行
+        - l,s,n / p / c 
+
+    参考 [官网](https://docs.python.org/zh-cn/3/library/pdb.html)
+
 ### 3.3 自动化任务
 
 [返回目录](#课程目录)

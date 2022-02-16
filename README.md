@@ -16,7 +16,7 @@
 - 学习资料
     - [逆向法学习](http://blog.wuwenxiang.net/Python-Questions)
 - 编程练习
-    - [Python基础练习](doc/python-exec-public.py)
+    - [Python 基础练习](doc/python-exec-public.py)
     - [有趣的编程练习题](http://blog.wuwenxiang.net/Python-Interesting-Programming)：[针对性练习题](doc/python-exec.py)
 - 专题
     - [算法](doc/algorithms.md)
@@ -25,7 +25,7 @@
     - [自动化测试](doc/autotest.md)
     - [机器学习](http://blog.wuwenxiang.net/Machine-Learning)，[练习](src/data-analysis)
     - [自动化运维](doc/automation.md)
-    - [Shell基础](doc/shell-quick-start.md)
+    - [Shell 基础](doc/shell-quick-start.md)
     - [万矿入门](http://blog.wuwenxiang.net/WindQuant)
 - 工具集
     - [process monitor](https://docs.microsoft.com/en-us/sysinternals/downloads/procmon)

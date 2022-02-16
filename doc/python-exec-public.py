@@ -1576,55 +1576,51 @@ class ATest(unittest.TestCase):
         self.assertEqual(add("hello", "string"), "hellostring")
 
 '''
-Tip_100102 单元测试，获取大于20000的数字
+Tip_100102 单元测试，获取大于 20000 的数字
 
 Code:
 '''
+import re
 import unittest
-import sys, re
 
-def myPrint(obj):
-    print(obj)
-
-# def find20000(aStr):
-#     ret = re.findall(r'((\d{6,})|([2-9]\d{4,}))', aStr)
-#     print(ret)
-#     ret = [int(i[0]) for i in ret]
-#     ret = [i for i in ret if i > 20000]
-#     return ret
-
-def findNumber(aStr, aNum):
-    ret = re.findall(r'\d+', aStr)
-    ret = [int(i) for i in ret]
-    ret = [i for i in ret if i > 20000]
+def findNumGt20000(aStr):
+    ret = re.findall(r'((\d{6,})|([2-9]\d{4,}))', aStr)
+    # print(ret)
+    ret = [int(i[0]) for i in ret]
     return ret
 
-def find20000(aStr):
-    return findNumber(aStr, 20000)
+# def findNumber(aStr, aNum):
+#     ret = re.findall(r'\d+', aStr)
+#     ret = [int(i) for i in ret]
+#     ret = [i for i in ret if i > aNum]
+#     return ret
+
+# def findNumGt20000(aStr):
+#     return findNumber(aStr, 20000)
 
 class FixtureTest(unittest.TestCase):
     def setUp(self):
-        myPrint('In setUp')
+        print('In setUp')
     def tearDown(self):
-        myPrint('In tearDown')
+        print('In tearDown')
     def testCaseA(self):
         aStr = "abcde100001"
-        ret = find20000(aStr)
+        ret = findNumGt20000(aStr)
         exp = [100001]
         self.assertEqual(ret, exp)
     def testCaseB(self):
         aStr = "abcde20001"
-        ret = find20000(aStr)
+        ret = findNumGt20000(aStr)
         exp = [20001]
         self.assertEqual(ret, exp)
     def testCaseC(self):
         aStr = "abcde20000"
-        ret = find20000(aStr)
+        ret = findNumGt20000(aStr)
         exp = [20000]
         self.assertNotEqual(ret, exp)
     def testCaseD(self):
         aStr = "abcde20000a1000001b20001"
-        ret = find20000(aStr)
+        ret = findNumGt20000(aStr)
         exp = [1000001, 20001]
         self.assertEqual(ret, exp)
 
@@ -1632,7 +1628,7 @@ if __name__ == '__main__':
     unittest.main()
 
 '''
-Tip_100103 Mock，为checkWeb编写Unittest，Mock模拟http.client模块中的对象
+Tip_100103 Mock，为 checkWeb 编写 Unittest，Mock 模拟 http.client模块中的对象
 
 Code:
 '''
