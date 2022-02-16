@@ -946,7 +946,7 @@
 - Lambda 函数
 
     ```python
-    fun = lambdax: x**2
+    fun = lambda x: x**2
 
     fun(3)
     (lambda x: x ** 2)(3)
