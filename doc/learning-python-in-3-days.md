@@ -1452,6 +1452,68 @@ print(aObj.newVar, AClass.newVar)
 
 [返回目录](#课程目录)
 
+- 异常处理的作用
+    - 分离正常的逻辑和处理错误的逻辑
+    - 可以提高程序的容错性，管理在预料之内的错误
+- 基本语法
+
+    Python 中异常处理沿用了 try/catch/finally 的大致结构，并添加了 else，else 中的语句会在没有遇到任何异常时触发
+
+    ```python
+    a = input("input: ")
+    try:
+        print('try...')
+        r = 10 / int(a)
+        print('result:', r)
+    except ValueError as e:
+        print('ValueError:', e)
+    except ZeroDivisionError as e:
+        print('ZeroDivisionError:', e)
+    else:
+        print('no error!')
+    finally:
+        print('finally...')
+    print('END')
+    ```
+
+    except 只会捕捉最先遇到的异常。子类异常如果放在父类后面会永远匹配不到。
+
+- 异常执行逻辑
+    - try 中遇到异常
+
+        ```
+        最先匹配到的 except 中遇到异常之前的部分
+        finally 中遇到异常前的部分
+        finally 中抛出异常
+        如果 finally 中没有抛出异常，则抛出 except 中的异常
+        ```
+
+    - try 中未遇到异常
+
+        ```
+        try 中 return 前的部分
+        else 中遇到异常前的部分，如果有 return，则 else 中的语句不会跑到
+        finally 中遇到异常前的部分
+        finally 中抛出异常
+        如果 finally 里没有抛出异常，并且 try 中没有 return，else中有异常，则抛出else中的异常
+        ```
+
+- 异常的产生
+    - 函数或者运算符抛出
+        - `5 / 0`
+        - `open("notExistFile.txt")`
+    - 主动抛出新异常
+        - `raise e` #异常对象
+
+            用于需要掩盖原异常的场合（不希望暴露底层报错）
+
+            用于快速退出正常处理逻辑，比如 `HttpResponseError`
+
+    - 主动抛出原异常
+        - `raise` #不带异常对象，表示抛出原异常
+
+            用于保留原异常信息，方便追查
+
 ## 3. 开发相关
 
 [返回目录](#课程目录)
