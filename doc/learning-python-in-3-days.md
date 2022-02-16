@@ -76,7 +76,7 @@
     - Python 中的 for 循环也只有一种写法 `for i in items: ...`
 - **简单优于复杂**
     - Python 只有很少的语法糖，比如装饰器
-    - Python 的对象属性设计基本都是可以自圆其说的，包括切片和 range 的开闭区间一致性，装饰器没有黑魔法，for 中的 while，迭代器的设计，等等。
+    - Python 的对象属性设计基本都是可以自圆其说的，包括切片和 range 的开闭区间一致性，装饰器没有黑魔法，for 和 while 中的 else，迭代器的设计，等等。
 - **明确优于晦涩**（复杂优于难懂，要始终保持代码的易读性，“让易读的代码进行性能优化”远比“让高效的代码变得易读”要容易）
 
 更具体一点：
@@ -808,7 +808,7 @@
     if "h" in set("ha"):
         print(True)
     if "h" in aDict:
-        print(True)   # 判断aDict中是否有"h"这个键
+        print(True)   # 判断 aDict 中是否有 "h" 这个键
 
     for x in h:
         print(x)
@@ -1314,6 +1314,123 @@ print(aObj.newVar, AClass.newVar)
 ### 2.3 正则表达式
 
 [返回目录](#课程目录)
+
+正则表达式是最犀利的字符串处理工具。以 Perl 语言的正则表达式规范为基础形成的正则表达式 POSIX 标准，被广泛应用于各种语言和各种场合。
+
+- 模式匹配的步骤
+    - 模式编译
+    - 模式匹配
+- Search vs Match
+    - 模式能匹配到字符串的子串时，Search 返回 True，否则返回 False
+    - 模式能匹配到字符串的全部时，Match 返回 True，否则返回 False
+
+    ```python
+    import re
+
+    reCmp = re.compile("\d{3,5}")
+    if reCmp.search("http404"):
+        print("Match!")
+    else:
+        print("Non-Match!")
+
+    if reCmp.match("http404"):
+        print("Match!")
+    else:
+        print("Non-Match!")
+    ```
+
+- 正则表达式规则
+
+    ```
+    . 换行以外的任意字符
+    + 前面一个元素出现一次或多次
+    * 前面一个元素出现零次或多次
+    {x, y} 前面一个元素出现[x, y]次之间
+    [] 选择框
+    [a-z0-9_+]
+    [^A-Z]
+    ^ 开头
+    $ 结尾
+    ? 前面一个元素出现零次或一次
+    () 组合框
+    (ab)+
+    | 或
+    A|B
+    \ 转义
+    \\, \w, \s, \d, \b, \W, \S, \D, \B
+    ```
+
+    ```
+    I  IGNORECASE
+    Perform case-insensitive matching.
+
+    L  LOCALE
+    Make \w, \W, \b, \B, dependent on the current locale.
+
+    M  MULTILINE
+    "^" matches the beginning of lines (after a newline) as well as the string. "$" matches the end of lines (before a newline) as well as the end of the string.
+
+    S  DOTALL
+    "." matches any character at all, including the newline.
+
+    U  UNICODE
+    Make \w, \W, \b, \B, dependent on the Unicode locale.
+    ```
+
+- 贪心和非贪心匹配
+
+    ```python
+    *?, +?, ??, {m,n}?
+    >>> reCmp = re.compile("(.+?)(.+)")
+    >>> reObj = reCmp.search("Hello")
+    >>> reObj.groups()
+    ('H', 'ello')
+    >>> reCmp = re.compile("(.+)(.+)")
+    >>> reObj = reCmp.search("Hello")
+    >>> reObj.groups()
+    ('Hell', 'o')
+    ```
+
+- 标记匹配
+
+    ```python
+    >>> reCmp = re.compile(r"(\d)(\s+)\1")
+    >>> reCmp.search("2 2")
+    <_sre.SRE_Match object at 0x10fe6a690>
+    ```
+
+- 取得匹配值
+
+    ```python
+    line = "Code: A127Z"
+    match= re.search('(\w)((\d{3})(\w))', line)
+    items = match.groups()
+    # 按左括号的先后顺序排列
+    ```
+
+- 匹配替换
+
+    ```python
+    line = "This is fun"
+    print(re.sub("i\w", "was", line))
+    line = "dig, dag, dog"
+    print(re.sub("d.g", "cat", line, 2))
+    ```
+
+- 查找所有匹配（Findall/Finditer）
+
+    ```python
+    line = "Code: A127Z Code: B999Y"
+    items=re.findall('(\w)(\d{3})(\w)', line)
+    items=re.finditer('(\w)(\d{3})(\w)', line)
+    ```
+
+- 匹配切割
+
+    ```python
+    line = "Code: A127Z Code: B999Y"
+    items=re.split('\w\d{3}\w', line)
+    ```
 
 ### 2.4 异常处理
 
