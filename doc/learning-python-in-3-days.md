@@ -481,10 +481,10 @@
     ord('F')
 
     for x in "hello":
-	    print(x)
+        print(x)
 
     if "he" in "hello":
-	    print(True)
+        print(True)
     ```
 
 - 格式化字符串
@@ -1239,13 +1239,13 @@ print(aObj.newVar, AClass.newVar)
         ```python
         def addN(n):
             def add(x):
-                return x+N
+                return x+n
             return add
 
         class addN(object):
-            def __init__(n):
+            def __init__(self, n):
                 self.n = n
-            def __call__(x):
+            def __call__(self, x):
                 return x+self.n
 
         add3, add4 = addN(3), addN(4)
@@ -1476,6 +1476,8 @@ print(aObj.newVar, AClass.newVar)
 
 [返回目录](#课程目录)
 
+#### 2.4.1 Try/Exception/Else/Finally
+
 - 异常处理的作用
     - 分离正常的逻辑和处理错误的逻辑
     - 可以提高程序的容错性，管理在预料之内的错误
@@ -1538,6 +1540,121 @@ print(aObj.newVar, AClass.newVar)
 
             用于保留原异常信息，方便追查
 
+- 异常类型
+    - 内置异常对象
+
+        ```
+        根异常对象：Exception
+        KeyError
+        ValueError
+        AttributeError
+        NameError
+        IOError
+        TypeError
+        ZeroDivisionError
+        ```
+
+    - 用户自定义异常
+
+        ```python
+        class UserError(Exception):
+            def __init__(self, message):
+                self.message = message
+        raise UserError
+        ```
+
+#### 2.4.2 With 语句
+
+With 在 Python2.6 后被正式引入，如果要在2.6之前的版本中使用，需要future import: `from __future__ import with_statement`
+
+- 基本语法：
+
+    ```python
+    with <expression> [ as <variable> ]:
+        with-block
+    ```
+
+    ```python
+    with open("foo.txt") as aFile:
+        data = aFile.read()
+    ```
+
+    等价于
+
+    ```python
+    aFile = open("foo.txt")
+    try:
+        data = aFile.read()
+    except Exception as e:
+        raise
+    finally:
+        aFile.close()
+    ```
+
+- 常用场景
+
+    文件读写
+
+    ```python
+    try:
+        with open("a.txt") as aFile:
+            for line in aFile:
+                print(line)
+    except IOError:
+        <whatever>
+    ```
+
+    ```python
+    # 数据库
+    with sql.transaction() as session
+
+    # 网络连接
+    with get_conn() as conn
+
+    # 锁操作
+    with get_lock() as lock
+    ```
+
+- 环境管理协议
+
+    with 表达式得到的对象就是环境管理器 context manager
+
+    环境管理器必须实现如下方法属性：`__enter__` 和 `__exit__`
+
+    - 进入 `with-block` 前
+        - `__enter__` 会被调用
+        - 如果有 as，其返回值会赋值给 as 后面的变量
+    - 进入 With-block 后，with-block 中
+        - 如果有异常发生，`__exit__` 会被调用，带参数type, value, traceback
+        - 如果没有异常发生，`__exit__` 也会被触发到，但三个参数都以 None 传递
+
+- 环境管理器类的实现
+
+    ```python
+    class WithEnv(object):
+        def __enter__(self):
+            print("__enter__")
+            return 42
+        def __exit__(self,type,value,trace):
+            print("__exit__")
+            if type is not None:
+                print("raise %s" % type)
+    ```
+
+    客户端代码：无异常
+
+    ```python
+    with WithEnv() as testWith:
+        print(testWith)
+    ```
+
+    客户端代码：有异常
+
+    ```python
+    with WithEnv() as testWith:
+        raise TypeError
+    ```
+
 ## 3. 开发相关
 
 [返回目录](#课程目录)
@@ -1545,6 +1662,198 @@ print(aObj.newVar, AClass.newVar)
 ### 3.1 版本控制
 
 [返回目录](#课程目录)
+
+#### 3.1.1 Git 基础
+
+- 目前常用的：Git（分散式版本控制系统）
+- 历史中流行过的：SVN/TFS/CVS/VSS/ClearCase
+- Windows 上使用 Git：Git & Git-tortoise
+- 托管仓库 SaaS：Github/Gitlab/Gitee
+
+Git 命令集合
+
+![](images/git-cmd.png)
+
+Git 流程图
+
+![](images/git-process.png)
+
+#### 3.1.2 工作区和暂存区之间的管理
+
+```bash
+# 查看当前 HEAD 的状态
+git status
+
+# 查看工作区变动
+git diff
+
+# 查看暂存区变动
+git diff --staged
+
+# 把工作区指定变动文件放入暂存区
+git add <file_path>
+
+# 把工作区全部变动文件放入暂存区
+git add .
+
+# 把暂存区指定变动文件移回工作区
+# git version >= 2.23
+git restore --staged <file_path>
+# git version < 2.23
+git reset HEAD <file_path>
+
+# 把暂存区全部变动文件移回工作区
+# git version >= 2.23
+git restore --staged .
+# git version < 2.23
+git reset HEAD .
+
+# 丢弃工作区变动 (谨慎执行)
+# git version >= 2.23
+git restore --worktree <file_path>
+# git version < 2.23
+git checkout -- <file_path>
+```
+
+#### 3.1.3 暂存区和本地仓库之间的管理
+
+```bash
+# 查看当前 branch 的 commit 记录
+git log
+
+# 把暂存区的变动提交为新 commit 到本地仓库
+git commit
+
+# 把本地仓库最后一个 commit 的变动还原至工作区
+# git version >= 2.23
+git restore HEAD^ .
+# git version < 2.23
+git reset HEAD^
+
+# 把本地仓库从最后一个 commit 至某个 commit 的变动还原至工作区
+# git version >= 2.23
+git restore <commit_id> .
+# git version < 2.23
+git reset <commit_id>
+
+# 在本地仓库提交一个新 commit 用于撤销某个 commit 的变动
+git revert <commit_id>
+```
+
+#### 3.1.4 本地仓库分支的管理
+
+```bash
+# 查看本地仓库分支
+git branch -vvv
+
+# 查看远端仓库分支
+git branch -r -vvv
+
+# 创建新本地仓库分支并追踪远端仓库分支
+git checkout -b <branch_name> <remote_branch_name>
+
+# 修改本地仓库分支名
+git branch -m <old_branch_name> <new_branch_name>
+
+# 修改本地仓库分支追踪的远端仓库分支
+git branch -u <remote_branch_name>
+
+# 切换当前分支
+# git version >= 2.23
+git switch <branch_name>
+# git version < 2.23
+git checkout <branch_name>
+
+# 删除本地仓库分支 (谨慎执行)
+git branch -D <branch_name>
+
+# 将某分支的 commit 合并至当前分支并创建一个 merge commit
+git merge <branch_name>
+
+# 将当前分支的 commit 以某分支为基础重新提交
+git rebase <branch_name>
+```
+
+#### 3.1.5 本地仓库和远端仓库之间的管理
+
+```bash
+# 查看远端仓库
+git remote -vvv
+
+# 新增远端仓库
+git remote add <remote_name> <remote_url>
+
+# 修改远端仓库名称
+git remote rename <old_remote_name> <new_remote_name>
+
+# 删除远端仓库并清除本地仓库分支的所有该远端仓库追踪 (谨慎执行)
+git remote remove <remote_name>
+
+# 同步远端仓库的历史版本信息至本地仓库
+git fetch <remote_name>
+
+# 将当前分支同步至追踪的远端分支的最新，并 rebase 现有 commit
+git pull -r
+
+# 将当前分支的 commit 提交至 gerrit
+git review -vvv
+
+# 将当前分支的 commit 推送至追踪的远端分支
+git push
+```
+
+#### 3.1.6 以 patch 文件方式更新本地仓库
+
+```bash
+# 把本地仓库的最后一个 commit 的变动生成 patch 文件
+git format-patch HEAD^
+
+# 把本地仓库从最后一个 commit 至某个 commit 的变动生成 patch 文件
+git format-patch <commit_id>
+
+# 检查 patch 文件是否可以应用至当前工作区
+git apply --check -vvv <patch_file>
+
+# 应用 patch 文件至当前工作区
+git apply -vvv <patch_file>
+
+# 应用 patch 文件并直接提交 commit
+git am <patch_file>
+```
+
+#### 3.1.7 commit message 模板
+
+```text
+<type>: {Commit title}
+
+{Commit description}
+
+{Commit footer}
+
+# --- Commit End ---
+# Type can be
+#   feat        (new feature)
+#   fix         (bug fix)
+#   refactor    (refactoring production code)
+#   style       (formatting, missing semi colons, etc; no code change)
+#   docs        (changes to documentation)
+#   test        (adding or refactoring tests; no production code change)
+#   chore       (updating grunt tasks etc; no production code change)
+# ------------------
+# Remember to
+#    The title first letter should be capitalized.
+#    Do not end the subject line with a period.
+# ------------------
+```
+
+commit message 要求
+
+1. 明确 commit 的提交类型，例如：feat、fix、refactor、style、docs、test等
+2. commit message 标题首字母大写，尽可能用英文一句话概括
+3. commit message
+   描述部分可以根据 [5W1H 分析法](https://baike.baidu.com/item/5W1H%E5%88%86%E6%9E%90%E6%B3%95) 描述，让 commit 具有高可读性
+4. commit message 页脚部分可以添加 commit 参考的网页链接，commit 相关的问题链接，以及和 CI/CD 系统相关的 ID 号等，需要符合对应系统的格式标准
+5. 在标题、描述、页脚之间需要有空行分隔
 
 ### 3.2 自动化测试
 
