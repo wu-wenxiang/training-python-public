@@ -1451,6 +1451,27 @@ print(aObj.newVar, AClass.newVar)
     items=re.split('\w\d{3}\w', line)
     ```
 
+- 案例：IPv4 的匹配
+
+    ```python
+    import re
+
+    def isIPv4(ipv4Str):
+        rc = re.compile(r'^\d{1,3}(\.\d{1,3}){3}$')
+        if not rc.search(ipv4Str):
+            return False
+        aList = [int(i) for i in ipv4Str.split('.')]
+        aList = [i for i in aList if 0<=i<=255]
+        return len(aList) == 4
+
+    assert isIPv4('192.168.100.2')
+    assert isIPv4('10.192.255.2')
+    assert not isIPv4('10.192.256.2')
+    assert not isIPv4('8.8.8.a')
+    assert not isIPv4('8.8.8.')
+    assert not isIPv4('8.8.8.8.')
+    ```
+
 ### 2.4 异常处理
 
 [返回目录](#课程目录)
