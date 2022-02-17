@@ -1965,6 +1965,8 @@ python -m doctest -v test.py
 
 [返回目录](#课程目录)
 
+参考链接：[自动化框架](https://gitee.com/dev-99cloud/lab-openstack/blob/master/doc/class-02-OpenStack-API-and-Development.md#lab-02-automation-frameworks--catalog-)
+
 ### 3.4 开发规范
 
 [返回目录](#课程目录)
@@ -2079,6 +2081,8 @@ python -m doctest -v test.py
 
 #### 3.5.2 打包
 
+[官方的打包参考步骤](https://packaging.python.org/en/latest/tutorials/packaging-projects/)
+
 ## 4. Web 开发
 
 [返回目录](#课程目录)
@@ -2095,7 +2099,7 @@ python -m doctest -v test.py
 
 [返回目录](#课程目录)
 
-## 5. 算法和设计模式相关 TODO
+## 5. 算法和设计模式相关
 
 [返回目录](#课程目录)
 
