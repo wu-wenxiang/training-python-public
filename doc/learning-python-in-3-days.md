@@ -1971,6 +1971,18 @@ python -m doctest -v test.py
 
 [返回目录](#课程目录)
 
+![](images/openstack-commit-workflow.png)
+
+参考：
+- <https://www.python.org/dev/peps/pep-0008/>
+- <http://pep8.readthedocs.io/>
+
+大致内容
+
+- 缩进, 换行, 空格
+- DocString, import
+- 注释, 命名规范
+
 ### 3.5 模块和打包
 
 [返回目录](#课程目录)
