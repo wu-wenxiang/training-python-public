@@ -1863,6 +1863,8 @@ commit message 要求
 
 unittest 基于 Kent 和 Erich 提出的 XUnit 框架设计的，同样的设计模式在很多语言都有，包括 C/Java/C# 等等
 
+参考：<http://blog.wuwenxiang.net/Python-Unittest>
+
 XUnit 框架包括两个部分：固件和测试本身。固件是测试所需的外部资源，通常会 hook 在测试过程中，比如：setUp/tearDown
 
 - setUp 用于在每个测试用例开始之前准备资源
@@ -1974,6 +1976,7 @@ python -m doctest -v test.py
 ![](images/openstack-commit-workflow.png)
 
 参考：
+
 - <https://www.python.org/dev/peps/pep-0008/>
 - <http://pep8.readthedocs.io/>
 
@@ -1982,6 +1985,8 @@ python -m doctest -v test.py
 - 缩进, 换行, 空格
 - DocString, import
 - 注释, 命名规范
+
+参考：[OpenStack 基础和质量保证体系](https://gitee.com/dev-99cloud/lab-openstack/blob/master/doc/class-03-OpenStack-Maintenance.md#11-openstack-%E5%9F%BA%E7%A1%80%E5%92%8C%E8%B4%A8%E9%87%8F%E4%BF%9D%E8%AF%81%E4%BD%93%E7%B3%BB)
 
 ### 3.5 模块和打包
 
@@ -2103,13 +2108,19 @@ python -m doctest -v test.py
 
 [返回目录](#课程目录)
 
+参考：[Training Django](https://gitee.com/wu-wen-xiang/training-django/tree/master)，确认兼容 python 3.9.6
+
 ### 4.2 Restful API
 
 [返回目录](#课程目录)
 
+参考：[REST API 接口基本概念](https://gitee.com/wu-wen-xiang/training-python/blob/master/doc/autotest.md#41-rest-api-%E6%8E%A5%E5%8F%A3%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5)
+
 ### 4.3 服务部署
 
 [返回目录](#课程目录)
+
+参考：<https://gitee.com/wu-wen-xiang/project-django-demo>
 
 ## 5. 算法和设计模式相关
 
