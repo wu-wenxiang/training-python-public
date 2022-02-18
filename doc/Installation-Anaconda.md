@@ -1,4 +1,4 @@
-# 安装Anaconda
+# 安装 Anaconda
 
 ## 1. 注意事项
 

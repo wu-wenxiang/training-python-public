@@ -2191,6 +2191,23 @@ python -m doctest -v test.py
     近似算法
     ```
 
+- 参考书
+
+1. [CLRS] Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, and Clifford Stein. Introduction to Algorithms. The MIT Press and McGraw-Hill, second edition, 2001. 国内有高教版影印。也有中文版。这本书一出来就取代了做了20年的经典教材 [AHU]。提供了初级到中级课程的材料，而且 chapter notes 指引了进一步阅读的方向。四个作者都极猛。
+2. [KT] Jon Kleinberg and Eva Tardos, Algorithm Design, Addison-Wesley, 2005. 国内有清华影印版。观点很新的书。两个作者都在 Cornell 教了好多年的算法课，而且在纯理论之外都有所侧重。习题非常之精彩，而且大部分都是 Cornell 这些年的作业或者习题。
+3. [S] Robert Sedgewick, Algorithms. 有电力和 xx 两种影印版。第三版有 1-5 卷，共两本书。只推荐 C 语言的版本；而且不推荐看中文版，中文版翻译得非常之差。这是一本非常重视算法实现的书，即使是资深的优化程序的人也不会对 Sedgewick 的 C 程序有不满。作者对于基本算法都给了很多很多形象的图示，比较容易读懂，Princeton 把 C 语言和第一本书连在一起上。
+4. [GT] Michael T. Goodrich and Roberto Tamassia，Algorithm Design - Foundations, Analysis, and Internet Examples. 好像只有中文版，翻译的还可以。和其它书算法使用了不同的体系，偏应用。两个作者都是计算几何专家。和这本书配套一个 Data Structures Library in Java，提供所有的源代码。虽然代码仅仅实现了最简单的东西。但可以是一个很好的软件工程的参考。
+5. [DPV] S. Dasgupta, C. H. Papadimitriou, and U. V. Vazirani, Algorithms. 应该已经出版了。国内肯定没有，清华图书馆已经买了，但是还没有上架。成书前的 lecture notes 可以找到，这本书的图论和动态规划部分的习题，很不错。HKUST COMP271H 的教材。想获得相关资料的可以去看Berkeley的CS170.http://inst.eecs.berkeley.edu/~cs170/archives.html，注意找 Papadimitriou 上的那些课。
+6. [B]Jon Bentley, Programming Pearls. 2nd edition. Addison-Wesley.
+7. 学算法需要的重要数学参考：
+	1. 一本微积分书
+	2. 一般概率书
+	3. 一本代数书
+	4. 一点基本的组合计数
+8. [数据结构与算法：Python语言描述](https://book.douban.com/subject/26702568/)
+9. [算法图解](https://book.douban.com/subject/26979890/)
+10. [algorithms](https://github.com/jeffgerickson/algorithms)
+
 ### 5.2 算法实践
 
 [返回目录](#课程目录)
@@ -2303,6 +2320,8 @@ python -m doctest -v test.py
 
 [返回目录](#课程目录)
 
+参考 <http://blog.wuwenxiang.net/Design-Pattern>
+
 #### 5.3.1 装饰器
 
 斐波那契数列
@@ -2383,10 +2402,19 @@ for m in measure:
 - 命令行参数
     - sys.argv，命令行参数列表
     - optparse，较好地封装了 sys.argv
+- 如果部署不同的 python 版本
+    - 环境变量 PATH 配置
+    - virtualenv
+    - [容器化](https://gitee.com/dev-99cloud/training-kubernetes/blob/master/doc/class-01-Kubernetes-Administration.md#29-%E5%90%AF%E5%8A%A8%E4%B8%80%E4%B8%AA-pod)
+- [系统监控相关](python-exec-public.py#L2021-2311)
+- [excel 处理](https://gitee.com/wu-wen-xiang/training-python/blob/master/doc/python-exec-public.py#L2312-2342)
 
 ### 6.2 父子进程调用
 
 [返回目录](#课程目录)
+
+- os.system
+- subprocess
 
 ### 6.3 文件和目录
 
@@ -2492,3 +2520,8 @@ for m in measure:
 ### 6.4 并行计算
 
 [返回目录](#课程目录)
+
+- Thread
+- multiprocessing
+
+[参考](python-exec-public.py#L1348-1482)
