@@ -2136,8 +2136,6 @@ python -m doctest -v test.py
 
         *searches the smallest value and swap it with the first value, then the same with the next position and with the next, and next and so on...*
 
-        Best case: ，Worst case: O(n)=n²
-
         ![](images/sort-selection.gif)
 
     - 插入排序 O(n)=n²
@@ -2170,7 +2168,7 @@ python -m doctest -v test.py
 
     通用排序算法的时间算法复杂度极限是 n*log(n)，但非通用算法是可以突破极限的，比如有穷集合的排序。
 
-- 算法全貌
+- [算法全貌](algorithms.md)
 
     ```
     各类排序算法
@@ -2192,11 +2190,6 @@ python -m doctest -v test.py
     计算几何学
     近似算法
     ```
-
-- 算法的参考资料
-    - [算法参考书]()
-    - leetcode
-    - 习题参考
 
 ### 5.2 算法实践
 
@@ -2384,6 +2377,8 @@ for m in measure:
 ### 6.1 shell 编程
 
 [返回目录](#课程目录)
+
+参考 [shell 基础](shell-quick-start.md)
 
 - 命令行参数
     - sys.argv，命令行参数列表
