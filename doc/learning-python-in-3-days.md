@@ -93,6 +93,7 @@
     - 官方网站：<http://www.python.org>
     - [Python 学习手册 5th](https://book.douban.com/subject/30364619/)
     - [Python 3 标准库](https://book.douban.com/subject/30346181/)
+    - 代码搜索库：<https://www.programcreek.com/python/>
 - 到开源项目中去读代码、提交代码
 
     Python 开源项目非常多，其中 [OpenStack](https://opendev.org/openstack) 是集 Python 工程实现之大成的 IaaS 云计算项目，囊括几乎所有 Python 的应用相关技术，包括：
