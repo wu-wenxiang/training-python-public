@@ -1945,6 +1945,71 @@ teacher = session.query(Teacher).get(3)
 print(teacher.classes)
 
 '''
+Tip_100206 级联删除
+'''
+# 参考：https://pythondict.com/python-qa/sqlalchemy%EF%BC%9A%E7%BA%A7%E8%81%94%E5%88%A0%E9%99%A4/
+
+from sqlalchemy import Column, Integer, ForeignKey
+from sqlalchemy.orm import relationship
+
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, backref
+from sqlalchemy.ext.declarative import declarative_base
+
+from sqlalchemy import event
+from sqlalchemy.engine import Engine
+from sqlite3 import Connection as SQLite3Connection
+
+@event.listens_for(Engine, "connect")
+def _set_sqlite_pragma(dbapi_connection, connection_record):
+    if isinstance(dbapi_connection, SQLite3Connection):
+        cursor = dbapi_connection.cursor()
+        cursor.execute("PRAGMA foreign_keys=ON;")
+        cursor.close()
+
+Base = declarative_base()
+
+class Parent(Base):
+    __tablename__ = "parent"
+    id = Column(Integer, primary_key = True)
+
+class Child(Base):
+    __tablename__ = "child"
+    id = Column(Integer, primary_key = True)
+    parentid = Column(Integer, ForeignKey(Parent.id, ondelete='CASCADE'))
+    # parentid = Column(Integer, ForeignKey(Parent.id, ondelete='CASCADE'), nullable=False)
+    # parent = relationship(Parent, cascade="all,delete", backref="children", passive_deletes=True) # NOK
+    parent = relationship(Parent, cascade="all,delete", backref=backref("children", passive_deletes=True))
+
+# engine = create_engine("sqlite:///:memory:")
+import os
+os.system(r'rm -rf /tmp/test.sqlite')
+engine = create_engine("sqlite:////tmp/test.sqlite")
+Base.metadata.create_all(engine)
+Session = sessionmaker(bind=engine)
+
+session = Session()
+
+parent = Parent()
+parent.children.append(Child())
+parent.children.append(Child())
+parent.children.append(Child())
+
+session.add(parent)
+session.commit()
+
+print("Before delete, children = {0}".format(session.query(Child).count()))
+print("Before delete, parent = {0}".format(session.query(Parent).count()))
+
+session.delete(parent)
+session.commit()
+
+print("After delete, children = {0}".format(session.query(Child).count()))
+print("After delete parent = {0}".format(session.query(Parent).count()))
+
+session.close()
+
+'''
 Tip_100206 XPath
 '''
 # pip install lxml
