@@ -5,7 +5,7 @@
 
 ## 学习进度安排
 
-- [Python 3 日谈](doc/learning-python-in-3-days.md)
+- [We Know Python](doc/we-know-python.md)
 
 ## 参考
 
