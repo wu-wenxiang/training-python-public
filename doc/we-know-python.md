@@ -861,7 +861,7 @@
     ```
 
 - 函数内的变量访问规则
-    - LEGB：Loca /Enclosed/Global/Built-in
+    - LEGB：Local/Enclosed/Global/Built-in
     - 凡是函数内有赋值运算的变量就是 local 变量
     - 如果确实要在函数中修改全局变量，需要用 global 修饰符
 
@@ -1028,6 +1028,23 @@
         reduce(lambda x,y: x+y, [1,2,3,4,5], 10) -> (((((10+1)+2)+3)+4)+5)
         reduce(lambda x,y: x+y, [], 10) -> 10
         ```
+
+    > **练习作业**：实现一个函数sumAny，能满足如下运算：(参数个数是两个或多个，参数彼此之间能做+运算)。
+    >
+    > ```python
+    > print(sumAny(1, 2))
+    > print(sumAny(1.2, 2.3, 3.4))
+    > print(sumAny("hello, ", "world!"))
+    > print(sumAny([0,1,2,3,4], [0,1,2])
+    >
+    > 输出：
+    > 3
+    > 6.9
+    > hello, world!
+    > [0, 1, 2, 3, 4, 0, 1, 2]
+    > ```
+    >
+    > [参考](python-exec-public.py#L795-818)
 
 - 其它
     - sort/sorted/key
@@ -2114,19 +2131,21 @@ python -m doctest -v test.py
 
 [返回目录](#课程目录)
 
-参考：[Training Django](https://gitee.com/wu-wen-xiang/training-django/tree/master)，确认兼容 python 3.9.6
+参考：Training Django，[Github](https://github.com/wu-wenxiang/Training-Django-Public) 或 [Gitee](https://gitee.com/wu-wen-xiang/training-django)，确认兼容 python 3.9.6
 
 ### 4.2 Restful API
 
 [返回目录](#课程目录)
 
-参考：[REST API 接口基本概念](https://gitee.com/wu-wen-xiang/training-python/blob/master/doc/autotest.md#41-rest-api-%E6%8E%A5%E5%8F%A3%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5)
+参考：[REST API 接口基本概念](autotest.md#41-rest-api-%E6%8E%A5%E5%8F%A3%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5)
+
+参考：pecan restful API demo，[Github](https://github.com/wu-wenxiang/restful-api-demo)，[Gitee](https://gitee.com/wu-wen-xiang/restful-api-demo)
 
 ### 4.3 服务部署
 
 [返回目录](#课程目录)
 
-参考：<https://gitee.com/wu-wen-xiang/project-django-demo>
+参考：Python Django Demo，[Github](https://github.com/wu-wenxiang/ZZLARGE-Project-DjangoTest) 或 [Gitee](https://gitee.com/wu-wen-xiang/project-django-demo)
 
 ## 5. 算法和设计模式相关
 
@@ -2413,7 +2432,7 @@ for m in measure:
     - virtualenv
     - [容器化](https://gitee.com/dev-99cloud/training-kubernetes/blob/master/doc/class-01-Kubernetes-Administration.md#29-%E5%90%AF%E5%8A%A8%E4%B8%80%E4%B8%AA-pod)
 - [系统监控相关](python-exec-public.py#L2021-2311)
-- [excel 处理](https://gitee.com/wu-wen-xiang/training-python/blob/master/doc/python-exec-public.py#L2312-2342)
+- [excel 处理](python-exec-public.py#L2312-2342)
 
 ### 6.2 父子进程调用
 
