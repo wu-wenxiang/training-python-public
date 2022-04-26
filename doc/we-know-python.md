@@ -1052,19 +1052,32 @@
         `sorted(['10','apple','e'], key=len)`
 
         ```python
-        fruits = {'apple':10, 'pear': 4.5, 'banana': 5.8, 'mango':6.7, 'orange':2.8}
+        fruits = {
+            'apple': 5.8,
+            'pear': 4.5,
+            'orange': 5.7,
+            'banana': 3.9,
+            'mango': 8.9,
+            'watermelon': 12.7,
+            'cherry': 8.9,
+        }
 
         for k in sorted(fruits, key=lambda x:fruits[x]):
             print(f'{k}\t=>\t{fruits[k]}')
+        ```
 
-        def mySort(aList, key=lambda x:x):
+        ```
+        tests = ['apple', 'pear', 'banana', 'mango', 'test', 'temp', 'tuple']
+
+        def mySort(aList, key=lambda x: tests[x]):
             for i in range(len(aList)):
-                for j in range(i, len(aList)):
+                for j in range(i + 1, len(aList)):
                     if key(aList[i]) > key(aList[j]):
                         aList[i], aList[j] = aList[j], aList[i]
             return aList
 
-        print(mySort([1,2,3,6,5,4]))
+
+        print(mySort([1, 0, 2, 3, 6, 5, 4]))
         ```
 
     - min/max 等
@@ -1080,6 +1093,24 @@
         >>> int2 = functools.partial(int, base=2)
         >>> int2('1010101')
         85
+        ```
+
+        ```python
+        def partial(func, **defaults):
+            def newFun(*args, **kwargs):
+                defaults.update(kwargs)
+                return func(*args, **defaults)
+            return newFun
+
+        int2 = partial(int, base=2)
+        print(int2('1111100000'))
+
+        >>> aDict = {'test1': 1, 'test2': 2}
+        >>> bDict = {'test2': 3, 'test4': 4}
+        >>>
+        >>> aDict.update(bDict)
+        >>> aDict
+        {'test1': 1, 'test2': 3, 'test4': 4}
         ```
 
 ### 2.2 类和实例
