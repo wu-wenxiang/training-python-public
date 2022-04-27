@@ -1948,7 +1948,34 @@ class FixtureTest(unittest.TestCase):
         self.assertTrue(True)
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(verbosity=2)
+
+    # 测试用例发现的底层机制
+    # selfModule = __import__(__name__)
+    # print(selfModule.__dict__)
+    # import pprint
+    # pprint.pprint(selfModule.__dict__)
+    # print(isinstance(AAAA(), unittest.TestCase))
+    # test_classes = {k: v for k, v in selfModule.__dict__.items() if callable(v)}
+    # test_classes = [v for k, v in test_classes.items() if isinstance(v(), unittest.TestCase)]
+    # print(test_classes)
+    # for test_class in test_classes:
+    #     test_instance = test_class()
+    #     test_instance.setUp()
+```
+
+也可以单独跑部分测试用例：
+
+```python
+def suite():
+    suite = unittest.TestSuite()
+    suite.addTest(FixtureTest('testCaseA'))
+    suite.addTest(FixtureTest('testCaseB'))
+    return suite
+
+if __name__ == '__main__':
+    runner = unittest.TextTestRunner(verbosity=2)
+    runner.run(suite())
 ```
 
 ![](images/unittest-workflow.gif)
