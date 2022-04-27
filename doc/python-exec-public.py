@@ -2547,7 +2547,7 @@ for user in users:
 session.close()
 
 '''
-Tip_120105 scipy快速入门
+Tip_120105 scipy 快速入门
 
 Code:
 '''

@@ -28,12 +28,8 @@
 | 第 4 天 | 上午 | [算法](#5-算法) | [5.1 算法复杂度](#51-算法复杂度) |
 |        |     |                   | [5.2 算法实践](#52-算法实践) |
 |        |     |                   | [5.3 设计模式实践](#53-设计模式实践) |
-|        |     |                   | 数据分析基础：Numpy & [Pandas](doc/pdf/Pandas-Cheat-Sheet.pdf) & Scipy |
-|        |     |                   | 数据绘图：[Matplotlib](doc/pdf/Matplotlib-Cheat-Sheet.pdf) |
-|        |     |                   | 机器学习基础：Sklearn |
-|        | 下午 |                   | 数据挖掘：价值分析模型 |
-|        |     |                   | 数据挖掘：情绪分析模型 |
-|        |     | [系统](#6-系统相关) | [6.1 shell 编程](#61-shell-编程) |
+|        |     |                   | [5.4 数据分析](#54-数据分析) |
+|        | 下午 | [系统](#6-系统相关) | [6.1 shell 编程](#61-shell-编程) |
 |        |     |                   | [6.2 父子进程调用](#62-父子进程调用) |
 |        |     |                   | [6.3 文件和目录](#63-文件和目录) |
 |        |     |                   | [6.4 并行计算](#64-并行计算) |
@@ -2478,6 +2474,37 @@ for m in measure:
     sorted(set(1, 4, 5))
     sorted(aDict)
     ```
+
+### 5.4 数据分析
+
+[返回目录](#课程目录)
+
+#### 5.4.1 Numpy
+
+参考：<https://docs.scipy.org/doc/numpy/user/quickstart.html>
+
+#### 5.4.2 Pandas
+
+参考：[Pandas-Cheat-Sheet.pdf](/doc/pdf/Pandas-Cheat-Sheet.pdf)
+
+参考：[练习题](/doc/python-exec-public.py#L2461)
+
+#### 5.4.3 Scipy
+
+参考：[练习题](/doc/python-exec-public.py#L2550)
+
+#### 5.4.4 Matplotlib
+
+参考：[Matplotlib-Cheat-Sheet.pdf](/doc/pdf/Matplotlib-Cheat-Sheet.pdf)
+
+#### 5.4.5 Sklearn
+
+参考：[练习题](/doc/python-exec-public.py#L2608)
+
+数据分析 Demo：
+
+- [价值分析模型](/src/data-analysis/air-customer)
+- [情绪分析模型](/src/data-analysis/sentiment-analysis)
 
 ## 6. 系统相关
 
