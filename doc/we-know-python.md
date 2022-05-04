@@ -2182,7 +2182,10 @@ python -m doctest -v test.py
 
 #### 3.5.2 打包
 
-[官方的打包参考步骤](https://packaging.python.org/en/latest/tutorials/packaging-projects/)
+参考：<zhuanlan.zhihu.com/p/37987613>
+
+1. 在 <https://pypi.org/> 注册账号
+2. 根据官方步骤打包：<https://packaging.python.org/en/latest/tutorials/packaging-projects/>
 
 ## 4. Web 开发
 
