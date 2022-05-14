@@ -2205,6 +2205,8 @@ python -m doctest -v test.py
 
 参考：pecan restful API demo，[Github](https://github.com/wu-wenxiang/restful-api-demo)，[Gitee](https://gitee.com/wu-wen-xiang/restful-api-demo)
 
+参考：fastapi retstful API demo，[Github](https://github.com/wu-wenxiang/fastapi-demo)，[Gitee](https://gitee.com/wu-wen-xiang/fastapi-demo)，异步框架压测可以看到明显优势，[压测报告](https://gitee.com/wu-wen-xiang/fastapi-demo/blob/main/doc/how-to-take-a-stress-test-for-fastapi-sync-mode.md)
+
 ### 4.3 服务部署
 
 [返回目录](#课程目录)
