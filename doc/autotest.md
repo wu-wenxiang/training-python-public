@@ -1226,6 +1226,178 @@ $ gabbi-run -v all localhost:9999 < test.yaml
     ```
 
 1. [怎么使用变量？](https://gabbi.readthedocs.io/en/latest/faq.html?highlight=var#can-i-have-variables-in-my-yaml-file)
+1. 怎么使用客户端证书？
+
+    如果需要作为 K8S API 客户端，一般需要客户端证书作为身份验证。Gabbi 本身不支持客户端证书（后续可以提 PR 给社区）
+
+    首先，下载 Gabbi 代码，用 vscode 打开
+
+    ```bash
+    git clone git@github.com:cdent/gabbi.git
+    ```
+
+    在 vscode 中可以进行调试：
+
+    ```json
+    $ cat .vscode/launch.json
+
+    {
+        // Use IntelliSense to learn about possible attributes.
+        // Hover to view descriptions of existing attributes.
+        // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+        "version": "0.2.0",
+        "configurations": [
+            {
+                "name": "Python: Current File",
+                "type": "python",
+                "request": "launch",
+                "program": "${file}",
+                "console": "integratedTerminal",
+                "justMyCode": true,
+                "args": [
+                    "-v",
+                    "all",
+                    "caasbastion-1:6443",
+                    "--",
+                    "test.yaml"
+                ]
+            }
+        ]
+    }
+    ```
+
+    修改 `gabbi/httpclient.py` 文件
+
+    ```diff
+    $ git diff
+    diff --git a/gabbi/httpclient.py b/gabbi/httpclient.py
+    index b64b8a2..3dbff1b 100644
+    --- a/gabbi/httpclient.py
+    +++ b/gabbi/httpclient.py
+    @@ -186,11 +186,17 @@ class VerboseHttp(Http):
+    def get_http(verbose=False, caption='', cert_validate=True, hostname=None):
+        """Return an ``Http`` class for making requests."""
+        cert_validation = {'cert_reqs': 'CERT_NONE'} if not cert_validate else {}
+    +    cert_validation = {
+    +        'cert_file': '/Users/wuwenxiang/Desktop/test.crt',
+    +        'cert_reqs': "CERT_REQUIRED",
+    +        'ca_certs': '/Users/wuwenxiang/Desktop/test.cacert',
+    +        'key_file': "/Users/wuwenxiang/Desktop/test.key",
+    +    }
+
+        if not verbose:
+            return Http(
+                strict=True,
+    -            ca_certs=certifi.where(),
+    +            # ca_certs=certifi.where(),
+                server_hostname=hostname,
+                **cert_validation
+            )
+    @@ -205,7 +211,7 @@ def get_http(verbose=False, caption='', cert_validate=True, hostname=None):
+            caption=caption,
+            colorize=True,
+            strict=True,
+    -        ca_certs=certifi.where(),
+    +        # ca_certs=certifi.where(),
+            server_hostname=hostname,
+            **cert_validation
+        )
+    ```
+
+    安装 gabbi，最好在虚拟环境 virtualenv
+
+    ```console
+    $ pip install .
+    Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
+    Processing /Users/wuwenxiang/local/github-3rd/gabbi
+    Preparing metadata (setup.py) ... done
+    Requirement already satisfied: pbr in ./.venv/lib/python3.9/site-packages (from gabbi==2.7.2.dev1) (5.9.0)
+    Requirement already satisfied: pytest in ./.venv/lib/python3.9/site-packages (from gabbi==2.7.2.dev1) (7.1.2)
+    Requirement already satisfied: six in ./.venv/lib/python3.9/site-packages (from gabbi==2.7.2.dev1) (1.16.0)
+    Requirement already satisfied: PyYAML in ./.venv/lib/python3.9/site-packages (from gabbi==2.7.2.dev1) (6.0)
+    Requirement already satisfied: urllib3>=1.26.9 in ./.venv/lib/python3.9/site-packages (from gabbi==2.7.2.dev1) (1.26.9)
+    Requirement already satisfied: certifi in ./.venv/lib/python3.9/site-packages (from gabbi==2.7.2.dev1) (2022.5.18.1)
+    Requirement already satisfied: jsonpath-rw-ext>=1.0.0 in ./.venv/lib/python3.9/site-packages (from gabbi==2.7.2.dev1) (1.2.2)
+    Requirement already satisfied: wsgi-intercept>=1.9.3 in ./.venv/lib/python3.9/site-packages (from gabbi==2.7.2.dev1) (1.10.0)
+    Requirement already satisfied: colorama in ./.venv/lib/python3.9/site-packages (from gabbi==2.7.2.dev1) (0.4.4)
+    Requirement already satisfied: jsonpath-rw>=1.2.0 in ./.venv/lib/python3.9/site-packages (from jsonpath-rw-ext>=1.0.0->gabbi==2.7.2.dev1) (1.4.0)
+    Requirement already satisfied: py>=1.8.2 in ./.venv/lib/python3.9/site-packages (from pytest->gabbi==2.7.2.dev1) (1.11.0)
+    Requirement already satisfied: iniconfig in ./.venv/lib/python3.9/site-packages (from pytest->gabbi==2.7.2.dev1) (1.1.1)
+    Requirement already satisfied: attrs>=19.2.0 in ./.venv/lib/python3.9/site-packages (from pytest->gabbi==2.7.2.dev1) (21.4.0)
+    Requirement already satisfied: packaging in ./.venv/lib/python3.9/site-packages (from pytest->gabbi==2.7.2.dev1) (21.3)
+    Requirement already satisfied: tomli>=1.0.0 in ./.venv/lib/python3.9/site-packages (from pytest->gabbi==2.7.2.dev1) (2.0.1)
+    Requirement already satisfied: pluggy<2.0,>=0.12 in ./.venv/lib/python3.9/site-packages (from pytest->gabbi==2.7.2.dev1) (1.0.0)
+    Requirement already satisfied: decorator in ./.venv/lib/python3.9/site-packages (from jsonpath-rw>=1.2.0->jsonpath-rw-ext>=1.0.0->gabbi==2.7.2.dev1) (5.1.1)
+    Requirement already satisfied: ply in ./.venv/lib/python3.9/site-packages (from jsonpath-rw>=1.2.0->jsonpath-rw-ext>=1.0.0->gabbi==2.7.2.dev1) (3.11)
+    Requirement already satisfied: pyparsing!=3.0.5,>=2.0.2 in ./.venv/lib/python3.9/site-packages (from packaging->pytest->gabbi==2.7.2.dev1) (3.0.9)
+    Building wheels for collected packages: gabbi
+    Building wheel for gabbi (setup.py) ... done
+    Created wheel for gabbi: filename=gabbi-2.7.2.dev1-py3-none-any.whl size=214366 sha256=9ef5c0534f807e4d99d28f6243165e2de3ca70fb4c54b9d08eeeaad4d032e4a2
+    Stored in directory: /private/var/folders/xp/b5_c64852k7bsfqpy15thmf40000gn/T/pip-ephem-wheel-cache-wovjf79l/wheels/7a/7d/62/7138ad0d15d8b496588d784f17d593b7b97608efbc7fa816dc
+    Successfully built gabbi
+    Installing collected packages: gabbi
+    Attempting uninstall: gabbi
+        Found existing installation: gabbi 2.7.2.dev1
+        Uninstalling gabbi-2.7.2.dev1:
+        Successfully uninstalled gabbi-2.7.2.dev1
+    Successfully installed gabbi-2.7.2.dev1
+    ```
+
+    编写 yaml 文件，跑测试，可以看到 k8s API 调用成功
+
+    ```yaml
+    $ cat test.yaml
+
+    fixtures:
+        - ConfigFixture
+        - SampleDataFixture
+
+    defaults:
+        ssl: True
+        request_headers:
+            x-my-token: zoom
+
+    tests:
+        - name: a test for root
+        desc: Some explanatory text that could be used by other tooling
+        url: /
+        method: GET
+    ```
+
+    ```console
+    $ gabbi-run -v all caasbastion-1:6443 -- test.yaml
+
+    ... #### a test for root ####
+    > GET https://caasbastion-1:6443/
+    > x-my-token: zoom
+    > user-agent: gabbi/2.7.1 (Python urllib3)
+
+    < 200 OK
+    < Cache-Control: no-cache, private
+    < Content-Type: application/json
+    < Date: Wed, 15 Jun 2022 08:27:08 GMT
+    < Transfer-Encoding: chunked
+
+    {
+    "paths": [
+        "/api",
+        "/api/v1",
+        "/apis",
+        "/apis/",
+        "/apis/admissionregistration.k8s.io",
+        ...
+        "/readyz/shutdown",
+        "/version"
+    ]
+    }
+
+    ✓ gabbi-runner.test_a_test_for_root: Some explanatory text that could be used by other tooling
+
+    ----------------------------------------------------------------------
+    Ran 1 test in 0.060s
+
+    OK
+    ```
 
 #### 4.7.2 schemathesis
 
