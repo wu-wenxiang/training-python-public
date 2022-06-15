@@ -1236,7 +1236,7 @@ $ gabbi-run -v all localhost:9999 < test.yaml
     git clone git@github.com:cdent/gabbi.git
     ```
 
-    在 vscode 中可以进行调试：
+    在 vscode 中可以进行调试（根据 setup 可以知道 `gabbi-run` 对应的是 runner.py 文件，这就是调试启动文件）：
 
     ```json
     $ cat .vscode/launch.json
@@ -1266,7 +1266,7 @@ $ gabbi-run -v all localhost:9999 < test.yaml
     }
     ```
 
-    修改 `gabbi/httpclient.py` 文件
+    修改 `gabbi/httpclient.py` 文件，参考 <https://urllib3.readthedocs.io/en/latest/advanced-usage.html#client-certificates>
 
     ```diff
     $ git diff
