@@ -8,7 +8,7 @@
 ## Prerequisite
 
 - 熟悉 Linux 系统的基本配置和命令
-- 了解或使用过Python更佳
+- 了解或使用过 Python 更佳
 
 ## 课程目录
 
@@ -72,6 +72,34 @@ Redhat 对“自动化运维“的定义：[*the use of software to create repea
 ### 1.2 Python 和系统运维
 
 [返回目录](#课程目录)
+
+系统运维语言：Bash & Python
+
+#### 1.2.1 Bash
+
+[bash 编程快速入门](shell-quick-start.md)
+
+#### 1.2.2 Python
+
+[Python 入门](we-know-python.md)
+
+对于系统运维，你应该掌握的 Python 知识：
+
+- 选择和安装合适的 Python 版本：老系统上如何安装支持版本的 Python？
+- IDE 编辑和远程调试：如何方便地修改和调试远程服务器上的 Python？
+- 基础语法：分支结构、循环、函数、类、异常处理
+- 基本对象类型和数据结构：变量和对象、数字、字符串（正则表达式）、元组、列表、集合、字典
+- 与 Bash 交互：`-c`，`sys.argv`，`os.system`，`subprocess.check_output`，标准输入输出重定向
+- 文件和目录：目录遍历、临时文件
+- 数据库：SqlAlchemy
+- Web 客户端：requests、json
+- 其它客户端：mail / ssh / office 等
+
+##### 1.2.2.1 Python 安装和调试
+
+参考：[Github](https://github.com/wu-wenxiang/lab-kubernetes/blob/main/doc/kubernetes-best-practices.md#111-%E5%86%85%E6%A0%B8%E5%8D%87%E7%BA%A7) 或 [Gitee](https://gitee.com/wu-wen-xiang/lab-kubernetes/blob/main/doc/kubernetes-best-practices.md#111-%E5%86%85%E6%A0%B8%E5%8D%87%E7%BA%A7)
+
+> 作业：升级内核到 5.4，升级 Python 到 3.8
 
 ### 1.3 容器技术和自动化运维
 
