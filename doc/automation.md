@@ -18,10 +18,11 @@
 |       |    |                 | [1.2 Python 和系统运维](#12-python-和系统运维)   |
 |       | 下午 |                 | [1.3 容器技术和自动化运维](#13-容器技术和自动化运维)       |
 |       |    |                 | [1.4 K8S 和自动化运维](#14-k8s-和自动化运维)       |
-| 第 2 天 | 上午 | [配置管理](#2-配置管理) | [2.1 Ansible 基础](#21-ansible-基础)       |
-|       |    |                 | [2.2 Ansible 和容器技术](#22-ansible-与容器技术) |
-|       | 下午 |                 | [2.3 Ansible 与云平台](#23-ansible-与云平台)   |
-|       |    |                 | [2.4 其它自动化框架](#24-其它自动化框架)             |
+| 第 2 天 | 上午 | [配置管理](#2-配置管理) | [2.1 自动化运维框架](#21-自动化运维框架)      |
+|       |    |                | [2.2 Fabric](#22-fabric)       |
+|       |    |                | [2.3 Ansible 基础](#23-ansible-基础)       |
+|       | 下午 |                | [2.4 Ansible 和容器技术](#24-ansible-与容器技术) |
+|       |    |                 | [2.5 Ansible 与云平台](#25-ansible-与云平台)   |
 | 第 3 天 | 上午 | [任务管理](#3-任务管理) | [3.1 Jenkins](#31-jenkins)             |
 |       |    |                 | [3.2 Zuul](#32-zuul)                   |
 |       | 下午 |                 | [3.3 Drone](#33-drone)                 |
@@ -166,7 +167,8 @@ Redhat 对“自动化运维“的定义：[*the use of software to create repea
 **[virtualenv 环境](https://pypi.org/project/virtualenv)
 
 ```bash
-python -m pip install virtualenv
+# python -m pip install virtualenv
+python -m pip install -i https://pypi.tuna.tsinghua.edu.cn/simple virtualenv
 ```
 
 ```console
@@ -264,21 +266,75 @@ pip 22.1.2 from /Users/wuwenxiang/local/github-99cloud/lab-openstack/.venv/lib/p
 
 [返回目录](#课程目录)
 
-### 2.1 Ansible 基础
+### 2.1 自动化运维框架
 
 [返回目录](#课程目录)
 
-### 2.2 Ansible 和容器技术
+常见的自动化运维框架包括：
+
+- [Ansible](https://docs.ansible.com/ansible/2.9/index.html)
+- [Fabric](https://github.com/fabric/fabric)
+- [SaltStack](https://docs.saltproject.io/en/getstarted/)
+- [Chef](https://www.chef.io/solutions)
+- [Puppet](https://puppet.com/)
+
+### 2.2 Fabric
 
 [返回目录](#课程目录)
 
-### 2.3 Ansible 与云平台
+参考：[Github](http://github.com/99cloud/lab-openstack/blob/master/doc/class-02-OpenStack-API-and-Development.md#fabric-quick-start--catalog-) 或 [Gitee](https://gitee.com/dev-99cloud/lab-openstack/blob/master/doc/class-02-OpenStack-API-and-Development.md#fabric-quick-start--catalog-)
+
+- 作业：SSH 免密登录配置
+- 作业：Fabric 基本操作
+
+### 2.3 Ansible 基础
 
 [返回目录](#课程目录)
 
-### 2.4 其它自动化框架
+YAML 的快速入门，参考：
+
+- [w3cnote YAML 介绍](https://www.runoob.com/w3cnote/yaml-intro.html)
+- [redhat what's YAML](https://www.redhat.com/en/topics/automation/what-is-yaml)
+
+参考：[Github](https://github.com/99cloud/lab-openstack/blob/master/doc/class-02-OpenStack-API-and-Development.md#ansible-as-a-plus--catalog-) 或 [Gitee](https://gitee.com/dev-99cloud/lab-openstack/blob/master/doc/class-02-OpenStack-API-and-Development.md#ansible-as-a-plus--catalog-)
+
+- 作业：Ansible 安装
+- 作业：Anisble 练习
+
+### 2.4 Ansible 和容器技术
 
 [返回目录](#课程目录)
+
+#### 2.4.1 Ansible 的 docker 组件
+
+[返回目录](#课程目录)
+
+参考：[Community.Docker](https://docs.ansible.com/ansible/latest/collections/community/docker)
+
+- 作业：安装 Ansible Docker 模块
+- 通过 Docker 部署容器应用
+
+#### 2.4.2 把 Ansible 装进容器里
+
+[返回目录](#课程目录)
+
+将 ansible 运行在容器中的参考案例：
+
+- [kubeasz](https://github.com/easzlab/kubeasz)
+- [ks-installer](https://github.com/easzlab/kubeasz/blob/master/docs/guide/kubesphere.md)
+
+### 2.5 Ansible 与云平台
+
+[返回目录](#课程目录)
+
+Ansible 的云组件
+
+- [libvirt](https://docs.ansible.com/ansible/latest/collections/community/libvirt/index.html)
+- [vmware](https://docs.ansible.com/ansible/latest/collections/community/vmware/index.html)
+- [kubernetes](https://docs.ansible.com/ansible/latest/collections/kubernetes/core/index.html#plugins-in-kubernetes-core)
+- [OpenStack](https://docs.ansible.com/ansible/latest/collections/openstack/cloud/index.html#plugins-in-openstack-cloud)
+    - [openstack-ansible 用户手册](https://docs.openstack.org/openstack-ansible/latest/user/test/example.html)
+    - [Kolla-Ansible](https://github.com/openstack/kolla-ansible)
 
 ## 3. 任务管理
 
