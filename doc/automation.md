@@ -15,15 +15,15 @@
 | 日程    | 时间 | 课程              | 内容                                     |
 | ----- | -- | --------------- | -------------------------------------- |
 | 第 1 天 | 上午 | [运维基础](#1-运维基础) | [1.1 自动化运维概述](#11-自动化运维概述)       |
-|       |    |                 | [1.2 Python 和系统运维](#12-python-和系统运维)   |
+|       |     |                 | [1.2 Python 和系统运维](#12-python-和系统运维)   |
 |       | 下午 |                 | [1.3 容器技术和自动化运维](#13-容器技术和自动化运维)       |
-|       |    |                 | [1.4 K8S 和自动化运维](#14-k8s-和自动化运维)       |
-| 第 2 天 | 上午 | [配置管理](#2-配置管理) | [2.1 自动化运维框架](#21-自动化运维框架)      |
+| 第 2 天 | 上午 |                 | [1.4 K8S 和自动化运维](#14-k8s-和自动化运维)       |
+|       |   | [配置管理](#2-配置管理) | [2.1 自动化运维框架](#21-自动化运维框架)      |
 |       |    |                | [2.2 Fabric](#22-fabric)       |
-|       |    |                | [2.3 Ansible 基础](#23-ansible-基础)       |
-|       | 下午 |                | [2.4 Ansible 和容器技术](#24-ansible-与容器技术) |
-|       |    |                 | [2.5 Ansible 与云平台](#25-ansible-与云平台)   |
-| 第 3 天 | 上午 | [任务管理](#3-任务管理) | [3.1 Jenkins](#31-jenkins)             |
+|       | 下午 |                | [2.3 Ansible 基础](#23-ansible-基础)       |
+|       |    |                | [2.4 Ansible 和容器技术](#24-ansible-与容器技术) |
+| 第 3 天 | 上午 |                 | [2.5 Ansible 与云平台](#25-ansible-与云平台)   |
+|       |    | [任务管理](#3-任务管理) | [3.1 Jenkins](#31-jenkins)             |
 |       |    |                 | [3.2 Zuul](#32-zuul)                   |
 |       | 下午 |                 | [3.3 Drone](#33-drone)                 |
 |       |    |                 | [3.4 CI-CD](#34-ci-cd)                 |
@@ -318,6 +318,9 @@ YAML 的快速入门，参考：
 
 [返回目录](#课程目录)
 
+- 作业：将 Ansible 装进容器
+- 作业：在容器中，通过 ansible 部署容器应用
+
 将 ansible 运行在容器中的参考案例：
 
 - [kubeasz](https://github.com/easzlab/kubeasz)
@@ -335,6 +338,7 @@ Ansible 的云组件
 - [OpenStack](https://docs.ansible.com/ansible/latest/collections/openstack/cloud/index.html#plugins-in-openstack-cloud)
     - [openstack-ansible 用户手册](https://docs.openstack.org/openstack-ansible/latest/user/test/example.html)
     - [Kolla-Ansible](https://github.com/openstack/kolla-ansible)
+    - 操作案例：[Github](https://github.com/99cloud/lab-openstack/blob/master/doc/class-02-OpenStack-API-and-Development.md#lab-03-openstack-ansible-provider--catalog-) 或 [Gitee](https://gitee.com/dev-99cloud/lab-openstack/blob/master/doc/class-02-OpenStack-API-and-Development.md#lab-03-openstack-ansible-provider--catalog-)
 
 ## 3. 任务管理
 
@@ -356,6 +360,8 @@ Ansible 的云组件
 
 [返回目录](#课程目录)
 
+参考：[Github](https://github.com/99cloud/lab-openstack/blob/master/doc/cicd/cicd-install-guide.md) 或 [Gitee](https://gitee.com/dev-99cloud/lab-openstack/blob/master/doc/cicd/cicd-install-guide.md)
+
 ## 4. 监控计量
 
 [返回目录](#课程目录)
@@ -364,9 +370,30 @@ Ansible 的云组件
 
 [返回目录](#课程目录)
 
+监控是为了解决什么问题？
+
+- **长期趋势分析**：通过对监控样本数据的持续收集和统计，对监控指标进行长期趋势分析。例如，通过对磁盘空间增长率的判断，我们可以提前预测在未来什么时间节点上需要对资源进行扩容。
+- **对照分析**：两个版本的系统运行资源使用情况的差异如何？在不同容量情况下系统的并发和负载变化如何？通过监控能够方便的对系统进行跟踪和比较。
+- **告警**：当系统出现或者即将出现故障时，监控系统需要迅速反应并通知管理员，从而能够对问题进行快速的处理或者提前预防问题的发生，避免出现对业务的影响。
+- **故障分析与定位**：当问题发生后，需要对问题进行调查和处理。通过对不同监控监控以及历史数据的分析，能够找到并解决根源问题。
+- **数据可视化**：通过可视化仪表盘能够直接获取系统的运行状态、资源使用情况、以及服务运行状态等直观的信息。
+
+白盒监控
+
+- 了解系统内部的实际运行状态
+- 通过对监控指标的观察能够预判可能出现的问题
+- 从而对潜在的不确定因素进行优化
+
+黑盒监控
+
+- 常见的如 HTTP 探针，TCP 探针等
+- 可以在系统或者服务在发生故障时能够快速通知相关的人员进行处理
+
 ### 4.2 Promtheus
 
 [返回目录](#课程目录)
+
+参考：[Github](https://github.com/99cloud/lab-openstack/blob/master/doc/class-03-OpenStack-Maintenance.md#4-%E7%9B%91%E6%8E%A7%E5%92%8C%E5%91%8A%E8%AD%A6) 或 [Gitee](https://gitee.com/dev-99cloud/lab-openstack/blob/master/doc/class-03-OpenStack-Maintenance.md#4-%E7%9B%91%E6%8E%A7%E5%92%8C%E5%91%8A%E8%AD%A6)
 
 ### 4.3 Alertmanager
 
@@ -387,6 +414,8 @@ Ansible 的云组件
 ### 5.2 ElasticSearch
 
 [返回目录](#课程目录)
+
+参考：[Github](https://github.com/99cloud/lab-openstack/blob/master/doc/class-03-OpenStack-Maintenance.md#8-elastic-search) 或 [Gitee](https://gitee.com/dev-99cloud/lab-openstack/blob/master/doc/class-03-OpenStack-Maintenance.md#8-elastic-search)
 
 ### 5.3 Kibana
 
