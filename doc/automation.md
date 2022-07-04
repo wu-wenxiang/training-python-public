@@ -318,6 +318,28 @@ YAML 的快速入门，参考：
 
 [返回目录](#课程目录)
 
+Dockerfile
+
+```dockerfile
+FROM python:bullseye
+
+RUN apt-get update -y && pip install -i https://pypi.tuna.tsinghua.edu.cn/simple ansible==2.9.27
+```
+
+```bash
+docker build --tag ansible:2.9.27 .
+```
+
+```console
+$ docker run -it ansible:2.9.27 ansible --version
+ansible 2.9.27
+  config file = None
+  configured module search path = ['/root/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/local/lib/python3.10/site-packages/ansible
+  executable location = /usr/local/bin/ansible
+  python version = 3.10.1 (main, Dec 21 2021, 09:01:08) [GCC 10.2.1 20210110]
+```
+
 - 作业：将 Ansible 装进容器
 - 作业：在容器中，通过 ansible 部署容器应用
 
