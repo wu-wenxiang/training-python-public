@@ -164,18 +164,18 @@ Redhat 对“自动化运维“的定义：[*the use of software to create repea
 
 - 作业：VSCode 远程访问 Linux 服务器上的代码
 
-**[virtualenv 环境](https://pypi.org/project/virtualenv)
+[virtualenv 环境](https://pypi.org/project/virtualenv)
 
 ```bash
-# python -m pip install virtualenv
-python -m pip install -i https://pypi.tuna.tsinghua.edu.cn/simple virtualenv
+python3 -m pip install virtualenv
+# python3 -m pip install -i https://pypi.tuna.tsinghua.edu.cn/simple virtualenv
 ```
 
 ```console
-$ python -m virtualenv --version
+$ python3 -m virtualenv --version
 virtualenv 20.7.0 from /usr/local/lib/python3.9/site-packages/virtualenv/__init__.py
 
-$ python -m virtualenv .venv
+$ python3 -m virtualenv .venv
 created virtual environment CPython3.9.7.final.0-64 in 869ms
   creator CPython3Posix(dest=/Users/wuwenxiang/local/github-99cloud/lab-openstack/.venv, clear=False, no_vcs_ignore=False, global=False)
   seeder FromAppData(download=False, pip=bundle, setuptools=bundle, wheel=bundle, via=copy, app_data_dir=/Users/wuwenxiang/Library/Application Support/virtualenv)
@@ -184,7 +184,7 @@ created virtual environment CPython3.9.7.final.0-64 in 869ms
 
 $ . .venv/bin/activate
 
-(.venv) $ python --version
+(.venv) $ python3 --version
 Python 3.9.7
 
 (.venv) $ pip --version
