@@ -256,7 +256,7 @@ pip 22.1.2 from /Users/wuwenxiang/local/github-99cloud/lab-openstack/.venv/lib/p
 
 - 作业：完成 K8S 单节点部署
 
-#### 1.4.2 降应用部署到 K8S
+#### 1.4.2 将应用部署到 K8S
 
 参考：[Github](http://github.com/99cloud/training-kubernetes/blob/master/doc/class-01-Kubernetes-Administration.md#29-%E5%90%AF%E5%8A%A8%E4%B8%80%E4%B8%AA-pod) 或 [Gitee](https://gitee.com/dev-99cloud/training-kubernetes/blob/master/doc/class-01-Kubernetes-Administration.md#29-%E5%90%AF%E5%8A%A8%E4%B8%80%E4%B8%AA-pod)
 
@@ -291,10 +291,17 @@ pip 22.1.2 from /Users/wuwenxiang/local/github-99cloud/lab-openstack/.venv/lib/p
 
 [返回目录](#课程目录)
 
-YAML 的快速入门，参考：
+[YAML 基本语法](https://docs.ansible.com/ansible/2.9/reference_appendices/YAMLSyntax.html)
+
+- YAML 是数据结构，包含字符串、数字、布尔、列表、字典五种类型
+- YAML 和 JSON 可以对应互相转化
+
+其它 YAML 的快速入门，参考：
 
 - [w3cnote YAML 介绍](https://www.runoob.com/w3cnote/yaml-intro.html)
 - [redhat what's YAML](https://www.redhat.com/en/topics/automation/what-is-yaml)
+
+Ansible 官方文档，参考：[Ansible 2.9 用户手册](https://docs.ansible.com/ansible/2.9/user_guide/index.html)
 
 参考：[Github](https://github.com/99cloud/lab-openstack/blob/master/doc/class-02-OpenStack-API-and-Development.md#ansible-as-a-plus--catalog-) 或 [Gitee](https://gitee.com/dev-99cloud/lab-openstack/blob/master/doc/class-02-OpenStack-API-and-Development.md#ansible-as-a-plus--catalog-)
 
@@ -312,7 +319,10 @@ YAML 的快速入门，参考：
 参考：[Community.Docker](https://docs.ansible.com/ansible/latest/collections/community/docker)
 
 - 作业：安装 Ansible Docker 模块
-- 通过 Docker 部署容器应用
+
+部署 Django 应用，参考：[Github](https://github.com/wu-wenxiang/ZZLARGE-Project-DjangoTest) 或 [Gitee](https://gitee.com/wu-wen-xiang/project-django-demo/)
+
+- 作业：通过 Docker 部署容器应用
 
 #### 2.4.2 把 Ansible 装进容器里
 
@@ -341,7 +351,6 @@ ansible 2.9.27
 ```
 
 - 作业：将 Ansible 装进容器
-- 作业：在容器中，通过 ansible 部署容器应用
 
 将 ansible 运行在容器中的参考案例：
 
