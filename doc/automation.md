@@ -23,8 +23,8 @@
 |       | 下午 |                | [2.3 Ansible 基础](#23-ansible-基础)       |
 |       |    |                | [2.4 Ansible 和容器技术](#24-ansible-与容器技术) |
 | 第 3 天 | 上午 |                 | [2.5 Ansible 与云平台](#25-ansible-与云平台)   |
-|       |    | [任务管理](#3-任务管理) | [3.1 Jenkins](#31-jenkins)             |
-|       |    |                 | [3.2 Zuul](#32-zuul)                   |
+|       |    | [任务管理](#3-任务管理) | [3.1 版本控制](#31-版本控制)             |
+|       |    |                 | [3.2 Jenkins+Zuul](#32-jenkins-zuul)                   |
 |       | 下午 |                 | [3.3 Drone](#33-drone)                 |
 |       |    |                 | [3.4 CI-CD](#34-ci-cd)                 |
 | 第 4 天 | 上午 | [监控计量](#4-监控计量) | [4.1 监控框架对比](#41-监控框架对比)               |
@@ -303,7 +303,7 @@ pip 22.1.2 from /Users/wuwenxiang/local/github-99cloud/lab-openstack/.venv/lib/p
 
 Ansible 官方文档，参考：[Ansible 2.9 用户手册](https://docs.ansible.com/ansible/2.9/user_guide/index.html)
 
-参考：[Github](https://github.com/99cloud/lab-openstack/blob/master/doc/class-02-OpenStack-API-and-Development.md#ansible-as-a-plus--catalog-) 或 [Gitee](https://gitee.com/dev-99cloud/lab-openstack/blob/master/doc/class-02-OpenStack-API-and-Development.md#ansible-as-a-plus--catalog-)
+Ansible 案例，参考：[Github](https://github.com/99cloud/lab-openstack/blob/master/doc/class-02-OpenStack-API-and-Development.md#ansible-as-a-plus--catalog-) 或 [Gitee](https://gitee.com/dev-99cloud/lab-openstack/blob/master/doc/class-02-OpenStack-API-and-Development.md#ansible-as-a-plus--catalog-)
 
 - 作业：Ansible 安装
 - 作业：Anisble 练习
@@ -333,7 +333,7 @@ Dockerfile
 ```dockerfile
 FROM python:bullseye
 
-RUN apt-get update -y && pip install -i https://pypi.tuna.tsinghua.edu.cn/simple ansible==2.9.27
+RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple ansible==2.9.27
 ```
 
 ```bash
@@ -348,6 +348,8 @@ ansible 2.9.27
   ansible python module location = /usr/local/lib/python3.10/site-packages/ansible
   executable location = /usr/local/bin/ansible
   python version = 3.10.1 (main, Dec 21 2021, 09:01:08) [GCC 10.2.1 20210110]
+
+$ docker run -it -v "/root/.ssh":"/root/.ssh" -uroot -v "$(pwd)"/project-django-demo:/app ansible:2.9.27 ansible-playbook -i /app/ansible-u1804/inventory/inventory.ini /app/ansible-u1804/playbooks/deploy.yml
 ```
 
 - 作业：将 Ansible 装进容器
@@ -371,17 +373,23 @@ Ansible 的云组件
     - [Kolla-Ansible](https://github.com/openstack/kolla-ansible)
     - 操作案例：[Github](https://github.com/99cloud/lab-openstack/blob/master/doc/class-02-OpenStack-API-and-Development.md#lab-03-openstack-ansible-provider--catalog-) 或 [Gitee](https://gitee.com/dev-99cloud/lab-openstack/blob/master/doc/class-02-OpenStack-API-and-Development.md#lab-03-openstack-ansible-provider--catalog-)
 
+**补充**：YAML 应用广泛，除了 K8S、Ansible 用到之外，OpenStack Heat、OpenAPI，包括 [Restful API 自动化测试](autotest.md#471-gabbi)也会用到。
+
 ## 3. 任务管理
 
 [返回目录](#课程目录)
 
-### 3.1 Jenkins
+### 3.1 版本控制
 
 [返回目录](#课程目录)
 
-### 3.2 Zuul
+Git 参考：[版本控制](we-know-python.md#31-版本控制)
+
+### 3.2 Jenkins+Zuul
 
 [返回目录](#课程目录)
+
+OpenStack 质量保证体系，参考：[Github](https://github.com/99cloud/lab-openstack/blob/master/doc/class-03-OpenStack-Maintenance.md#112-openstack-%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F) 或 [Gitee](https://gitee.com/dev-99cloud/lab-openstack/blob/master/doc/class-03-OpenStack-Maintenance.md#112-openstack-%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F)
 
 ### 3.3 Drone
 
