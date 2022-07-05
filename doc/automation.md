@@ -24,7 +24,7 @@
 |       |    |                | [2.4 Ansible 和容器技术](#24-ansible-与容器技术) |
 | 第 3 天 | 上午 |                 | [2.5 Ansible 与云平台](#25-ansible-与云平台)   |
 |       |    | [任务管理](#3-任务管理) | [3.1 版本控制](#31-版本控制)             |
-|       |    |                 | [3.2 Jenkins+Zuul](#32-jenkins-zuul)                   |
+|       |    |                 | [3.2 Jenkins+Zuul](#32-jenkinszuul)                   |
 |       | 下午 |                 | [3.3 Drone](#33-drone)                 |
 |       |    |                 | [3.4 CI-CD](#34-ci-cd)                 |
 | 第 4 天 | 上午 | [监控计量](#4-监控计量) | [4.1 监控框架对比](#41-监控框架对比)               |
@@ -394,6 +394,8 @@ OpenStack 质量保证体系，参考：[Github](https://github.com/99cloud/lab-
 ### 3.3 Drone
 
 [返回目录](#课程目录)
+
+Gitlab + Drone，参考：[Github](https://github.com/99cloud/lab-openstack/blob/master/doc/cicd/gitlab_drone.md) 或 [Gitee](https://gitee.com/dev-99cloud/lab-openstack/blob/master/doc/cicd/gitlab_drone.md)
 
 ### 3.4 CI/CD
 
