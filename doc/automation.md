@@ -405,6 +405,16 @@ Gitlab + Drone，参考：[Github](https://github.com/99cloud/lab-openstack/blob
 
 参考：[Github](https://github.com/99cloud/lab-openstack/blob/master/doc/cicd/cicd-install-guide.md) 或 [Gitee](https://gitee.com/dev-99cloud/lab-openstack/blob/master/doc/cicd/cicd-install-guide.md)
 
+### 3.5 K8S Cronjob
+
+[返回目录](#课程目录)
+
+配置默认 StorageClass，参考：[Github] 或 [Gitee](https://gitee.com/wu-wen-xiang/lab-kubernetes/blob/main/doc/kubernetes-best-practices.md#45-local-%E5%92%8C%E5%8A%A8%E6%80%81%E5%88%86%E9%85%8D)
+
+参考：[KubeSphere 部署官网](https://kubesphere.io/docs/v3.3/quick-start/minimal-kubesphere-on-k8s/)
+
+参考：[Cronjob](https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/cron-jobs/)
+
 ## 4. 监控计量
 
 [返回目录](#课程目录)
