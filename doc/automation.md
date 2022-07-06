@@ -403,7 +403,7 @@ Gitlab + Drone，参考：[Github](https://github.com/99cloud/lab-openstack/blob
 
 [返回目录](#课程目录)
 
-参考：[Github](https://github.com/99cloud/lab-openstack/blob/master/doc/cicd/cicd-install-guide.md) 或 [Gitee](https://gitee.com/dev-99cloud/lab-openstack/blob/master/doc/cicd/cicd-install-guide.md)
+OIDC + Gitlab + Gerrit + Redmine + Drone，参考：[Github](https://github.com/99cloud/lab-openstack/blob/master/doc/cicd/cicd-install-guide.md) 或 [Gitee](https://gitee.com/dev-99cloud/lab-openstack/blob/master/doc/cicd/cicd-install-guide.md)
 
 ### 3.5 K8S Cronjob
 
@@ -442,6 +442,8 @@ Gitlab + Drone，参考：[Github](https://github.com/99cloud/lab-openstack/blob
 - 常见的如 HTTP 探针，TCP 探针等
 - 可以在系统或者服务在发生故障时能够快速通知相关的人员进行处理
 
+参考：[K8S 探针](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
+
 ### 4.2 Promtheus
 
 [返回目录](#课程目录)
@@ -477,6 +479,10 @@ Gitlab + Drone，参考：[Github](https://github.com/99cloud/lab-openstack/blob
 ### 5.4 其它的日志收集和分析方案
 
 [返回目录](#课程目录)
+
+[Grafana Loki 官方文档](https://grafana.com/oss/loki/)
+
+也可以参考：[Grafana Loki 初探](https://zhuanlan.zhihu.com/p/403113044)
 
 ## 6. 问题排查案例
 
