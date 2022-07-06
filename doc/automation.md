@@ -36,6 +36,8 @@
 |       |    |                 | [5.3 Kibana](#53-Kibana)               |
 |       |    |                 | [5.4 其它的日志收集和分析方案](#54-其它的日志收集和分析方案)   |
 
+其它：[6. 问题排查案例](#6-问题排查案例)
+
 ## 1. 运维基础
 
 [返回目录](#课程目录)
@@ -465,3 +467,25 @@ Gitlab + Drone，参考：[Github](https://github.com/99cloud/lab-openstack/blob
 ### 5.4 其它的日志收集和分析方案
 
 [返回目录](#课程目录)
+
+## 6. 问题排查案例
+
+[返回目录](#课程目录)
+
+### 6.1 OpenStack 日志分析
+
+[返回目录](#课程目录)
+
+Cinder 服务报错排查，参考：[Github](https://github.com/99cloud/lab-openstack/blob/master/doc/class-01-OpenStack-Administration.md#94-debug-cinder) 或 [Gitee](https://gitee.com/dev-99cloud/lab-openstack/blob/master/doc/class-01-OpenStack-Administration.md#94-debug-cinder)
+
+### 6.2 Python2 处理中文问题
+
+[返回目录](#课程目录)
+
+参考：[老版本 OpenStack 中 Python2 中文处理问题](http://blog.wuwenxiang.net/OpenStack-Debug)
+
+### 6.3 MTU 问题
+
+[返回目录](#课程目录)
+
+参考：[K8S 应用故障调试](http://blog.wuwenxiang.net/k8s-app-debug)
