@@ -134,28 +134,28 @@ systems._](https://www.redhat.com/en/topics/automation/whats-it-automation)
 
 - 作业：部署完成 Python
 
-      ```console
-      $ python --version
-      Python 3.9.7
+  ```console
+  $ python --version
+  Python 3.9.7
 
-      $ pip --version
-      pip 22.0.3 from /usr/local/lib/python3.9/site-packages/pip (python 3.9)
+  $ pip --version
+  pip 22.0.3 from /usr/local/lib/python3.9/site-packages/pip (python 3.9)
 
-      $ python
-      Python 3.9.7 (default, Sep  3 2021, 12:37:55)
-      [Clang 12.0.5 (clang-1205.0.22.9)] on darwin
-      Type "help", "copyright", "credits" or "license" for more information.
-      ```
+  $ python
+  Python 3.9.7 (default, Sep  3 2021, 12:37:55)
+  [Clang 12.0.5 (clang-1205.0.22.9)] on darwin
+  Type "help", "copyright", "credits" or "license" for more information.
+  ```
 
-      ```python
-      >>> print(2**64)
-      18446744073709551616
+  ```python
+  >>> print(2**64)
+  18446744073709551616
 
-      >>> print('hello, world')
-      hello, world
+  >>> print('hello, world')
+  hello, world
 
-      >>> exit()
-      ```
+  >>> exit()
+  ```
 
 参考：[VSCode 部署](Installation-VSCode.md)
 

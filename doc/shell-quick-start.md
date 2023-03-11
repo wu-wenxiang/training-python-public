@@ -13,15 +13,15 @@
 
 - 示例
 
-      ```bash
-      #!/bin/sh
-      cd ~
-      mkdir shell_tut
-      cd shell_tut
-      for ((i=0; i<10; i++)); do
-          touch test_$i.txt
-      done
-      ```
+  ```bash
+  #!/bin/sh
+  cd ~
+  mkdir shell_tut
+  cd shell_tut
+  for ((i=0; i<10; i++)); do
+      touch test_$i.txt
+  done
+  ```
 
 - 示例解释
   - 第 1 行：指定脚本解释器，这里是用 `/bin/sh` 做解释器的
@@ -66,24 +66,24 @@
   - 业界通常混用 bash、sh、和shell，比如招聘运维工程师的文案：熟悉 Linux Bash 编程，精通 Shell 编程。
 - 在大部分 Linux 系统（比如 CentOS 里），/bin/sh 是一个指向 /bin/bash 的符号链接:
 
-      ```console
-      [root@centosraw ~]# ls -l /bin/*sh
-      -rwxr-xr-x. 1 root root 903272 Feb 22 05:09 /bin/bash
-      -rwxr-xr-x. 1 root root 106216 Oct 17  2012 /bin/dash
-      lrwxrwxrwx. 1 root root      4 Mar 22 10:22 /bin/sh -> bash
-      ```
+  ```console
+  [root@centosraw ~]# ls -l /bin/*sh
+  -rwxr-xr-x. 1 root root 903272 Feb 22 05:09 /bin/bash
+  -rwxr-xr-x. 1 root root 106216 Oct 17  2012 /bin/dash
+  lrwxrwxrwx. 1 root root      4 Mar 22 10:22 /bin/sh -> bash
+  ```
 
 - 但在 Mac OS 上不是，`/bin/sh` 和 `/bin/bash` 是两个不同的文件，尽管它们的大小只相差 100 字节左右:
 
-      ```console
-      iMac:~ wuxiao$ ls -l /bin/*sh
-      -r-xr-xr-x  1 root  wheel  1371648  6 Nov 16:52 /bin/bash
-      -rwxr-xr-x  2 root  wheel   772992  6 Nov 16:52 /bin/csh
-      -r-xr-xr-x  1 root  wheel  2180736  6 Nov 16:52 /bin/ksh
-      -r-xr-xr-x  1 root  wheel  1371712  6 Nov 16:52 /bin/sh
-      -rwxr-xr-x  2 root  wheel   772992  6 Nov 16:52 /bin/tcsh
-      -rwxr-xr-x  1 root  wheel  1103984  6 Nov 16:52 /bin/zsh
-      ```
+  ```console
+  iMac:~ wuxiao$ ls -l /bin/*sh
+  -r-xr-xr-x  1 root  wheel  1371648  6 Nov 16:52 /bin/bash
+  -rwxr-xr-x  2 root  wheel   772992  6 Nov 16:52 /bin/csh
+  -r-xr-xr-x  1 root  wheel  2180736  6 Nov 16:52 /bin/ksh
+  -r-xr-xr-x  1 root  wheel  1371712  6 Nov 16:52 /bin/sh
+  -rwxr-xr-x  2 root  wheel   772992  6 Nov 16:52 /bin/tcsh
+  -rwxr-xr-x  1 root  wheel  1103984  6 Nov 16:52 /bin/zsh
+  ```
 
 - 高级编程语言
   - 理论上讲，只要一门语言提供了解释器（而不仅是编译器），这门语言就可以胜任脚本编程
@@ -95,18 +95,18 @@
     - Ada 有收费的解释器 AdaScript
   - 如下是一个 PHP Shell Script 示例（假设文件名叫 `test.php`）：
 
-        ```php
-        #!/usr/bin/php
-        <?php
-        for ($i=0; $i < 10; $i++)
-            echo $i . "\n";
+    ```php
+    #!/usr/bin/php
+    <?php
+    for ($i=0; $i < 10; $i++)
+        echo $i . "\n";
 
-        # 执行
-        # /usr/bin/php test.php
-        # 或者
-        # chmod +x test.php
-        # ./test.php
-        ```
+    # 执行
+    # /usr/bin/php test.php
+    # 或者
+    # chmod +x test.php
+    # ./test.php
+    ```
 
 ## 如何选择shell编程语言
 
@@ -132,19 +132,19 @@
   - 扩展名并不影响脚本执行，见名知意就好，如果你用 php 写 shell 脚本，扩展名就用 php 好了
   - 输入一些代码，第一行一般是这样：
 
-        ```bash
-        #!/bin/bash
-        #!/usr/bin/php
-        ```
+    ```bash
+    #!/bin/bash
+    #!/usr/bin/php
+    ```
 
   - `#!` 是一个约定的标记，它告诉系统这个脚本需要什么解释器来执行。
 - 运行，运行 Shell 脚本有两种方法：
   - 作为可执行程序
 
-        ```bash
-        chmod +x test.sh
-        ./test.sh
-        ```
+    ```bash
+    chmod +x test.sh
+    ./test.sh
+    ```
 
     - 注意，一定要写成`./test.sh`，而不是`test.sh`
       - 运行其它二进制的程序也一样，直接写 test.sh，linux 系统会去 PATH 里寻找有没有叫 test.sh 的
@@ -155,10 +155,10 @@
       - 既然这个系统就是指 shell，那么一个使用 /bin/sh 作为解释器的脚本是不是可以省去第一行呢？是的。
   - 作为解释器参数
 
-        ```bash
-        /bin/sh test.sh
-        /bin/php test.php
-        ```
+    ```bash
+    /bin/sh test.sh
+    /bin/php test.php
+    ```
 
     - 这种运行方式是，直接运行解释器，其参数就是 shell 脚本的文件名
     - 这种方式运行的脚本，不需要在第一行指定解释器信息，写了也会被忽略
@@ -175,11 +175,11 @@
 
   - 变量名外面的花括号是可选的，**但请记得加上**，加花括号是为了帮助解释器识别变量的边界，比如下面这种情况：
 
-        ```bash
-        for skill in Ada Coffe Action Java; do
-            echo "I am good at ${skill}Script"
-        done
-        ```
+    ```bash
+    for skill in Ada Coffe Action Java; do
+        echo "I am good at ${skill}Script"
+    done
+    ```
 
   - 如果不给 skill 变量加花括号，写成 `echo "I am good at $skillScript"`，解释器就会把 `$skillScript`
     当成一个变量（其值为空），代码执行结果就不是我们期望的样子了。
@@ -187,13 +187,13 @@
 - 重定义变量
   - 已定义的变量，可以被重新定义，如：
 
-        ```bash
-        your_name="qinjx"
-        echo $your_name
+    ```bash
+    your_name="qinjx"
+    echo $your_name
 
-        your_name="alibaba"
-        echo $your_name
-        ```
+    your_name="alibaba"
+    echo $your_name
+    ```
 
   - 这样写是合法的，但注意，第二次赋值的时候**不能写** `$your_name="alibaba"`，使用变量的时候才加美元符。
 
@@ -202,22 +202,22 @@
 - 以 `#` 开头的行就是注释，会被解释器忽略。
 - sh 里 **没有多行注释**，只能每一行加一个 # 号。就像这样：
 
-      ```bash
-      #--------------------------------------------
-      # 这是一个自动打ipa的脚本，基于webfrogs的ipa-build书写：https://github.com/webfrogs/xcode_shell/blob/master/ipa-build
+  ```bash
+  #--------------------------------------------
+  # 这是一个自动打ipa的脚本，基于webfrogs的ipa-build书写：https://github.com/webfrogs/xcode_shell/blob/master/ipa-build
 
-      # 功能：自动为etao ios app打包，产出物为14个渠道的ipa包
-      # 特色：全自动打包，不需要输入任何参数
-      #--------------------------------------------
+  # 功能：自动为etao ios app打包，产出物为14个渠道的ipa包
+  # 特色：全自动打包，不需要输入任何参数
+  #--------------------------------------------
 
-      ##### 用户配置区 开始 #####
-      #
-      #
-      # 项目根目录，推荐将此脚本放在项目的根目录，这里就不用改了
-      # 应用名，确保和Xcode里Product下的target_name.app名字一致
-      #
-      ##### 用户配置区 结束  #####
-      ```
+  ##### 用户配置区 开始 #####
+  #
+  #
+  # 项目根目录，推荐将此脚本放在项目的根目录，这里就不用改了
+  # 应用名，确保和Xcode里Product下的target_name.app名字一致
+  #
+  ##### 用户配置区 结束  #####
+  ```
 
 - 如果在开发过程中，遇到大段的代码需要临时注释起来，过一会儿又取消注释，怎么办呢？
   - 每一行加个 `#` 符号太费力了，可以把这一段要注释的代码用一对花括号括起来，定义成一个函数，没有地方调用这个函数，这块代码就不会执行，达到了和注释一样的效果
@@ -233,10 +233,10 @@
   - 单引号字串中不能出现单引号（对单引号使用转义符后也不行）
 - 双引号
 
-      ```bash
-      your_name='qinjx'
-      str="Hello, I know your are \"$your_name\"! \n"
-      ```
+  ```bash
+  your_name='qinjx'
+  str="Hello, I know your are \"$your_name\"! \n"
+  ```
 
   - 双引号里可以有变量
   - 双引号里可以出现转义字符
@@ -245,36 +245,36 @@
 
 - 拼接字符串
 
-      ```bash
-      your_name="qinjx"
-      greeting="hello, "$your_name" !"
-      greeting_1="hello, ${your_name} !"
+  ```bash
+  your_name="qinjx"
+  greeting="hello, "$your_name" !"
+  greeting_1="hello, ${your_name} !"
 
-      echo $greeting $greeting_1
-      ```
+  echo $greeting $greeting_1
+  ```
 
 - 获取字符串长度：
 
-      ```bash
-      string="abcd"
-      echo ${#string} # 输出：4
-      ```
+  ```bash
+  string="abcd"
+  echo ${#string} # 输出：4
+  ```
 
 - 提取子字符串
 
-      ```bash
-      string="alibaba is a great company"
-      echo ${string:1:4} # 输出：liba
-      ```
+  ```bash
+  string="alibaba is a great company"
+  echo ${string:1:4} # 输出：liba
+  ```
 
 - 查找子字符串
 
-      ```bash
-      string="alibaba is a great company"
-      echo `expr index "$string" is` # 输出：3
-      # 这个语句的意思是：找出字母i或者s在这个字符串中首次出现的位置
-      # 要在linux下运行，mac下会报错，因为mac下的expr不支持这样计算
-      ```
+  ```bash
+  string="alibaba is a great company"
+  echo `expr index "$string" is` # 输出：3
+  # 这个语句的意思是：找出字母i或者s在这个字符串中首次出现的位置
+  # 要在linux下运行，mac下会报错，因为mac下的expr不支持这样计算
+  ```
 
 - 更多，参见本文档末尾的参考资料中
   [Advanced Bash-Scripting Guid Chapter 10.1](http://tldp.org/LDP/abs/html/string-manipulation.html)
@@ -283,12 +283,12 @@
 
 - 赋值
 
-      ```bash
-      array=(var1 var2 var3)
-      array[0]=var1
-      array[1]=var2
-      output=(`shell command`) # 输出的行作为数组的元素
-      ```
+  ```bash
+  array=(var1 var2 var3)
+  array[0]=var1
+  array[1]=var2
+  output=(`shell command`) # 输出的行作为数组的元素
+  ```
 
 - 求长度
   - `${#array[@]}`
@@ -299,12 +299,12 @@
   - `arr3=(${arr1[@]} ${arr2[@]})`
 - 遍历数组
 
-      ```bash
-      fl=(`ls`)
-      for i in ${fl[@]};do
-          echo ${i}
-      done
-      ```
+  ```bash
+  fl=(`ls`)
+  for i in ${fl[@]};do
+      echo ${i}
+  done
+  ```
 
 ## 管道
 
@@ -319,162 +319,162 @@
 - 和Java、PHP等语言不一样，sh的流程控制不可为空
   - 如：
 
-        ```bash
-        <?php
-        if (isset($_GET["q"])) {
-            search(q);
-        }
-        else {
-            //do nothing
-        }
-        ```
+    ```bash
+    <?php
+    if (isset($_GET["q"])) {
+        search(q);
+    }
+    else {
+        //do nothing
+    }
+    ```
 
   - 在 sh/bash 里可不能这么写，如果 else 分支没有语句执行，就不要写这个 else
 - 还要注意，sh 里的 `if [ $foo -eq 0 ]`
   - 这个方括号跟 Java/PHP 里 if 后面的圆括号大不相同，它是一个可执行程序（和 ls, grep 一样）
   - 在 CentOS 上，它在 /usr/bin 目录下：
 
-        ```console
-        ll /usr/bin/[
-        -rwxr-xr-x. 1 root root 33408 6月  22 2012 /usr/bin/[
-        ```
+    ```console
+    ll /usr/bin/[
+    -rwxr-xr-x. 1 root root 33408 6月  22 2012 /usr/bin/[
+    ```
   - 正因为方括号在这里是一个可执行程序，方括号后面必须加空格，不能写成 `if [$foo -eq 0]`
 - 分支结构语法
   - `if`
 
-        ```bash
-        if condition
-        then
-            command1
-            command2
-            ...
-            commandN
-        fi
-        ```
+    ```bash
+    if condition
+    then
+        command1
+        command2
+        ...
+        commandN
+    fi
+    ```
 
   - 写成一行（适用于终端命令提示符）：``if `ps -ef | grep ssh`;  then echo hello; fi``
   - 末尾的`fi`就是`if`倒过来拼写，后面还会遇到类似的
   - `if else`
 
-        ```bash
-        if condition
-        then
-            command1
-            command2
-            ...
-            commandN
-        else
-            command
-        fi
-        ```
+    ```bash
+    if condition
+    then
+        command1
+        command2
+        ...
+        commandN
+    else
+        command
+    fi
+    ```
 
   - if else-if else
 
-        ```bash
-        if condition1
-        then
-            command1
-        elif condition2
-            command2
-        else
-            commandN
-        fi
-        ```
+    ```bash
+    if condition1
+    then
+        command1
+    elif condition2
+        command2
+    else
+        commandN
+    fi
+    ```
 
 - Switch结构语法
   - case
 
-        ```bash
-        case "${opt}" in
-            "Install-Puppet-Server" )
-                install_master $1
-                exit
-            ;;
+    ```bash
+    case "${opt}" in
+        "Install-Puppet-Server" )
+            install_master $1
+            exit
+        ;;
 
-            "Install-Puppet-Client" )
-                install_client $1
-                exit
-            ;;
+        "Install-Puppet-Client" )
+            install_client $1
+            exit
+        ;;
 
-            "Config-Puppet-Server" )
-                config_puppet_master
-                exit
-            ;;
+        "Config-Puppet-Server" )
+            config_puppet_master
+            exit
+        ;;
 
-            "Config-Puppet-Client" )
-                config_puppet_client
-                exit
-            ;;
+        "Config-Puppet-Client" )
+            config_puppet_client
+            exit
+        ;;
 
-            "Exit" )
-                exit
-            ;;
+        "Exit" )
+            exit
+        ;;
 
-            * ) echo "Bad option, please choose again"
-        esac
-        ```
+        * ) echo "Bad option, please choose again"
+    esac
+    ```
 
   - case 语法需要一个 esac（就是 case 反过来）作为结束标记，每个 case 分支用右圆括号，用两个分号表示 break
 - 循环结构语法
   - `for`
 
-        ```bash
-        for var in item1 item2 ... itemN
-        do
-            command1
-            command2
-            ...
-            commandN
-        done
-        ```
+    ```bash
+    for var in item1 item2 ... itemN
+    do
+        command1
+        command2
+        ...
+        commandN
+    done
+    ```
 
   - 写成一行：`for var in item1 item2 ... itemN; do command1; command2… done;`
   - C风格的for
 
-        ```bash
-        for (( EXP1; EXP2; EXP3 ))
-        do
-            command1
-            command2
-            command3
-        done
-        ```
+    ```bash
+    for (( EXP1; EXP2; EXP3 ))
+    do
+        command1
+        command2
+        command3
+    done
+    ```
 
   - while
 
-        ```bash
-        while condition
-        do
-            command
-        done
-        ```
+    ```bash
+    while condition
+    do
+        command
+    done
+    ```
 
   - 无限循环
 
-        ```bash
-        while :
-        do
-            command
-        done
+    ```bash
+    while :
+    do
+        command
+    done
 
-        # 或者
-        while true
-        do
-            command
-        done
+    # 或者
+    while true
+    do
+        command
+    done
 
-        # 或者
-        for (( ; ; ))
-        ```
+    # 或者
+    for (( ; ; ))
+    ```
 
   - until
 
-        ```bash
-        until condition
-        do
-            command
-        done
-        ```
+    ```bash
+    until condition
+    do
+        command
+    done
+    ```
 
 ## 函数
 
@@ -494,9 +494,9 @@ func2 () {
 
    variable=${1-$DEFAULT}                   #  What does
    echo "variable = $variable"              #+ parameter substitution show?
-                                            #  ---------------------------
-                                            #  It distinguishes between
-                                            #+ no param and a null param.
+                                        #  ---------------------------
+                                        #  It distinguishes between
+                                        #+ no param and a null param.
 
    if [ "$2" ]
    then
@@ -548,10 +548,10 @@ exit 0
   - 不可以写作：`. function.sh`
 - 如果 function.sh 是用户传入的参数，如何获得它的绝对路径呢？方法是：
 
-      ```bash
-      real_path=`readlink -f $1`#$1是用户输入的参数，如function.sh
-      . $real_path
-      ```
+  ```bash
+  real_path=`readlink -f $1`#$1是用户输入的参数，如function.sh
+  . $real_path
+  ```
 
 ## 用户输入
 

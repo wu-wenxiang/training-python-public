@@ -54,23 +54,23 @@
 - [Conda](https://conda.io/docs/user-guide/getting-started.html)
 - [Jupyter notebook 的使用](https://jupyter-notebook.readthedocs.io/en/latest/notebook.html)，[Running the Notebook](https://jupyter.readthedocs.io/en/latest/running.html)
 
-      ```console
-      $ pip install jupyter
+  ```console
+  $ pip install jupyter
 
-      $ jupyter notebook --generate-config
-      Writing default config to: /Users/wxdev_mac/.jupyter/jupyter_notebook_config.py
+  $ jupyter notebook --generate-config
+  Writing default config to: /Users/wxdev_mac/.jupyter/jupyter_notebook_config.py
 
-      $ jupyter notebook password
-      Enter password: 
-      Verify password: 
-      [NotebookPasswordApp] Wrote hashed password to /Users/wxdev_mac/.jupyter/jupyter_notebook_config.json
+  $ jupyter notebook password
+  Enter password: 
+  Verify password: 
+  [NotebookPasswordApp] Wrote hashed password to /Users/wxdev_mac/.jupyter/jupyter_notebook_config.json
 
-      $ cat /Users/wxdev_mac/.jupyter/jupyter_notebook_config.json
-      {
-      	"NotebookApp": {
-      		"password": "sha1:1425316e1d8f:63015b34f2e6aed7be2773b187da8902ff826ef6"
-      	}
-      }
+  $ cat /Users/wxdev_mac/.jupyter/jupyter_notebook_config.json
+  {
+  	"NotebookApp": {
+  		"password": "sha1:1425316e1d8f:63015b34f2e6aed7be2773b187da8902ff826ef6"
+  	}
+  }
 
-      $jupyter notebook --no-browser
-      ```
+  $jupyter notebook --no-browser
+  ```

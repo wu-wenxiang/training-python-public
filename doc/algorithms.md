@@ -22,44 +22,44 @@
   - 参考：[https://github.com/qiyuangong/leetcode](https://github.com/qiyuangong/leetcode)
 - [timeit](https://docs.python.org/3.7/library/timeit.html)
 
-      ```python
-      def test():
-          """Stupid test function"""
-          L = [i for i in range(100)]
+  ```python
+  def test():
+  """Stupid test function"""
+  L = [i for i in range(100)]
 
-      if __name__ == '__main__':
-          import timeit
-          print(timeit.timeit("test()", setup="from __main__ import test"))
-      ```
+  if __name__ == '__main__':
+  import timeit
+  print(timeit.timeit("test()", setup="from __main__ import test"))
+  ```
 
-      ```python
-      def f(x):
-          return x**2
-      def g(x):
-          return x**4
-      def h(x):
-          return x**8
+  ```python
+  def f(x):
+  return x**2
+  def g(x):
+  return x**4
+  def h(x):
+  return x**8
 
-      import timeit
-      print(timeit.timeit('[func(42) for func in (f,g,h)]', globals=globals()))
-      ```
+  import timeit
+  print(timeit.timeit('[func(42) for func in (f,g,h)]', globals=globals()))
+  ```
 
 - [cProfile](https://docs.python.org/3/library/profile.html)
 
-      ```python
-      import cProfile
-      import re
-      cProfile.run('re.compile("foo|bar")')
-      ```
+  ```python
+  import cProfile
+  import re
+  cProfile.run('re.compile("foo|bar")')
+  ```
 
 - 生成测试随机序列
 
-      ```python
-      import random
+  ```python
+  import random
 
-      loopN = 1000000
-      aList = [random.randint(1, loopN) for i in range(loopN)]
-      ```
+  loopN = 1000000
+  aList = [random.randint(1, loopN) for i in range(loopN)]
+  ```
 
 ## lab-01 基础模型
 
@@ -67,35 +67,35 @@
 
 - list vs [array](https://docs.python.org/3/library/array.html)
 
-      ```python
-      from array import array
+  ```python
+  from array import array
 
-      array('l')
-      array('u', 'hello \u2641')
-      array('l', [1, 2, 3, 4, 5])
-      array('d', [1.0, 2.0, 3.14])
-      array('d', [1.0, 2.0, 3.14]).tolist()
-      ```
+  array('l')
+  array('u', 'hello \u2641')
+  array('l', [1, 2, 3, 4, 5])
+  array('d', [1.0, 2.0, 3.14])
+  array('d', [1.0, 2.0, 3.14]).tolist()
+  ```
 
 - [numpy](https://docs.scipy.org/doc/numpy/user/quickstart.html)
 - Demo: [118. 杨辉三角](https://leetcode-cn.com/problems/pascals-triangle/)
 
-      ```python
-      class Solution:
-          def generate(self, numRows):
-              triangle = [[1] * i for i in range(1, 3)]
-              for i in range(3, numRows+1):
-                  old_row = triangle[i-2]
-                  new_row = [1] * i
-                  new_row[1:-1] = [i+j for i,j in zip(old_row[:-1], old_row[1:])]
-                  triangle.append(new_row)
-              return triangle[:numRows]
+  ```python
+  class Solution:
+  def generate(self, numRows):
+      triangle = [[1] * i for i in range(1, 3)]
+      for i in range(3, numRows+1):
+          old_row = triangle[i-2]
+          new_row = [1] * i
+          new_row[1:-1] = [i+j for i,j in zip(old_row[:-1], old_row[1:])]
+          triangle.append(new_row)
+      return triangle[:numRows]
 
 
-      if __name__ == '__main__':
-          solution = Solution()
-          print(solution.generate(5))
-      ```
+  if __name__ == '__main__':
+  solution = Solution()
+  print(solution.generate(5))
+  ```
 
 ### lab-01-02 链表
 
@@ -123,77 +123,77 @@
 
 - Demo：[844. 比较含退格的字符串](https://leetcode-cn.com/problems/backspace-string-compare/)
 
-      ```python
-      class Solution:
-          def backspaceCompare(self, S: str, T: str) -> bool:
-              return self.process(S) == self.process(T)
+  ```python
+  class Solution:
+  def backspaceCompare(self, S: str, T: str) -> bool:
+      return self.process(S) == self.process(T)
 
-          def process(self, aStr):
-              stack = []
-              for i in aStr:
-                  if i == '#' and stack:
-                      stack.pop()
-                  elif i != '#':
-                      stack.append(i)
-              return ''.join(stack)
-      ```
+  def process(self, aStr):
+      stack = []
+      for i in aStr:
+          if i == '#' and stack:
+              stack.pop()
+          elif i != '#':
+              stack.append(i)
+      return ''.join(stack)
+  ```
 
 ### lab-01-03 标准库的实现
 
 - namedtuple：返回 tuple 的子类
 
-      ```python
-      >>> from collections import namedtuple
-      >>> Point = namedtuple('Point', ['x', 'y'])
-      >>> p = Point(1, 2)
-      >>> p.x
-      1
+  ```python
+  >>> from collections import namedtuple
+  >>> Point = namedtuple('Point', ['x', 'y'])
+  >>> p = Point(1, 2)
+  >>> p.x
+  1
 
-      类似的，如果要用坐标和半径表示一个圆，也可以用namedtuple定义：
-      # namedtuple('名称', [属性list]):
-      Circle = namedtuple('Circle', ['x', 'y', 'r'])
-      ```
+  类似的，如果要用坐标和半径表示一个圆，也可以用namedtuple定义：
+  # namedtuple('名称', [属性list]):
+  Circle = namedtuple('Circle', ['x', 'y', 'r'])
+  ```
 
 - deque：实现了高效插入和删除操作的双向列表（list按索引访问元素很快，但是插入和删除元素就很慢，因为list是线性存储，数据量大的时候，插入和删除效率很低）
 
-      ```python
-      >>> from collections import deque
-      >>> q = deque(['a', 'b', 'c'])
-      >>> q.append('x')
-      >>> q.appendleft('y')
-      >>> q
-      deque(['y', 'a', 'b', 'c', 'x'])
-      ```
+  ```python
+  >>> from collections import deque
+  >>> q = deque(['a', 'b', 'c'])
+  >>> q.append('x')
+  >>> q.appendleft('y')
+  >>> q
+  deque(['y', 'a', 'b', 'c', 'x'])
+  ```
 
   deque除了实现list的append()和pop()外，还支持appendleft()和popleft()。栈和队列。
 
 - defaultdict：key不存在时，返回一个默认值
 
-      ```python
-      >>> from collections import defaultdict
-      >>> dd = defaultdict(lambda: 'N/A')
-      >>> dd['key1'] = 'abc'
-      >>> dd['key1'] # key1存在
-      'abc'
-      >>> dd['key2'] # key2不存在，返回默认值
-      'N/A'
-      ```
+  ```python
+  >>> from collections import defaultdict
+  >>> dd = defaultdict(lambda: 'N/A')
+  >>> dd['key1'] = 'abc'
+  >>> dd['key1'] # key1存在
+  'abc'
+  >>> dd['key2'] # key2不存在，返回默认值
+  'N/A'
+  ```
 
 - Counter：计数器
 
-      ```python
-      >>> from collections import Counter
-      >>> c = Counter()
-      >>> for ch in 'programming':
-      ...     c[ch] = c[ch] + 1
-      ...
-      >>> c
-      Counter({'g': 2, 'm': 2, 'r': 2, 'a': 1, 'i': 1, 'o': 1, 'n': 1, 'p': 1})
-      >>> Counter('programming')
-      Counter({'r': 2, 'g': 2, 'm': 2, 'p': 1, 'o': 1, 'a': 1, 'i': 1, 'n': 1})
-      >>> c['tt']
-      0
-      ```
+  ```python
+  >>> from collections import Counter
+  >>> c = Counter()
+  >>> for ch in 'programming':
+  ...     c[ch] = c[ch] + 1
+  ...
+  >>> c
+  Counter({'g': 2, 'm': 2, 'r': 2, 'a': 1, 'i': 1, 'o': 1, 'n': 1, 'p': 1})
+  >>> Counter('programming')
+  Counter({'r': 2, 'g': 2, 'm': 2, 'p': 1, 'o': 1, 'a': 1, 'i': 1, 'n': 1})
+  >>> c['tt']
+  0
+  ```
 
 - leetcode 347. 前K个高频元素
 - leetcode 23 合并K个排序链表，nlogn
@@ -252,12 +252,12 @@ if __name__ == '__main__':
 
 - Demo：对一个列表进行模拟排序（不实际排序，而是返回排序后的原始索引值）
 
-      ```python
-      >>> aList = [1, 3, 4, 2, 5, 2]
-      >>> aDict = {i:j for i,j in enumerate(aList)}
-      >>> print(sorted(aDict, key=lambda x: aDict[x]))
-      [0, 3, 5, 1, 2, 4]
-      ```
+  ```python
+  >>> aList = [1, 3, 4, 2, 5, 2]
+  >>> aDict = {i:j for i,j in enumerate(aList)}
+  >>> print(sorted(aDict, key=lambda x: aDict[x]))
+  [0, 3, 5, 1, 2, 4]
+  ```
 
 ### lab-02-03 快速排序
 
@@ -306,18 +306,18 @@ if __name__ == '__main__':
 
 - Demo：[56. 合并区间](https://leetcode-cn.com/problems/merge-intervals/submissions/)
 
-      ```python
-      class Solution:
-      def merge(self, intervals: List[List[int]]) -> List[List[int]]:
-          aList = sorted(intervals)
-          bList = []
-          for i in aList:
-              if bList and bList[-1][1] >= i[0]:
-                  bList[-1][1] = max(i[1], bList[-1][1])
-              else:
-                  bList.append(i)
-          return bList
-      ```
+  ```python
+  class Solution:
+  def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+      aList = sorted(intervals)
+      bList = []
+      for i in aList:
+          if bList and bList[-1][1] >= i[0]:
+              bList[-1][1] = max(i[1], bList[-1][1])
+          else:
+              bList.append(i)
+      return bList
+  ```
 
 - Demo: 测试排序算法速度
 
@@ -336,38 +336,38 @@ if __name__ == '__main__':
 
 - [heapq — Heap queue algorithm](https://docs.python.org/3.7/library/heapq.html)
 
-      ```python
-      >>> def heapsort(iterable):
-      ...     h = []
-      ...     for value in iterable:
-      ...         heappush(h, value)
-      ...     return [heappop(h) for i in range(len(h))]
-      ...
-      >>> heapsort([1, 3, 5, 7, 9, 2, 4, 6, 8, 0])
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-      ```
+  ```python
+  >>> def heapsort(iterable):
+  ...     h = []
+  ...     for value in iterable:
+  ...         heappush(h, value)
+  ...     return [heappop(h) for i in range(len(h))]
+  ...
+  >>> heapsort([1, 3, 5, 7, 9, 2, 4, 6, 8, 0])
+  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+  ```
 
-      ```python
-      >>> h = []
-      >>> heappush(h, (5, 'write code'))
-      >>> heappush(h, (7, 'release product'))
-      >>> heappush(h, (1, 'write spec'))
-      >>> heappush(h, (3, 'create tests'))
-      >>> heappop(h)
-      (1, 'write spec')
-      ```
+  ```python
+  >>> h = []
+  >>> heappush(h, (5, 'write code'))
+  >>> heappush(h, (7, 'release product'))
+  >>> heappush(h, (1, 'write spec'))
+  >>> heappush(h, (3, 'create tests'))
+  >>> heappop(h)
+  (1, 'write spec')
+  ```
 
-      ```
-      0
+  ```
+  0
 
-                    1                                 2
+                1                                 2
 
-            3               4                5               6
+        3               4                5               6
 
-        7       8       9       10      11      12      13      14
+    7       8       9       10      11      12      13      14
 
-      15 16   17 18   19 20   21 22   23 24   25 26   27 28   29 30
-      ```
+  15 16   17 18   19 20   21 22   23 24   25 26   27 28   29 30
+  ```
 
 ## lab-03 查找
 
@@ -409,24 +409,24 @@ if __name__ == '__main__':
 
 - Demo：[327. 区间和的个数](https://leetcode-cn.com/problems/count-of-range-sum/)
 
-      ```python
-      from bisect import bisect_left, bisect_right, insort_right
+  ```python
+  from bisect import bisect_left, bisect_right, insort_right
 
 
-      class Solution:
-          def countRangeSum(self, nums, lower, upper):
-              p = [0]
-              for a in nums:
-                  p.append(p[-1] + a)
-              walked = []
-              ans = 0
-              for a in p[::-1]:
-                  l, r = a + lower, a + upper
-                  i, j = bisect_left(walked, l), bisect_right(walked, r)
-                  ans += j - i
-                  insort_right(walked, a)
-              return ans
-      ```
+  class Solution:
+      def countRangeSum(self, nums, lower, upper):
+          p = [0]
+          for a in nums:
+              p.append(p[-1] + a)
+          walked = []
+          ans = 0
+          for a in p[::-1]:
+              l, r = a + lower, a + upper
+              i, j = bisect_left(walked, l), bisect_right(walked, r)
+              ans += j - i
+              insort_right(walked, a)
+          return ans
+  ```
 
 ### lab-03-02 二分排序
 
@@ -470,246 +470,246 @@ if __name__ == '__main__':
 
   ![](http://songwenjie.vip/blog/180426/jlIAfhlcL3.png?imageslim)
 
-      ```python
-      class TreeNode:
-          def __init__(self, x):
-              self.val = x
-              self.left = None
-              self.right = None
-      ```
+  ```python
+  class TreeNode:
+      def __init__(self, x):
+          self.val = x
+          self.left = None
+          self.right = None
+  ```
 
   - 前序遍历：中、左、右：[Leetcode 44. Binary Tree Preorder Traversal](https://leetcode.com/problems/binary-tree-preorder-traversal/)
 
-        ```python
-        def preorderTraversal1(self, root):
-            result = []
-            self.helper(root, result)
+    ```python
+    def preorderTraversal1(self, root):
+        result = []
+        self.helper(root, result)
+        return result
+
+    def helper(self, root, result):
+        if root:
+            result.append(root.val)
+            self.helper(root.left, result)
+            self.helper(root.right, result)
+    ```
+
+    ```python
+    class Solution:
+        def preorderTraversal(self, root):
+            """
+            :type root: TreeNode
+            :rtype: List[int]
+            """
+            if root is None: return []
+            return [] if root is None else [root.val] + self.preorderTraversal(root.left) + self.preorderTraversal(root.right)
+    ```
+
+    ```python
+    class Solution:
+        def preorderTraversal(self, root):
+            """
+            :type root: TreeNode
+            :rtype: List[int]
+            """
+            if not root: return []
+
+            result, stack = [], [root]
+
+            while stack:
+                cur_node = stack.pop() # 访问根节点，直接进行操作(输出到数组)
+                result.append(cur_node.val)
+                if cur_node.right: # 先入栈右节点
+                    stack.append(cur_node.right)
+                if cur_node.left: # 后入栈左节点，这样下一轮循环先访问左节点，维护了访问顺序
+                    stack.append(cur_node.left)
+
             return result
-
-        def helper(self, root, result):
-            if root:
-                result.append(root.val)
-                self.helper(root.left, result)
-                self.helper(root.right, result)
-        ```
-
-        ```python
-        class Solution:
-            def preorderTraversal(self, root):
-                """
-                :type root: TreeNode
-                :rtype: List[int]
-                """
-                if root is None: return []
-                return [] if root is None else [root.val] + self.preorderTraversal(root.left) + self.preorderTraversal(root.right)
-        ```
-
-        ```python
-        class Solution:
-            def preorderTraversal(self, root):
-                """
-                :type root: TreeNode
-                :rtype: List[int]
-                """
-                if not root: return []
-
-                result, stack = [], [root]
-
-                while stack:
-                    cur_node = stack.pop() # 访问根节点，直接进行操作(输出到数组)
-                    result.append(cur_node.val)
-                    if cur_node.right: # 先入栈右节点
-                        stack.append(cur_node.right)
-                    if cur_node.left: # 后入栈左节点，这样下一轮循环先访问左节点，维护了访问顺序
-                        stack.append(cur_node.left)
-
-                return result
-        ```
+    ```
 
   - 中序遍历：左、中、右，适用排序，[94. Binary Tree Inorder Traversal](https://leetcode.com/problems/binary-tree-inorder-traversal/)
 
-        ```python
-        class Solution:
-            def inorderTraversal(self, root):
-                """
-                :type root: TreeNode
-                :rtype: List[int]
-                """
-                if root is None: return []
-                return [] if root is None else self.inorderTraversal(root.left) + [root.val] + self.inorderTraversal(root.right)
-        ```
+    ```python
+    class Solution:
+        def inorderTraversal(self, root):
+            """
+            :type root: TreeNode
+            :rtype: List[int]
+            """
+            if root is None: return []
+            return [] if root is None else self.inorderTraversal(root.left) + [root.val] + self.inorderTraversal(root.right)
+    ```
 
-        ```python
-        class Solution:
-            def inorderTraversal(self, root):
-                """
-                :type root: TreeNode
-                :rtype: List[int]
-                """
-                if root is None: return []
-                result, stack = [], []
+    ```python
+    class Solution:
+        def inorderTraversal(self, root):
+            """
+            :type root: TreeNode
+            :rtype: List[int]
+            """
+            if root is None: return []
+            result, stack = [], []
 
-                p_node = root # 当前访问节点指针
-                while p_node or stack:
+            p_node = root # 当前访问节点指针
+            while p_node or stack:
 
-                    while p_node: # 把所有当前访问节点的左孩子都入栈
-                        stack.append(p_node)
-                        p_node = p_node.left
+                while p_node: # 把所有当前访问节点的左孩子都入栈
+                    stack.append(p_node)
+                    p_node = p_node.left
 
-                    cur_node = stack.pop() # 操作栈顶节点，如果是第一次运行到这步，那么这是整棵树的最左节点
-                    result.append(cur_node.val) # 因为已经保证没有左节点，可以访问根节点
-                    if cur_node.right:
-                        p_node = cur_node.right # 将指针指向当前节点的右节点
+                cur_node = stack.pop() # 操作栈顶节点，如果是第一次运行到这步，那么这是整棵树的最左节点
+                result.append(cur_node.val) # 因为已经保证没有左节点，可以访问根节点
+                if cur_node.right:
+                    p_node = cur_node.right # 将指针指向当前节点的右节点
 
-                return result
-        ```
+            return result
+    ```
 
   - 后序遍历：左、右、中，适用删除节点，判断相同子树。[145. Binary Tree Postorder Traversal](https://leetcode.com/problems/binary-tree-postorder-traversal/)
 
-        ```python
-        class Solution:
-            def postorderTraversal(self, root):
-                """
-                :type root: TreeNode
-                :rtype: List[int]
-                """
-                if root is None: return []
-                return [] if root is None else self.postorderTraversal(root.left) + self.postorderTraversal(root.right) + [root.val]
-        ```
+    ```python
+    class Solution:
+        def postorderTraversal(self, root):
+            """
+            :type root: TreeNode
+            :rtype: List[int]
+            """
+            if root is None: return []
+            return [] if root is None else self.postorderTraversal(root.left) + self.postorderTraversal(root.right) + [root.val]
+    ```
 
-        ```python
-        class Solution:
-            def postorderTraversal(self, root):
-                """
-                :type root: TreeNode
-                :rtype: List[int]
-                """
-                if root is None: return []
+    ```python
+    class Solution:
+        def postorderTraversal(self, root):
+            """
+            :type root: TreeNode
+            :rtype: List[int]
+            """
+            if root is None: return []
 
-                result, stack = [], [(root, False)]
+            result, stack = [], [(root, False)]
 
-                while stack:
-                    cur_node, visited = stack.pop()
-                    if visited: # 只有访问状态为True的节点才能被操作
-                        result.append(cur_node.val)
-                    else:
-                        stack.append((cur_node, True))
-                        if cur_node.right:
-                            stack.append((cur_node.right, False))
-                        if cur_node.left:
-                            stack.append((cur_node.left, False))
-
-                return result
-        ```
-
-        ```python
-        class Solution:
-            def preorderTraversal(self, root):
-                """
-                :type root: TreeNode
-                :rtype: List[int]
-                """
-                if root is None: return []
-
-                result, stack = [], [root]
-
-                while stack:
-                    cur_node = stack.pop()
+            while stack:
+                cur_node, visited = stack.pop()
+                if visited: # 只有访问状态为True的节点才能被操作
                     result.append(cur_node.val)
-                    if cur_node.left: # 修改顺序
-                        stack.append(cur_node.left)
-                    if cur_node.right: # 修改顺序
-                        stack.append(cur_node.right)
+                else:
+                    stack.append((cur_node, True))
+                    if cur_node.right:
+                        stack.append((cur_node.right, False))
+                    if cur_node.left:
+                        stack.append((cur_node.left, False))
 
-                return result[::-1] # 反序操作
-        ```
+            return result
+    ```
+
+    ```python
+    class Solution:
+        def preorderTraversal(self, root):
+            """
+            :type root: TreeNode
+            :rtype: List[int]
+            """
+            if root is None: return []
+
+            result, stack = [], [root]
+
+            while stack:
+                cur_node = stack.pop()
+                result.append(cur_node.val)
+                if cur_node.left: # 修改顺序
+                    stack.append(cur_node.left)
+                if cur_node.right: # 修改顺序
+                    stack.append(cur_node.right)
+
+            return result[::-1] # 反序操作
+    ```
 
   - 层级遍历：广度优先，[102. Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/)，[107. Binary Tree Level Order Traversal 2](https://leetcode.com/problems/binary-tree-level-order-traversal-ii/)
 
-        ```python
-        from collections import deque
+    ```python
+    from collections import deque
 
-        class Solution:
-            def levelOrder(self, root):
-                """
-                :type root: TreeNode
-                :rtype: List[List[int]]
-                """
-                if root is None: return []
-                result, queue = [], deque([root])
+    class Solution:
+        def levelOrder(self, root):
+            """
+            :type root: TreeNode
+            :rtype: List[List[int]]
+            """
+            if root is None: return []
+            result, queue = [], deque([root])
 
-                while queue:
-                    level_len = len(queue) # 记录现在队列中的节点数量
-                    level_nodes = [] # 每层输出
-                    while level_len > 0: # 具体出队入队操作，保证本层所有节点的子节点都入队
-                        cur_node = queue.popleft()
-                        level_nodes.append(cur_node.val)
-                        if cur_node.left:
-                            queue.append(cur_node.left)
-                        if cur_node.right:
-                            queue.append(cur_node.right)
-                        level_len -= 1
-                    result.append(level_nodes)
+            while queue:
+                level_len = len(queue) # 记录现在队列中的节点数量
+                level_nodes = [] # 每层输出
+                while level_len > 0: # 具体出队入队操作，保证本层所有节点的子节点都入队
+                    cur_node = queue.popleft()
+                    level_nodes.append(cur_node.val)
+                    if cur_node.left:
+                        queue.append(cur_node.left)
+                    if cur_node.right:
+                        queue.append(cur_node.right)
+                    level_len -= 1
+                result.append(level_nodes)
 
-                return result
-        ```
+            return result
+    ```
 
   - Demo：[226. Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree)，Brew
 
-        ```python
-        class Solution:
-            def invertTree(self, root):
-                """
-                :type root: TreeNode
-                :rtype: TreeNode
-                """
-                if root is None: return []
-                # 在本节点的操作，左右孩子互换
-                root.left, root.right = root.right, root.left
-                # 已经搞定的左右孩子，使用递归的思路写出函数表达式
-                self.invertTree(root.right) # 下面两句的顺序并不重要
-                self.invertTree(root.left)
-                return root
-        ```
+    ```python
+    class Solution:
+        def invertTree(self, root):
+            """
+            :type root: TreeNode
+            :rtype: TreeNode
+            """
+            if root is None: return []
+            # 在本节点的操作，左右孩子互换
+            root.left, root.right = root.right, root.left
+            # 已经搞定的左右孩子，使用递归的思路写出函数表达式
+            self.invertTree(root.right) # 下面两句的顺序并不重要
+            self.invertTree(root.left)
+            return root
+    ```
 
-        ```python
-        class Solution:
-            def invertTree(self, root):
-                """
-                :type root: TreeNode
-                :rtype: TreeNode
-                """
-                if root is None: return []
-                stack = [root]
+    ```python
+    class Solution:
+        def invertTree(self, root):
+            """
+            :type root: TreeNode
+            :rtype: TreeNode
+            """
+            if root is None: return []
+            stack = [root]
 
-                while stack:
-                    cur_node = stack.pop()
-                    # 对当前节点进行操作
-                    cur_node.left, cur_node.right = cur_node.right, cur_node.left
-                    # 进行入栈操作，保证访问到每一个节点
-                    if cur_node.left: stack.append(cur_node.left)
-                    if cur_node.right: stack.append(cur_node.right)
+            while stack:
+                cur_node = stack.pop()
+                # 对当前节点进行操作
+                cur_node.left, cur_node.right = cur_node.right, cur_node.left
+                # 进行入栈操作，保证访问到每一个节点
+                if cur_node.left: stack.append(cur_node.left)
+                if cur_node.right: stack.append(cur_node.right)
 
-                return root
-        ```
+            return root
+    ```
 
   - Demo: leetcode 104. 二叉树的最大深度，类似111
 
-        ```c++
-        class Solution {
-            public:
-                //求节点root的深度
-                int maxDepth(TreeNode* root) {
-                    //终止条件
-                    if(root == NULL){ 
-                        return 0;
-                    }
-
-                    return 1 + max(maxDepth(root -> left), maxDepth(root -> right));
-
+    ```c++
+    class Solution {
+        public:
+            //求节点root的深度
+            int maxDepth(TreeNode* root) {
+                //终止条件
+                if(root == NULL){ 
+                    return 0;
                 }
-            };
-        ```
+
+                return 1 + max(maxDepth(root -> left), maxDepth(root -> right));
+
+            }
+        };
+    ```
 
   - Demo: leetcode 235. 二叉搜索树的最近公共祖先
     - 如果我们给的p,q节点都小于node节点，那么他们最近的公共祖先一定在node左边。
@@ -723,38 +723,38 @@ if __name__ == '__main__':
   - Demo:
     [1038. 从二叉搜索树到更大和树](https://leetcode-cn.com/problems/binary-search-tree-to-greater-sum-tree/submissions/)
 
-        ```python
-        # Definition for a binary tree node.
-        # class TreeNode:
-        #     def __init__(self, x):
-        #         self.val = x
-        #         self.left = None
-        #         self.right = None
+    ```python
+    # Definition for a binary tree node.
+    # class TreeNode:
+    #     def __init__(self, x):
+    #         self.val = x
+    #         self.left = None
+    #         self.right = None
 
-        class Solution:
-            def bstToGst(self, root: TreeNode) -> TreeNode:
-                tmp = None
+    class Solution:
+        def bstToGst(self, root: TreeNode) -> TreeNode:
+            tmp = None
 
-                if root is None: return []
-                result, stack = [], []
+            if root is None: return []
+            result, stack = [], []
 
-                p_node = root # 当前访问节点指针
-                while p_node or stack:
+            p_node = root # 当前访问节点指针
+            while p_node or stack:
 
-                    while p_node: # 把所有当前访问节点的左孩子都入栈
-                        stack.append(p_node)
-                        p_node = p_node.right
+                while p_node: # 把所有当前访问节点的左孩子都入栈
+                    stack.append(p_node)
+                    p_node = p_node.right
 
-                    cur_node = stack.pop() # 操作栈顶节点，如果是第一次运行到这步，那么这是整棵树的最左节点
-                    if tmp != None:
-                        cur_node.val += tmp
-                    tmp = cur_node.val
-                    result.append(cur_node.val) # 因为已经保证没有左节点，可以访问根节点
-                    if cur_node.left:
-                        p_node = cur_node.left # 将指针指向当前节点的右节点
+                cur_node = stack.pop() # 操作栈顶节点，如果是第一次运行到这步，那么这是整棵树的最左节点
+                if tmp != None:
+                    cur_node.val += tmp
+                tmp = cur_node.val
+                result.append(cur_node.val) # 因为已经保证没有左节点，可以访问根节点
+                if cur_node.left:
+                    p_node = cur_node.left # 将指针指向当前节点的右节点
 
-                return root
-        ```
+            return root
+    ```
 
 ### lab-03-05 [二叉查找树](https://baike.baidu.com/item/二叉排序树)
 
@@ -762,29 +762,29 @@ if __name__ == '__main__':
 - [红黑树](https://zhuanlan.zhihu.com/p/31805309)：红黑树并不追求完全平衡，它只要求部分地达到平衡要求，降低了对旋转的要求，从而提高了性能。
 - Demo：[bintrees](https://pypi.org/project/bintrees/)
 
-      ```python
-      import bintrees
+  ```python
+  import bintrees
 
-      fruitDict = {'apple': 15, 'pear': 8, 'banana': 14, 'orange': 13}
+  fruitDict = {'apple': 15, 'pear': 8, 'banana': 14, 'orange': 13}
 
-      avl = bintrees.AVLTree(fruitDict)
-      print(len(avl))
-      print(avl)
+  avl = bintrees.AVLTree(fruitDict)
+  print(len(avl))
+  print(avl)
 
-      avl.insert('key1', 10)
-      print(len(avl))
-      print(avl)
-      avl.insert('jake', 11)
-      print(len(avl))
-      print(avl)
+  avl.insert('key1', 10)
+  print(len(avl))
+  print(avl)
+  avl.insert('jake', 11)
+  print(len(avl))
+  print(avl)
 
-      for i in avl:
-          print(i)
+  for i in avl:
+      print(i)
 
-      print('jake' in avl)
-      avl.remove('jake')
-      print('jake' in avl)
-      ```
+  print('jake' in avl)
+  avl.remove('jake')
+  print('jake' in avl)
+  ```
 
 ## lab-04 图
 
@@ -817,21 +817,21 @@ if __name__ == '__main__':
 
   在大多数情况下，顶点表示某个真实世界的对象，这个对象必须用数据项来描述。比如在一个飞机航线模拟程序中，顶点表示城市，那么它需要存储城市的名字、海拔高度、地理位置和其它相关信息，因此通常用一个顶点类的对象来表示一个顶点，这里我们仅仅在顶点中存储了一个字母来标识顶点，同时还有一个标志位，用来判断该顶点有没有被访问过（用于后面的搜索）。
 
-      ```c++
-      /**
-       * 顶点类
-       * @author vae
-       */
-      public class Vertex {
-       public char label;
-       public boolean wasVisited;
+  ```c++
+  /**
+   * 顶点类
+   * @author vae
+   */
+  public class Vertex {
+   public char label;
+   public boolean wasVisited;
 
-       public Vertex(char label){
-       this.label = label;
-       wasVisited = false;
-       }
-      }
-      ```
+   public Vertex(char label){
+   this.label = label;
+   wasVisited = false;
+   }
+  }
+  ```
 
   顶点对象能放在数组中，然后用下标指示，也可以放在链表或其它数据结构中，不论使用什么结构，存储只是为了使用方便，这与边如何连接点是没有关系的。
 
@@ -940,366 +940,366 @@ if __name__ == '__main__':
 - 文档：[networkx](https://networkx.github.io/documentation/stable/tutorial.html)
 - 基本操作
 
-      ```python
-      import networkx as nx
-      import matplotlib.pyplot as plt
+  ```python
+  import networkx as nx
+  import matplotlib.pyplot as plt
 
 
-      # 1.创建一个图
-      g = nx.Graph()
-      g.clear     # 将图上元素清空
+  # 1.创建一个图
+  g = nx.Graph()
+  g.clear     # 将图上元素清空
 
 
-      # 2.节点
-      g.add_node(1)           # 添加一个节点
-      g.add_node("a")
-      g.add_node("spam")
-      # g.add_nodes_from([2, 3])
-      nodes_list = [2, 3]     # 添加一组节点
-      g.add_nodes_from(nodes_list)
+  # 2.节点
+  g.add_node(1)           # 添加一个节点
+  g.add_node("a")
+  g.add_node("spam")
+  # g.add_nodes_from([2, 3])
+  nodes_list = [2, 3]     # 添加一组节点
+  g.add_nodes_from(nodes_list)
 
-      g.add_node("spam")          # 添加了一个名为spam的节点
-      g.add_nodes_from("spam")    # 添加了4个节点，名为s,p,a,m
-      H = nx.path_graph(10)
-      g.add_nodes_from(H)         # 将0~9加入了节点, 请勿使用g.add_node(H)
+  g.add_node("spam")          # 添加了一个名为spam的节点
+  g.add_nodes_from("spam")    # 添加了4个节点，名为s,p,a,m
+  H = nx.path_graph(10)
+  g.add_nodes_from(H)         # 将0~9加入了节点, 请勿使用g.add_node(H)
 
-      node_name = "spam"
-      g.remove_node(node_name)        # 删除节点
-      g.remove_nodes_from("spam")
-      print('g.nodes:', g.node())     # 0-9共10个节点打印出来
-
-
-      # 3.边
-      g.add_edge(1, 2)        # 添加一条边
-      e = (2, 3)
-      g.add_edge(*e)          # 直接g.add_edge(e)数据类型不对，*是将元组中的元素取出
-      g.add_edges_from([(0, 9), (1, 3), (1, 4)])  # 添加一组边
-
-      n = 10
-      H = nx.path_graph(n)
-      g.add_edges_from(H.edges())     # 添加了0~1,1~2 ... n-2~n-1这样的n-1条连续的边
-
-      edge_name = (0, 9)
-      edges_list = [(1, 3), (1, 4)]
-      g.remove_edge(*edge_name)       # 删除边
-      g.remove_edges_from(edges_list)
-      print('g.edges:', g.edges())
+  node_name = "spam"
+  g.remove_node(node_name)        # 删除节点
+  g.remove_nodes_from("spam")
+  print('g.nodes:', g.node())     # 0-9共10个节点打印出来
 
 
-      # 4.查看信息
-      g.number_of_nodes()     # 查看点的数量
-      g.number_of_edges()     # 查看边的数量
-      g.nodes()               # 返回所有点的信息(list)
-      g.edges()               # 返回所有边的信息(list中每个元素是一个tuple)
-      print([i for i in g.neighbors(1)])  # 所有与1这个点相连的点的信息以列表的形式返回
-      print(g[1])             # 查看所有与1相连的边的属性，格式输出：{0: {}, 2: {}} 表示1和0相连的边没有设置任何属性（也就是{}没有信息），同理1和2相连的边也没有任何属性
+  # 3.边
+  g.add_edge(1, 2)        # 添加一条边
+  e = (2, 3)
+  g.add_edge(*e)          # 直接g.add_edge(e)数据类型不对，*是将元组中的元素取出
+  g.add_edges_from([(0, 9), (1, 3), (1, 4)])  # 添加一组边
+
+  n = 10
+  H = nx.path_graph(n)
+  g.add_edges_from(H.edges())     # 添加了0~1,1~2 ... n-2~n-1这样的n-1条连续的边
+
+  edge_name = (0, 9)
+  edges_list = [(1, 3), (1, 4)]
+  g.remove_edge(*edge_name)       # 删除边
+  g.remove_edges_from(edges_list)
+  print('g.edges:', g.edges())
 
 
-      # 5.图的属性设置
-      g = nx.Graph(day="Monday")
-      g.graph                     # {'day': 'Monday'}
-
-      g.graph['day'] = 'Tuesday'  # 修改属性
-      g.graph                     # {'day': 'Tuesday'}
-
-
-      # 6.点的属性设置
-      g.add_node('benz', money=10000, fuel="1.5L")
-      print(g.node['benz'])           # {'fuel': '1.5L', 'money': 10000}
-      print(g.node['benz']['money'])  # 10000
-      print(g.nodes(data=True))       # data默认false就是不输出属性信息，修改为true，会将节点名字和属性信息一起输出
+  # 4.查看信息
+  g.number_of_nodes()     # 查看点的数量
+  g.number_of_edges()     # 查看边的数量
+  g.nodes()               # 返回所有点的信息(list)
+  g.edges()               # 返回所有边的信息(list中每个元素是一个tuple)
+  print([i for i in g.neighbors(1)])  # 所有与1这个点相连的点的信息以列表的形式返回
+  print(g[1])             # 查看所有与1相连的边的属性，格式输出：{0: {}, 2: {}} 表示1和0相连的边没有设置任何属性（也就是{}没有信息），同理1和2相连的边也没有任何属性
 
 
-      # 7.边的属性设置
-      g.clear()
-      n = 10
-      H = nx.path_graph(n)
-      g.add_nodes_from(H)
-      g.add_edges_from(H.edges())
-      g[1][2]['color'] = 'blue'
+  # 5.图的属性设置
+  g = nx.Graph(day="Monday")
+  g.graph                     # {'day': 'Monday'}
 
-      g.add_edge(1, 2, weight=4.7)
-      g.add_edges_from([(3, 4), (4, 5)], color='red')
-      g.add_edges_from([(1, 2, {'color': 'blue'}), (2, 3, {'weight': 8})])
-      g[1][2]['weight'] = 4.7
+  g.graph['day'] = 'Tuesday'  # 修改属性
+  g.graph                     # {'day': 'Tuesday'}
 
 
-      # 8.不同类型的图（有向图Directed graphs , 重边图 Multigraphs）
-      # Directed graphs
-      DG = nx.DiGraph()
-      DG.add_weighted_edges_from([(1, 2, 0.5), (3, 1, 0.75), (1, 4, 0.3)])    # 添加带权值的边
-      print(DG.out_degree(1))                     # 打印结果：2 表示：找到1的出度
-      print(DG.out_degree(1, weight='weight'))    # 打印结果：0.8 表示：从1出去的边的权值和，这里权值是以weight属性值作为标准，如果你有一个money属性，那么也可以修改为weight='money'，那么结果就是对money求和了
-      print(list(DG.successors(1)))               # [2,4] 表示1的后继节点有2和4
-      print(list(DG.predecessors(1)))             # [3] 表示只有一个节点3有指向1的连边
-
-      # Multigraphs
-      MG = nx.MultiGraph()
-      MG.add_weighted_edges_from([(1, 2, .5), (1, 2, .75), (2, 3, .5)])
-      print(MG.degree(weight='weight'))   # {1: 1.25, 2: 1.75, 3: 0.5}
-      GG = nx.Graph()
-      for n, nbrs in MG.adjacency():
-          for nbr, edict in nbrs.items():
-              minvalue = min([d['weight'] for d in edict.values()])
-              GG.add_edge(n, nbr, weight=minvalue)
-      print(GG.degree(weight='weight'))     # [(1, 0.5), (2, 1.0), (3, 0.5)]
-      print(nx.shortest_path(GG, 1, 3))     # [1, 2, 3]
+  # 6.点的属性设置
+  g.add_node('benz', money=10000, fuel="1.5L")
+  print(g.node['benz'])           # {'fuel': '1.5L', 'money': 10000}
+  print(g.node['benz']['money'])  # 10000
+  print(g.nodes(data=True))       # data默认false就是不输出属性信息，修改为true，会将节点名字和属性信息一起输出
 
 
-      # 9.图的遍历
-      g = nx.Graph()
-      g.add_weighted_edges_from([(1, 2, 0.125), (1, 3, 0.75), (2, 4, 1.2), (3, 4, 0.375)])
-      for n, nbrs in g.adjacency():       # n表示每一个起始点，nbrs是一个字典，字典中的每一个元素包含了这个起始点连接的点和这两个点连边对应的属性
-          print(n, nbrs)
-          for nbr, eattr in nbrs.items():
-              # nbr表示跟n连接的点，eattr表示这两个点连边的属性集合，这里只设置了weight，如果你还设置了color，那么就可以通过eattr['color']访问到对应的color元素
-              data = eattr['weight']
-              if data < 0.5:
-                  print('(%d, %d, %.3f)' % (n, nbr, data))
+  # 7.边的属性设置
+  g.clear()
+  n = 10
+  H = nx.path_graph(n)
+  g.add_nodes_from(H)
+  g.add_edges_from(H.edges())
+  g[1][2]['color'] = 'blue'
+
+  g.add_edge(1, 2, weight=4.7)
+  g.add_edges_from([(3, 4), (4, 5)], color='red')
+  g.add_edges_from([(1, 2, {'color': 'blue'}), (2, 3, {'weight': 8})])
+  g[1][2]['weight'] = 4.7
 
 
-      # 10.图生成和图上的一些操作
-      # subgraph(G, nbunch)      - induce subgraph of G on nodes in nbunch
-      # union(G1,G2)             - graph union
-      # disjoint_union(G1,G2)    - graph union assuming all nodes are different
-      # cartesian_product(G1,G2) - return Cartesian product graph
-      # compose(G1,G2)           - combine graphs identifying nodes common to both
-      # complement(G)            - graph complement
-      # create_empty_copy(G)     - return an empty copy of the same graph class
-      # convert_to_undirected(G) - return an undirected representation of G
-      # convert_to_directed(G)   - return a directed representation of G
+  # 8.不同类型的图（有向图Directed graphs , 重边图 Multigraphs）
+  # Directed graphs
+  DG = nx.DiGraph()
+  DG.add_weighted_edges_from([(1, 2, 0.5), (3, 1, 0.75), (1, 4, 0.3)])    # 添加带权值的边
+  print(DG.out_degree(1))                     # 打印结果：2 表示：找到1的出度
+  print(DG.out_degree(1, weight='weight'))    # 打印结果：0.8 表示：从1出去的边的权值和，这里权值是以weight属性值作为标准，如果你有一个money属性，那么也可以修改为weight='money'，那么结果就是对money求和了
+  print(list(DG.successors(1)))               # [2,4] 表示1的后继节点有2和4
+  print(list(DG.predecessors(1)))             # [3] 表示只有一个节点3有指向1的连边
+
+  # Multigraphs
+  MG = nx.MultiGraph()
+  MG.add_weighted_edges_from([(1, 2, .5), (1, 2, .75), (2, 3, .5)])
+  print(MG.degree(weight='weight'))   # {1: 1.25, 2: 1.75, 3: 0.5}
+  GG = nx.Graph()
+  for n, nbrs in MG.adjacency():
+      for nbr, edict in nbrs.items():
+          minvalue = min([d['weight'] for d in edict.values()])
+          GG.add_edge(n, nbr, weight=minvalue)
+  print(GG.degree(weight='weight'))     # [(1, 0.5), (2, 1.0), (3, 0.5)]
+  print(nx.shortest_path(GG, 1, 3))     # [1, 2, 3]
 
 
-      # 11.图上分析
-      g = nx.Graph()
-      g.add_edges_from([(1, 2), (1, 3)])
-      g.add_node("spam")
-      print(list(nx.connected_components(g)))   # [[1, 2, 3], ['spam']] 表示返回g上的不同连通块
-      print(sorted(dict(nx.degree(g)).items(), reverse=True, key=lambda x: x[1]))  # [(1, 2), (2, 1), (3, 1), ('spam', 0)]
-
-      G = nx.Graph()
-      e = [('a', 'b', 0.3), ('b', 'c', 0.6), ('a', 'c', 0.5), ('c', 'd', 1.2)]
-      G.add_weighted_edges_from(e)
-      # 'a'可到达节点的list
-      print(list(nx.dfs_postorder_nodes(G, 'a')))
-      print(list(nx.dfs_preorder_nodes(G, 'a')))
-      # 获取两点间的简单路径
-      print(list(nx.all_simple_paths(G, 'a', 'd')))
-      print(list(nx.all_simple_paths(G, 'a', 'd', cutoff=2)))     # cutoff为截断常数
-      # 最短路径
-      print(nx.shortest_path(G))
-      print(nx.shortest_path(G, 'a', 'd'))
-      print(nx.has_path(G, 'a', 'd'))
-      # dijkstra 最短路径
-      print(nx.dijkstra_path(G, 'a', 'd'))
-      print(nx.dijkstra_path_length(G, 'a', 'd'))
+  # 9.图的遍历
+  g = nx.Graph()
+  g.add_weighted_edges_from([(1, 2, 0.125), (1, 3, 0.75), (2, 4, 1.2), (3, 4, 0.375)])
+  for n, nbrs in g.adjacency():       # n表示每一个起始点，nbrs是一个字典，字典中的每一个元素包含了这个起始点连接的点和这两个点连边对应的属性
+      print(n, nbrs)
+      for nbr, eattr in nbrs.items():
+          # nbr表示跟n连接的点，eattr表示这两个点连边的属性集合，这里只设置了weight，如果你还设置了color，那么就可以通过eattr['color']访问到对应的color元素
+          data = eattr['weight']
+          if data < 0.5:
+              print('(%d, %d, %.3f)' % (n, nbr, data))
 
 
-      # 12.图的绘制
-      pos = nx.spring_layout(G)
-      fig = plt.figure(figsize=(13, 8))
-      fig1 = fig.add_subplot(221)
-      nx.draw(G, with_labels=True, font_weight='bold', width=2)
+  # 10.图生成和图上的一些操作
+  # subgraph(G, nbunch)      - induce subgraph of G on nodes in nbunch
+  # union(G1,G2)             - graph union
+  # disjoint_union(G1,G2)    - graph union assuming all nodes are different
+  # cartesian_product(G1,G2) - return Cartesian product graph
+  # compose(G1,G2)           - combine graphs identifying nodes common to both
+  # complement(G)            - graph complement
+  # create_empty_copy(G)     - return an empty copy of the same graph class
+  # convert_to_undirected(G) - return an undirected representation of G
+  # convert_to_directed(G)   - return a directed representation of G
 
-      fig2 = fig.add_subplot(222)
-      e = dict([((u, v,), d['weight']) for u, v, d in G.edges(data=True)])
-      nx.draw_networkx_labels(G, pos, edges_label=e)
-      nx.draw_networkx(G, pos, with_labels=True, font_weight='bold', width=2, edge_cmap=plt.cm.Reds)
-      plt.axis('on')
 
-      fig3 = fig.add_subplot(223)
-      nx.draw_circular(DG, with_labels=True, font_weight='bold', width=2)
+  # 11.图上分析
+  g = nx.Graph()
+  g.add_edges_from([(1, 2), (1, 3)])
+  g.add_node("spam")
+  print(list(nx.connected_components(g)))   # [[1, 2, 3], ['spam']] 表示返回g上的不同连通块
+  print(sorted(dict(nx.degree(g)).items(), reverse=True, key=lambda x: x[1]))  # [(1, 2), (2, 1), (3, 1), ('spam', 0)]
 
-      fig4 = fig.add_subplot(224)
-      nx.draw_random(DG, with_labels=True, font_weight='bold', width=2)
-      plt.show()
-      ```
+  G = nx.Graph()
+  e = [('a', 'b', 0.3), ('b', 'c', 0.6), ('a', 'c', 0.5), ('c', 'd', 1.2)]
+  G.add_weighted_edges_from(e)
+  # 'a'可到达节点的list
+  print(list(nx.dfs_postorder_nodes(G, 'a')))
+  print(list(nx.dfs_preorder_nodes(G, 'a')))
+  # 获取两点间的简单路径
+  print(list(nx.all_simple_paths(G, 'a', 'd')))
+  print(list(nx.all_simple_paths(G, 'a', 'd', cutoff=2)))     # cutoff为截断常数
+  # 最短路径
+  print(nx.shortest_path(G))
+  print(nx.shortest_path(G, 'a', 'd'))
+  print(nx.has_path(G, 'a', 'd'))
+  # dijkstra 最短路径
+  print(nx.dijkstra_path(G, 'a', 'd'))
+  print(nx.dijkstra_path_length(G, 'a', 'd'))
+
+
+  # 12.图的绘制
+  pos = nx.spring_layout(G)
+  fig = plt.figure(figsize=(13, 8))
+  fig1 = fig.add_subplot(221)
+  nx.draw(G, with_labels=True, font_weight='bold', width=2)
+
+  fig2 = fig.add_subplot(222)
+  e = dict([((u, v,), d['weight']) for u, v, d in G.edges(data=True)])
+  nx.draw_networkx_labels(G, pos, edges_label=e)
+  nx.draw_networkx(G, pos, with_labels=True, font_weight='bold', width=2, edge_cmap=plt.cm.Reds)
+  plt.axis('on')
+
+  fig3 = fig.add_subplot(223)
+  nx.draw_circular(DG, with_labels=True, font_weight='bold', width=2)
+
+  fig4 = fig.add_subplot(224)
+  nx.draw_random(DG, with_labels=True, font_weight='bold', width=2)
+  plt.show()
+  ```
 
 - [画图的示例](https://zhuanlan.zhihu.com/p/36700425)
 
-      ```python
-      import networkx as nx
-      import matplotlib.pyplot as plt
-      import pylab
+  ```python
+  import networkx as nx
+  import matplotlib.pyplot as plt
+  import pylab
 
-      G = nx.DiGraph()
+  G = nx.DiGraph()
 
-      G.add_edges_from([('A', 'B'), ('C', 'D'), ('G', 'D')], weight=1)
-      G.add_edges_from([('D', 'A'), ('D', 'E'), ('B', 'D'), ('D', 'E')], weight=2)
-      G.add_edges_from([('B', 'C'), ('E', 'F')], weight=3)
-      G.add_edges_from([('C', 'F')], weight=4)
+  G.add_edges_from([('A', 'B'), ('C', 'D'), ('G', 'D')], weight=1)
+  G.add_edges_from([('D', 'A'), ('D', 'E'), ('B', 'D'), ('D', 'E')], weight=2)
+  G.add_edges_from([('B', 'C'), ('E', 'F')], weight=3)
+  G.add_edges_from([('C', 'F')], weight=4)
 
-      val_map = {'A': 1.0,
-                 'D': 0.8,
-                 'H': 0.0}
+  val_map = {'A': 1.0,
+             'D': 0.8,
+             'H': 0.0}
 
-      values = [val_map.get(node, 0.1) for node in G.nodes()]
-      print(values)
-      edge_labels = dict([((u, v,), d['weight']) for u, v, d in G.edges(data=True)])
-      print(edge_labels)
-      red_edges = [('C', 'D'), ('D', 'A')]
-      edge_colors = ['black' if not edge in red_edges else 'red' for edge in G.edges()]
-      print(edge_colors)
+  values = [val_map.get(node, 0.1) for node in G.nodes()]
+  print(values)
+  edge_labels = dict([((u, v,), d['weight']) for u, v, d in G.edges(data=True)])
+  print(edge_labels)
+  red_edges = [('C', 'D'), ('D', 'A')]
+  edge_colors = ['black' if not edge in red_edges else 'red' for edge in G.edges()]
+  print(edge_colors)
 
-      pos = nx.spring_layout(G)
-      nx.draw_networkx_labels(G, pos, font_size=15, font_color='w', font_family='Arial')
-      nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_size=15, font_family='Arial')
-      nx.draw(G, pos, node_color=values, node_size=1000, edge_color=edge_colors, width=2, edge_cmap=plt.cm.Reds)
-      pylab.show()
-      ```
+  pos = nx.spring_layout(G)
+  nx.draw_networkx_labels(G, pos, font_size=15, font_color='w', font_family='Arial')
+  nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_size=15, font_family='Arial')
+  nx.draw(G, pos, node_color=values, node_size=1000, edge_color=edge_colors, width=2, edge_cmap=plt.cm.Reds)
+  pylab.show()
+  ```
 
 - Prim 最小生成树
 
-      ```python
-      import matplotlib.pyplot as plt
-      import networkx as nx
+  ```python
+  import matplotlib.pyplot as plt
+  import networkx as nx
 
 
-      def prim(G, s):
-          dist = {}               # dist记录到节点的最小距离
-          parent = {}             # parent记录最小生成树的双亲表
-          q = list(G.nodes())     # q包含所有未被生成树覆盖的节点
-          max_dist = 9999.99      # max_dist表示正无穷，即两节点不邻接
+  def prim(G, s):
+      dist = {}               # dist记录到节点的最小距离
+      parent = {}             # parent记录最小生成树的双亲表
+      q = list(G.nodes())     # q包含所有未被生成树覆盖的节点
+      max_dist = 9999.99      # max_dist表示正无穷，即两节点不邻接
 
-          # 初始化数据
-          # 所有节点的最小距离设为max_dist，父节点设为None
-          for v in G.nodes():
-              dist[v] = max_dist
-              parent[v] = None
-          # 到开始节点s的距离设为0
-          dist[s] = 0
+      # 初始化数据
+      # 所有节点的最小距离设为max_dist，父节点设为None
+      for v in G.nodes():
+          dist[v] = max_dist
+          parent[v] = None
+      # 到开始节点s的距离设为0
+      dist[s] = 0
 
-          # 不断从q中取出“最近”的节点加入最小生成树
-          # 当q为空时停止循环，算法结束
-          while q:
-              # 取出“最近”的节点u，把u加入最小生成树
-              u = q[0]
-              for v in q:
-                  if dist[v] < dist[u]:
-                      u = v
-              q.remove(u)
+      # 不断从q中取出“最近”的节点加入最小生成树
+      # 当q为空时停止循环，算法结束
+      while q:
+          # 取出“最近”的节点u，把u加入最小生成树
+          u = q[0]
+          for v in q:
+              if dist[v] < dist[u]:
+                  u = v
+          q.remove(u)
 
-              # 更新u的邻接节点的最小距离
-              for v in G.adj[u]:
-                  if (v in q) and (G[u][v]['weight'] < dist[v]):
-                      parent[v] = u
-                      dist[v] = G[u][v]['weight']
-          # 算法结束，以双亲表的形式返回最小生成树
-          return parent
-
-
-      def draw(G, edge_style='solid', edge_colors='k', edge_width=2, tree_colors='y'):
-          pos = nx.spring_layout(G)
-          nx.draw(G, pos,
-                  arrows=True,
-                  with_labels=True,
-                  node_size=1000,
-                  font_size=23,
-                  font_family='times new roman',
-                  font_width='bold',
-                  nodelist=G.nodes(),
-                  style=edge_style,
-                  edge_color=edge_colors,
-                  width=edge_width,
-                  node_color=tree_colors,
-                  alpha=0.5)
-          plt.show()
+          # 更新u的邻接节点的最小距离
+          for v in G.adj[u]:
+              if (v in q) and (G[u][v]['weight'] < dist[v]):
+                  parent[v] = u
+                  dist[v] = G[u][v]['weight']
+      # 算法结束，以双亲表的形式返回最小生成树
+      return parent
 
 
-      if __name__ == '__main__':
-          G_data = [(1, 2, 1.3), (1, 3, 2.1), (1, 4, 0.9), (1, 5, 0.7), (1, 6, 1.8), (1, 7, 2.0), (1, 8, 1.8), (2, 3, 0.9),
-                    (2, 4, 1.8), (2, 5, 1.2), (2, 6, 2.8), (2, 7, 2.3), (2, 8, 1.1), (3, 4, 2.6), (3, 5, 1.7), (3, 6, 2.5),
-                    (3, 7, 1.9), (3, 8, 1.0), (4, 5, 0.7), (4, 6, 1.6), (4, 7, 1.5), (4, 8, 0.9), (5, 6, 0.9), (5, 7, 1.1),
-                    (5, 8, 0.8), (6, 7, 0.6), (6, 8, 1.0), (7, 8, 0.5)]
+  def draw(G, edge_style='solid', edge_colors='k', edge_width=2, tree_colors='y'):
+      pos = nx.spring_layout(G)
+      nx.draw(G, pos,
+              arrows=True,
+              with_labels=True,
+              node_size=1000,
+              font_size=23,
+              font_family='times new roman',
+              font_width='bold',
+              nodelist=G.nodes(),
+              style=edge_style,
+              edge_color=edge_colors,
+              width=edge_width,
+              node_color=tree_colors,
+              alpha=0.5)
+      plt.show()
 
-          G = nx.Graph()
-          G.add_weighted_edges_from(G_data)   # 添加赋权边
-          tree = prim(G, 1)                   # 获取最小生成树
-          print('Minimum Spanning Tree: ', tree)
 
-          tree_edges = [(u, v) for u, v in tree.items()]  # 将生成树转成边的格式
-          G.add_edges_from(tree_edges)
-          G.remove_node(None)
+  if __name__ == '__main__':
+      G_data = [(1, 2, 1.3), (1, 3, 2.1), (1, 4, 0.9), (1, 5, 0.7), (1, 6, 1.8), (1, 7, 2.0), (1, 8, 1.8), (2, 3, 0.9),
+                (2, 4, 1.8), (2, 5, 1.2), (2, 6, 2.8), (2, 7, 2.3), (2, 8, 1.1), (3, 4, 2.6), (3, 5, 1.7), (3, 6, 2.5),
+                (3, 7, 1.9), (3, 8, 1.0), (4, 5, 0.7), (4, 6, 1.6), (4, 7, 1.5), (4, 8, 0.9), (5, 6, 0.9), (5, 7, 1.1),
+                (5, 8, 0.8), (6, 7, 0.6), (6, 8, 1.0), (7, 8, 0.5)]
 
-          TG = nx.Graph()
-          TG.add_edges_from(tree_edges)
-          TG.remove_node(None)
+      G = nx.Graph()
+      G.add_weighted_edges_from(G_data)   # 添加赋权边
+      tree = prim(G, 1)                   # 获取最小生成树
+      print('Minimum Spanning Tree: ', tree)
 
-          tree_degree = []
-          tree_colors = []
-          for i in G.node:
-              tree_degree.append((i, TG.degree[i]))
-              if TG.degree[i] >= 3:
-                  tree_colors.append('r')
-              elif TG.degree[i] >= 2:
-                  tree_colors.append('g')
-              else:
-                  tree_colors.append('y')
-          print('Tree Degree:', tree_degree)
+      tree_edges = [(u, v) for u, v in tree.items()]  # 将生成树转成边的格式
+      G.add_edges_from(tree_edges)
+      G.remove_node(None)
 
-          tree_edges_zf = tree_edges + [(v, u) for u, v in tree.items()]
+      TG = nx.Graph()
+      TG.add_edges_from(tree_edges)
+      TG.remove_node(None)
 
-          edge_colors = ['red' if edge in tree_edges_zf else 'black' for edge in G.edges]
-          edge_style = ['solid' if edge in tree_edges_zf else 'dashed' for edge in G.edges]
-          edge_width = [3 if edge in tree_edges_zf else 1.5 for edge in G.edges]
+      tree_degree = []
+      tree_colors = []
+      for i in G.node:
+          tree_degree.append((i, TG.degree[i]))
+          if TG.degree[i] >= 3:
+              tree_colors.append('r')
+          elif TG.degree[i] >= 2:
+              tree_colors.append('g')
+          else:
+              tree_colors.append('y')
+      print('Tree Degree:', tree_degree)
 
-          draw(G, edge_style, edge_colors, edge_width, tree_colors)
-      ```
+      tree_edges_zf = tree_edges + [(v, u) for u, v in tree.items()]
+
+      edge_colors = ['red' if edge in tree_edges_zf else 'black' for edge in G.edges]
+      edge_style = ['solid' if edge in tree_edges_zf else 'dashed' for edge in G.edges]
+      edge_width = [3 if edge in tree_edges_zf else 1.5 for edge in G.edges]
+
+      draw(G, edge_style, edge_colors, edge_width, tree_colors)
+  ```
 
 - 最大通联成分
 
-      ```python
-      import matplotlib.pyplot as plt
-      import networkx as nx
+  ```python
+  import matplotlib.pyplot as plt
+  import networkx as nx
 
-      G = nx.path_graph(4)
-      G.add_path([10, 11, 12])
-      nx.draw(G, with_labels=True, label_size=1000, node_size=1000, font_size=20)
-      plt.show()
+  G = nx.path_graph(4)
+  G.add_path([10, 11, 12])
+  nx.draw(G, with_labels=True, label_size=1000, node_size=1000, font_size=20)
+  plt.show()
 
-      for c in sorted(nx.connected_components(G), key=len, reverse=True):     # 从大到小显示节点数较多的连通子图集合
-          print(c)                # 结果是{0,1,2,3}
-          print(type(c))          # 类型是set
-          print(len(c))           # 长度分别是4和3（因为reverse=True，降序排列）
+  for c in sorted(nx.connected_components(G), key=len, reverse=True):     # 从大到小显示节点数较多的连通子图集合
+      print(c)                # 结果是{0,1,2,3}
+      print(type(c))          # 类型是set
+      print(len(c))           # 长度分别是4和3（因为reverse=True，降序排列）
 
-      largest_components = max(nx.connected_components(G), key=len)  # 高效找出最大的联通成分，其实就是sorted里面的No.1
-      print(largest_components)       # 找出最大联通成分，返回是一个set{0,1,2,3}
-      print(len(largest_components))  # 4
-      ```
+  largest_components = max(nx.connected_components(G), key=len)  # 高效找出最大的联通成分，其实就是sorted里面的No.1
+  print(largest_components)       # 找出最大联通成分，返回是一个set{0,1,2,3}
+  print(len(largest_components))  # 4
+  ```
 
 ### 习题
 
 - [leetcode 133. 克隆图](https://leetcode-cn.com/problems/clone-graph/)
 
-      ```python
-      """
-      # Definition for a Node.
-      class Node:
-          def __init__(self, val, neighbors):
-              self.val = val
-              self.neighbors = neighbors
-      """
-      class Solution:
-          def cloneGraph(self, node: 'Node') -> 'Node':
-              stack = [node]
-              markSet = set([node])
-              nodeDict = {}
-              while stack:
-                  _node = stack.pop()
-                  nodeDict[_node.val] = Node(_node.val, _node.neighbors[:])
-                  print(_node.val)
-                  for i in _node.neighbors:
-                      if i not in markSet:
-                          stack.append(i)
-                          markSet.add(i)
-              print(nodeDict.keys())
+  ```python
+  """
+  # Definition for a Node.
+  class Node:
+      def __init__(self, val, neighbors):
+          self.val = val
+          self.neighbors = neighbors
+  """
+  class Solution:
+      def cloneGraph(self, node: 'Node') -> 'Node':
+          stack = [node]
+          markSet = set([node])
+          nodeDict = {}
+          while stack:
+              _node = stack.pop()
+              nodeDict[_node.val] = Node(_node.val, _node.neighbors[:])
+              print(_node.val)
+              for i in _node.neighbors:
+                  if i not in markSet:
+                      stack.append(i)
+                      markSet.add(i)
+          print(nodeDict.keys())
 
-              for k, v in nodeDict.items():
-                  for i in range(len(v.neighbors)):
-                      print(k, '=>', v.neighbors[i].val)
-                      v.neighbors[i] = nodeDict[v.neighbors[i].val]
-              return nodeDict[node.val]
-      ```
+          for k, v in nodeDict.items():
+              for i in range(len(v.neighbors)):
+                  print(k, '=>', v.neighbors[i].val)
+                  v.neighbors[i] = nodeDict[v.neighbors[i].val]
+          return nodeDict[node.val]
+  ```
 
 - leetcode 279 完全平方数
 
@@ -1351,26 +1351,26 @@ if __name__ == '__main__':
 - 递归解法
 - 递归+标记解法
 
-      ```python
-      fibDict = {1: 1, 2: 2}
+  ```python
+  fibDict = {1: 1, 2: 2}
 
-      def fib(n):
-          if n not in fibDict:
-              fibDict[n] = fib(n-1) + fib(n-2)
-          return fibDict[n]
+  def fib(n):
+      if n not in fibDict:
+          fibDict[n] = fib(n-1) + fib(n-2)
+      return fibDict[n]
 
-      print(fib(1000))
-      print(fibDict)
-      ```
+  print(fib(1000))
+  print(fibDict)
+  ```
 
 ### lab-06-04 分地问题（最小公约数问题）
 
 ```python
 def greatestCommonDivisor(m, n):
     if m < n:
-        m, n = n, m 
+    m, n = n, m 
     if m % n == 0:
-        return n
+    return n
     return greatestCommonDivisor(n, m % n)
 
 print(greatestCommonDivisor(16, 12))
@@ -1384,39 +1384,39 @@ print(greatestCommonDivisor(16, 12))
 
 - leetcode 46. 全排列
 
-      ```python
-      class Solution:
-          def permute(self, nums: List[int]) -> List[List[int]]:
-              nums = nums[:]
-              ret = []
-              if len(nums) == 1:
-                  return [nums]
-              for i in range(len(nums)):
-                  # print(i, '=>', nums[i], nums[:i]+nums[i+1:])
-                  ret += [[nums[i]]+j for j in self.permute(nums[:i]+nums[i+1:])]
-              return ret
-      ```
+  ```python
+  class Solution:
+      def permute(self, nums: List[int]) -> List[List[int]]:
+          nums = nums[:]
+          ret = []
+          if len(nums) == 1:
+              return [nums]
+          for i in range(len(nums)):
+              # print(i, '=>', nums[i], nums[:i]+nums[i+1:])
+              ret += [[nums[i]]+j for j in self.permute(nums[:i]+nums[i+1:])]
+          return ret
+  ```
 
 - leetcode 47
 - leetcode 17. 电话号码的字母组合
 
-      ```python
-      class Solution:
-          def letterCombinations(self, digits: str) -> List[str]:
-              aDict = {'2':'abc', '3':'def', '4':'ghi', '5':'jkl', '6':'mno',
-                      '7':'pqrs', '8':'tuv', '9':'wxyz'}
-              ret = ['']
-              for i in digits:
-                  print(i, aDict[i])
-                  tmp = []
-                  for j in aDict[i]:
-                      tmp += [k+j for k in ret]
-                  ret = tmp
+  ```python
+  class Solution:
+      def letterCombinations(self, digits: str) -> List[str]:
+          aDict = {'2':'abc', '3':'def', '4':'ghi', '5':'jkl', '6':'mno',
+                  '7':'pqrs', '8':'tuv', '9':'wxyz'}
+          ret = ['']
+          for i in digits:
+              print(i, aDict[i])
+              tmp = []
+              for j in aDict[i]:
+                  tmp += [k+j for k in ret]
+              ret = tmp
 
-              if ret == ['']:
-                  ret = []
-              return ret
-      ```
+          if ret == ['']:
+              ret = []
+          return ret
+  ```
 
 - leetcode 93
 - leetcode 131
@@ -1425,16 +1425,16 @@ print(greatestCommonDivisor(16, 12))
 
 - leetcode 77. 组合
 
-      ```python
-      class Solution:
-          def combine(self, n: int, k: int) -> List[List[int]]:
-              if k == 1:
-                  return [[i] for i in range(n, 0, -1)]
-              ret = []
-              for j in range(n, 0, -1):
-                  ret += [i+[j] for i in self.combine(j-1, k-1)]
-              return ret
-      ```
+  ```python
+  class Solution:
+      def combine(self, n: int, k: int) -> List[List[int]]:
+          if k == 1:
+              return [[i] for i in range(n, 0, -1)]
+          ret = []
+          for j in range(n, 0, -1):
+              ret += [i+[j] for i in self.combine(j-1, k-1)]
+          return ret
+  ```
 
 - leetcode 39
 - leetcode 40
@@ -1449,47 +1449,47 @@ print(greatestCommonDivisor(16, 12))
 - leetcode 200. 岛屿的个数 O(n)
 - leetcode 130 被围绕的区域
 
-      ```python
-      class Solution:
-          def loop(self, i1, i2, j1, j2):
-              for x in range(j1, j2+1):
-                  yield i1, x
-              for x in range(i1+1, i2+1):
-                  yield x, j2
-              for x in range(j2-1, j1, -1):
-                  yield i2, x
-              for x in range(i2, i1, -1):
-                  yield x, j1
+  ```python
+  class Solution:
+      def loop(self, i1, i2, j1, j2):
+          for x in range(j1, j2+1):
+              yield i1, x
+          for x in range(i1+1, i2+1):
+              yield x, j2
+          for x in range(j2-1, j1, -1):
+              yield i2, x
+          for x in range(i2, i1, -1):
+              yield x, j1
 
-          def solve(self, board):
-              if not board or not board[0]:
-                  return
+      def solve(self, board):
+          if not board or not board[0]:
+              return
 
-              for i,j in self.loop(0, len(board)-1, 0, len(board[0])-1):
-                  if board[i][j] == 'X':
-                      continue
-                  board[i][j] = 'B'
-                  stack = [(i,j)]
-                  while stack:
-                      x, y = stack.pop(0)
-                      if x-1>=0 and board[x-1][y] == 'O':
-                          board[x-1][y] = 'B'
-                          stack.append((x-1, y))
-                      if x+1<=len(board)-1 and board[x+1][y] == 'O':
-                          board[x+1][y] = 'B'
-                          stack.append((x+1, y))
-                      if y-1>=0 and board[x][y-1] == 'O':
-                          board[x][y-1] = 'B'
-                          stack.append((x, y-1))
-                      if y+1<=len(board[0])-1 and board[x][y+1] == 'O':
-                          board[x][y+1] = 'B'
-                          stack.append((x, y+1))
+          for i,j in self.loop(0, len(board)-1, 0, len(board[0])-1):
+              if board[i][j] == 'X':
+                  continue
+              board[i][j] = 'B'
+              stack = [(i,j)]
+              while stack:
+                  x, y = stack.pop(0)
+                  if x-1>=0 and board[x-1][y] == 'O':
+                      board[x-1][y] = 'B'
+                      stack.append((x-1, y))
+                  if x+1<=len(board)-1 and board[x+1][y] == 'O':
+                      board[x+1][y] = 'B'
+                      stack.append((x+1, y))
+                  if y-1>=0 and board[x][y-1] == 'O':
+                      board[x][y-1] = 'B'
+                      stack.append((x, y-1))
+                  if y+1<=len(board[0])-1 and board[x][y+1] == 'O':
+                      board[x][y+1] = 'B'
+                      stack.append((x, y+1))
 
-              for i in range(len(board)):
-                  for j in range(len(board[0])):
-                      board[i][j] = board[i][j].replace('O', 'X')
-                      board[i][j] = board[i][j].replace('B', 'O')
-      ```
+          for i in range(len(board)):
+              for j in range(len(board[0])):
+                  board[i][j] = board[i][j].replace('O', 'X')
+                  board[i][j] = board[i][j].replace('B', 'O')
+  ```
 
 - leetcode 417
 
@@ -1505,64 +1505,95 @@ print(greatestCommonDivisor(16, 12))
 
 - 背包承重为4磅，如何组合，使得价值最大
 
-  | | 重量(磅) | 价值($) | | :-- | :-- | :-- | | 音响 | 4 | 3000 | | 笔记本 | 3 | 2000 | | 吉他 | 1 | 1500 |
+  |     | 重量(磅) | 价值($) |
+  | :-- | :---- | :---- |
+  | 音响  | 4     | 3000  |
+  | 笔记本 | 3     | 2000  |
+  | 吉他  | 1     | 1500  |
 
 - 暴力解法，2**n
 - 动态规划
 
-  | | 1 | 2 | 3 | 4 | | :-- | :-- | :-- | :-- | :-- | | 吉他(G) | 1500/G | 1500/G | 1500/G | 1500/G |
-  | 音响(S) | 1500/G | 1500/G | 1500/G | 3000/S | | 笔记本(L) | 1500/G | 1500/G | 2000/L | 3500/LG |
+  |        | 1      | 2      | 3      | 4       |
+  | :----- | :----- | :----- | :----- | :------ |
+  | 吉他(G)  | 1500/G | 1500/G | 1500/G | 1500/G  |
+  | 音响(S)  | 1500/G | 1500/G | 1500/G | 3000/S  |
+  | 笔记本(L) | 1500/G | 1500/G | 2000/L | 3500/LG |
 
-      ```python
-      cell[i][j] = max(cell[i-1][j], 当前物品价值+cell[i-1][j-当前物品重量])
-      ```
+  ```python
+  cell[i][j] = max(cell[i-1][j], 当前物品价值+cell[i-1][j-当前物品重量])
+  ```
 
 - 加入一个手机（重量为1，价值为2000）
 
-  | | 1 | 2 | 3 | 4 | | :-- | :-- | :-- | :-- | :-- | | 吉他(G) | 1500/G | 1500/G | 1500/G | 1500/G |
-  | 音响(S) | 1500/G | 1500/G | 1500/G | 3000/S | | 笔记本(L) | 1500/G | 1500/G | 2000L | 3500/LG | |
-  手机(I) | 2000/G | 3500/IG | 3500/IG | 4000/IL |
+  |        | 1      | 2       | 3       | 4       |
+  | :----- | :----- | :------ | :------ | :------ |
+  | 吉他(G)  | 1500/G | 1500/G  | 1500/G  | 1500/G  |
+  | 音响(S)  | 1500/G | 1500/G  | 1500/G  | 3000/S  |
+  | 笔记本(L) | 1500/G | 1500/G  | 2000L   | 3500/LG |
+  | 手机(I)  | 2000/G | 3500/IG | 3500/IG | 4000/IL |
 
 - 行的顺序改变：音响 / 笔记本 / 吉他
 
-  | | 1 | 2 | 3 | 4 | | :-- | :-- | :-- | :-- | :-- | | 音响(S) | 0/ | 0/ | 0/ | 3000/S | | 笔记本(L) |
-  0/ | 0/ | 2000/L | 3000/S | | 吉他(G) | 1500/G | 1500/G | 2000/L | 3500/LG |
+  |        | 1      | 2      | 3      | 4       |
+  | :----- | :----- | :----- | :----- | :------ |
+  | 音响(S)  | 0/     | 0/     | 0/     | 3000/S  |
+  | 笔记本(L) | 0/     | 0/     | 2000/L | 3000/S  |
+  | 吉他(G)  | 1500/G | 1500/G | 2000/L | 3500/LG |
 
 - 增加一件更小的商品，比如项链，0.5磅
 - 拿一部分会怎样？贪心算法
 - 旅行行程问题
 
-  | 名胜 | 时间（天） | 评分 | | :-- | :-- | :-- | | 大教堂1 | 0.5 | 7 | | 剧场 | 0.5 | 6 | | 美术馆 | 1 | 9 | | 博物馆
-  | 2 | 9 | | 大教堂2 | 0.5 | 8 |
+  | 名胜   | 时间（天） | 评分 |
+  | :--- | :---- | :- |
+  | 大教堂1 | 0.5   | 7  |
+  | 剧场   | 0.5   | 6  |
+  | 美术馆  | 1     | 9  |
+  | 博物馆  | 2     | 9  |
+  | 大教堂2 | 0.5   | 8  |
 
-  | | 0.5 | 1 | 1.5 | 2 | | :-- | :-- | :-- | :-- | :-- | | 大教堂1 | | | | | | 剧场 | | | | | | 美术馆 | |
-  | | | | 博物馆 | | | | | | 大教堂2 | | | | |
+  |      | 0.5 | 1  | 1.5 | 2  |
+  | :--- | :-- | :- | :-- | :- |
+  | 大教堂1 |     |    |     |    |
+  | 剧场   |     |    |     |    |
+  | 美术馆  |     |    |     |    |
+  | 博物馆  |     |    |     |    |
+  | 大教堂2 |     |    |     |    |
 
 ### lab-08-02 最长公共子串
 
 - 最长公共子串
 
-      ```python
-      if a[i] == b[j]:
-          cell[i][j] == cell[i-1][j-1]+1
-      else:
-          cell[i][j] == 0
-      ```
+  ```python
+  if a[i] == b[j]:
+      cell[i][j] == cell[i-1][j-1]+1
+  else:
+      cell[i][j] == 0
+  ```
 
-  | | F | O | S | H | | :-- | :-- | :-- | :-- | :-- | | F | 1 | 0 | 0 | 0 | | O | 0 | 2 | 0 | 0 | |
-  R | 0 | 0 | 0 | 0 | | T | 0 | 0 | 0 | 0 |
+  |    | F  | O  | S  | H  |
+  | :- | :- | :- | :- | :- |
+  | F  | 1  | 0  | 0  | 0  |
+  | O  | 0  | 2  | 0  | 0  |
+  | R  | 0  | 0  | 0  | 0  |
+  | T  | 0  | 0  | 0  | 0  |
 
-  | | F | O | S | H | | :-- | :-- | :-- | :-- | :-- | | F | 1 | 0 | 0 | 0 | | I | 0 | 0 | 0 | 0 | |
-  S | 0 | 0 | 1 | 0 | | H | 0 | 0 | 0 | 2 |
+  |    | F  | O  | S  | H  |
+  | :- | :- | :- | :- | :- |
+  | F  | 1  | 0  | 0  | 0  |
+  | I  | 0  | 0  | 0  | 0  |
+  | S  | 0  | 0  | 1  | 0  |
+  | H  | 0  | 0  | 0  | 2  |
 
 - 最长公共子串序列
 
-      ```python
-      if a[i] == b[j]:
-          cell[i][j] == cell[i-1][j-1]+1
-      else:
-          cell[i][j] == max(cell[i-1][j], cell[i][j-1])
-      ```
+  ```python
+  if a[i] == b[j]:
+      cell[i][j] == cell[i-1][j-1]+1
+  else:
+      cell[i][j] == max(cell[i-1][j], cell[i][j-1])
+  ```
 
   | | F | O | S | H | | :-- | :-- | :-- | :-- | :-- | | F | 1 | 1 | 1 | 1 | | O | 1 | 2 | 2 | 2 | |
   R | 1 | 2 | 2 | 2 | | T | 1 | 2 | 2 | 2 |
@@ -1574,47 +1605,47 @@ print(greatestCommonDivisor(16, 12))
 
 - leetcode 120 三角形最小路径和
 
-      ```python
-      class Solution:
-          def minimumTotal(self, triangle: List[List[int]]) -> int:
-              mini, M = triangle[-1], len(triangle)
-              for i in range(M - 2, -1, -1):
-                  for j in range(len(triangle[i])):
-                      mini[j] = triangle[i][j] + min(mini[j], mini[j+1])
-              return mini[0]
-      ```
+  ```python
+  class Solution:
+      def minimumTotal(self, triangle: List[List[int]]) -> int:
+          mini, M = triangle[-1], len(triangle)
+          for i in range(M - 2, -1, -1):
+              for j in range(len(triangle[i])):
+                  mini[j] = triangle[i][j] + min(mini[j], mini[j+1])
+          return mini[0]
+  ```
 
 - leetcode 64 最小路径和
 
-      ```python
-      class Solution:
-          def minPathSum(self, grid: List[List[int]]) -> int:
-              m, n = len(grid), len(grid[0])
-              for i in range(m):
-                  for j in range(n):
-                      if i - 1 >= 0 and j - 1 >= 0:
-                          grid[i][j] += min(grid[i-1][j], grid[i][j-1])
-                      elif i - 1 >= 0:
-                          grid[i][j] += grid[i-1][j]
-                      elif j - 1 >= 0:
-                          grid[i][j] += grid[i][j-1]
+  ```python
+  class Solution:
+      def minPathSum(self, grid: List[List[int]]) -> int:
+          m, n = len(grid), len(grid[0])
+          for i in range(m):
+              for j in range(n):
+                  if i - 1 >= 0 and j - 1 >= 0:
+                      grid[i][j] += min(grid[i-1][j], grid[i][j-1])
+                  elif i - 1 >= 0:
+                      grid[i][j] += grid[i-1][j]
+                  elif j - 1 >= 0:
+                      grid[i][j] += grid[i][j-1]
 
-              return grid[m-1][n-1]
-      ```
+          return grid[m-1][n-1]
+  ```
 
 - leetcode 322 零钱兑换问题
 
-      ```python
-      class Solution:
-          def coinChange(self, coins: List[int], amount: int) -> int:
-              dp = {0: 0}
-              for i in range(1, amount+1):
-                  aList = [dp[i-c]+1 for c in coins if (i-c) in dp]
-                  if aList:
-                      dp[i] = min(aList)
+  ```python
+  class Solution:
+      def coinChange(self, coins: List[int], amount: int) -> int:
+          dp = {0: 0}
+          for i in range(1, amount+1):
+              aList = [dp[i-c]+1 for c in coins if (i-c) in dp]
+              if aList:
+                  dp[i] = min(aList)
 
-              return dp.get(amount, -1)
-      ```
+          return dp.get(amount, -1)
+  ```
 
 - leetcode 377
 - leetcode 474
@@ -1625,18 +1656,18 @@ print(greatestCommonDivisor(16, 12))
 
 - leetcode 343. 整数拆分
 
-      ```python
-      class Solution:
-          def integerBreak(self, n: int) -> int:
-              aList = [0, 1]
-              bList = aList[:]
-              for i in range(2, n+1):
-                  retList = [j*aList[i-j] for j in range(1, i//2+1)]
-                  bList.append(max(retList))
-                  aList.append(max(bList[i], i))
-              print(aList, bList)
-              return bList[n]
-      ```
+  ```python
+  class Solution:
+      def integerBreak(self, n: int) -> int:
+          aList = [0, 1]
+          bList = aList[:]
+          for i in range(2, n+1):
+              retList = [j*aList[i-j] for j in range(1, i//2+1)]
+              bList.append(max(retList))
+              aList.append(max(bList[i], i))
+          print(aList, bList)
+          return bList[n]
+  ```
 
 - leetcode 279
 - leetcode 91
@@ -1647,19 +1678,19 @@ print(greatestCommonDivisor(16, 12))
 
 - leetcode 198. 打家劫舍：`f(k) = max(f(k–2)+A[k], f(k-1))`
 
-      ```python
-      class Solution:
-          def rob(self, nums: List[int]) -> int:
-              if not nums:
-                  return 0
-              if len(nums) < 3:
-                  return max(nums)
-              maxsumList = [nums[0], max(nums[:2])]
-              for i in range(2, len(nums)):
-                  maxsumList.append(max(maxsumList[i-1], maxsumList[i-2]+nums[i]))
-              print(maxsumList)
-              return max(maxsumList)
-      ```
+  ```python
+  class Solution:
+      def rob(self, nums: List[int]) -> int:
+          if not nums:
+              return 0
+          if len(nums) < 3:
+              return max(nums)
+          maxsumList = [nums[0], max(nums[:2])]
+          for i in range(2, len(nums)):
+              maxsumList.append(max(maxsumList[i-1], maxsumList[i-2]+nums[i]))
+          print(maxsumList)
+          return max(maxsumList)
+  ```
 
 - leetcode 213 打家劫舍 II，循环列表等于f([:-1])+f([1:])
 - leetcode 337
@@ -1682,120 +1713,120 @@ print(greatestCommonDivisor(16, 12))
 
 - leetcode 127 单词接龙
 
-      ```python
-      def isLike(self, a, b):
-          diffList = [ord(i)-ord(j) for i,j in zip(a, b)]
-          diffList = [i for i in diffList if i != 0]
-          return len(diffList) == 1
-      ```
+  ```python
+  def isLike(self, a, b):
+      diffList = [ord(i)-ord(j) for i,j in zip(a, b)]
+      diffList = [i for i in diffList if i != 0]
+      return len(diffList) == 1
+  ```
 
-      ```python
-      from collections import defaultdict
-      class Solution(object):
-          def ladderLength(self, beginWord, endWord, wordList):
-              """
-              :type beginWord: str
-              :type endWord: str
-              :type wordList: List[str]
-              :rtype: int
-              """
+  ```python
+  from collections import defaultdict
+  class Solution(object):
+      def ladderLength(self, beginWord, endWord, wordList):
+          """
+          :type beginWord: str
+          :type endWord: str
+          :type wordList: List[str]
+          :rtype: int
+          """
 
-              if endWord not in wordList or not endWord or not beginWord or not wordList:
-                  return 0
-
-              # Since all words are of same length.
-              L = len(beginWord)
-
-              # Dictionary to hold combination of words that can be formed,
-              # from any given word. By changing one letter at a time.
-              all_combo_dict = defaultdict(list)
-              for word in wordList:
-                  for i in range(L):
-                      # Key is the generic word
-                      # Value is a list of words which have the same intermediate generic word.
-                      all_combo_dict[word[:i] + "*" + word[i+1:]].append(word)
-
-
-              # Queue for BFS
-              queue = [(beginWord, 1)]
-              # Visited to make sure we don't repeat processing same word.
-              visited = {beginWord: True}
-              while queue:
-                  current_word, level = queue.pop(0)      
-                  for i in range(L):
-                      # Intermediate words for current word
-                      intermediate_word = current_word[:i] + "*" + current_word[i+1:]
-
-                      # Next states are all the words which share the same intermediate state.
-                      for word in all_combo_dict[intermediate_word]:
-                          # If at any point if we find what we are looking for
-                          # i.e. the end word - we can return with the answer.
-                          if word == endWord:
-                              return level + 1
-                          # Otherwise, add it to the BFS Queue. Also mark it visited
-                          if word not in visited:
-                              visited[word] = True
-                              queue.append((word, level + 1))
-                      all_combo_dict[intermediate_word] = []
+          if endWord not in wordList or not endWord or not beginWord or not wordList:
               return 0
-      ```
+
+          # Since all words are of same length.
+          L = len(beginWord)
+
+          # Dictionary to hold combination of words that can be formed,
+          # from any given word. By changing one letter at a time.
+          all_combo_dict = defaultdict(list)
+          for word in wordList:
+              for i in range(L):
+                  # Key is the generic word
+                  # Value is a list of words which have the same intermediate generic word.
+                  all_combo_dict[word[:i] + "*" + word[i+1:]].append(word)
+
+
+          # Queue for BFS
+          queue = [(beginWord, 1)]
+          # Visited to make sure we don't repeat processing same word.
+          visited = {beginWord: True}
+          while queue:
+              current_word, level = queue.pop(0)      
+              for i in range(L):
+                  # Intermediate words for current word
+                  intermediate_word = current_word[:i] + "*" + current_word[i+1:]
+
+                  # Next states are all the words which share the same intermediate state.
+                  for word in all_combo_dict[intermediate_word]:
+                      # If at any point if we find what we are looking for
+                      # i.e. the end word - we can return with the answer.
+                      if word == endWord:
+                          return level + 1
+                      # Otherwise, add it to the BFS Queue. Also mark it visited
+                      if word not in visited:
+                          visited[word] = True
+                          queue.append((word, level + 1))
+                  all_combo_dict[intermediate_word] = []
+          return 0
+  ```
 
 - leetcode 126 单词接龙 II：遍历所有路径问题
 
-      ```python
-      from collections import defaultdict
+  ```python
+  from collections import defaultdict
 
-      class Solution:
-          def findLadders(self, beginWord: str, endWord: str, wordList: List[str]) -> List[List[str]]:
-              if endWord not in wordList or not endWord or not beginWord or not wordList:
-                  return []
+  class Solution:
+      def findLadders(self, beginWord: str, endWord: str, wordList: List[str]) -> List[List[str]]:
+          if endWord not in wordList or not endWord or not beginWord or not wordList:
+              return []
 
-              # Since all words are of same length.
-              L = len(beginWord)
+          # Since all words are of same length.
+          L = len(beginWord)
 
-              # Dictionary to hold combination of words that can be formed,
-              # from any given word. By changing one letter at a time.
-              all_combo_dict = defaultdict(set)
-              for word in wordList:
-                  for i in range(L):
-                      # Key is the generic word
-                      # Value is a list of words which have the same intermediate generic word.
-                      all_combo_dict[word[:i] + "*" + word[i+1:]].add(word)
+          # Dictionary to hold combination of words that can be formed,
+          # from any given word. By changing one letter at a time.
+          all_combo_dict = defaultdict(set)
+          for word in wordList:
+              for i in range(L):
+                  # Key is the generic word
+                  # Value is a list of words which have the same intermediate generic word.
+                  all_combo_dict[word[:i] + "*" + word[i+1:]].add(word)
 
 
-              # Queue for BFS
-              queue = [(beginWord, 1, [beginWord])]
-              # Visited to make sure we don't repeat processing same word.
-              visited = {beginWord: 1}
+          # Queue for BFS
+          queue = [(beginWord, 1, [beginWord])]
+          # Visited to make sure we don't repeat processing same word.
+          visited = {beginWord: 1}
 
-              retList = []
+          retList = []
 
-              while queue:
-                  current_word, level, current_path = queue.pop(0)      
-                  # print(current_word, level, current_path)
-                  if retList and level >= len(retList[0]):
-                      continue
-                  for i in range(L):
-                      # Intermediate words for current word
-                      intermediate_word = current_word[:i] + "*" + current_word[i+1:]
+          while queue:
+              current_word, level, current_path = queue.pop(0)      
+              # print(current_word, level, current_path)
+              if retList and level >= len(retList[0]):
+                  continue
+              for i in range(L):
+                  # Intermediate words for current word
+                  intermediate_word = current_word[:i] + "*" + current_word[i+1:]
 
-                      # Next states are all the words which share the same intermediate state.
-                      # print('--->', all_combo_dict[intermediate_word])
-                      for word in all_combo_dict[intermediate_word]:
-                          # print('----->', word)
-                          # If at any point if we find what we are looking for
-                          # i.e. the end word - we can return with the answer.
-                          if word == endWord:
-                              retList.append(current_path+[word])
-                              # print('**', retList)
-                          # Otherwise, add it to the BFS Queue. Also mark it visited
-                          elif (word not in visited or level <= visited[word]) and (not retList or level < len(retList[0])):
-                              # print('=>', (word, level + 1, current_path+[word]))
-                              visited[word] = level
-                              queue.append((word, level + 1, current_path+[word]))
-                      # all_combo_dict[intermediate_word] = set([])
-              return retList
-      ```
+                  # Next states are all the words which share the same intermediate state.
+                  # print('--->', all_combo_dict[intermediate_word])
+                  for word in all_combo_dict[intermediate_word]:
+                      # print('----->', word)
+                      # If at any point if we find what we are looking for
+                      # i.e. the end word - we can return with the answer.
+                      if word == endWord:
+                          retList.append(current_path+[word])
+                          # print('**', retList)
+                      # Otherwise, add it to the BFS Queue. Also mark it visited
+                      elif (word not in visited or level <= visited[word]) and (not retList or level < len(retList[0])):
+                          # print('=>', (word, level + 1, current_path+[word]))
+                          visited[word] = level
+                          queue.append((word, level + 1, current_path+[word]))
+                  # all_combo_dict[intermediate_word] = set([])
+          return retList
+  ```
 
 ## lab-11 流量与切割
 
@@ -1837,55 +1868,55 @@ print(greatestCommonDivisor(16, 12))
   - [Sklearn整理](http://blog.wuwenxiang.net/Machine-Learning)
   - [Nearest Neighbors 官方文档](https://scikit-learn.org/stable/modules/neighbors.html)
 
-        ```python
-        print(__doc__)
+    ```python
+    print(__doc__)
 
-        import numpy as np
-        import matplotlib.pyplot as plt
-        from matplotlib.colors import ListedColormap
-        from sklearn import neighbors, datasets
+    import numpy as np
+    import matplotlib.pyplot as plt
+    from matplotlib.colors import ListedColormap
+    from sklearn import neighbors, datasets
 
-        n_neighbors = 15
+    n_neighbors = 15
 
-        # import some data to play with
-        iris = datasets.load_iris()
+    # import some data to play with
+    iris = datasets.load_iris()
 
-        # we only take the first two features. We could avoid this ugly
-        # slicing by using a two-dim dataset
-        X = iris.data[:, :2]
-        y = iris.target
+    # we only take the first two features. We could avoid this ugly
+    # slicing by using a two-dim dataset
+    X = iris.data[:, :2]
+    y = iris.target
 
-        h = .02  # step size in the mesh
+    h = .02  # step size in the mesh
 
-        # Create color maps
-        cmap_light = ListedColormap(['#FFAAAA', '#AAFFAA', '#AAAAFF'])
-        cmap_bold = ListedColormap(['#FF0000', '#00FF00', '#0000FF'])
+    # Create color maps
+    cmap_light = ListedColormap(['#FFAAAA', '#AAFFAA', '#AAAAFF'])
+    cmap_bold = ListedColormap(['#FF0000', '#00FF00', '#0000FF'])
 
-        for weights in ['uniform', 'distance']:
-            # we create an instance of Neighbours Classifier and fit the data.
-            clf = neighbors.KNeighborsClassifier(n_neighbors, weights=weights)
-            clf.fit(X, y)
+    for weights in ['uniform', 'distance']:
+        # we create an instance of Neighbours Classifier and fit the data.
+        clf = neighbors.KNeighborsClassifier(n_neighbors, weights=weights)
+        clf.fit(X, y)
 
-            # Plot the decision boundary. For that, we will assign a color to each
-            # point in the mesh [x_min, x_max]x[y_min, y_max].
-            x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
-            y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
-            xx, yy = np.meshgrid(np.arange(x_min, x_max, h),
-                                 np.arange(y_min, y_max, h))
-            Z = clf.predict(np.c_[xx.ravel(), yy.ravel()])
+        # Plot the decision boundary. For that, we will assign a color to each
+        # point in the mesh [x_min, x_max]x[y_min, y_max].
+        x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
+        y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
+        xx, yy = np.meshgrid(np.arange(x_min, x_max, h),
+                             np.arange(y_min, y_max, h))
+        Z = clf.predict(np.c_[xx.ravel(), yy.ravel()])
 
-            # Put the result into a color plot
-            Z = Z.reshape(xx.shape)
-            plt.figure()
-            plt.pcolormesh(xx, yy, Z, cmap=cmap_light)
+        # Put the result into a color plot
+        Z = Z.reshape(xx.shape)
+        plt.figure()
+        plt.pcolormesh(xx, yy, Z, cmap=cmap_light)
 
-            # Plot also the training points
-            plt.scatter(X[:, 0], X[:, 1], c=y, cmap=cmap_bold,
-                        edgecolor='k', s=20)
-            plt.xlim(xx.min(), xx.max())
-            plt.ylim(yy.min(), yy.max())
-            plt.title("3-Class classification (k = %i, weights = '%s')"
-                      % (n_neighbors, weights))
+        # Plot also the training points
+        plt.scatter(X[:, 0], X[:, 1], c=y, cmap=cmap_bold,
+                    edgecolor='k', s=20)
+        plt.xlim(xx.min(), xx.max())
+        plt.ylim(yy.min(), yy.max())
+        plt.title("3-Class classification (k = %i, weights = '%s')"
+                  % (n_neighbors, weights))
 
-        plt.show()
-        ```
+    plt.show()
+    ```
