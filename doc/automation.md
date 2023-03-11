@@ -14,17 +14,17 @@
 
 | 日程    | 时间 | 课程              | 内容                                     |
 | ----- | -- | --------------- | -------------------------------------- |
-| 第 1 天 | 上午 | [运维基础](#1-运维基础) | [1.1 自动化运维概述](#11-自动化运维概述)       |
-|       |     |                 | [1.2 Python 和系统运维](#12-python-和系统运维)   |
+| 第 1 天 | 上午 | [运维基础](#1-运维基础) | [1.1 自动化运维概述](#11-自动化运维概述)             |
+|       |    |                 | [1.2 Python 和系统运维](#12-python-和系统运维)   |
 |       | 下午 |                 | [1.3 容器技术和自动化运维](#13-容器技术和自动化运维)       |
 | 第 2 天 | 上午 |                 | [1.4 K8S 和自动化运维](#14-k8s-和自动化运维)       |
-|       |   | [配置管理](#2-配置管理) | [2.1 自动化运维框架](#21-自动化运维框架)      |
-|       |    |                | [2.2 Fabric](#22-fabric)       |
-|       | 下午 |                | [2.3 Ansible 基础](#23-ansible-基础)       |
-|       |    |                | [2.4 Ansible 和容器技术](#24-ansible-与容器技术) |
+|       |    | [配置管理](#2-配置管理) | [2.1 自动化运维框架](#21-自动化运维框架)             |
+|       |    |                 | [2.2 Fabric](#22-fabric)               |
+|       | 下午 |                 | [2.3 Ansible 基础](#23-ansible-基础)       |
+|       |    |                 | [2.4 Ansible 和容器技术](#24-ansible-与容器技术) |
 | 第 3 天 | 上午 |                 | [2.5 Ansible 与云平台](#25-ansible-与云平台)   |
-|       |    | [任务管理](#3-任务管理) | [3.1 版本控制](#31-版本控制)             |
-|       |    |                 | [3.2 Jenkins+Zuul](#32-jenkinszuul)                   |
+|       |    | [任务管理](#3-任务管理) | [3.1 版本控制](#31-版本控制)                   |
+|       |    |                 | [3.2 Jenkins+Zuul](#32-jenkinszuul)    |
 |       | 下午 |                 | [3.3 Drone](#33-drone)                 |
 |       |    |                 | [3.4 CI-CD](#34-ci-cd)                 |
 | 第 4 天 | 上午 | [监控计量](#4-监控计量) | [4.1 监控框架对比](#41-监控框架对比)               |
@@ -51,17 +51,21 @@
 - 数据中心自动化（DCA）？
 - 开发运营一体化（DevOps）？
 
-Redhat 对“自动化运维“的定义：[*the use of software to create repeatable instructions and processes to replace or reduce human interaction with IT systems.*](https://www.redhat.com/en/topics/automation/whats-it-automation) **使用软件创建可重复的指令和过程，以取代或减少与 IT 系统的人机交互。自动化软件在这些指令、工具和框架的限制下工作，以执行任务，几乎不需要人工干预**。
+Redhat
+对“自动化运维“的定义：[_the use of software to create repeatable instructions and processes to replace or
+reduce human interaction with IT
+systems._](https://www.redhat.com/en/topics/automation/whats-it-automation)
+**使用软件创建可重复的指令和过程，以取代或减少与 IT 系统的人机交互。自动化软件在这些指令、工具和框架的限制下工作，以执行任务，几乎不需要人工干预**。
 
 自动化运维包括：
 
 - **自动化**
-    - 应用的自愈
-    - 资源的自动弹性缩放
-    - 无人工干预下的安装部署
-    - 不影响业务的升级和回滚
-    - 自服务化的资源和权限获取
-    - 基于机器学习的监控、日志分析、告警和预警
+  - 应用的自愈
+  - 资源的自动弹性缩放
+  - 无人工干预下的安装部署
+  - 不影响业务的升级和回滚
+  - 自服务化的资源和权限获取
+  - 基于机器学习的监控、日志分析、告警和预警
 - **配置管理**
 - **监控**
 
@@ -75,8 +79,13 @@ Redhat 对“自动化运维“的定义：[*the use of software to create repea
 
 未来的自动化形态：
 
-- *From bare metal to middleware, apps, security, updating, notifications, failover, predictive analytics, and decisions being made with no direct oversight.* 从裸机到中间件的自动化、应用程序、安全性、更新、通知、故障切换、预测分析，以及在没有直接监督的情况下做出的决策。
-- *A security risk being automatically detected, reported, patched, tested, and deployed while your IT staff are asleep. Your system could self-heal, gather relevant information to discover if and where an attack came from, notify the correct people—all without losing uptime.* 在 IT 员工睡觉时自动检测、报告、修补、测试和部署安全风险。您的系统可以自我修复，收集相关信息以发现攻击是否以及来自何处，并在不损失正常运行时间的情况下通知所有相关的人。
+- _From bare metal to middleware, apps, security, updating, notifications, failover, predictive
+  analytics, and decisions being made with no direct oversight._
+  从裸机到中间件的自动化、应用程序、安全性、更新、通知、故障切换、预测分析，以及在没有直接监督的情况下做出的决策。
+- _A security risk being automatically detected, reported, patched, tested, and deployed while your
+  IT staff are asleep. Your system could self-heal, gather relevant information to discover if and
+  where an attack came from, notify the correct people—all without losing uptime._ 在 IT
+  员工睡觉时自动检测、报告、修补、测试和部署安全风险。您的系统可以自我修复，收集相关信息以发现攻击是否以及来自何处，并在不损失正常运行时间的情况下通知所有相关的人。
 
 **自动化运维技术栈**：
 
@@ -125,28 +134,28 @@ Redhat 对“自动化运维“的定义：[*the use of software to create repea
 
 - 作业：部署完成 Python
 
-    ```console
-    $ python --version
-    Python 3.9.7
+      ```console
+      $ python --version
+      Python 3.9.7
 
-    $ pip --version
-    pip 22.0.3 from /usr/local/lib/python3.9/site-packages/pip (python 3.9)
+      $ pip --version
+      pip 22.0.3 from /usr/local/lib/python3.9/site-packages/pip (python 3.9)
 
-    $ python
-    Python 3.9.7 (default, Sep  3 2021, 12:37:55)
-    [Clang 12.0.5 (clang-1205.0.22.9)] on darwin
-    Type "help", "copyright", "credits" or "license" for more information.
-    ```
+      $ python
+      Python 3.9.7 (default, Sep  3 2021, 12:37:55)
+      [Clang 12.0.5 (clang-1205.0.22.9)] on darwin
+      Type "help", "copyright", "credits" or "license" for more information.
+      ```
 
-    ```python
-    >>> print(2**64)
-    18446744073709551616
+      ```python
+      >>> print(2**64)
+      18446744073709551616
 
-    >>> print('hello, world')
-    hello, world
+      >>> print('hello, world')
+      hello, world
 
-    >>> exit()
-    ```
+      >>> exit()
+      ```
 
 参考：[VSCode 部署](Installation-VSCode.md)
 
@@ -156,7 +165,9 @@ Redhat 对“自动化运维“的定义：[*the use of software to create repea
 
 [返回目录](#课程目录)
 
-**基础环境安装**，参考：[Github](https://github.com/wu-wenxiang/lab-kubernetes/blob/main/doc/kubernetes-best-practices.md#111-%E5%86%85%E6%A0%B8%E5%8D%87%E7%BA%A7) 或 [Gitee](https://gitee.com/wu-wen-xiang/lab-kubernetes/blob/main/doc/kubernetes-best-practices.md#111-%E5%86%85%E6%A0%B8%E5%8D%87%E7%BA%A7)
+**基础环境安装**，参考：[Github](https://github.com/wu-wenxiang/lab-kubernetes/blob/main/doc/kubernetes-best-practices.md#111-%E5%86%85%E6%A0%B8%E5%8D%87%E7%BA%A7)
+或
+[Gitee](https://gitee.com/wu-wen-xiang/lab-kubernetes/blob/main/doc/kubernetes-best-practices.md#111-%E5%86%85%E6%A0%B8%E5%8D%87%E7%BA%A7)
 
 - 作业：升级内核到 5.4
 - 作业：升级 Python 到 3.8
@@ -213,14 +224,14 @@ pip 22.1.2 from /Users/wuwenxiang/local/github-99cloud/lab-openstack/.venv/lib/p
 作业：
 
 1. [文件和字符串处理](python-exec-public.py#L628-666)
-1. [数据库相关](python-exec-public.py#L1669-2010)
-1. [Excel 处理](python-exec-public.py#L2377-2407)
-1. [系统相关模块](python-exec-public.py#L2086-2375)
-1. [文件目录、子进程、FTP、SSH](/src/automation/automation.py)
-1. [XML 解析](python-exec-public.py#L2012-2074)
-1. [结构化数据爬取](python-exec.py)
-1. [非结构化数据爬取](python-exec-public.py#L1483-1511)
-1. [科学计算和机器学习](python-exec-public.py#L2445-3195)
+2. [数据库相关](python-exec-public.py#L1669-2010)
+3. [Excel 处理](python-exec-public.py#L2377-2407)
+4. [系统相关模块](python-exec-public.py#L2086-2375)
+5. [文件目录、子进程、FTP、SSH](/src/automation/automation.py)
+6. [XML 解析](python-exec-public.py#L2012-2074)
+7. [结构化数据爬取](python-exec.py)
+8. [非结构化数据爬取](python-exec-public.py#L1483-1511)
+9. [科学计算和机器学习](python-exec-public.py#L2445-3195)
 
 ### 1.3 容器技术和自动化运维
 
@@ -230,7 +241,9 @@ pip 22.1.2 from /Users/wuwenxiang/local/github-99cloud/lab-openstack/.venv/lib/p
 
 [返回目录](#课程目录)
 
-参考：[Github](https://github.com/wu-wenxiang/lab-kubernetes/blob/main/doc/kubernetes-best-practices.md#211-linux-%E5%AE%B9%E5%99%A8%E5%92%8C-docker) 或 [Gitee](https://gitee.com/wu-wen-xiang/lab-kubernetes/blob/main/doc/kubernetes-best-practices.md#211-linux-%E5%AE%B9%E5%99%A8%E5%92%8C-docker)
+参考：[Github](https://github.com/wu-wenxiang/lab-kubernetes/blob/main/doc/kubernetes-best-practices.md#211-linux-%E5%AE%B9%E5%99%A8%E5%92%8C-docker)
+或
+[Gitee](https://gitee.com/wu-wen-xiang/lab-kubernetes/blob/main/doc/kubernetes-best-practices.md#211-linux-%E5%AE%B9%E5%99%A8%E5%92%8C-docker)
 
 - 作业：安装 Docker
 - 作业：熟悉 Docker 命令
@@ -239,7 +252,10 @@ pip 22.1.2 from /Users/wuwenxiang/local/github-99cloud/lab-openstack/.venv/lib/p
 
 [返回目录](#课程目录)
 
-参考 [Github](https://github.com/wu-wenxiang/lab-kubernetes/blob/main/doc/kubernetes-best-practices.md#22-containerd) 或 [Gitee](https://gitee.com/wu-wen-xiang/lab-kubernetes/blob/main/doc/kubernetes-best-practices.md#22-containerd)
+参考
+[Github](https://github.com/wu-wenxiang/lab-kubernetes/blob/main/doc/kubernetes-best-practices.md#22-containerd)
+或
+[Gitee](https://gitee.com/wu-wen-xiang/lab-kubernetes/blob/main/doc/kubernetes-best-practices.md#22-containerd)
 
 - 作业：安装 Containerd
 - 作业：熟悉 crictl / ctr / nerdctr 命令
@@ -252,15 +268,23 @@ pip 22.1.2 from /Users/wuwenxiang/local/github-99cloud/lab-openstack/.venv/lib/p
 
 [返回目录](#课程目录)
 
-组件和基本架构，参考：[Github](https://github.com/wu-wenxiang/lab-kubernetes/blob/main/doc/kubernetes-best-practices.md#3-k8s-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%AE%A1%E7%90%86) 或 [Gitee](https://gitee.com/wu-wen-xiang/lab-kubernetes/blob/main/doc/kubernetes-best-practices.md#3-k8s-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%AE%A1%E7%90%86)
+组件和基本架构，参考：[Github](https://github.com/wu-wenxiang/lab-kubernetes/blob/main/doc/kubernetes-best-practices.md#3-k8s-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%AE%A1%E7%90%86)
+或
+[Gitee](https://gitee.com/wu-wen-xiang/lab-kubernetes/blob/main/doc/kubernetes-best-practices.md#3-k8s-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%AE%A1%E7%90%86)
 
-部署单节点 K8S，参考：[Github](https://github.com/wu-wenxiang/lab-kubernetes/blob/main/doc/kubernetes-best-practices.md#3111-%E5%8D%95%E8%8A%82%E7%82%B9%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2) 或 [Gitee](https://gitee.com/wu-wen-xiang/lab-kubernetes/blob/main/doc/kubernetes-best-practices.md#3111-%E5%8D%95%E8%8A%82%E7%82%B9%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2)，注意：Containerd 如果已经部署好的话，前面部署 Containerd 的步骤可以跳过，直接部署 K8S 即可。
+部署单节点
+K8S，参考：[Github](https://github.com/wu-wenxiang/lab-kubernetes/blob/main/doc/kubernetes-best-practices.md#3111-%E5%8D%95%E8%8A%82%E7%82%B9%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2)
+或
+[Gitee](https://gitee.com/wu-wen-xiang/lab-kubernetes/blob/main/doc/kubernetes-best-practices.md#3111-%E5%8D%95%E8%8A%82%E7%82%B9%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2)，注意：Containerd
+如果已经部署好的话，前面部署 Containerd 的步骤可以跳过，直接部署 K8S 即可。
 
 - 作业：完成 K8S 单节点部署
 
 #### 1.4.2 将应用部署到 K8S
 
-参考：[Github](http://github.com/99cloud/training-kubernetes/blob/master/doc/class-01-Kubernetes-Administration.md#29-%E5%90%AF%E5%8A%A8%E4%B8%80%E4%B8%AA-pod) 或 [Gitee](https://gitee.com/dev-99cloud/training-kubernetes/blob/master/doc/class-01-Kubernetes-Administration.md#29-%E5%90%AF%E5%8A%A8%E4%B8%80%E4%B8%AA-pod)
+参考：[Github](http://github.com/99cloud/training-kubernetes/blob/master/doc/class-01-Kubernetes-Administration.md#29-%E5%90%AF%E5%8A%A8%E4%B8%80%E4%B8%AA-pod)
+或
+[Gitee](https://gitee.com/dev-99cloud/training-kubernetes/blob/master/doc/class-01-Kubernetes-Administration.md#29-%E5%90%AF%E5%8A%A8%E4%B8%80%E4%B8%AA-pod)
 
 - 作业：完成 K8S 应用部署和发布
 
@@ -284,7 +308,9 @@ pip 22.1.2 from /Users/wuwenxiang/local/github-99cloud/lab-openstack/.venv/lib/p
 
 [返回目录](#课程目录)
 
-参考：[Github](http://github.com/99cloud/lab-openstack/blob/master/doc/class-02-OpenStack-API-and-Development.md#fabric-quick-start--catalog-) 或 [Gitee](https://gitee.com/dev-99cloud/lab-openstack/blob/master/doc/class-02-OpenStack-API-and-Development.md#fabric-quick-start--catalog-)
+参考：[Github](http://github.com/99cloud/lab-openstack/blob/master/doc/class-02-OpenStack-API-and-Development.md#fabric-quick-start--catalog-)
+或
+[Gitee](https://gitee.com/dev-99cloud/lab-openstack/blob/master/doc/class-02-OpenStack-API-and-Development.md#fabric-quick-start--catalog-)
 
 - 作业：SSH 免密登录配置
 - 作业：Fabric 基本操作
@@ -305,7 +331,10 @@ pip 22.1.2 from /Users/wuwenxiang/local/github-99cloud/lab-openstack/.venv/lib/p
 
 Ansible 官方文档，参考：[Ansible 2.9 用户手册](https://docs.ansible.com/ansible/2.9/user_guide/index.html)
 
-Ansible 案例，参考：[Github](https://github.com/99cloud/lab-openstack/blob/master/doc/class-02-OpenStack-API-and-Development.md#ansible-as-a-plus--catalog-) 或 [Gitee](https://gitee.com/dev-99cloud/lab-openstack/blob/master/doc/class-02-OpenStack-API-and-Development.md#ansible-as-a-plus--catalog-)
+Ansible
+案例，参考：[Github](https://github.com/99cloud/lab-openstack/blob/master/doc/class-02-OpenStack-API-and-Development.md#ansible-as-a-plus--catalog-)
+或
+[Gitee](https://gitee.com/dev-99cloud/lab-openstack/blob/master/doc/class-02-OpenStack-API-and-Development.md#ansible-as-a-plus--catalog-)
 
 - 作业：Ansible 安装
 - 作业：Anisble 练习
@@ -322,7 +351,8 @@ Ansible 案例，参考：[Github](https://github.com/99cloud/lab-openstack/blob
 
 - 作业：安装 Ansible Docker 模块
 
-部署 Django 应用，参考：[Github](https://github.com/wu-wenxiang/ZZLARGE-Project-DjangoTest) 或 [Gitee](https://gitee.com/wu-wen-xiang/project-django-demo/)
+部署 Django 应用，参考：[Github](https://github.com/wu-wenxiang/ZZLARGE-Project-DjangoTest) 或
+[Gitee](https://gitee.com/wu-wen-xiang/project-django-demo/)
 
 - 作业：通过 Docker 部署容器应用
 
@@ -371,11 +401,14 @@ Ansible 的云组件
 - [vmware](https://docs.ansible.com/ansible/latest/collections/community/vmware/index.html)
 - [kubernetes](https://docs.ansible.com/ansible/latest/collections/kubernetes/core/index.html#plugins-in-kubernetes-core)
 - [OpenStack](https://docs.ansible.com/ansible/latest/collections/openstack/cloud/index.html#plugins-in-openstack-cloud)
-    - [openstack-ansible 用户手册](https://docs.openstack.org/openstack-ansible/latest/user/test/example.html)
-    - [Kolla-Ansible](https://github.com/openstack/kolla-ansible)
-    - 操作案例：[Github](https://github.com/99cloud/lab-openstack/blob/master/doc/class-02-OpenStack-API-and-Development.md#lab-03-openstack-ansible-provider--catalog-) 或 [Gitee](https://gitee.com/dev-99cloud/lab-openstack/blob/master/doc/class-02-OpenStack-API-and-Development.md#lab-03-openstack-ansible-provider--catalog-)
+  - [openstack-ansible 用户手册](https://docs.openstack.org/openstack-ansible/latest/user/test/example.html)
+  - [Kolla-Ansible](https://github.com/openstack/kolla-ansible)
+  - 操作案例：[Github](https://github.com/99cloud/lab-openstack/blob/master/doc/class-02-OpenStack-API-and-Development.md#lab-03-openstack-ansible-provider--catalog-)
+    或
+    [Gitee](https://gitee.com/dev-99cloud/lab-openstack/blob/master/doc/class-02-OpenStack-API-and-Development.md#lab-03-openstack-ansible-provider--catalog-)
 
-**补充**：YAML 应用广泛，除了 K8S、Ansible 用到之外，OpenStack Heat、OpenAPI，包括 [Restful API 自动化测试](autotest.md#471-gabbi)也会用到。
+**补充**：YAML 应用广泛，除了 K8S、Ansible 用到之外，OpenStack Heat、OpenAPI，包括
+[Restful API 自动化测试](autotest.md#471-gabbi)也会用到。
 
 ## 3. 任务管理
 
@@ -391,25 +424,33 @@ Git 参考：[版本控制](we-know-python.md#31-版本控制)
 
 [返回目录](#课程目录)
 
-OpenStack 质量保证体系，参考：[Github](https://github.com/99cloud/lab-openstack/blob/master/doc/class-03-OpenStack-Maintenance.md#112-openstack-%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F) 或 [Gitee](https://gitee.com/dev-99cloud/lab-openstack/blob/master/doc/class-03-OpenStack-Maintenance.md#112-openstack-%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F)
+OpenStack
+质量保证体系，参考：[Github](https://github.com/99cloud/lab-openstack/blob/master/doc/class-03-OpenStack-Maintenance.md#112-openstack-%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F)
+或
+[Gitee](https://gitee.com/dev-99cloud/lab-openstack/blob/master/doc/class-03-OpenStack-Maintenance.md#112-openstack-%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F)
 
 ### 3.3 Drone
 
 [返回目录](#课程目录)
 
-Gitlab + Drone，参考：[Github](https://github.com/99cloud/lab-openstack/blob/master/doc/cicd/gitlab_drone.md) 或 [Gitee](https://gitee.com/dev-99cloud/lab-openstack/blob/master/doc/cicd/gitlab_drone.md)
+Gitlab +
+Drone，参考：[Github](https://github.com/99cloud/lab-openstack/blob/master/doc/cicd/gitlab_drone.md) 或
+[Gitee](https://gitee.com/dev-99cloud/lab-openstack/blob/master/doc/cicd/gitlab_drone.md)
 
 ### 3.4 CI/CD
 
 [返回目录](#课程目录)
 
-OIDC + Gitlab + Gerrit + Redmine + Drone，参考：[Github](https://github.com/99cloud/lab-openstack/blob/master/doc/cicd/cicd-install-guide.md) 或 [Gitee](https://gitee.com/dev-99cloud/lab-openstack/blob/master/doc/cicd/cicd-install-guide.md)
+OIDC + Gitlab + Gerrit + Redmine +
+Drone，参考：[Github](https://github.com/99cloud/lab-openstack/blob/master/doc/cicd/cicd-install-guide.md)
+或 [Gitee](https://gitee.com/dev-99cloud/lab-openstack/blob/master/doc/cicd/cicd-install-guide.md)
 
 ### 3.5 K8S Cronjob
 
 [返回目录](#课程目录)
 
-配置默认 StorageClass，参考：[Github] 或 [Gitee](https://gitee.com/wu-wen-xiang/lab-kubernetes/blob/main/doc/kubernetes-best-practices.md#45-local-%E5%92%8C%E5%8A%A8%E6%80%81%E5%88%86%E9%85%8D)
+配置默认 StorageClass，参考：[Github] 或
+[Gitee](https://gitee.com/wu-wen-xiang/lab-kubernetes/blob/main/doc/kubernetes-best-practices.md#45-local-%E5%92%8C%E5%8A%A8%E6%80%81%E5%88%86%E9%85%8D)
 
 参考：[KubeSphere 部署官网](https://kubesphere.io/docs/v3.3/quick-start/minimal-kubesphere-on-k8s/)
 
@@ -448,7 +489,9 @@ OIDC + Gitlab + Gerrit + Redmine + Drone，参考：[Github](https://github.com/
 
 [返回目录](#课程目录)
 
-参考：[Github](https://github.com/99cloud/lab-openstack/blob/master/doc/class-03-OpenStack-Maintenance.md#4-%E7%9B%91%E6%8E%A7%E5%92%8C%E5%91%8A%E8%AD%A6) 或 [Gitee](https://gitee.com/dev-99cloud/lab-openstack/blob/master/doc/class-03-OpenStack-Maintenance.md#4-%E7%9B%91%E6%8E%A7%E5%92%8C%E5%91%8A%E8%AD%A6)
+参考：[Github](https://github.com/99cloud/lab-openstack/blob/master/doc/class-03-OpenStack-Maintenance.md#4-%E7%9B%91%E6%8E%A7%E5%92%8C%E5%91%8A%E8%AD%A6)
+或
+[Gitee](https://gitee.com/dev-99cloud/lab-openstack/blob/master/doc/class-03-OpenStack-Maintenance.md#4-%E7%9B%91%E6%8E%A7%E5%92%8C%E5%91%8A%E8%AD%A6)
 
 ### 4.3 Alertmanager
 
@@ -470,7 +513,9 @@ OIDC + Gitlab + Gerrit + Redmine + Drone，参考：[Github](https://github.com/
 
 [返回目录](#课程目录)
 
-参考：[Github](https://github.com/99cloud/lab-openstack/blob/master/doc/class-03-OpenStack-Maintenance.md#8-elastic-search) 或 [Gitee](https://gitee.com/dev-99cloud/lab-openstack/blob/master/doc/class-03-OpenStack-Maintenance.md#8-elastic-search)
+参考：[Github](https://github.com/99cloud/lab-openstack/blob/master/doc/class-03-OpenStack-Maintenance.md#8-elastic-search)
+或
+[Gitee](https://gitee.com/dev-99cloud/lab-openstack/blob/master/doc/class-03-OpenStack-Maintenance.md#8-elastic-search)
 
 ### 5.3 Kibana
 
@@ -492,7 +537,10 @@ OIDC + Gitlab + Gerrit + Redmine + Drone，参考：[Github](https://github.com/
 
 [返回目录](#课程目录)
 
-Cinder 服务报错排查，参考：[Github](https://github.com/99cloud/lab-openstack/blob/master/doc/class-01-OpenStack-Administration.md#94-debug-cinder) 或 [Gitee](https://gitee.com/dev-99cloud/lab-openstack/blob/master/doc/class-01-OpenStack-Administration.md#94-debug-cinder)
+Cinder
+服务报错排查，参考：[Github](https://github.com/99cloud/lab-openstack/blob/master/doc/class-01-OpenStack-Administration.md#94-debug-cinder)
+或
+[Gitee](https://gitee.com/dev-99cloud/lab-openstack/blob/master/doc/class-01-OpenStack-Administration.md#94-debug-cinder)
 
 ### 6.2 Python2 处理中文问题
 
