@@ -110,11 +110,114 @@ Player，VMWare Fusion 等。半虚拟化基于普通操作系统，比较灵活
 
 #### 1.1.3 云原生
 
-1. 容器和安全容器
-2. Kubernetes as a Service（EKS/ACK）
-3. KoK
-4. ASM
-5. Devops
+##### 1.1.3.1 什么是云原生
+
+把业务上云，然后只关注业务本身。
+
+云基座解决业务无关的问题：
+
+- K8S：算力、自动调度、自愈、快速扩缩容
+- K8S：服务注册、服务发现、配置管理、后台任务管理
+- 中间件：有状态服务，MQ、DB、Cache、对象存储、文件存储等
+- Istio：故障注入、流量治理、灰度发布、熔断
+
+云原生的 3 原则：
+
+- **简单**
+- **易于自动化**
+- **易于发布**
+
+与之对应的解决方案：**API + 微服务 + 容器化**
+
+[云原生的十二要素法则](https://12factor.net)
+
+1. 用同一份受版本控制的基准代码，进行多处部署
+1. 显式声明依赖关系
+1. 配置信息依赖应用环境存储（即配置管理），与代码分开
+1. 后端服务视作附加资源（Web Service / DB / MQ）
+1. 严格分离构建和运行步骤
+1. 以一个或多个无状态进程运行应用
+1. 通过端口绑定提供服务
+1. 通过进程模型进行服务扩缩容
+1. 确保快速启动和优雅中止来最大化健壮性
+1. 尽可能保持开发、预发布、线上环境一致
+1. 日志处理成事件流（方便后续统一处理）
+1. 用一次性进程运行后台管理任务
+
+如何判断你的技术栈和代码实现是否云原生？
+
+1. 所做的任何事（编辑和编译工具、语言和框架）是否简单？
+    - IDE 是否可选？强制性是不足取的，比如代码必须用特定的 IDE 才能生成或者编译。
+    - 能否通过命令行（即能否自动化）构建和部署？
+    - 团队新成员能否快速理解代码？
+1. 是否测试驱动开发（本质上即是否有信心交付）？
+    - 测试是 trade off 的艺术，编程人员只需要为他们认为不自信的代码编写单元测试
+    - 单元测试只对程序员有意义，代码覆盖率是单元测试的客观指标，太低不合适，一般认为需要覆盖 60% 以上
+    - 测试工程师需要为所有的 API 测试和功能测试、界面测试负责，尽可能自动化，测试工程师不考虑代码覆盖率，而是考虑测试用例覆盖率
+    - 一个 bug 被研发自己发现，和被测试人员发现，和被现场使用者发现，cost 不可同日而语
+1. 尽早发布、频繁发布
+    - 代码应该少量提交，多次提交，每次提交应该涵盖一个完整的小功能或者 bug 修复
+    - 尽早发布、频繁发布才能让产品研发不畏惧发布，减少发布风险
+    - 只有足够的自动化测试，才能实现尽早发布、频繁发布
+1. 一切能自动化的，都应自动化
+    - 任何每天要做的事，都应该被自动化
+    - 流程中任何时常重复的部分，如果不能被按钮或者脚本代替，那么就属于过于复杂、脆弱的设计
+1. 一切事物都是服务，包括应用
+    - 一切服务都是微服务，micro 的前缀完全没必要
+    - 单体为什么不好？
+        - 每次变更都需要全量发布整个应用程序，维护困难
+        - 启动和停止速度慢
+        - 依赖关系耦合紧密
+
+        因此，反之，如果应用恰好没有这三个问题，那么单体就是最好的设计，不需要硬拆微服务做过度设计。
+##### 1.2.1.2 K8S
+
+K8S 的操作要记得参考：<https://kubernetes.io/>
+
+[K8S 有哪些组件](https://kubernetes.io/zh/docs/concepts/architecture/#)？api-server、kube-scheduler、kube-controller、etcd、coredns、kubelete、kubeproxy
+
+组件结构图
+
+![](/image/k8s-architecture.png)
+
+实验：[K8S 基本操作](kubernetes-best-practices.md#3111-单节点集群部署)
+
+实验：部署应用到 K8S 平台：[Github](https://github.com/99cloud/training-kubernetes/blob/master/doc/class-01-Kubernetes-Administration.md#29-%E5%90%AF%E5%8A%A8%E4%B8%80%E4%B8%AA-pod) 或 [Gitee](https://gitee.com/dev-99cloud/training-kubernetes/blob/master/doc/class-01-Kubernetes-Administration.md#29-%E5%90%AF%E5%8A%A8%E4%B8%80%E4%B8%AA-pod)
+
+##### 1.1.3.2 容器
+
+容器技术栈
+
+![](/doc/images/k8s-cri-rocket.png)
+
+##### 1.1.3.3 安全容器
+
+弹性容器实例（ECI）
+
+弹性容器实例的功能项包括：
+
+- 同时兼容原生容器和虚拟机的使用体验
+- 比虚拟机轻量的资源分配能力，以方便资源快速申请、弹性
+- 类似虚拟机的使用体验，可登陆，可任意安装组件
+- 有固定 IP 地址，胖容器从创建到删除，IP 地址保持不变
+- 可以通过 SSH 远程登陆系统。
+- 严格的资源隔离，如 CPU、内存等
+
+实现是一般是提供一个 Pod，Pod 中的容器可以是 OCI VM（比如 Kata），或者单纯容器。
+
+哪些云厂商提供 ECI？
+
+- [博云胖容器](https://mp.weixin.qq.com/s?__biz=MzIzNzA5NzM3Ng==&mid=2651860132&idx=1&sn=cb0eac52be444c162fb505ebbdef6c0f&chksm=f329546bc45edd7d4789aa85ae5edb8a9f8d8313dd1ca273946ef019e0997b39665d29e24c8c&scene=21#wechat_redirect)
+- [Kata 和它的朋友们](kubernetes-best-practices.md#24-kata-和它的朋友们)
+- [阿里云 ECI](https://eci.console.aliyun.com/#/eci/cn-shanghai/list)：[从 Docker Hub 拉取镜像创建实例](https://help.aliyun.com/document_detail/119093.html)
+
+##### 1.1.3.4 Kubernetes as a Service（EKS/ACK）
+
+K8S 作为一个整体的资源（类同 VM / 存储 / VPC）对外提供。公有云，私有云已广泛提供 EKS。比如：[阿里云容器服务 ACK](https://cs.console.aliyun.com/#/k8s/cluster/list)
+
+##### 1.1.3.5 ASM
+
+##### 1.1.3.6 Devops
 
 ### 1.1.4 混合云的适用场景
 
