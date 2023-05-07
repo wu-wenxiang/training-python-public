@@ -34,7 +34,7 @@
 
 - 较为深入完整地了解云平台运维技术栈
 - 了解一体化云平台运维框架的设计和技术选型
-- 掌握一体化云平台运维框架Demo的搭建、应用和扩展
+- 掌握一体化云平台运维框架 Demo 的搭建、应用和扩展
 - 了解云平台运维相关的前沿知识和发展趋势，理解 AIOps 的商业应用场景
 
 ## 课程目录
@@ -43,13 +43,13 @@
 | ----- | -- | ---------------------------------- | ------------------------------ |
 | 第 1 天 | 上午 | [1. 一体化云平台运维架构](#1-一体化云平台运维架构)     | [1.1 基础设施云平台](#11-基础设施云平台)     |
 |       |    |                                    | [1.2 云平台的建设规划](#12-云平台的建设规划)   |
-|       | 下午 |                                    | [1.3 开源运维平台工具](#13-开源运维平台工具)   |
-|       |    |                                    | [1.4 混合云运维平台设计](#14-混合云运维平台设计) |
-| 第 2 天 | 上午 | [2. 云运维平台实战](#2-云运维平台实战)           | [2.1 运维平台的整体架构](#21-运维平台的整体架构) |
-|       |    |                                    | [2.2 运维服务平台搭建](#22-运维服务平台搭建)   |
-|       | 下午 |                                    | [2.3 运维平台基础功能](#23-运维平台基础功能)   |
-| 第 3 天 | 上午 |                                    | [2.4 任务管理](#24-任务管理)           |
-|       | 下午 |                                    | [2.5 监控和告警](#25-监控和告警)         |
+|       |    |                                    | [1.3 开源运维平台工具](#13-开源运维平台工具)   |
+|       | 下午 |                                    | [1.4 混合云运维平台设计](#14-混合云运维平台设计) |
+|       |    | [2. 云运维平台实战](#2-云运维平台实战)           | [2.1 运维平台的整体架构](#21-运维平台的整体架构) |
+| 第 2 天 | 上午 |                                    | [2.2 运维服务平台搭建](#22-运维服务平台搭建)   |
+|       |    |                                    | [2.3 运维平台基础功能](#23-运维平台基础功能)   |
+|       | 下午 |                                    | [2.4 任务管理](#24-任务管理)           |
+|       |    |                                    | [2.5 监控和告警](#25-监控和告警)         |
 |       |    | [3. 面向未来的云平台运维技术](#3-面向未来的云平台运维技术) | [3.1 AIOps](#31-aiops)         |
 
 ## 1. 一体化云平台运维架构
@@ -83,8 +83,8 @@
 云计算的下半场：
 
 1. 公有云倾销私有云
-   1. 公有云推私有化部署，称混合云
-   2. 开源云计算框架热度减退，也趋于稳定，自主可控，开放原生，可定制成为最主要卖点
+   1. 公有云推本地化部署，称混合云（有哪些适用场景？），挤压私有云市场
+   2. 开源云计算框架热度减退，也趋于稳定，**自主可控，开放原生，信创兼容，可定制**成为最主要卖点
 2. 融合和统一
    1. 算力统一调度成为主流：VMWare 的传统优势和新变化
    2. 接口统一：Kubenetes API 成为主流
@@ -108,18 +108,84 @@
 半虚拟化先安装标准操作系统，Hypervisor 作为 OS 上的一个程序模块运行，并对虚拟机进行管理。比如 KVM，VirtualBox，VMWare WorkStation，VMWare
 Player，VMWare Fusion 等。半虚拟化基于普通操作系统，比较灵活，比如支持虚拟机嵌套（在 KVM 虚拟机中再运行 KVM）。
 
-#### 1.1.3 云原生
+#### 1.1.3 容器化
 
-##### 1.1.3.1 什么是云原生
+![](images/container-evolution.png)
 
-把业务上云，然后只关注业务本身。
+##### 1.1.3.1 普通容器
+
+Docker 容器
+
+![](images/docker-undertech.png)
+
+![](images/docker-arch.png)
+
+容器技术栈
+
+![](images/k8s-cri-rocket.png)
+
+##### 1.1.3.3 安全容器
+
+弹性容器实例（ECI）的功能项包括：
+
+- 同时兼容原生容器和虚拟机的使用体验
+- 比虚拟机轻量的资源分配能力，以方便资源快速申请、弹性
+- 类似虚拟机的使用体验，可登陆，可任意安装组件
+- 有固定 IP 地址，胖容器从创建到删除，IP 地址保持不变
+- 可以通过 SSH 远程登陆系统。
+- 严格的资源隔离，如 CPU、内存等
+
+实现是一般是提供一个 Pod，Pod 中的容器可以是 OCI VM（比如 Kata），或者单纯容器。
+
+![](images/katacontainers_traditionalvskata_diagram.jpg)
+
+哪些云厂商提供 ECI？
+
+- [博云胖容器](https://mp.weixin.qq.com/s?__biz=MzIzNzA5NzM3Ng==&mid=2651860132&idx=1&sn=cb0eac52be444c162fb505ebbdef6c0f&chksm=f329546bc45edd7d4789aa85ae5edb8a9f8d8313dd1ca273946ef019e0997b39665d29e24c8c&scene=21#wechat_redirect)
+- [Kata 和它的朋友们](kubernetes-best-practices.md#24-kata-和它的朋友们)
+- [阿里云 ECI](https://eci.console.aliyun.com/#/eci/cn-shanghai/list)：[从 Docker Hub 拉取镜像创建实例](https://help.aliyun.com/document_detail/119093.html)
+
+#### 1.1.4 基础设施云平台
+
+##### 1.1.4.1 OpenStack
+
+参考：OpenStack
+Administration：[Github](https://github.com/99cloud/lab-openstack/blob/master/doc/class-01-OpenStack-Administration.md)
+或
+[Gitee](https://gitee.com/dev-99cloud/lab-openstack/blob/master/doc/class-01-OpenStack-Administration.md)
+
+##### 1.1.4.2 K8S
+
+K8S 的操作要记得参考：<https://kubernetes.io/>
+
+[K8S 有哪些组件](https://kubernetes.io/zh/docs/concepts/architecture/#)？api-server、kube-scheduler、kube-controller、etcd、coredns、kubelete、kubeproxy
+
+组件结构图
+
+![](images/k8s-architecture.png)
+
+实验：K8S
+基本操作：[Github](https://github.com/wu-wenxiang/lab-kubernetes/blob/master/doc/kubernetes-best-practices.md#3111-%E5%8D%95%E8%8A%82%E7%82%B9%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2)
+或
+[Gitee](https://gitee.com/wu-wen-xiang/lab-kubernetes/blob/master/doc/kubernetes-best-practices.md#3111-%E5%8D%95%E8%8A%82%E7%82%B9%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2)
+
+实验：部署应用到 K8S
+平台：[Github](https://github.com/99cloud/training-kubernetes/blob/master/doc/class-01-Kubernetes-Administration.md#29-%E5%90%AF%E5%8A%A8%E4%B8%80%E4%B8%AA-pod)
+或
+[Gitee](https://gitee.com/dev-99cloud/training-kubernetes/blob/master/doc/class-01-Kubernetes-Administration.md#29-%E5%90%AF%E5%8A%A8%E4%B8%80%E4%B8%AA-pod)
+
+#### 1.1.5 云原生
+
+什么是云原生？**把业务上云，然后只关注业务本身。**
 
 云基座解决业务无关的问题：
 
+- OpenStack：计算、存储（块存储、文件存储和对象存储）、网络（二层 SDN，三层，LB，VPN，FW，SDNC 和 SDWAN）
 - K8S：算力、自动调度、自愈、快速扩缩容
 - K8S：服务注册、服务发现、配置管理、后台任务管理
 - 中间件：有状态服务，MQ、DB、Cache、对象存储、文件存储等
-- Istio：故障注入、流量治理、灰度发布、熔断
+- 中间件：DevOps
+- Istio（ASM）：故障注入、流量治理、灰度发布、熔断
 
 云原生的 3 原则：
 
@@ -169,66 +235,7 @@ Player，VMWare Fusion 等。半虚拟化基于普通操作系统，比较灵活
      - 启动和停止速度慢
      - 依赖关系耦合紧密
 
-     因此，反之，如果应用恰好没有这三个问题，那么单体就是最好的设计，不需要硬拆微服务做过度设计。
-
-##### 1.2.1.2 K8S
-
-K8S 的操作要记得参考：<https://kubernetes.io/>
-
-[K8S 有哪些组件](https://kubernetes.io/zh/docs/concepts/architecture/#)？api-server、kube-scheduler、kube-controller、etcd、coredns、kubelete、kubeproxy
-
-组件结构图
-
-![](/image/k8s-architecture.png)
-
-实验：[K8S 基本操作](kubernetes-best-practices.md#3111-单节点集群部署)
-
-实验：部署应用到 K8S
-平台：[Github](https://github.com/99cloud/training-kubernetes/blob/master/doc/class-01-Kubernetes-Administration.md#29-%E5%90%AF%E5%8A%A8%E4%B8%80%E4%B8%AA-pod)
-或
-[Gitee](https://gitee.com/dev-99cloud/training-kubernetes/blob/master/doc/class-01-Kubernetes-Administration.md#29-%E5%90%AF%E5%8A%A8%E4%B8%80%E4%B8%AA-pod)
-
-##### 1.1.3.2 容器
-
-容器技术栈
-
-![](/doc/images/k8s-cri-rocket.png)
-
-##### 1.1.3.3 安全容器
-
-弹性容器实例（ECI）
-
-弹性容器实例的功能项包括：
-
-- 同时兼容原生容器和虚拟机的使用体验
-- 比虚拟机轻量的资源分配能力，以方便资源快速申请、弹性
-- 类似虚拟机的使用体验，可登陆，可任意安装组件
-- 有固定 IP 地址，胖容器从创建到删除，IP 地址保持不变
-- 可以通过 SSH 远程登陆系统。
-- 严格的资源隔离，如 CPU、内存等
-
-实现是一般是提供一个 Pod，Pod 中的容器可以是 OCI VM（比如 Kata），或者单纯容器。
-
-哪些云厂商提供 ECI？
-
-- [博云胖容器](https://mp.weixin.qq.com/s?__biz=MzIzNzA5NzM3Ng==&mid=2651860132&idx=1&sn=cb0eac52be444c162fb505ebbdef6c0f&chksm=f329546bc45edd7d4789aa85ae5edb8a9f8d8313dd1ca273946ef019e0997b39665d29e24c8c&scene=21#wechat_redirect)
-- [Kata 和它的朋友们](kubernetes-best-practices.md#24-kata-和它的朋友们)
-- [阿里云 ECI](https://eci.console.aliyun.com/#/eci/cn-shanghai/list)：[从 Docker Hub 拉取镜像创建实例](https://help.aliyun.com/document_detail/119093.html)
-
-##### 1.1.3.4 Kubernetes as a Service（EKS/ACK）
-
-K8S 作为一个整体的资源（类同 VM / 存储 / VPC）对外提供。公有云，私有云已广泛提供
-EKS。比如：[阿里云容器服务 ACK](https://cs.console.aliyun.com/#/k8s/cluster/list)
-
-##### 1.1.3.5 ASM
-
-##### 1.1.3.6 Devops
-
-### 1.1.4 混合云的适用场景
-
-### 1.1.5 块存储、文件存储和对象存储
-
-### 1.1.6 SDN，SDNC 和 SDWAN
+     反之，如果应用恰好没有这三个问题，那么单体就是最好的设计，不需要硬拆微服务做过度设计。
 
 ### 1.2 云平台的建设规划
 
@@ -236,8 +243,16 @@ EKS。比如：[阿里云容器服务 ACK](https://cs.console.aliyun.com/#/k8s/c
 
 #### 1.2.1 企业云的一般需求和技术选型
 
-1. 虚拟化、容器和裸金属的混合调度
-2. 容器云即服务
+##### 1.2.1.1 虚拟化、容器和裸金属的混合调度
+
+##### 1.2.1.2 Kubernetes as a Service（EKS/ACK）
+
+K8S 作为一个整体的资源（类同 VM / 存储 / VPC）对外提供。公有云，私有云已广泛提供
+EKS。比如：[阿里云容器服务 ACK](https://cs.console.aliyun.com/#/k8s/cluster/list)
+
+##### 1.2.1.3 Kubernetes on Kubernetes (KoK)
+
+##### 1.2.1.4 Istio & ASM
 
 #### 1.2.2 企业云架构的注意事项
 
