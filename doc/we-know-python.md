@@ -163,76 +163,79 @@
 
 #### 1.2.4 Python 体系结构
 
-- Python 虚拟机
-  - Python 虚拟机是安装在操作系统上的软件，用来解析和运行符合Python 语法的命令或者脚本
-  - 之前安装 python 就是在安装 Python 虚拟机
-- Python 语法
-  - Python 程序由**模块**组成，模块由**语句**组成，语句由**表达式**组成，表达式建立和处理**对象**
-  - 表达式有返回值，语句没有返回值
-  - Python 语法基于**冒号**和**缩进**，缩进可以选择用 tab 或者空格，但在整个程序中要保持一致
+Python 虚拟机
 
-        ```python
-        '''
-        Check if input-number > 42
-        '''
-        aStr = input("Input: ")
-        # print aStr
-        aInt = int(aStr)
-        if aInt > 42:
-            print("> 42")
-        else:
-            print("<= 42")
-        ```
+- Python 虚拟机是安装在操作系统上的软件，用来解析和运行符合Python 语法的命令或者脚本
+- 之前安装 python 就是在安装 Python 虚拟机
 
-    - 多行注释：`"""…"""` 或者 `'''…'''`，也是 PyDoc 的写法
-    - 标准输入：`input("Prompt string: ")`
-    - 单行注释: `#...`
-    - 强制缩进 / 所见即所得
-    - 没有大括号 / 小括号 / 分号（其实可以有，但会被鄙视）
-    - 标准输出：`print(...)`
+Python 语法
 
-  - python 的分支结构语法（if/elif/else）
+- Python 程序由**模块**组成，模块由**语句**组成，语句由**表达式**组成，表达式建立和处理**对象**
+- 表达式有返回值，语句没有返回值
+- Python 语法基于**冒号**和**缩进**，缩进可以选择用 tab 或者空格，但在整个程序中要保持一致
 
-        ```python
-        if 5 > 3:
-            print("5 > 3")
-        elif 5 > 4:
-            print("5 > 4")
-        else:
-            print("5 < 4")
+  ```python
+  '''
+  Check if input-number > 42
+  '''
+  aStr = input("Input: ")
+  # print aStr
+  aInt = int(aStr)
+  if aInt > 42:
+      print("> 42")
+  else:
+      print("<= 42")
+  ```
 
-        # 三目运算符
-        d = 32 if 15 > 14 else 16
-        ```
+  - 多行注释：`"""…"""` 或者 `'''…'''`，也是 PyDoc 的写法
+  - 标准输入：`input("Prompt string: ")`
+  - 单行注释: `#...`
+  - 强制缩进 / 所见即所得
+  - 没有大括号 / 小括号 / 分号（其实可以有，但会被鄙视）
+  - 标准输出：`print(...)`
 
-  - 比较运算符：`>, >=, <, <=, !=, ==, is`，同类型对象之间的比较有意义，不同类型之间比较无意义。
+- python 的分支结构语法（if/elif/else）
 
-    == 表示值相等，is 表示引用相同
+  ```python
+  if 5 > 3:
+      print("5 > 3")
+  elif 5 > 4:
+      print("5 > 4")
+  else:
+      print("5 < 4")
 
-    支持：4>3>2, 5>4<6>5>3，只要所有相邻两个值关系成立，结果即为 True
+  # 三目运算符
+  d = 32 if 15 > 14 else 16
+  ```
 
-    冷知识（用不到，单纯介绍）：序列的比较是从头开始，依次比较每一个元素；集合的比较是：子集/超集；字典的比较是将 key 排序，然后逐个比较 key 值
+- 比较运算符：`>, >=, <, <=, !=, ==, is`，同类型对象之间的比较有意义，不同类型之间比较无意义。
 
-  - 逻辑运算符：not, and, or，存在短路效应
-  - python 的循环语法
+  == 表示值相等，is 表示引用相同
 
-        ```python
-        # while 循环
-        i = 0
-        while i < 10:
-            print(i)
-            i += 1
-        else:
-            print(i)
+  支持：4>3>2, 5>4<6>5>3，只要所有相邻两个值关系成立，结果即为 True
 
-        # for 循环
-        for i in range(10):
-            print(i)
-        else:
-            print(i)
-        ```
+  冷知识（用不到，单纯介绍）：序列的比较是从头开始，依次比较每一个元素；集合的比较是：子集/超集；字典的比较是将 key 排序，然后逐个比较 key 值
 
-    **注意这里的 else，如果由 break 跳出循环，就不会执行 else block，反之就会执行**
+- 逻辑运算符：not, and, or，存在短路效应
+- python 的循环语法
+
+  ```python
+  # while 循环
+  i = 0
+  while i < 10:
+      print(i)
+      i += 1
+  else:
+      print(i)
+
+  # for 循环
+  for i in range(10):
+      print(i)
+  else:
+      print(i)
+  ```
+
+  **注意这里的 else，如果由 break 跳出循环，就不会执行 else block，反之就会执行**
 
 #### 1.2.5 帮助文档 Pydoc
 
@@ -273,10 +276,10 @@
 
   包括：整数，浮点数，字符串，元组，不可变集合
 
-      ```python
-      aStr = "haha"
-      aStr[2] = "e" # Error!
-      ```
+  ```python
+  aStr = "haha"
+  aStr[2] = "e" # Error!
+  ```
 
   对于不可变对象，通常值相等的在PVM中就只保留一份，所以两个值相等的不可变对象，通常其引用也相同。
 
@@ -284,11 +287,11 @@
 
   列表，集合，字典
 
-      ```python
-      aList = ['h', 'a', 'h', 'a']
-      aList = "e" # OK!
-      aList.sort()
-      ```
+  ```python
+  aList = ['h', 'a', 'h', 'a']
+  aList = "e" # OK!
+  aList.sort()
+  ```
 
 #### 1.3.4 在 PVM 中的存储模型
 
@@ -330,42 +333,42 @@
   - python 3 中 `/` 是小数除法：`10/2 -> 5.0`
 - 取整运算
 
-      ```python
-      截尾取整 int(3.54) -> 3
-      向上取整 math.ceil(3.14) -> 4
-      向下取整 math.floor(3.14) -> 3
-      四舍五入 round(3.14) -> 3, round(3.54) -> 4
-      ```
+  ```python
+  截尾取整 int(3.54) -> 3
+  向上取整 math.ceil(3.14) -> 4
+  向下取整 math.floor(3.14) -> 3
+  四舍五入 round(3.14) -> 3, round(3.54) -> 4
+  ```
 
 - 字符串转换成整数
 
-      ```python
-      按十进制转换
-      int("12") -> 12
+  ```python
+  按十进制转换
+  int("12") -> 12
 
-      按八进制转换
-      int("12", 8) -> 10
+  按八进制转换
+  int("12", 8) -> 10
 
-      按十六进制转换
-      int("12", 16) -> 18
-      ```
+  按十六进制转换
+  int("12", 16) -> 18
+  ```
 
 - 整数转换成字符串
 
-      ```python
-      转换成十进制形式
-      str(12) -> "12"
-      "%d" % 12 -> "12"
+  ```python
+  转换成十进制形式
+  str(12) -> "12"
+  "%d" % 12 -> "12"
 
-      转换成八进制形式
-      oct(12) -> "014"
-      "%o" % 12 -> "14"
+  转换成八进制形式
+  oct(12) -> "014"
+  "%o" % 12 -> "14"
 
-      转换成十六进制形式
-      hex(12) -> "0xc"
-      "%x" % 12 -> "c"
-      "%X" % 12 -> "C"
-      ```
+  转换成十六进制形式
+  hex(12) -> "0xc"
+  "%x" % 12 -> "c"
+  "%X" % 12 -> "C"
+  ```
 
 #### 1.4.2 浮点数对象（float）
 
@@ -375,27 +378,27 @@
   - 浮点数和整数一起运算，返回浮点数：`5.0 / 2`
   - Floor 除法：结果是不大于商的最大整数
 
-        ```python
-        5 // 2 -> 2
-        5 // -2 -> -3
-        ```
+    ```python
+    5 // 2 -> 2
+    5 // -2 -> -3
+    ```
 
 - 数字的常用函数
 
-      ```python
-      int(x)
-      float(x)
-      divmod(x, y)
-      pow(x, y)
-      round(x, n)
-      abs(x)
+  ```python
+  int(x)
+  float(x)
+  divmod(x, y)
+  pow(x, y)
+  round(x, n)
+  abs(x)
 
-      sum(seq)
-      max(seq)
-      min(seq)
+  sum(seq)
+  max(seq)
+  min(seq)
 
-      eval(aStr)
-      ```
+  eval(aStr)
+  ```
 
 > **练习作业**：随机生成两个 10 以内的实数（精确到小数点后两位）并输出到屏幕，要求用户输入它们的和，然后判断用户的输入值，然后输出 True/False。
 
@@ -413,103 +416,103 @@
   - 单引号和双引号效果一样，但是都要成对使用
   - 单双引号可以相互嵌套，以避免使用转义
 
-        ```python
-        print('isn\'t')
-        print("isn't")
-        ```
+    ```python
+    print('isn\'t')
+    print("isn't")
+    ```
 
   - 三个单引号或者双引号可以产生多行字符串
 - 单行内容太长，分行输入
 
-      ```python
-      h1 = "haha \
-                  Ok"
-      h2 = ("haha"
-                  "xixi")
-      ```
+  ```python
+  h1 = "haha \
+        Ok"
+  h2 = ("haha"
+        "xixi")
+  ```
 
 - 转义符：`\', \", \\, \n, \t, \b`
 - 原始字符串（不转义）
 
-      ```python
-      print(r't\nt')
-      print('t\\nt')
-      ```
+  ```python
+  print(r't\nt')
+  print('t\\nt')
+  ```
 
 - 二进制字符串（）
 
-      ```python
-      >>> '测试'.encode()
-      b'\xe6\xb5\x8b\xe8\xaf\x95'
-      >>> '测试'.encode('utf-8')
-      b'\xe6\xb5\x8b\xe8\xaf\x95'
-      >>> '测试'.encode('cp936')
-      b'\xb2\xe2\xca\xd4'
-      >>> b'\xb2\xe2\xca\xd4'.decode('cp936')
-      '测试'
-      ```
+  ```python
+  >>> '测试'.encode()
+  b'\xe6\xb5\x8b\xe8\xaf\x95'
+  >>> '测试'.encode('utf-8')
+  b'\xe6\xb5\x8b\xe8\xaf\x95'
+  >>> '测试'.encode('cp936')
+  b'\xb2\xe2\xca\xd4'
+  >>> b'\xb2\xe2\xca\xd4'.decode('cp936')
+  '测试'
+  ```
 
 - 加法和乘法
 
-      ```python
-      "hello " + "world!"
-      "-" * 20
-      ```
+  ```python
+  "hello " + "world!"
+  "-" * 20
+  ```
 
 - 切片 Slice
 
-      ```python
-      aStr = "hello, world!"
-      print(aStr[0], aStr[-1])
-      print(aStr[2:-1]) # 左闭右开
-      print(aStr[2:], aStr[:2], aStr[None:2])
-      print(aStr[::2], aStr[-1::-1], aStr[::-1])
-      ```
+  ```python
+  aStr = "hello, world!"
+  print(aStr[0], aStr[-1])
+  print(aStr[2:-1]) # 左闭右开
+  print(aStr[2:], aStr[:2], aStr[None:2])
+  print(aStr[::2], aStr[-1::-1], aStr[::-1])
+  ```
 
 - 字符串的常用方法
 
-      ```python
-      replace
-      count
-      find/index
-      capitalize/title
-      isalpha/isdigit/isalnum
-      isspace
-      split
-      join
-      endswith/startswith
-      lower/upper
-      strip/rstrip/lstrip
-      ```
+  ```python
+  replace
+  count
+  find/index
+  capitalize/title
+  isalpha/isdigit/isalnum
+  isspace
+  split
+  join
+  endswith/startswith
+  lower/upper
+  strip/rstrip/lstrip
+  ```
 
 - 字符串常用函数和操作
 
-      ```python
-      len("haha")
+  ```python
+  len("haha")
 
-      chr(70)
-      ord('F')
+  chr(70)
+  ord('F')
 
-      for x in "hello":
-          print(x)
+  for x in "hello":
+      print(x)
 
-      if "he" in "hello":
-          print(True)
-      ```
+  if "he" in "hello":
+      print(True)
+  ```
 
 - 格式化字符串
 
-      ```python
-      "%d %s" % (5, "world")
-      "%06.2f" % 3.1415 # 这里的 0 还可以是 +, -, 空格
-      # 格式化输出的种类 %s, %r, %c, %d, %i, %u, %o, %x, %X, %e, %E, %f, %g, %G, %%
+  ```python
+  "%d %s" % (5, "world")
+  "%06.2f" % 3.1415 # 这里的 0 还可以是 +, -, 空格
+  # 格式化输出的种类 %s, %r, %c, %d, %i, %u, %o, %x, %X, %e, %E, %f, %g, %G, %%
 
-      '{1},{0},{1}'.format('kzc',18)
-      '{a},{b}'.format(a=18,b='kzc')
+  '{1},{0},{1}'.format('kzc',18)
+  '{a},{b}'.format(a=18,b='kzc')
 
-      a, b, c = 1, 2, 3
-      f'{a} + {b} = {c}'
-      ```
+  a, b, c = 1, 2, 3
+  f'{a} + {b} = {c}'
+  ```
 
 > **练习作业**：提示用户输入一个字符串，判断该字符串是否回文（回文是指正读反读都一样，比如 accbcca / 123321 是回文）。
 
@@ -528,12 +531,12 @@
 
 - 元组的初始化
 
-      ```python
-      t = (0, "Ni", 1, 0)
-      t = (0,) # 单元素元组的末尾要加上逗号，以区别括号运算符，这里若没有逗号就等于0
-      t = (0, "Ni", 1, (4, 5,)) # 元组可以嵌套另一个元组或者其它任意对象
-      t = tuple("hello") # 从其它可迭代对象生成元组
-      ```
+  ```python
+  t = (0, "Ni", 1, 0)
+  t = (0,) # 单元素元组的末尾要加上逗号，以区别括号运算符，这里若没有逗号就等于0
+  t = (0, "Ni", 1, (4, 5,)) # 元组可以嵌套另一个元组或者其它任意对象
+  t = tuple("hello") # 从其它可迭代对象生成元组
+  ```
 
   元组赋值：`a,b,c = 1,2,3`
 
@@ -542,91 +545,91 @@
   - 元组是不可变对象
 - 元组赋值运算
 
-      ```python
-      >>> a, b = 4, 5
-      >>> (a, b) = 4, 5
-      >>> a, b = (4, 5)
-      >>> (a, b) = (4, 5)
-      >>> (a, b) = (b, a+b)
-      >>> a, b = b, a+b
-      >>> a, b = divmod(5, 3)
-      ```
+  ```python
+  >>> a, b = 4, 5
+  >>> (a, b) = 4, 5
+  >>> a, b = (4, 5)
+  >>> (a, b) = (4, 5)
+  >>> (a, b) = (b, a+b)
+  >>> a, b = b, a+b
+  >>> a, b = divmod(5, 3)
+  ```
 
 - 序列的通用表达式和函数
 
-      ```python
-      if x in s / if x not in s
+  ```python
+  if x in s / if x not in s
 
-      if "ha" in "haha":
-          print(True)
+  if "ha" in "haha":
+      print(True)
 
-      for x in s:
-          print(x)
+  for x in s:
+      print(x)
 
-      s + t, s += t
-      "hello" + " world!"
-      对可变序列对象，s+=t会改变s对象本身
+  s + t, s += t
+  "hello" + " world!"
+  对可变序列对象，s+=t会改变s对象本身
 
-      s * n, n * s
-      "hello" * 5
+  s * n, n * s
+  "hello" * 5
 
-      s[i], s[i:j], s[i:j:k]
-      len(s), min(s), max(s)
+  s[i], s[i:j], s[i:j:k]
+  len(s), min(s), max(s)
 
-      sorted()
-      sorted([1, 4, 3, 2]) # 排序后生成一个新的列表并返回
-      ```
+  sorted()
+  sorted([1, 4, 3, 2]) # 排序后生成一个新的列表并返回
+  ```
 
 #### 1.4.5 列表（list）
 
 - 列表的初始化
 
-      ```python
-      t = [0, "Ni", 1, 3]
-      t = [0, "Ni", 1, [4, 5]] # 列表可以嵌套另一个列表或者其它任意对象
-      t = list("haha") # 从其它可迭代对象生成列表
-      t = list(range(3)) # 生成数字列表：[0, 1, 2]
-      ```
+  ```python
+  t = [0, "Ni", 1, 3]
+  t = [0, "Ni", 1, [4, 5]] # 列表可以嵌套另一个列表或者其它任意对象
+  t = list("haha") # 从其它可迭代对象生成列表
+  t = list(range(3)) # 生成数字列表：[0, 1, 2]
+  ```
 
 - 列表是可变的引用序列对象
   - 列表是序列，序列元素是引用（临时变量）
   - 列表是可变对象
 - 列表常用方法
 
-      ```python
-      # append / extend
-      aList = [1, 3, 2, 4, 7, 6]
-      aList.append([4, 5]) # 不生成新的列表对象，而是改变原对象本身
-      aList.extend([4, 5])
+  ```python
+  # append / extend
+  aList = [1, 3, 2, 4, 7, 6]
+  aList.append([4, 5]) # 不生成新的列表对象，而是改变原对象本身
+  aList.extend([4, 5])
 
-      # sort
-      aList.sort()
+  # sort
+  aList.sort()
 
-      # insert
-      aList.insert(1, 4)
+  # insert
+  aList.insert(1, 4)
 
-      # reverse
-      aList.reverse()
+  # reverse
+  aList.reverse()
 
-      # pop / remove
-      aList.pop() # 删除并返回最后一个元素
-      aList.remove(1) # 删除指定的元素，没有返回值
-      ```
+  # pop / remove
+  aList.pop() # 删除并返回最后一个元素
+  aList.remove(1) # 删除指定的元素，没有返回值
+  ```
 
 - 列表常用运算
 
-      ```python
-      # del L2[i:j]
-      del aList[2]
-      del aList[0: 1] # 删除变量和映射关系，而非删除对象本身
+  ```python
+  # del L2[i:j]
+  del aList[2]
+  del aList[0: 1] # 删除变量和映射关系，而非删除对象本身
 
-      # L2[k] = N / L2[i:j] = L3
-      aList[2] = 5 # k不可以越界访问
-      aList[1:2] = [4, 5, 6] # 等号左边的索引仍然代表一个左闭右开的区间，等号右边的列表表示填入的内容。
+  # L2[k] = N / L2[i:j] = L3
+  aList[2] = 5 # k不可以越界访问
+  aList[1:2] = [4, 5, 6] # 等号左边的索引仍然代表一个左闭右开的区间，等号右边的列表表示填入的内容。
 
-      zip()将多个列表合成一个元组对列表
-      list(zip([1, 2, 3], ["apple","pear","banana"]))
-      ```
+  zip()将多个列表合成一个元组对列表
+  list(zip([1, 2, 3], ["apple","pear","banana"]))
+  ```
 
 - 列表解析
 
@@ -638,11 +641,11 @@
 
   列表解析举例
 
-      ```python
-      [i**2 for i in range(5)]
-      [str(i) for i in range(5) if i > 3]
-      [ord(i) for i in "hello"]
-      ```
+  ```python
+  [i**2 for i in range(5)]
+  [str(i) for i in range(5) if i > 3]
+  [ord(i) for i in "hello"]
+  ```
 
 > **练习作业**：提示用户输入若干（>3）个评分，去掉一个最高分，一个最低分，求平均分，保留2位小数。
 
@@ -695,9 +698,9 @@
 
 - 集合的初始化
 
-      ```python
-      x = set("hello") # 从其它可迭代对象生成集合
-      ```
+  ```python
+  x = set("hello") # 从其它可迭代对象生成集合
+  ```
 
 - 集合表示一些元素的无序集合
 
@@ -707,38 +710,38 @@
 
   Python 内建的不可变对象都是 hashable 的，元组是 hashable 的，列表不是
 
-      ```python
-      >>> set([range(5), range(3)])
-      Traceback (most recent call last):
-      File "<stdin>", line 1, in <module>
-      TypeError: unhashable type: 'list'
-      ```
+  ```python
+  >>> set([range(5), range(3)])
+  Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  TypeError: unhashable type: 'list'
+  ```
 
 - 集合的常用运算
 
-      ```python
-      x - y # 差集
-      x & y # 交集
-      x | y # 并集
-      x ^ y # 外集
-      x < y # 真子集
-      x <= y # 子集
-      x >= y # 超集
-      ```
+  ```python
+  x - y # 差集
+  x & y # 交集
+  x | y # 并集
+  x ^ y # 外集
+  x < y # 真子集
+  x <= y # 子集
+  x >= y # 超集
+  ```
 
 - 集合的常用方法
 
-      ```python
-      aSet.update(bSet)
-      aSet.intersection_update(bSet)
-      aSet.difference_update(bSet)
-      aSet.symmetric_difference_update(bSet)
-      aSet.add(x)
-      aSet.remove(x)
-      aSet.discard(x) # remove if exist
-      aSet.pop()
-      aSet.clear()
-      ```
+  ```python
+  aSet.update(bSet)
+  aSet.intersection_update(bSet)
+  aSet.difference_update(bSet)
+  aSet.symmetric_difference_update(bSet)
+  aSet.add(x)
+  aSet.remove(x)
+  aSet.discard(x) # remove if exist
+  aSet.pop()
+  aSet.clear()
+  ```
 
 - 不可变的集合（frozenset），不可变对象
 
@@ -752,52 +755,52 @@
 
 - 字典的初始化
 
-      ```python
-      aDict = {'apple': 1.5, 'pear': 2.3}
-      aDict = dict(apple = 1.5, pear = 2.3)
-      aDict = dict([("apple",1.5), ("pear",2.3)])
-      ```
+  ```python
+  aDict = {'apple': 1.5, 'pear': 2.3}
+  aDict = dict(apple = 1.5, pear = 2.3)
+  aDict = dict([("apple",1.5), ("pear",2.3)])
+  ```
 
 - 键只能是 hashable 的对象，不能重复，通常用字符串或者数字
 - 值可以是任意对象，可以重复
 - 字典的常用方法
 
-      ```python
-      aDict.items()
-      aDict.keys()
-      aDict.values()
-      aDict.copy()
-      aDict.get(k[,x])
-      aDict.setdefault(k[,x])
-      aDict.pop(k[,x])
-      aDict.clear()
-      ```
+  ```python
+  aDict.items()
+  aDict.keys()
+  aDict.values()
+  aDict.copy()
+  aDict.get(k[,x])
+  aDict.setdefault(k[,x])
+  aDict.pop(k[,x])
+  aDict.clear()
+  ```
 
 - 字典的常见运算
   - 访问字典中的元素
 
-        ```python
-        aDict = {"apple":1.5, "banana":2.4}
-        print(aDict["apple"])
-        print(aDict["pear"]) # 访问不存在的键会报错
-        ```
+    ```python
+    aDict = {"apple":1.5, "banana":2.4}
+    print(aDict["apple"])
+    print(aDict["pear"]) # 访问不存在的键会报错
+    ```
 
   - 添加一个元素
 
-        ```python
-        aDict["pear"] = 3.2
-        ```
+    ```python
+    aDict["pear"] = 3.2
+    ```
 
   - pprint.pprint，用于 Debug 时更清晰地 Dump 复杂对象
   - 基于字典的格式化
 
-        ```python
-        "%(n)d %(x)s %(n)d" % {"n":1, "x": "spam"}
-        '{a},{b}'.format(a=18,b='kzc')
+    ```python
+    "%(n)d %(x)s %(n)d" % {"n":1, "x": "spam"}
+    '{a},{b}'.format(a=18,b='kzc')
 
-        aDict = {"n":1, "x": "spam"}
-        f'{aDict["n"]} {aDict["x"]}'  # '1 spam'
-        ```
+    aDict = {"n":1, "x": "spam"}
+    f'{aDict["n"]} {aDict["x"]}'  # '1 spam'
+    ```
 
 > **练习作业**：提示用户输入一行字符串，统计并输出其中每个字符出现的次数。
 
@@ -815,22 +818,22 @@
 
 - 散列的通用运算
 
-      ```python
-      # if x in hash / if x not in hash
-      if "h" in set("ha"):
-          print(True)
-      if "h" in aDict:
-          print(True)   # 判断 aDict 中是否有 "h" 这个键
+  ```python
+  # if x in hash / if x not in hash
+  if "h" in set("ha"):
+      print(True)
+  if "h" in aDict:
+      print(True)   # 判断 aDict 中是否有 "h" 这个键
 
-      for x in h:
-          print(x)
+  for x in h:
+      print(x)
 
-      len(s), min(s), max(s)
+  len(s), min(s), max(s)
 
-      sorted # 对散列元素排序后生成一个列表
-      sorted(set(1, 4, 5))
-      sorted(aDict)
-      ```
+  sorted # 对散列元素排序后生成一个列表
+  sorted(set(1, 4, 5))
+  sorted(aDict)
+  ```
 
 ## 2. 进阶
 
@@ -853,18 +856,18 @@
   - 将这个函数对象和函数名变量建立映射关系
   - 多次定义同名函数，则后定义的会简单覆盖前面的
 
-        ```python
-        def add(a, b=3):
-            """
-            add function
-            >>> add(4, 5) 9
-            """
-            return a + b
+    ```python
+    def add(a, b=3):
+        """
+        add function
+        >>> add(4, 5) 9
+        """
+        return a + b
 
-        print(add.__name__)
-        print(add.__doc__)
-        print(add(4, 5), add(7))
-        ```
+    print(add.__name__)
+    print(add.__doc__)
+    print(add(4, 5), add(7))
+    ```
 
 - 函数内的变量访问规则
   - LEGB：Local/Enclosed/Global/Built-in
@@ -898,17 +901,17 @@
     - 非默认参数要放在默认参数前面
     - 定长参数列表要放在变长参数前面
 
-          ```python
-          def echo(arg, *args):
-              print(arg, args)
-          ```
+      ```python
+      def echo(arg, *args):
+          print(arg, args)
+      ```
 
     - 序列变长参数要放在字典变长参数前面
 
-          ```python
-          def echo(arg, *args, **kwargs):
-              print(arg, args, kwargs)
-          ```
+      ```python
+      def echo(arg, *args, **kwargs):
+          print(arg, args, kwargs)
+      ```
 
   - 默认参数
 
@@ -949,12 +952,12 @@
 
 - Lambda 函数
 
-      ```python
-      fun = lambda x: x**2
+  ```python
+  fun = lambda x: x**2
 
-      fun(3)
-      (lambda x: x ** 2)(3)
-      ```
+  fun(3)
+  (lambda x: x ** 2)(3)
+  ```
 
   lambda 的使用场合
 
@@ -1005,26 +1008,26 @@
 
 - reduce
 
-      ```python
-      from functools import reduce
-      reduce(fun, iters[, initial])
-      ```
+  ```python
+  from functools import reduce
+  reduce(fun, iters[, initial])
+  ```
 
   reduce函数的本质
 
   - 第一个参数是函数对象，第二个参数是一个可迭代对象，第三个可选参数是初始值
   - 无初始值
 
-        ```python
-        reduce(lambda x,y: x+y, [1,2,3,4,5]) -> ((((1+2)+3)+4)+5)
-        reduce(lambda x,y: x+y, []) -> TypeError
-        ```
+    ```python
+    reduce(lambda x,y: x+y, [1,2,3,4,5]) -> ((((1+2)+3)+4)+5)
+    reduce(lambda x,y: x+y, []) -> TypeError
+    ```
   - 有初始值
 
-        ```python
-        reduce(lambda x,y: x+y, [1,2,3,4,5], 10) -> (((((10+1)+2)+3)+4)+5)
-        reduce(lambda x,y: x+y, [], 10) -> 10
-        ```
+    ```python
+    reduce(lambda x,y: x+y, [1,2,3,4,5], 10) -> (((((10+1)+2)+3)+4)+5)
+    reduce(lambda x,y: x+y, [], 10) -> 10
+    ```
 
   > **练习作业**：实现一个函数sumAny，能满足如下运算：(参数个数是两个或多个，参数彼此之间能做+运算)。
   > ```python
@@ -1043,69 +1046,69 @@
 
     `sorted(['10','apple','e'], key=len)`
 
-        ```python
-        fruits = {
-            'apple': 5.8,
-            'pear': 4.5,
-            'orange': 5.7,
-            'banana': 3.9,
-            'mango': 8.9,
-            'watermelon': 12.7,
-            'cherry': 8.9,
-        }
+    ```python
+    fruits = {
+        'apple': 5.8,
+        'pear': 4.5,
+        'orange': 5.7,
+        'banana': 3.9,
+        'mango': 8.9,
+        'watermelon': 12.7,
+        'cherry': 8.9,
+    }
 
-        for k in sorted(fruits, key=lambda x:fruits[x]):
-            print(f'{k}\t=>\t{fruits[k]}')
-        ```
+    for k in sorted(fruits, key=lambda x:fruits[x]):
+        print(f'{k}\t=>\t{fruits[k]}')
+    ```
 
-        ```
-        tests = ['apple', 'pear', 'banana', 'mango', 'test', 'temp', 'tuple']
+    ```
+    tests = ['apple', 'pear', 'banana', 'mango', 'test', 'temp', 'tuple']
 
-        def mySort(aList, key=lambda x: tests[x]):
-            for i in range(len(aList)):
-                for j in range(i + 1, len(aList)):
-                    if key(aList[i]) > key(aList[j]):
-                        aList[i], aList[j] = aList[j], aList[i]
-            return aList
+    def mySort(aList, key=lambda x: tests[x]):
+        for i in range(len(aList)):
+        for j in range(i + 1, len(aList)):
+            if key(aList[i]) > key(aList[j]):
+                aList[i], aList[j] = aList[j], aList[i]
+        return aList
 
 
-        print(mySort([1, 0, 2, 3, 6, 5, 4]))
-        ```
+    print(mySort([1, 0, 2, 3, 6, 5, 4]))
+    ```
 
   - min/max 等
   - 偏函数：为函数对象设置新的默认参数（返回值是函数）
 
-        ```python
-        def int2(x, base=2):
-            return int(x, base)
+    ```python
+    def int2(x, base=2):
+        return int(x, base)
 
-        >>> int2('1000000')
-        64
-        >>> import functools
-        >>> int2 = functools.partial(int, base=2)
-        >>> int2('1010101')
-        85
-        ```
+    >>> int2('1000000')
+    64
+    >>> import functools
+    >>> int2 = functools.partial(int, base=2)
+    >>> int2('1010101')
+    85
+    ```
 
-        ```python
-        def partial(func, **defaults):
-            def newFun(*args, **kwargs):
-                defaults.update(kwargs)
-                return func(*args, **defaults)
-            return newFun
+    ```python
+    def partial(func, **defaults):
+        def newFun(*args, **kwargs):
+            defaults.update(kwargs)
+            return func(*args, **defaults)
+        return newFun
 
-        int2 = partial(int, base=2)
-        print(int2('1111100000'))
+    int2 = partial(int, base=2)
+    print(int2('1111100000'))
 
-        >>> aDict = {'test1': 1, 'test2': 2}
-        >>> bDict = {'test2': 3, 'test4': 4}
-        >>>
-        >>> aDict.update(bDict)
-        >>> aDict
-        {'test1': 1, 'test2': 3, 'test4': 4}
-        >>> {**aDict, **bDict}
-        {'test1': 1, 'test2': 3, 'test4': 4}
-        ```
+    >>> aDict = {'test1': 1, 'test2': 2}
+    >>> bDict = {'test2': 3, 'test4': 4}
+    >>>
+    >>> aDict.update(bDict)
+    >>> aDict
+    {'test1': 1, 'test2': 3, 'test4': 4}
+    >>> {**aDict, **bDict}
+    {'test1': 1, 'test2': 3, 'test4': 4}
+    ```
 
 ### 2.2 类和实例
 
@@ -1168,13 +1171,13 @@ print(aObj.newVar, AClass.newVar)
 
   以类对象为模版，生成实例对象的过程
 
-      ```python
-      str(object='') -> string
-      >>> str()
-      ''
-      >>> str(42)
-      '42'
-      ```
+  ```python
+  str(object='') -> string
+  >>> str()
+  ''
+  >>> str(42)
+  '42'
+  ```
 
 - 实例对象的属性
   - 类信息: `__class__`
@@ -1215,10 +1218,10 @@ print(aObj.newVar, AClass.newVar)
 
   Hook 方法通常不会被直接 call 到，而是被绑定在其它方法或者运算符上
 
-      ```python
-      3+5 -> (3).__add__(5)
-      str(3) -> (3).__str__()
-      ```
+  ```python
+  3+5 -> (3).__add__(5)
+  str(3) -> (3).__str__()
+  ```
 
 - 运算符重载
 
@@ -1226,57 +1229,57 @@ print(aObj.newVar, AClass.newVar)
 
   - 初始化方法: `__init__`
 
-        ```python
-        class Test(object):
-            def __init__(self, param):
-                self.param = param
-            def testMethod(self):
-                print(self.param)
+    ```python
+    class Test(object):
+        def __init__(self, param):
+            self.param = param
+        def testMethod(self):
+            print(self.param)
 
-        a = Test("haha")
-        a.testMethod()
-        ```
+    a = Test("haha")
+    a.testMethod()
+    ```
 
   - 字符串方法：`__str__` 和 `__repr__`
 
-        ```python
-        class Test(object):
-            def __str__(self):
-                return "str"
-            def __repr__(self):
-                return "repr"
+    ```python
+    class Test(object):
+        def __str__(self):
+            return "str"
+        def __repr__(self):
+            return "repr"
 
-        a = Test()
-        print(a, str(a), repr(a))
-        ```
+    a = Test()
+    print(a, str(a), repr(a))
+    ```
 
     `str()` 和 `print` 在找不到 `__str__` 方法会去找 `__repr__`，`repr()` 则不会找 `__str__`，所以应该优先实现 `__repr__`
     方法。
 
   - 点号运算符（访问属性）：`__getattr__`
 
-        ```python
-        class Test(object):
-            def __init__(self, param):
-                self.param = param
-            def __getattr__(self, param):
-                print(param + "not found!")
+    ```python
+    class Test(object):
+        def __init__(self, param):
+            self.param = param
+        def __getattr__(self, param):
+            print(param + "not found!")
 
-        a = Test("haha")
-        print(a.param)
-        a.dddd
-        ```
+    a = Test("haha")
+    print(a.param)
+    a.dddd
+    ```
 
   - 括号运算符（函数调用）：`__call__`
 
-        ```python
-        class A(object):
-            def __call__(self):
-                return 42
+    ```python
+    class A(object):
+        def __call__(self):
+            return 42
 
-        a = A()
-        print(a())
-        ```
+    a = A()
+    print(a())
+    ```
 
     与函数相比，实例对象有什么优势？
 
@@ -1285,32 +1288,32 @@ print(aObj.newVar, AClass.newVar)
 
     “闭包”和类
 
-        ```python
-        def addN(n):
-            def add(x):
-                return x+n
-            return add
+    ```python
+    def addN(n):
+        def add(x):
+            return x+n
+        return add
 
-        class addN(object):
-            def __init__(self, n):
-                self.n = n
-            def __call__(self, x):
-                return x+self.n
+    class addN(object):
+        def __init__(self, n):
+            self.n = n
+        def __call__(self, x):
+            return x+self.n
 
-        add3, add4 = addN(3), addN(4)
-        print(add3(42), add4(42))
-        ```
+    add3, add4 = addN(3), addN(4)
+    print(add3(42), add4(42))
+    ```
 
   - 其它运算符重载
 
-        ```python
-        __new__
-        __cmp__
-        __index__
-        __lt__, __le__, __gt__, __ge__, __eq__, __ne__
-        __add__, __sub__, __mul__, __div__
-        __del__
-        ```
+    ```python
+    __new__
+    __cmp__
+    __index__
+    __lt__, __le__, __gt__, __ge__, __eq__, __ne__
+    __add__, __sub__, __mul__, __div__
+    __del__
+    ```
 
 - 动态属性
   - 为类对象动态绑定属性，影响所有的实例
@@ -1318,14 +1321,14 @@ print(aObj.newVar, AClass.newVar)
 
   属性绑定: `__slot__`
 
-      ```python
-      class Student(object):
-          __slots__ = ('name', 'age')
-      s = Student()
-      s.name = 'Michael'
-      s.age = 25
-      s.score = 99 # AttributeError
-      ```
+  ```python
+  class Student(object):
+      __slots__ = ('name', 'age')
+  s = Student()
+  s.name = 'Michael'
+  s.age = 25
+  s.score = 99 # AttributeError
+  ```
 
   slots 定义的属性仅对当前类起作用，对继承的子类是不起作用的，除非在子类中也定义 slots，这样子类允许定义的属性就是自身的 `__slots__` 加上父类的 `__slots__`。
 
@@ -1336,13 +1339,13 @@ print(aObj.newVar, AClass.newVar)
   - 分层抽象，结构明确
 - 继承树
 
-      ```
-      child
-                  /    \
-          father_1    father_2
-          /       \    /    \
-      ff_1    ff_2  gg_1   gg_2
-      ```
+  ```
+  child
+              /    \
+      father_1    father_2
+      /       \    /    \
+  ff_1    ff_2  gg_1   gg_2
+  ```
 
 - 多继承时的属性查找顺序
   - 子类中属性或方法的查询顺序：由上而下，从左到右。
@@ -1352,29 +1355,29 @@ print(aObj.newVar, AClass.newVar)
 
   isinstance 用于判断一个对象的类型
 
-      ```python
-      >>> isinstance(1, int)
-      True
-      >>> isinstance(1, (int, str))
-      True
-      ```
+  ```python
+  >>> isinstance(1, int)
+  True
+  >>> isinstance(1, (int, str))
+  True
+  ```
 
   super
 
-      ```python
-      # 用于在新式类中调用父类方法
-      # 实际不止是在调用父类方法那么简单
+  ```python
+  # 用于在新式类中调用父类方法
+  # 实际不止是在调用父类方法那么简单
 
-      class AClass(object):
-          def __init__(self):
-              print("Aclass")
+  class AClass(object):
+      def __init__(self):
+          print("Aclass")
 
-      class BClass(AClass):
-          def __init__(self):
-              super().__init__()
-              print("BClass")
-      bVar = BClass()
-      ```
+  class BClass(AClass):
+      def __init__(self):
+          super().__init__()
+          print("BClass")
+  bVar = BClass()
+  ```
 
 - [继承优于组合的例子](python-exec-public.py#L1046-1066)
 - [组合优于继承的例子](python-exec-public.py#L1068-1092)
@@ -1392,134 +1395,134 @@ print(aObj.newVar, AClass.newVar)
   - 模式能匹配到字符串的子串时，Search 返回 True，否则返回 False
   - 模式能匹配到字符串的全部时，Match 返回 True，否则返回 False
 
-        ```python
-        import re
+    ```python
+    import re
 
-        reCmp = re.compile("\d{3,5}")
-        if reCmp.search("http404"):
-            print("Match!")
-        else:
-            print("Non-Match!")
+    reCmp = re.compile("\d{3,5}")
+    if reCmp.search("http404"):
+        print("Match!")
+    else:
+        print("Non-Match!")
 
-        if reCmp.match("http404"):
-            print("Match!")
-        else:
-            print("Non-Match!")
-        ```
+    if reCmp.match("http404"):
+        print("Match!")
+    else:
+        print("Non-Match!")
+    ```
 
 - 正则表达式规则
 
-      ```
-      . 换行以外的任意字符
-      + 前面一个元素出现一次或多次
-      * 前面一个元素出现零次或多次
-      {x, y} 前面一个元素出现[x, y]次之间
-      [] 选择框
-      [a-z0-9_+]
-      [^A-Z]
-      ^ 开头
-      $ 结尾
-      ? 前面一个元素出现零次或一次
-      () 组合框
-      (ab)+
-      | 或
-      A|B
-      \ 转义
-      \\, \w, \s, \d, \b, \W, \S, \D, \B
-      ```
+  ```
+  . 换行以外的任意字符
+  + 前面一个元素出现一次或多次
+  * 前面一个元素出现零次或多次
+  {x, y} 前面一个元素出现[x, y]次之间
+  [] 选择框
+  [a-z0-9_+]
+  [^A-Z]
+  ^ 开头
+  $ 结尾
+  ? 前面一个元素出现零次或一次
+  () 组合框
+  (ab)+
+  | 或
+  A|B
+  \ 转义
+  \\, \w, \s, \d, \b, \W, \S, \D, \B
+  ```
 
-      ```
-      I  IGNORECASE
-      Perform case-insensitive matching.
+  ```
+  I  IGNORECASE
+  Perform case-insensitive matching.
 
-      L  LOCALE
-      Make \w, \W, \b, \B, dependent on the current locale.
+  L  LOCALE
+  Make \w, \W, \b, \B, dependent on the current locale.
 
-      M  MULTILINE
-      "^" matches the beginning of lines (after a newline) as well as the string. "$" matches the end of lines (before a newline) as well as the end of the string.
+  M  MULTILINE
+  "^" matches the beginning of lines (after a newline) as well as the string. "$" matches the end of lines (before a newline) as well as the end of the string.
 
-      S  DOTALL
-      "." matches any character at all, including the newline.
+  S  DOTALL
+  "." matches any character at all, including the newline.
 
-      U  UNICODE
-      Make \w, \W, \b, \B, dependent on the Unicode locale.
-      ```
+  U  UNICODE
+  Make \w, \W, \b, \B, dependent on the Unicode locale.
+  ```
 
 - 贪心和非贪心匹配
 
-      ```python
-      *?, +?, ??, {m,n}?
-      >>> reCmp = re.compile("(.+?)(.+)")
-      >>> reObj = reCmp.search("Hello")
-      >>> reObj.groups()
-      ('H', 'ello')
-      >>> reCmp = re.compile("(.+)(.+)")
-      >>> reObj = reCmp.search("Hello")
-      >>> reObj.groups()
-      ('Hell', 'o')
-      ```
+  ```python
+  *?, +?, ??, {m,n}?
+  >>> reCmp = re.compile("(.+?)(.+)")
+  >>> reObj = reCmp.search("Hello")
+  >>> reObj.groups()
+  ('H', 'ello')
+  >>> reCmp = re.compile("(.+)(.+)")
+  >>> reObj = reCmp.search("Hello")
+  >>> reObj.groups()
+  ('Hell', 'o')
+  ```
 
 - 标记匹配
 
-      ```python
-      >>> reCmp = re.compile(r"(\d)(\s+)\1")
-      >>> reCmp.search("2 2")
-      <_sre.SRE_Match object at 0x10fe6a690>
-      ```
+  ```python
+  >>> reCmp = re.compile(r"(\d)(\s+)\1")
+  >>> reCmp.search("2 2")
+  <_sre.SRE_Match object at 0x10fe6a690>
+  ```
 
 - 取得匹配值
 
-      ```python
-      line = "Code: A127Z"
-      match= re.search('(\w)((\d{3})(\w))', line)
-      items = match.groups()
-      # 按左括号的先后顺序排列
-      ```
+  ```python
+  line = "Code: A127Z"
+  match= re.search('(\w)((\d{3})(\w))', line)
+  items = match.groups()
+  # 按左括号的先后顺序排列
+  ```
 
 - 匹配替换
 
-      ```python
-      line = "This is fun"
-      print(re.sub("i\w", "was", line))
-      line = "dig, dag, dog"
-      print(re.sub("d.g", "cat", line, 2))
-      ```
+  ```python
+  line = "This is fun"
+  print(re.sub("i\w", "was", line))
+  line = "dig, dag, dog"
+  print(re.sub("d.g", "cat", line, 2))
+  ```
 
 - 查找所有匹配（Findall/Finditer）
 
-      ```python
-      line = "Code: A127Z Code: B999Y"
-      items=re.findall('(\w)(\d{3})(\w)', line)
-      items=re.finditer('(\w)(\d{3})(\w)', line)
-      ```
+  ```python
+  line = "Code: A127Z Code: B999Y"
+  items=re.findall('(\w)(\d{3})(\w)', line)
+  items=re.finditer('(\w)(\d{3})(\w)', line)
+  ```
 
 - 匹配切割
 
-      ```python
-      line = "Code: A127Z Code: B999Y"
-      items=re.split('\w\d{3}\w', line)
-      ```
+  ```python
+  line = "Code: A127Z Code: B999Y"
+  items=re.split('\w\d{3}\w', line)
+  ```
 
 - 案例：IPv4 的匹配
 
-      ```python
-      import re
+  ```python
+  import re
 
-      def isIPv4(ipv4Str):
-          rc = re.compile(r'^\d{1,3}(\.\d{1,3}){3}$')
-          if not rc.search(ipv4Str):
-              return False
-          aList = [int(i) for i in ipv4Str.split('.')]
-          return all(0 <= i < 256 for i in aList)
+  def isIPv4(ipv4Str):
+      rc = re.compile(r'^\d{1,3}(\.\d{1,3}){3}$')
+      if not rc.search(ipv4Str):
+          return False
+      aList = [int(i) for i in ipv4Str.split('.')]
+      return all(0 <= i < 256 for i in aList)
 
 
-      assert isIPv4('192.168.100.2')
-      assert isIPv4('10.192.255.2')
-      assert not isIPv4('10.192.256.2')
-      assert not isIPv4('8.8.8.a')
-      assert not isIPv4('8.8.8.')
-      assert not isIPv4('8.8.8.8.')
-      ```
+  assert isIPv4('192.168.100.2')
+  assert isIPv4('10.192.255.2')
+  assert not isIPv4('10.192.256.2')
+  assert not isIPv4('8.8.8.a')
+  assert not isIPv4('8.8.8.')
+  assert not isIPv4('8.8.8.8.')
+  ```
 
 > 作业：输入一个字符串，带空格，比如 "hello 2000000 21 34.5 567.8 book test dddd dffdfd 444"，希望输出大于 444 的数字列表
 
@@ -1540,44 +1543,44 @@ print(aObj.newVar, AClass.newVar)
 
   Python 中异常处理沿用了 try/catch/finally 的大致结构，并添加了 else，else 中的语句会在没有遇到任何异常时触发
 
-      ```python
-      a = input("input: ")
-      try:
-          print('try...')
-          r = 10 / int(a)
-          print('result:', r)
-      except ValueError as e:
-          print('ValueError:', e)
-      except ZeroDivisionError as e:
-          print('ZeroDivisionError:', e)
-      else:
-          print('no error!')
-      finally:
-          print('finally...')
-      print('END')
-      ```
+  ```python
+  a = input("input: ")
+  try:
+      print('try...')
+      r = 10 / int(a)
+      print('result:', r)
+  except ValueError as e:
+      print('ValueError:', e)
+  except ZeroDivisionError as e:
+      print('ZeroDivisionError:', e)
+  else:
+      print('no error!')
+  finally:
+      print('finally...')
+  print('END')
+  ```
 
   except 只会捕捉最先遇到的异常。子类异常如果放在父类后面会永远匹配不到。
 
 - 异常执行逻辑
   - try 中遇到异常
 
-        ```
-        最先匹配到的 except 中遇到异常之前的部分
-        finally 中遇到异常前的部分
-        finally 中抛出异常
-        如果 finally 中没有抛出异常，则抛出 except 中的异常
-        ```
+    ```
+    最先匹配到的 except 中遇到异常之前的部分
+    finally 中遇到异常前的部分
+    finally 中抛出异常
+    如果 finally 中没有抛出异常，则抛出 except 中的异常
+    ```
 
   - try 中未遇到异常
 
-        ```
-        try 中 return 前的部分
-        else 中遇到异常前的部分，如果有 return，则 else 中的语句不会跑到
-        finally 中遇到异常前的部分
-        finally 中抛出异常
-        如果 finally 里没有抛出异常，并且 try 中没有 return，else中有异常，则抛出else中的异常
-        ```
+    ```
+    try 中 return 前的部分
+    else 中遇到异常前的部分，如果有 return，则 else 中的语句不会跑到
+    finally 中遇到异常前的部分
+    finally 中抛出异常
+    如果 finally 里没有抛出异常，并且 try 中没有 return，else中有异常，则抛出else中的异常
+    ```
 
 - 异常的产生
   - 函数或者运算符抛出
@@ -1586,37 +1589,37 @@ print(aObj.newVar, AClass.newVar)
   - 主动抛出新异常
     - `raise e` #异常对象
 
-      用于需要掩盖原异常的场合（不希望暴露底层报错）
+  用于需要掩盖原异常的场合（不希望暴露底层报错）
 
-      用于快速退出正常处理逻辑，比如 `HttpResponseError`
+  用于快速退出正常处理逻辑，比如 `HttpResponseError`
 
   - 主动抛出原异常
     - `raise` #不带异常对象，表示抛出原异常
 
-      用于保留原异常信息，方便追查
+  用于保留原异常信息，方便追查
 
 - 异常类型
   - 内置异常对象
 
-        ```
-        根异常对象：Exception
-        KeyError
-        ValueError
-        AttributeError
-        NameError
-        IOError
-        TypeError
-        ZeroDivisionError
-        ```
+    ```
+    根异常对象：Exception
+    KeyError
+    ValueError
+    AttributeError
+    NameError
+    IOError
+    TypeError
+    ZeroDivisionError
+    ```
 
   - 用户自定义异常
 
-        ```python
-        class UserError(Exception):
-            def __init__(self, message):
-                self.message = message
-        raise UserError
-        ```
+    ```python
+    class UserError(Exception):
+        def __init__(self, message):
+            self.message = message
+    raise UserError
+    ```
 
 #### 2.4.2 With 语句
 
@@ -1624,51 +1627,51 @@ With 在 Python2.6 后被正式引入，如果要在2.6之前的版本中使用�
 
 - 基本语法：
 
-      ```python
-      with <expression> [ as <variable> ]:
-          with-block
-      ```
+  ```python
+  with <expression> [ as <variable> ]:
+      with-block
+  ```
 
-      ```python
-      with open("foo.txt") as aFile:
-          data = aFile.read()
-      ```
+  ```python
+  with open("foo.txt") as aFile:
+      data = aFile.read()
+  ```
 
   等价于
 
-      ```python
-      aFile = open("foo.txt")
-      try:
-          data = aFile.read()
-      except Exception as e:
-          raise
-      finally:
-          aFile.close()
-      ```
+  ```python
+  aFile = open("foo.txt")
+  try:
+      data = aFile.read()
+  except Exception as e:
+      raise
+  finally:
+      aFile.close()
+  ```
 
 - 常用场景
 
   文件读写
 
-      ```python
-      try:
-          with open("a.txt") as aFile:
-              for line in aFile:
-                  print(line)
-      except IOError:
-          <whatever>
-      ```
+  ```python
+  try:
+      with open("a.txt") as aFile:
+          for line in aFile:
+              print(line)
+  except IOError:
+      <whatever>
+  ```
 
-      ```python
-      # 数据库
-      with sql.transaction() as session
+  ```python
+  # 数据库
+  with sql.transaction() as session
 
-      # 网络连接
-      with get_conn() as conn
+  # 网络连接
+  with get_conn() as conn
 
-      # 锁操作
-      with get_lock() as lock
-      ```
+  # 锁操作
+  with get_lock() as lock
+  ```
 
 - 环境管理协议
 
@@ -1685,30 +1688,30 @@ With 在 Python2.6 后被正式引入，如果要在2.6之前的版本中使用�
 
 - 环境管理器类的实现
 
-      ```python
-      class WithEnv(object):
-          def __enter__(self):
-              print("__enter__")
-              return 42
-          def __exit__(self,type,value,trace):
-              print("__exit__")
-              if type is not None:
-                  print("raise %s" % type)
-      ```
+  ```python
+  class WithEnv(object):
+      def __enter__(self):
+          print("__enter__")
+          return 42
+      def __exit__(self,type,value,trace):
+          print("__exit__")
+          if type is not None:
+              print("raise %s" % type)
+  ```
 
   客户端代码：无异常
 
-      ```python
-      with WithEnv() as testWith:
-          print(testWith)
-      ```
+  ```python
+  with WithEnv() as testWith:
+      print(testWith)
+  ```
 
   客户端代码：有异常
 
-      ```python
-      with WithEnv() as testWith:
-          raise TypeError
-      ```
+  ```python
+  with WithEnv() as testWith:
+      raise TypeError
+  ```
 
 ## 3. 开发相关
 
@@ -2096,46 +2099,46 @@ python -m doctest -v test.py
   - 文件夹的命名必须符合变量的命名规则
   - 包对象是特殊的模块对象
 
-        ```python
-        >>> import testPkg
-        >>> testPkg
-        <module 'testPkg' from 'testPkg/__init__.pyc'>
-        ```
+    ```python
+    >>> import testPkg
+    >>> testPkg
+    <module 'testPkg' from 'testPkg/__init__.pyc'>
+    ```
   - import 包对象就是预编译和运行对应的 `__init__.py` 文件
 - import 的注意事项
   - **不同的 import 方式，访问到的是相同的模块对象，因为实际只会 import 一次**
 
-        ```python
-        >>> import testPkg
-        >>> testPkg.testModule
-        <module 'testPkg.testModule' from 'testPkg/testModule.py'>
-        >>> from testPkg import testModule
-        >>> testModule
-        <module 'testPkg.testModule' from 'testPkg/testModule.py'>
-        >>> from testPkg import testModule as fakeModule
-        >>> fakeModule
-        <module 'testPkg.testModule' from 'testPkg/testModule.py'>
-        >>> id(testPkg.testModule), id(testModule), id(fakeModule)
-        (4454769784, 4454769784, 4454769784)
-        ```
+    ```python
+    >>> import testPkg
+    >>> testPkg.testModule
+    <module 'testPkg.testModule' from 'testPkg/testModule.py'>
+    >>> from testPkg import testModule
+    >>> testModule
+    <module 'testPkg.testModule' from 'testPkg/testModule.py'>
+    >>> from testPkg import testModule as fakeModule
+    >>> fakeModule
+    <module 'testPkg.testModule' from 'testPkg/testModule.py'>
+    >>> id(testPkg.testModule), id(testModule), id(fakeModule)
+    (4454769784, 4454769784, 4454769784)
+    ```
 
   - **import 会逐个运行模块路径上的所有包和模块一次且仅运行一次。初次 import 的过程，是运行一个模块，然后将其关心的对象映射到一个变量。**
 
-        ```python
-        import aModule
-        import aPkg
-        from aPkg import aModule
-        from aPkg import aModule as bModule
-        from aPkg.aModule import aVar as bVar
-        from aModule import *
-        ```
+    ```python
+    import aModule
+    import aPkg
+    from aPkg import aModule
+    from aPkg import aModule as bModule
+    from aPkg.aModule import aVar as bVar
+    from aModule import *
+    ```
 
   - `__import__` 的用法
 
-        ```python
-        sys = __import__('sys')
-        # 等价于 import sys
-        ```
+    ```python
+    sys = __import__('sys')
+    # 等价于 import sys
+    ```
 
   - `__import__` 和 `import` 的区别
     - import 是语句，import 模块必须 hardcode 在代码里
@@ -2152,31 +2155,31 @@ python -m doctest -v test.py
   - reload 只对模块对象起作用
   - reload 可以完成模块的再次加载
 
-        ```python
-        import time
-        import testModule
-        from imp import reload
+    ```python
+    import time
+    import testModule
+    from imp import reload
 
-        while True:
-            import testModule
-            # reload(testModule)
-            testModule.echo()
-            time.sleep(2)
-        ```
+    while True:
+        import testModule
+        # reload(testModule)
+        testModule.echo()
+        time.sleep(2)
+    ```
 
 - 模块的常用方法
 
-      ```python
-      __name__
+  ```python
+  __name__
 
-      if __name__ == '__main__':
-          print(f'hello, {__name__}')
+  if __name__ == '__main__':
+      print(f'hello, {__name__}')
 
-      # python -m test
+  # python -m test
 
-      __dict__
-      __doc__
-      ```
+  __dict__
+  __doc__
+  ```
 
 #### 3.5.2 打包
 
@@ -2270,26 +2273,26 @@ demo，[Github](https://github.com/wu-wenxiang/fastapi-demo)，[Gitee](https://g
 
 - [算法全貌](algorithms.md)
 
-      ```
-      各类排序算法
-      随机算法
-      分治策略
-      二叉树
-      红黑树
-      动态规划
-      贪心算法
-      摊还分析
-      B 树
-      图算法
-      多线程算法
-      矩阵
-      线性规划
-      快速傅立叶变换
-      数论算法
-      NP 完全性
-      计算几何学
-      近似算法
-      ```
+  ```
+  各类排序算法
+  随机算法
+  分治策略
+  二叉树
+  红黑树
+  动态规划
+  贪心算法
+  摊还分析
+  B 树
+  图算法
+  多线程算法
+  矩阵
+  线性规划
+  快速傅立叶变换
+  数论算法
+  NP 完全性
+  计算几何学
+  近似算法
+  ```
 
 - 参考书
 
@@ -2400,27 +2403,27 @@ demo，[Github](https://github.com/wu-wenxiang/fastapi-demo)，[Gitee](https://g
 
   斐波那契数列
 
-      ```python
-      def fib(n):
-          if n < 3:
-              return n
-          else:
-              return fib(n-1) + fib(n-2)
+  ```python
+  def fib(n):
+      if n < 3:
+          return n
+      else:
+          return fib(n-1) + fib(n-2)
 
-      fib(40)
-      ```
+  fib(40)
+  ```
 
-      ```python
-      fibList = []
+  ```python
+  fibList = []
 
-      for i in range(100):
-          if i < 2:
-              fibList.append(i+1)
-          else:
-              fibList.append(fibList[i-1] + fibList[i-2])
+  for i in range(100):
+      if i < 2:
+          fibList.append(i+1)
+      else:
+          fibList.append(fibList[i-1] + fibList[i-2])
 
-      print(fibList)
-      ```
+  print(fibList)
+  ```
 
 ### 5.3 设计模式实践
 
@@ -2480,20 +2483,20 @@ for m in measure:
 
 - 迭代环境
 
-      ```python
-      any(s) / all(s) # s 是布尔类型的迭代
-      sum(seq) # seq 是数字
-      max(seq) / min(seq)
+  ```python
+  any(s) / all(s) # s 是布尔类型的迭代
+  sum(seq) # seq 是数字
+  max(seq) / min(seq)
 
-      for x in h:
-          print(x)
+  for x in h:
+      print(x)
 
-      len(s), min(s), max(s)
+  len(s), min(s), max(s)
 
-      sorted # 对散列元素排序后生成一个列表
-      sorted(set(1, 4, 5))
-      sorted(aDict)
-      ```
+  sorted # 对散列元素排序后生成一个列表
+  sorted(set(1, 4, 5))
+  sorted(aDict)
+  ```
 
 ### 5.4 数据分析
 
@@ -2565,55 +2568,55 @@ for m in measure:
 
 - 文件对象初始化
 
-      ```python
-      aFile = open('a.txt', 'w')
-      # 打开模式:  'r', 'w', 'a', 'w+'，默认以只读打开
+  ```python
+  aFile = open('a.txt', 'w')
+  # 打开模式:  'r', 'w', 'a', 'w+'，默认以只读打开
 
-      # 文件对象的字段属性
-      >>> aFile.name
-      'a.txt'
-      >>> aFile.mode
-      'w'
-      ```
+  # 文件对象的字段属性
+  >>> aFile.name
+  'a.txt'
+  >>> aFile.mode
+  'w'
+  ```
 
 - 读文件
 
-      ```python
-      aFile = open('a.txt')
-      aFile.read()
-      aFile.read(N)
-      aFile.readline()
-      aFile.readlines()
+  ```python
+  aFile = open('a.txt')
+  aFile.read()
+  aFile.read(N)
+  aFile.readline()
+  aFile.readlines()
 
-      # 以读模式打开的文件对象是一个可迭代对象，迭代时自动按行读取
-      for line in open('a.txt'):
-          print(line)
-      ```
+  # 以读模式打开的文件对象是一个可迭代对象，迭代时自动按行读取
+  for line in open('a.txt'):
+      print(line)
+  ```
 
 - 写文件
 
-      ```python
-      outputFile = open('a.txt', 'w')
-      outputFile.write('test contents')
-      outputFile.close()
-      # 'a'是追加
+  ```python
+  outputFile = open('a.txt', 'w')
+  outputFile.write('test contents')
+  outputFile.close()
+  # 'a'是追加
 
-      aFile.writelines(aList)
-      # 等同于下面的
-      for line in aList:
-          aFile.write(line)
-      ```
+  aFile.writelines(aList)
+  # 等同于下面的
+  for line in aList:
+      aFile.write(line)
+  ```
 
 - 文件常用方法
 
-      ```python
-      flush # 有缓存的文件对象才需要
-      seek # 重新定位偏移量
-      tell
-      truncate
-      fileno
-      close # 记得 close，否则可能造成文件描述符泄漏
-      ```
+  ```python
+  flush # 有缓存的文件对象才需要
+  seek # 重新定位偏移量
+  tell
+  truncate
+  fileno
+  close # 记得 close，否则可能造成文件描述符泄漏
+  ```
 
 - 标准输入输出
   - 标准输入 `input() == sys.stdin.readline().rstrip('\n')`
@@ -2624,41 +2627,41 @@ for m in measure:
 
   标准输出的重定向
 
-      ```python
-      output = open('a.txt', 'a')
-      sys.stdout = output
-      print('haha')
-      ```
+  ```python
+  output = open('a.txt', 'a')
+  sys.stdout = output
+  print('haha')
+  ```
 
 - Python 对象的序列化（到文件）
 
-      ```python
-      aFile = open('test.txt', 'w')
-      import pickle
-      pickle.dump({"a":1, "b":2}, aFile)
-      aFile.close()
+  ```python
+  aFile = open('test.txt', 'w')
+  import pickle
+  pickle.dump({"a":1, "b":2}, aFile)
+  aFile.close()
 
-      bFile = open('test.txt')
-      cDict = pickle.load(bFile)
-      ```
+  bFile = open('test.txt')
+  cDict = pickle.load(bFile)
+  ```
 
 - 写入二进制文件
 
-      ```python
-      aFile = open('test.bin', 'wb')
-      import struct
-      bytes = struct.pack('>i4sh',7,'spam', 8)
-      aFile.write(bytes)
-      aFile.close()
-      ```
+  ```python
+  aFile = open('test.bin', 'wb')
+  import struct
+  bytes = struct.pack('>i4sh',7,'spam', 8)
+  aFile.write(bytes)
+  aFile.close()
+  ```
 
 - 读取二进制文件
 
-      ```python
-      aFile = open('test.bin', 'rb')
-      data = aFile.read()
-      values = struct.unpack('>i4sh', data)
-      ```
+  ```python
+  aFile = open('test.bin', 'rb')
+  data = aFile.read()
+  values = struct.unpack('>i4sh', data)
+  ```
 
 ### 6.4 并行计算
 
