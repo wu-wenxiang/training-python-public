@@ -711,7 +711,7 @@ Python 语法
   Python 内建的不可变对象都是 hashable 的，元组是 hashable 的，列表不是
 
   ```python
-  >>> set([range(5), range(3)])
+  >>> set([list(range(5)), list(range(3))])
   Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
   TypeError: unhashable type: 'list'
