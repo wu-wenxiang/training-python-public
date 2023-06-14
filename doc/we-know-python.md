@@ -1038,16 +1038,24 @@ Python 语法
     ```
 
   > **练习作业**：实现一个函数sumAny，能满足如下运算：(参数个数是两个或多个，参数彼此之间能做+运算)。
-  > ```python
-  > print(sumAny(1, 2))
-  > print(sumAny(1.2, 2.3, 3.4))
-  > print(sumAny("hello, ", "world!"))
-  > print(sumAny([0,1,2,3,4], [0,1,2])
-  > ```
-  > 输出： 3 6.9 hello, world! [0, 1, 2, 3, 4, 0, 1, 2]
-  > ```
-  > [参考](python-exec-public.py#L795-818)
-  > ```
+
+  ```python
+  print(sumAny(1, 2))
+  print(sumAny(1.2, 2.3, 3.4))
+  print(sumAny("hello, ", "world!"))
+  print(sumAny([0,1,2,3,4], [0,1,2])
+  ```
+
+  输出：
+
+  ```
+  3
+  6.9
+  hello, world!
+  [0, 1, 2, 3, 4, 0, 1, 2]
+  ```
+
+  [参考](python-exec-public.py#L795-818)
 
 - 其它
   - sort/sorted/key
