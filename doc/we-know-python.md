@@ -1931,6 +1931,12 @@ commit message 要求
 4. commit message 页脚部分可以添加 commit 参考的网页链接，commit 相关的问题链接，以及和 CI/CD 系统相关的 ID 号等，需要符合对应系统的格式标准
 5. 在标题、描述、页脚之间需要有空行分隔
 
+#### 3.1.7 GitOps
+
+GitOps: <https://icloudnative.io/posts/what-is-gitops/>
+AlgoCD 介绍：<https://icloudnative.io/posts/getting-started-with-argocd/>
+AlgoCD 官网：<https://argo-cd.readthedocs.io/en/stable/>
+
 ### 3.2 自动化测试
 
 [返回目录](#课程目录)
@@ -2201,7 +2207,7 @@ python -m doctest -v test.py
 
 #### 3.5.2 打包
 
-参考：<zhuanlan.zhihu.com/p/37987613>
+参考：<https://zhuanlan.zhihu.com/p/37987613>
 
 1. 在 <https://pypi.org/> 注册账号
 2. 根据官方步骤打包：<https://packaging.python.org/en/latest/tutorials/packaging-projects/>
@@ -2565,7 +2571,7 @@ for m in measure:
 #### 6.1.2 部署不同的 python 版本
 
 - 环境变量 PATH 配置
-- virtualenv
+- virtualenv：参考 [Gitee](https://gitee.com/wu-wen-xiang/restful-api-demo#%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95) 或 [Github](https://github.com/wu-wenxiang/restful-api-demo#%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95)
 - [容器化](https://gitee.com/dev-99cloud/training-kubernetes/blob/master/doc/class-01-Kubernetes-Administration.md#29-%E5%90%AF%E5%8A%A8%E4%B8%80%E4%B8%AA-pod)
 
 #### 6.1.3 其它系统相关类库
@@ -2577,8 +2583,8 @@ for m in measure:
 
 [返回目录](#课程目录)
 
-- os.system
-- subprocess
+- os.system：[参考](python-exec-public.py#L1986)
+- subprocess：[参考](python-exec-public.py#L1463-1481)
 
 ### 6.3 文件和目录
 
@@ -2691,3 +2697,5 @@ for m in measure:
 [参考](python-exec-public.py#L1348-1482)
 
 ### 6.5 数据库和 ORM
+
+[参考](python-exec-public.py#L1670-2011)
