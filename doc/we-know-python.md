@@ -1077,14 +1077,15 @@ Python 语法
         print(f'{k}\t=>\t{fruits[k]}')
     ```
 
-    ```
+    ```python
     tests = ['apple', 'pear', 'banana', 'mango', 'test', 'temp', 'tuple']
 
-    def mySort(aList, key=lambda x: tests[x]):
+    def mySort(aList, key=lambda x: x):
+        aList = list(aList)
         for i in range(len(aList)):
-        for j in range(i + 1, len(aList)):
-            if key(aList[i]) > key(aList[j]):
-                aList[i], aList[j] = aList[j], aList[i]
+            for j in range(i + 1, len(aList)):
+                if key(aList[i]) > key(aList[j]):
+                    aList[i], aList[j] = aList[j], aList[i]
         return aList
 
 
