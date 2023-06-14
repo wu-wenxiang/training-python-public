@@ -875,14 +875,16 @@ Python 语法
   - 如果确实要在函数中修改全局变量，需要用 global 修饰符
 
   > 思考题（以下代码的运行结果是？）：
-  > ```python
-  > a = 42
-  > ```
-  > def aFun(): a += 1
 
-  > aFun() print(a)
-  > ```
-  > ```
+  ```python
+  a = 42
+
+  def aFun():
+      a += 1
+
+  aFun()
+  print(a)
+  ```
 
 - 命名空间用来避免变量名冲突
   - 函数对象：局部变量
@@ -918,26 +920,32 @@ Python 语法
     **注意：默认参数的值在函数定义时确定**
 
     > 思考题（以下代码有什么问题？）：
-    > ```python
-    > import time
-    > ```
-    > def myLog(msg, timestamp=time.time()): print(f'[{timestamp}]::{msg}')
 
-    > myLog("test") time.sleep(2) myLog("test", time.time())
-    > ```
-    > ```
+    ```python
+    import time
+
+    def myLog(msg, timestamp=time.time()):
+        print(f'[{timestamp}]::{msg}')
+
+    myLog("test")
+    time.sleep(2)
+    myLog("test", time.time())
+    ```
 
     **注意：默认参数的值尽量不要是可变参数**
 
     > 思考题（以下代码有什么问题？）：
-    > ```python
-    > import time
-    > ```
-    > def addItem(aList=[], i=42): aList.append(i) return aList
 
-    > print(addItem([1,2,3], 4)) print(addItem())
-    > ```
-    > ```
+    ```python
+    import time
+
+    def addItem(aList=[], i=42):
+        aList.append(i)
+        return aList
+
+    print(addItem([1,2,3], 4))
+    print(addItem())
+    ```
 
 - 函数的参数和返回值
   - 参数传递和接收返回值的本质都是映射关系的建立
