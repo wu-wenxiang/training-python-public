@@ -1410,7 +1410,7 @@ print(aObj.newVar, AClass.newVar)
   - 模式匹配
 - Search vs Match
   - 模式能匹配到字符串的子串时，Search 返回 True，否则返回 False
-  - 模式能匹配到字符串的全部时，Match 返回 True，否则返回 False
+  - 模式从字符串开始处匹配，Match 返回 True，否则返回 False
 
     ```python
     import re
@@ -1467,8 +1467,9 @@ print(aObj.newVar, AClass.newVar)
 
 - 贪心和非贪心匹配
 
+  `*?`, `+?`, `??`, `{m,n}?`
+
   ```python
-  *?, +?, ??, {m,n}?
   >>> reCmp = re.compile("(.+?)(.+)")
   >>> reObj = reCmp.search("Hello")
   >>> reObj.groups()
@@ -1562,15 +1563,15 @@ print(aObj.newVar, AClass.newVar)
 
   ```python
   a = input("input: ")
+  print('try...')
   try:
-      print('try...')
       r = 10 / int(a)
-      print('result:', r)
   except ValueError as e:
       print('ValueError:', e)
   except ZeroDivisionError as e:
       print('ZeroDivisionError:', e)
   else:
+      print('result:', r)
       print('no error!')
   finally:
       print('finally...')
