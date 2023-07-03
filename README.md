@@ -5,7 +5,7 @@
 
 ## 学习进度安排
 
-- [We Know Python](doc/we-know-python.md)
+- [Python 学习讲义](doc/we-know-python.md)
 
 ## 参考
 
