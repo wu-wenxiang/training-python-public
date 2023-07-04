@@ -34,7 +34,7 @@
 |       |    |                 | [6.5 数据库对接和 ORM 模型](#65-数据库和-orm)                   |
 |       |    |                 | [3.2.4 没有 IDE 时的调试技巧](#324-pdb-调试)                  |
 |       |    |                 | [3.2.4 应用部署的依赖隔离](#612-部署不同的-python-版本)             |
-|       |    | 下午              | [自动化测试](autotest.md)                                |
+|       | 下午 |                 | [自动化测试](autotest.md)                                |
 |       |    |                 | [机器学习](http://blog.wuwenxiang.net/Machine-Learning) |
 |       |    |                 | [数据分析](src/data-analysis)                           |
 
