@@ -131,6 +131,7 @@
   - 算法和数据结构
   - 面向对象和设计模式
   - 软件工程和项目管理
+- [其它参考资料](/README.md)
 
 ### 1.2 开发环境搭建
 
@@ -255,7 +256,7 @@ Python 语法
 - 变量（引用）的概念
   - 变量本身没有类型，对象才有类型，引用可以映射到不同类型的对象
   - 变量要赋值（映射到对象）才能使用
-  - 变量只有位于等号左边的时候表示为变量建立映射关系，其他时候都表示其映射到的对象本身。
+  - **变量只有直接位于等号左边的时候表示为变量建立映射关系，其他时候都表示其映射到的对象本身**
   - 没有被引用映射的对象会被 PVM 的 GC 机制回收
 - 变量的命名规则
   - 由字母，下划线，数字组成，且首字符不为数字
@@ -402,6 +403,24 @@ Python 语法
 
   eval(aStr)
   ```
+
+- 数字的常用标准库
+
+```python
+>>> import math
+>>> math.pi
+3.141592653589793
+>>> math.sqrt(2)
+1.4142135623730951
+
+>>> import random
+>>> random.random()
+0.4982889444815377
+>>> random.choice([1, 2, 5, 7])
+5
+>>> random.randint(0,10)
+2
+```
 
 > **练习作业**：随机生成两个 10 以内的实数（精确到小数点后两位）并输出到屏幕，要求用户输入它们的和，然后判断用户的输入值，然后输出 True/False。
 
@@ -838,6 +857,14 @@ Python 语法
   sorted(aDict)
   ```
 
+#### 1.4.9 其它基本对象类型
+
+- 布尔变量
+  - True / False
+  - any(s) / all(s)
+- None
+  - 是函数/方法的默认返回值
+
 ## 2. 进阶
 
 [返回目录](#课程目录)
@@ -1096,6 +1123,11 @@ Python 语法
     ```
 
   - min/max 等
+
+    ```python
+    min(fruits, key=fruits.get)
+    ```
+
   - 偏函数：为函数对象设置新的默认参数（返回值是函数）
 
     ```python
@@ -1360,7 +1392,7 @@ print(aObj.newVar, AClass.newVar)
 - 继承树
 
   ```
-  child
+  子类：       child
               /    \
       father_1    father_2
       /       \    /    \
@@ -1401,6 +1433,104 @@ print(aObj.newVar, AClass.newVar)
 
 - [继承优于组合的例子](python-exec-public.py#L1046-1066)
 - [组合优于继承的例子](python-exec-public.py#L1068-1092)
+
+#### 2.2.4 面向对象的案例
+
+##### 2.2.4.1 问题分析
+
+需要解决的问题：[四个程序员的一天](https://blog.csdn.net/justjavac/article/details/8224055)
+
+- 接口要求
+  - 客户端输入：运算逻辑和两个运算数
+  - 客户端输出：运算结果
+- 什么是扩展性好的代码？
+  - 符合开放-封闭原则：服务端代码对扩展开放，对修改封闭
+- 如何编写扩展性好的代码？
+  - 将运算逻辑也实现成一个对象，不同的运算逻辑是不同的运算类的实例对象
+  - 添加新的运算逻辑就是添加新的运算类（横向扩展），运算类的扩展也可以通过继承来实现（纵向扩展）
+
+##### 2.2.4.2 实现分析
+
+对比前四种代码：
+
+- C++：运算逻辑是**字符串（更通用的接口）**
+  - **没有将运算逻辑实现成对象，所以也不支持运算逻辑的继承**
+  - **没有解耦客户端和服务端代码，也不符合开放-封闭原则**
+- Java：运算逻辑是**实例对象**
+  - 服务端代码符合开放-封闭原则
+  - 将运算逻辑实现成运算类的实例对象，支持运算逻辑的继承
+- C#：运算逻辑是**函数对象**
+  - 服务端代码符合开放-封闭原则
+  - 将运算逻辑实现成运算函数对象（委托），**不能继承**
+- Schema：运算逻辑是内置函数对象
+  - 直接使用语言自带的运算逻辑对象，**不能继承，不能扩展**
+
+结论：
+
+- 这个故事本身杀鸡用牛刀……
+- 但**就面向对象而言，Java 才是最接近的答案**
+
+##### 2.2.4.3 Python 的实现
+
+如果不考虑扩展：
+
+```python
+# 客户端代码：
+int.__add__(3,5)
+```
+
+如果要更通用的接口（运算逻辑用字符串表示）：
+
+```python
+# 服务端代码：
+def OptProxy(opt, a, b):
+	  return (a.__class__.__dict__[opt])(a,b)
+# 客户端代码：
+print(OptProxy("__add__", 5, 3))
+```
+
+如果在字符串接口基础上要可以扩展，面向对象：简单工厂模式
+
+```python
+# 服务端代码
+class OptBase(object):
+    def __call__(self):
+        raise NotImplemented
+
+class OptAdd(OptBase):
+    def __call__(self, arg1, arg2):
+        return arg1 + arg2
+
+class OptSub(OptBase):
+    def __call__(self, arg1, arg2):
+        return arg1 - arg2
+
+# 简单工厂
+def OptFactory(optStr):
+    if optStr == "Add":
+        return OptAdd()
+    elif optStr == "Sub":
+        return OptSub()
+
+# 客户端代码
+if __name__ == "__main__":
+    opt = OptFactory("Add")
+    print(opt(3, 5))
+    opt = OptFactory("Sub")
+    print(opt(3, 5))
+```
+
+简单工厂模式的缺点：不符合封闭-开发原则
+
+进一步改进：反射和自省代替 `if-else`
+
+```python
+selfMod = __import__(__name__)
+def OptFactory(optStr):
+    return (selfMod.__dict__["Opt"+optStr])()
+```
+
+设计模式相关内容，可以参考 [5.3 设计模式实践](#53-设计模式实践)
 
 ### 2.3 正则表达式
 
@@ -2462,7 +2592,113 @@ demo，[Github](https://github.com/wu-wenxiang/fastapi-demo)，[Gitee](https://g
 
 #### 5.3.1 装饰器
 
+装饰器模式（decorator）
+
+- 是一个设计模式
+- 可以用它来动态修改或扩展已存在的对象的属性
+- 继承也可以扩展对象的属性，但必须通过初始化的方式静态地扩展
+
+装饰器模式可以用于如下场合
+
+- 对一个已经存在的某类的实例对象，需要动态修改或扩展其属性
+- 对于一个已经存在的服务端方法，客户端有大量次数的调用，需要在不修改服务端/客户端代码的基础上，扩展该方法的功能(比如添加性能测试等)
+- 对多种类的对象，需要扩展相似的逻辑时，可以将这个类实现在装饰器类和装饰函数中(日志/Router)
+
+Python中的装饰器
+
+- 是一种特殊的语法（语法糖）
+- 专用于装饰函数对象
+- 这个装饰器语法是内置的，对函数对象的装饰器模式
+
+内置的装饰器
+
+- staticmethod / classmethod / property
+- functools.wraps / functools.total_ordering
+
+```python
+# 装饰器函数
+import time
+def deco(func):
+    def newFun(*argv):
+        print("enter: ", time.time())
+        result = func(*argv)
+        print("exit: ", time.time())
+        return result
+    return newFun
+
+@deco
+def testFun():
+   time.sleep(2)
+      print("testFun")
+
+def testFun():
+    time.sleep(2)
+    print("content")
+testFun = deco(testFun)
+
+testFun()
+
+# 装饰器类
+class entryExit(object):
+    def __init__(self, f):
+        self.f = f
+    def __call__(self):
+        print("Entry", self.f.__name__)
+        self.f()
+        print("Exit", self.f.__name__)
+
+@entryExit
+def aFun():
+    print("aFun")
+
+aFun()
+
+# 多重装饰
+import time
+
+def addLog(f):
+    def newFun(*argv):
+        print("Entry: ",f.__name__)
+        result = f(*argv)
+        print("Exit: ",f.__name__)
+        return result
+    return newFun
+
+print(add(3, 5))
+
+def statTime(f):
+    def newFun(*argv):
+        time.clock()
+        result = f(*argv)
+        print("time: ", time.clock())
+        return result
+    return newFun
+
+@statTime
+@addLog
+def add(x, y):
+    return x + y
+
+# 装饰器参数
+def entryExit(prefix):
+    def deco(f):
+        def newFun():
+            print("[%s]Entry: %s" % (prefix, f.__name__))
+            f()
+            print("[%s]Exit: %s" % (prefix, f.__name__))
+        newFun.__name__ = f.__name__
+        return newFun
+    return deco
+
+@entryExit("Deco_1")
+def aFun():
+    print("aFun")
+aFun()
+```
+
 斐波那契数列
+
+递归和递推的解法，参考 [5.2.4](#524-递归和递推)
 
 ```python
 import functools
@@ -2510,22 +2746,132 @@ for m in measure:
 
 #### 5.3.2 迭代器和生成器
 
-- 迭代环境
+常用的基本的对象遍历
 
-  ```python
-  any(s) / all(s) # s 是布尔类型的迭代
-  sum(seq) # seq 是数字
-  max(seq) / min(seq)
+```python
+for i in range(4):
+    print(i)
+for i in "hello":
+    print(i)
 
-  for x in h:
-      print(x)
+for (x,y) in zip(list("hello"), list("world")):
+    print(x,y)
+for (x,y) in enumerate(list("hello")):
+    print(x,y)
 
-  len(s), min(s), max(s)
+for i in aDict:
+    print(i, aDict[i])
+for x,y in d.items():
+    print(x,y)
+for sorted(aDict):
+    print(i, aDict[i]) # 排序遍历
+```
 
-  sorted # 对散列元素排序后生成一个列表
-  sorted(set(1, 4, 5))
-  sorted(aDict)
-  ```
+迭代环境
+
+```python
+any(s) / all(s) # s 是布尔类型的迭代
+sum(seq) # seq 是数字
+max(seq) / min(seq)
+
+for x in h:
+    print(x)
+
+len(s), min(s), max(s)
+
+sorted # 对散列元素排序后生成一个列表
+sorted(set(1, 4, 5))
+sorted(aDict)
+```
+
+迭代器和迭代协议
+
+- 迭代器（iterator）是包含 next 方法的对象
+- `__next__` 方法是 next 方法的钩子方法
+- next 方法返回一个对象或者一个 StopIteration 异常，这就是所谓的迭代协议
+- 对可迭代对象使用 iter() 方法即可得到迭代器
+- 对迭代器使用 iter() 方法返回迭代器自身，迭代器也是可迭代对象
+
+迭代发生的过程: `for i in xObject: doWorks(i)`
+
+1. for 循环会调用 `iter(xObject)`，从而得到迭代器 xIterator
+2. 无限循环调用地调用 ·xIterator.**next**()`，直到遇上 StopIteration 异常才会结束
+3. 可迭代对象在迭代环境中迭代时，会被用作 iter() 函数的参数，从而产生一个迭代器，然后迭代环境循环地对这个迭代器调用 `__next__` 方法，直至 `__next__` 方法抛出
+   StopIteration 异常才结束迭代
+
+单迭代和多迭代
+
+- 多迭代对象是指该对象用 iter 函数处理后返回的多个迭代器之间各自独立，互不影响。单迭代对象反之。
+- 列表/元组/字典/集合等是多迭代对象
+- 迭代器/生成器/文件对象等是单迭代对象
+
+生成器和生成器函数
+
+- 生成器函数中包含 yield 表达式
+- 生成器函数中可以没有 return 语句，但是它的返回值不是 None，而是一个生成器对象
+- 生成器对象是一个迭代器，iter(aGenerator) -> 返回自身
+- 生成器对象是一个单迭代的可迭代对象
+- 生成器每次调用 next 才会返回一个值，用后即丢弃，比元组或列表对象更节省时间和空间的开销，因而在 3.0 中被广泛使用。
+
+```python
+def genSeq(N):
+    for i in range(N):
+        yield i ** 2
+
+>>> x = iter(genSeq(4))
+>>> x.__next__()
+…
+>>> x.__next__()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+StopIteration
+```
+
+**思考题：for 能不能无限循环？比如通过 for 循环无限生成斐波那契数列？**
+
+生成器表达式
+
+```python
+>>> a = (i for i in range(3)) # 生成器表达式也能返回一个生成器
+>>> a
+<generator object <genexpr> at 0x1060f3a50>
+>>> for i in a: print i
+... 
+0
+1
+2
+>>> for i in a: print i # 生成器是单迭代对象
+... 
+>>>
+```
+
+**思考题：读取大文件，从中找到所有的数字并加和**
+
+【可选】扩展生成器协议
+
+- Python2.5 以后，yield 关键字被重新定义，它不再是语句，而是变成了一个表达式，具备了返回值
+- 相应的，生成器也被添加了 send 方法，用于向 yield 运算符发送对象，这个对象也就是 yield 表达式的返回值
+- `x = yield i` 语义：`put(i); x = wait_and_get()`
+- 还增加了 throw 和 close 方法，用于从生成器中抛出异常，以及结束一个生成器
+- 扩展生成器协议为生成器增加了交互性，使得生成器在初始化后仍能得到扩展和修改
+
+```python
+def gen(N):
+    for i in range(N):
+        x = yield i ** 2
+        print("send %s" % x)
+>>> G = iter(gen(4))
+>>> G.__next__()
+0
+>>> G.__next__()
+send None
+1
+>>> G.send(42)
+send 42
+4
+```
+
+【可选】：协程，Gevent，Greenlet
 
 ### 5.4 数据分析
 
@@ -2570,8 +2916,8 @@ for m in measure:
 
 #### 6.1.1 命令行参数
 
-- sys.argv，命令行参数列表
-- optparse，较好地封装了 sys.argv
+- sys.argv，命令行参数列表，参考：[练习题](python-exec-public.py#L575-595)
+- optparse，较好地封装了 sys.argv，参考：[练习题](python-exec-public.py#L597-626)
 
 #### 6.1.2 部署不同的 python 版本
 
@@ -2583,125 +2929,252 @@ for m in measure:
 
 #### 6.1.3 其它系统相关类库
 
-- [系统监控相关](python-exec-public.py#L2021-2311)
-- [excel 处理](python-exec-public.py#L2312-2342)
+[系统监控相关](python-exec-public.py#L2021-2311)
+
+[excel 处理](python-exec-public.py#L2312-2342)
+
+OS 模块：用于访问操作系统的特定特性
+
+- 进程: 进程的所有者/进程环境/进程工作目录
+- 文件和目录: 文件和目录的属性/文件描述符/符号链接/遍历目录树 `os.mkdir / os.listdir / os.remove`
+- 运行外部命令: system
+- 子进程: fork/wait/spawn
+- 系统信息: platform
+- 垃圾回收: gc
+- 系统资源管理: resource
+- PVM 配置: sysconfig
 
 ### 6.2 父子进程调用
 
 [返回目录](#课程目录)
 
-- os.system：[参考](python-exec-public.py#L1986)
-- subprocess：[参考](python-exec-public.py#L1463-1481)
+进程间通信
+
+- 信号 signal
+  - 只有主线程可以接收/信号处理函数/Alarm/ 忽略信号
+  - `os.kill` / `os.killpg` / `os.setsid`
+- 共享内存 share memory
+- 命名管道 named pipe
+- 套接字 socket
+
+os.system：[参考](python-exec-public.py#L1986)
+
+subprocess：[参考](python-exec-public.py#L1463-1481)
+
+```python
+# call
+Popen(*popenargs, **kwargs).wait()
+
+# check_output
+process = Popen(stdin=p.stdout, stdout=PIPE, *popenargs, **kwargs)
+output, unused_err = process.communicate()
+retcode = process.poll()
+```
 
 ### 6.3 文件和目录
 
 [返回目录](#课程目录)
 
-- 文件对象初始化
+文件对象初始化
 
-  ```python
-  aFile = open('a.txt', 'w')
-  # 打开模式:  'r', 'w', 'a', 'w+'，默认以只读打开
+```python
+aFile = open('a.txt', 'w')
+# 打开模式:  'r', 'w', 'a', 'w+'，默认以只读打开
 
-  # 文件对象的字段属性
-  >>> aFile.name
-  'a.txt'
-  >>> aFile.mode
-  'w'
-  ```
+# 文件对象的字段属性
+>>> aFile.name
+'a.txt'
+>>> aFile.mode
+'w'
+```
 
-- 读文件
+读文件
 
-  ```python
-  aFile = open('a.txt')
-  aFile.read()
-  aFile.read(N)
-  aFile.readline()
-  aFile.readlines()
+```python
+aFile = open('a.txt')
+aFile.read()
+aFile.read(N)
+aFile.readline()
+aFile.readlines()
 
-  # 以读模式打开的文件对象是一个可迭代对象，迭代时自动按行读取
-  for line in open('a.txt'):
-      print(line)
-  ```
+# 以读模式打开的文件对象是一个可迭代对象，迭代时自动按行读取
+for line in open('a.txt'):
+    print(line)
+```
 
-- 写文件
+写文件
 
-  ```python
-  outputFile = open('a.txt', 'w')
-  outputFile.write('test contents')
-  outputFile.close()
-  # 'a'是追加
+```python
+outputFile = open('a.txt', 'w')
+outputFile.write('test contents')
+outputFile.close()
+# 'a'是追加
 
-  aFile.writelines(aList)
-  # 等同于下面的
-  for line in aList:
-      aFile.write(line)
-  ```
+aFile.writelines(aList)
+# 等同于下面的
+for line in aList:
+    aFile.write(line)
+```
 
-- 文件常用方法
+文件常用方法
 
-  ```python
-  flush # 有缓存的文件对象才需要
-  seek # 重新定位偏移量
-  tell
-  truncate
-  fileno
-  close # 记得 close，否则可能造成文件描述符泄漏
-  ```
+```python
+flush # 有缓存的文件对象才需要
+seek # 重新定位偏移量
+tell
+truncate
+fileno
+close # 记得 close，否则可能造成文件描述符泄漏
+```
 
-- 标准输入输出
-  - 标准输入 `input() == sys.stdin.readline().rstrip('\n')`
-  - 标准输出 `print(aStr) == sys.stdout.write(aStr+'\n')`
-  - 标准错误 sys.stderr，和标准输出类似，但没有缓存
+标准输入输出
 
-  Python进程起来时，系统会自动为这三个变量绑定标准输入输出对象
+- 标准输入 `input() == sys.stdin.readline().rstrip('\n')`
+- 标准输出 `print(aStr) == sys.stdout.write(aStr+'\n')`
+- 标准错误 sys.stderr，和标准输出类似，但没有缓存
 
-  标准输出的重定向
+Python 进程起来时，系统会自动为这三个变量绑定标准输入输出对象
 
-  ```python
-  output = open('a.txt', 'a')
-  sys.stdout = output
-  print('haha')
-  ```
+标准输出的重定向
 
-- Python 对象的序列化（到文件）
+```python
+output = open('a.txt', 'a')
+sys.stdout = output
+print('haha')
+```
 
-  ```python
-  aFile = open('test.txt', 'w')
-  import pickle
-  pickle.dump({"a":1, "b":2}, aFile)
-  aFile.close()
+Python 对象的序列化（到文件）
 
-  bFile = open('test.txt')
-  cDict = pickle.load(bFile)
-  ```
+```python
+aFile = open('test.txt', 'w')
+import pickle
+pickle.dump({"a":1, "b":2}, aFile)
+aFile.close()
 
-- 写入二进制文件
+bFile = open('test.txt')
+cDict = pickle.load(bFile)
+```
 
-  ```python
-  aFile = open('test.bin', 'wb')
-  import struct
-  bytes = struct.pack('>i4sh',7,'spam', 8)
-  aFile.write(bytes)
-  aFile.close()
-  ```
+写入二进制文件
 
-- 读取二进制文件
+```python
+aFile = open('test.bin', 'wb')
+import struct
+bytes = struct.pack('>i4sh',7,'spam', 8)
+aFile.write(bytes)
+aFile.close()
+```
 
-  ```python
-  aFile = open('test.bin', 'rb')
-  data = aFile.read()
-  values = struct.unpack('>i4sh', data)
-  ```
+读取二进制文件
+
+```python
+aFile = open('test.bin', 'rb')
+data = aFile.read()
+values = struct.unpack('>i4sh', data)
+```
+
+os.walk 用于遍历目录
+
+```python
+import os
+from os.path import join, getsize
+for root, dirs, files in os.walk('python/Lib/email'):
+    print(root, "consumes", end=" ")
+    print(sum(getsize(join(root, name)) for name in files), end=" ")
+    print("bytes in", len(files), "non-directory files")
+    if 'CVS' in dirs:
+        dirs.remove('CVS')  # don't visit CVS directories
+```
+
+临时文件：临时文件对象被关闭时，磁盘上的临时文件会被自动删除
+
+```python
+import tempfile
+
+with tempfile.NamedTemporaryFile() as tmpFile:
+    path = tmpFile.name
+    print(path)
+    tmpFile.write("haha\n")
+    tmpFile.flush()
+    print(open(path).read())
+
+print(open(path).read()) # NotFound
+```
+
+临时目录
+
+- 如果需要创建多个临时文件，更方便的是建立一个临时目录，然后将所有的临时文件置于其中
+- `path = tempfile.mkdtemp() tempfile.NamedTemporaryFile(dir=path)`
+- 临时目录不会被自动删除，需要手动删除 `os.removedirs(path)`
 
 ### 6.4 并行计算
 
 [返回目录](#课程目录)
 
-- Thread
-- multiprocessing
-
 [参考](python-exec-public.py#L1348-1482)
+
+线程实例对象的创建和调用
+
+- `aThread = threading.Thread(target=worker, name="aThreadObject")`
+- `aThread.start() # call aThread.run()`，继承需要重写run()方法
+- `aThread.getName()`
+
+线程的本质是一段代码在进程空间内的一次运行过程（拥有独立的栈空间），所以线程实例对象的start()方法只能调用一次
+
+线程的基本操作
+
+- 取得当前的线程实例: threading.currentThread()
+- 遍历子线程: threading.enumerate(), 需要剔除currentThread()
+- Timer 线程：`threading.Timer(3, target)` / `start` / `cancel`
+- daemon 守护线程：`aTread.setDaemon(True)`，不阻塞主线程的退出，主线程退出前自动终止
+- join：`aTread.join()`，阻塞当前线程，直至指定的线程结束
+
+线程竞争和线程安全
+
+- 非线程安全对象：浮点数、整数
+- 线程安全对象：列表、字典、logging(日志模块)：使用原子字节码（更新这些数据结构时不释放 GIL）
+- 限制资源的并发访问：Lock/RLock/GIL，`Threading.Lock().acquire(timeout)`
+
+线程间信号和同步
+
+- Event: set / wait(timeout) / isSet
+- Condition: notifyAll / wait / with-lock
+- Semaphore: with sema
+
+线程安全的FIFO实现: Queue
+
+- put / get / empty / full
+- join / task_done (join 会等所有的 task_done)
+
+像线程一样管理进程：multiprocessing
+
+```python
+aProcess = multiprocessing.Process(target=doWork, name="aProcess")
+aProcess.start() # run
+```
+
+- aProcess.name / multiprocessing.current_process().name
+- daemon 守护进程：不阻塞主进程的退出，主进程退出前会自动中止
+- join：阻塞当前进程，直至指定的进程结束
+- 杀死进程和进程的退出状态
+  - terminate: p.terminate()后要调用p.join()确保子进程退出
+  - exitcode: p.name / p.exitcode
+- 日志：multiprocessing.log_to_stderr(logging.DEBUG)
+
+进程间同步
+
+- multiprocessing.Queue
+- Event / Condition / Semaphore / Manager
+
+进程池和map-reduce
+
+- p = multiprocessing.Pool(4)
+- aList = p.map(doWork, range(4))
+
+线程池
+
+- multiprocessing.dummy
+- 和 multiprocessing 接口一致，但底层用线程实现，所以在并发上和之前讲过的线程有一样的限制：GIL
 
 ### 6.5 数据库和 ORM
 
