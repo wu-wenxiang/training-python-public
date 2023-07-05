@@ -3046,21 +3046,23 @@ print('haha')
 Python 对象的序列化（到文件）
 
 ```python
-aFile = open('test.txt', 'w')
 import pickle
+
+aFile = open('test.txt', 'wb')
 pickle.dump({"a":1, "b":2}, aFile)
 aFile.close()
 
-bFile = open('test.txt')
+bFile = open('test.txt', 'rb')
 cDict = pickle.load(bFile)
 ```
 
 写入二进制文件
 
 ```python
-aFile = open('test.bin', 'wb')
 import struct
-bytes = struct.pack('>i4sh',7,'spam', 8)
+
+aFile = open('test.bin', 'wb')
+bytes = struct.pack('>i4sh',7,b'spam', 8)
 aFile.write(bytes)
 aFile.close()
 ```
@@ -3068,9 +3070,12 @@ aFile.close()
 读取二进制文件
 
 ```python
+import struct
+
 aFile = open('test.bin', 'rb')
 data = aFile.read()
 values = struct.unpack('>i4sh', data)
+print(values)
 ```
 
 os.walk 用于遍历目录
