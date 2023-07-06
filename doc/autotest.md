@@ -742,80 +742,80 @@
 
   - jsonpath 库可用于处理 json 数据：<https://pypi.org/project/jsonpath/>，`pip3 install jsonpath`
 
-        ```python
-        >>> import requests
-        >>> from jsonpath import jsonpath
-        >>> r = requests.get('https://api.github.com/repos/wu-wenxiang/training-python-public')
-        >>> jsonpath(r.json(), '$..login')[0]
-        'wu-wenxiang'
-        ```
+    ```python
+    >>> import requests
+    >>> from jsonpath import jsonpath
+    >>> r = requests.get('https://api.github.com/repos/wu-wenxiang/training-python-public')
+    >>> jsonpath(r.json(), '$..login')[0]
+    'wu-wenxiang'
+    ```
 
 - schema 断言
   - JSON Schema 可以用来注释和验证 JSON 文档，官网：<http://json-schema.org/>
   - JSON Schema 可用来添加自定义规则，可以自定义数据类型：
 
-        ```python
-        schema = {
-            "type" : "object",
-            "properties" : {
-                "price" : {"type" : "number"},
-                "name" : {"type" : "string"},
-            },
-        }
-        ```
+    ```python
+    schema = {
+        "type" : "object",
+        "properties" : {
+            "price" : {"type" : "number"},
+            "name" : {"type" : "string"},
+        },
+    }
+    ```
 
   - 把 json 格式转成 schema，在线生成 schema 网址：https://jsonschema.net/
   - jsonschema 是使用 JSON Schema 的 Python库，通过 `pip3 install jsonschema` 命令安装。
 
-        ```python
-        >>> import requests
-        >>> import jsonschema
-        >>> import pprint
+    ```python
+    >>> import requests
+    >>> import jsonschema
+    >>> import pprint
 
-        >>> r = requests.get('https://api.github.com/repos/wu-wenxiang/training-python-public')
-        >>> data = r.json()
-        >>> data
-        {'id': 100894204, 'node_id': 'MDEwOlJlcG9zaXRvcnkxMDA4OTQyMDQ=', ...}
+    >>> r = requests.get('https://api.github.com/repos/wu-wenxiang/training-python-public')
+    >>> data = r.json()
+    >>> data
+    {'id': 100894204, 'node_id': 'MDEwOlJlcG9zaXRvcnkxMDA4OTQyMDQ=', ...}
 
-        >>> schema = {
-        ...     "name" : "training-python-public",
-        ...     "owner" : {
-        ...         "login" : "wu-wenxiang",
-        ...     },
-        ... }
-        >>> pprint.pprint(schema)
-        {'name': 'training-python-public', 'owner': {'login': 'wu-wenxiang'}}
-        >>> print(json.dumps(schema, indent=4))
-        {
-            "name": "training-python-public",
-            "owner": {
-                "login": "wu-wenxiang"
-            }
+    >>> schema = {
+    ...     "name" : "training-python-public",
+    ...     "owner" : {
+    ...         "login" : "wu-wenxiang",
+    ...     },
+    ... }
+    >>> pprint.pprint(schema)
+    {'name': 'training-python-public', 'owner': {'login': 'wu-wenxiang'}}
+    >>> print(json.dumps(schema, indent=4))
+    {
+        "name": "training-python-public",
+        "owner": {
+            "login": "wu-wenxiang"
         }
-        ```
+    }
+    ```
 
     可以用 [genson](http://github.com/wolverdude/genson/) 生成 schema：`pip3 install genson`
 
-        ```python
-        >>> from genson import SchemaBuilder
-        >>> builder = SchemaBuilder()
-        >>> schema = {
-        ...     "name" : "training-python-public",
-        ...     "owner" : {
-        ...         "login" : "wu-wenxiang",
-        ...     },
-        ... }
-        >>> builder.add_object(schema)
-        >>> pprint.pprint(builder.to_schema())
-        {'$schema': 'http://json-schema.org/schema#',
-        'properties': {'name': {'type': 'string'},
-                        'owner': {'properties': {'login': {'type': 'string'}},
-                                'required': ['login'],
-                                'type': 'object'}},
-        'required': ['name', 'owner'],
-        'type': 'object'}
-        >>> schema = builder.to_schema()
-        ```
+    ```python
+    >>> from genson import SchemaBuilder
+    >>> builder = SchemaBuilder()
+    >>> schema = {
+    ...     "name" : "training-python-public",
+    ...     "owner" : {
+    ...         "login" : "wu-wenxiang",
+    ...     },
+    ... }
+    >>> builder.add_object(schema)
+    >>> pprint.pprint(builder.to_schema())
+    {'$schema': 'http://json-schema.org/schema#',
+    'properties': {'name': {'type': 'string'},
+                    'owner': {'properties': {'login': {'type': 'string'}},
+                            'required': ['login'],
+                            'type': 'object'}},
+    'required': ['name', 'owner'],
+    'type': 'object'}
+    >>> schema = builder.to_schema()
+    ```
 
     也可以把之前的 json 粘贴到 https://jsonschema.net/ 进行转换，得到 schema
 
