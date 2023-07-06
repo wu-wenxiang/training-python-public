@@ -2628,8 +2628,8 @@ def deco(func):
 
 @deco
 def testFun():
-   time.sleep(2)
-      print("testFun")
+    time.sleep(2)
+    print("testFun")
 
 def testFun():
     time.sleep(2)
@@ -2668,9 +2668,9 @@ print(add(3, 5))
 
 def statTime(f):
     def newFun(*argv):
-        time.clock()
+        start = time.time()
         result = f(*argv)
-        print("time: ", time.clock())
+        print("time: ", time.time() - start)
         return result
     return newFun
 
@@ -2876,6 +2876,8 @@ send 42
 ### 5.4 数据分析
 
 [返回目录](#课程目录)
+
+`pip install -i https://pypi.tuna.tsinghua.edu.cn/simple pandas numpy scipy matplotlib msvc-runtime scikit-learn`
 
 #### 5.4.1 Numpy
 

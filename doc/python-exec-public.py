@@ -1407,7 +1407,6 @@ def doWork():
 if __name__ == "__main__":
     multiprocessing.log_to_stderr(logging.DEBUG)
     startTime = time.time()
-    time.clock()
     aProcess = multiprocessing.Process(target=doWork, name="aProcess")
     aProcess.start()
     bProcess = multiprocessing.Process(target=doWork, name="bProcess")
