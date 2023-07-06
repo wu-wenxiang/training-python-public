@@ -10,6 +10,7 @@ datafile= f'{DIR}/data/air_data.csv' #航空原始数据,第一行为属性标�
 resultfile = f'{DIR}/tmp/explore.xlsx' #数据探索结果表
 
 data = pd.read_csv(datafile, encoding = 'utf-8') #读取原始数据，指定UTF-8编码（需要用文本编辑器将数据装换为UTF-8编码）
+print(data.head())
 
 # data1 = data.loc[:, ['FFP_DATE', 'FLIGHT_COUNT', 'SUM_YR_1', 'SUM_YR_2', 'LAST_FLIGHT_DATE', 'avg_discount']]
 # data1['SUM_YR'] = data1['SUM_YR_1'] + data1['SUM_YR_2']
@@ -18,6 +19,7 @@ data = pd.read_csv(datafile, encoding = 'utf-8') #读取原始数据，指定UTF
 # data1 = data1[data1['LAST_FLIGHT_DATE']!='2014/2/29  0:00:00']
 # data1['LAST_FLIGHT_DATE'] = pd.to_datetime('2014/03/31') - pd.to_datetime(data1['LAST_FLIGHT_DATE'])
 # data1['LAST_FLIGHT_DATE'] = data1['LAST_FLIGHT_DATE'].dt.days
+# print(data1.head())
 
 # print(len(data1)-data1.describe().T['count'])
 

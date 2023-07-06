@@ -2877,7 +2877,9 @@ send 42
 
 [返回目录](#课程目录)
 
-`pip install -i https://pypi.tuna.tsinghua.edu.cn/simple pandas numpy scipy matplotlib msvc-runtime scikit-learn`
+`pip install -i https://pypi.tuna.tsinghua.edu.cn/simple pandas numpy scipy matplotlib scikit-learn xlrd openpyxl`
+
+Windows: `pip install -i msvc-runtime`
 
 #### 5.4.1 Numpy
 

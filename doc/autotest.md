@@ -370,238 +370,238 @@
   - 支持 API 规范生成代码，生成的客户端和服务器端骨架代码可以加速开发和测试速度
   - 通常情况下，API 的 Swagger 描述为 JSON 文件，也可使用 YAML 描述的文件
 
-        ```json
-        {
-            "swagger": "2.0",
-            "info": {
-                "version": "1.0.0",
-                "title": "Swagger Petstore (Simple)",
-                "description": "A sample API that uses a petstore as an example to demonstrate features in the swagger-2.0 specification",
-                "termsOfService": "http://helloreverb.com/terms/",
-                "contact": {
-                "name": "Swagger API team",
-                "email": "foo@example.com",
-                "url": "http://swagger.io"
-                },
-                "license": {
-                "name": "MIT",
-                "url": "http://opensource.org/licenses/MIT"
-                }
+    ```json
+    {
+        "swagger": "2.0",
+        "info": {
+            "version": "1.0.0",
+            "title": "Swagger Petstore (Simple)",
+            "description": "A sample API that uses a petstore as an example to demonstrate features in the swagger-2.0 specification",
+            "termsOfService": "http://helloreverb.com/terms/",
+            "contact": {
+            "name": "Swagger API team",
+            "email": "foo@example.com",
+            "url": "http://swagger.io"
             },
-            "host": "petstore.swagger.io",
-            "basePath": "/api",
-            "schemes": [
-                "http"
-            ],
-            "consumes": [
-                "application/json"
-            ],
-            "produces": [
-                "application/json"
-            ],
-            "paths": {
-                "/pets": {
-                "get": {
-                    "description": "Returns all pets from the system that the user has access to",
-                    "operationId": "findPets",
-                    "produces": [
-                    "application/json",
-                    "application/xml",
-                    "text/xml",
-                    "text/html"
-                    ],
-                    "parameters": [
-                    {
-                        "name": "tags",
-                        "in": "query",
-                        "description": "tags to filter by",
-                        "required": false,
-                        "type": "array",
-                        "items": {
-                        "type": "string"
-                        },
-                        "collectionFormat": "csv"
-                    },
-                    {
-                        "name": "limit",
-                        "in": "query",
-                        "description": "maximum number of results to return",
-                        "required": false,
-                        "type": "integer",
-                        "format": "int32"
-                    }
-                    ],
-                    "responses": {
-                    "200": {
-                        "description": "pet response",
-                        "schema": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/definitions/pet"
-                        }
-                        }
-                    },
-                    "default": {
-                        "description": "unexpected error",
-                        "schema": {
-                        "$ref": "#/definitions/errorModel"
-                        }
-                    }
-                    }
-                },
-                "post": {
-                    "description": "Creates a new pet in the store.  Duplicates are allowed",
-                    "operationId": "addPet",
-                    "produces": [
-                    "application/json"
-                    ],
-                    "parameters": [
-                    {
-                        "name": "pet",
-                        "in": "body",
-                        "description": "Pet to add to the store",
-                        "required": true,
-                        "schema": {
-                        "$ref": "#/definitions/newPet"
-                        }
-                    }
-                    ],
-                    "responses": {
-                    "200": {
-                        "description": "pet response",
-                        "schema": {
-                        "$ref": "#/definitions/pet"
-                        }
-                    },
-                    "default": {
-                        "description": "unexpected error",
-                        "schema": {
-                        "$ref": "#/definitions/errorModel"
-                        }
-                    }
-                    }
-                }
-                },
-                "/pets/{id}": {
-                "get": {
-                    "description": "Returns a user based on a single ID, if the user does not have access to the pet",
-                    "operationId": "findPetById",
-                    "produces": [
-                    "application/json",
-                    "application/xml",
-                    "text/xml",
-                    "text/html"
-                    ],
-                    "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of pet to fetch",
-                        "required": true,
-                        "type": "integer",
-                        "format": "int64"
-                    }
-                    ],
-                    "responses": {
-                    "200": {
-                        "description": "pet response",
-                        "schema": {
-                        "$ref": "#/definitions/pet"
-                        }
-                    },
-                    "default": {
-                        "description": "unexpected error",
-                        "schema": {
-                        "$ref": "#/definitions/errorModel"
-                        }
-                    }
-                    }
-                },
-                "delete": {
-                    "description": "deletes a single pet based on the ID supplied",
-                    "operationId": "deletePet",
-                    "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of pet to delete",
-                        "required": true,
-                        "type": "integer",
-                        "format": "int64"
-                    }
-                    ],
-                    "responses": {
-                    "204": {
-                        "description": "pet deleted"
-                    },
-                    "default": {
-                        "description": "unexpected error",
-                        "schema": {
-                        "$ref": "#/definitions/errorModel"
-                        }
-                    }
-                    }
-                }
-                }
-            },
-
-            "definitions": {
-                "pet": {
-                "type": "object",
-                "required": [
-                    "id",
-                    "name"
+            "license": {
+            "name": "MIT",
+            "url": "http://opensource.org/licenses/MIT"
+            }
+        },
+        "host": "petstore.swagger.io",
+        "basePath": "/api",
+        "schemes": [
+            "http"
+        ],
+        "consumes": [
+            "application/json"
+        ],
+        "produces": [
+            "application/json"
+        ],
+        "paths": {
+            "/pets": {
+            "get": {
+                "description": "Returns all pets from the system that the user has access to",
+                "operationId": "findPets",
+                "produces": [
+                "application/json",
+                "application/xml",
+                "text/xml",
+                "text/html"
                 ],
-                "properties": {
-                    "id": {
-                    "type": "integer",
-                    "format": "int64"
-                    },
-                    "name": {
+                "parameters": [
+                {
+                    "name": "tags",
+                    "in": "query",
+                    "description": "tags to filter by",
+                    "required": false,
+                    "type": "array",
+                    "items": {
                     "type": "string"
                     },
-                    "tag": {
-                    "type": "string"
-                    }
-                }
+                    "collectionFormat": "csv"
                 },
-                "newPet": {
-                "type": "object",
-                "required": [
-                    "name"
-                ],
-                "properties": {
-                    "id": {
-                    "type": "integer",
-                    "format": "int64"
-                    },
-                    "name": {
-                    "type": "string"
-                    },
-                    "tag": {
-                    "type": "string"
-                    }
-                }
-                },
-                "errorModel": {
-                "type": "object",
-                "required": [
-                    "code",
-                    "message"
-                ],
-                "properties": {
-                    "coe": {
+                {
+                    "name": "limit",
+                    "in": "query",
+                    "description": "maximum number of results to return",
+                    "required": false,
                     "type": "integer",
                     "format": "int32"
-                    },
-                    "message": {
-                    "type": "string"
+                }
+                ],
+                "responses": {
+                "200": {
+                    "description": "pet response",
+                    "schema": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/pet"
+                    }
+                    }
+                },
+                "default": {
+                    "description": "unexpected error",
+                    "schema": {
+                    "$ref": "#/definitions/errorModel"
+                    }
+                }
+                }
+            },
+            "post": {
+                "description": "Creates a new pet in the store.  Duplicates are allowed",
+                "operationId": "addPet",
+                "produces": [
+                "application/json"
+                ],
+                "parameters": [
+                {
+                    "name": "pet",
+                    "in": "body",
+                    "description": "Pet to add to the store",
+                    "required": true,
+                    "schema": {
+                    "$ref": "#/definitions/newPet"
+                    }
+                }
+                ],
+                "responses": {
+                "200": {
+                    "description": "pet response",
+                    "schema": {
+                    "$ref": "#/definitions/pet"
+                    }
+                },
+                "default": {
+                    "description": "unexpected error",
+                    "schema": {
+                    "$ref": "#/definitions/errorModel"
                     }
                 }
                 }
             }
+            },
+            "/pets/{id}": {
+            "get": {
+                "description": "Returns a user based on a single ID, if the user does not have access to the pet",
+                "operationId": "findPetById",
+                "produces": [
+                "application/json",
+                "application/xml",
+                "text/xml",
+                "text/html"
+                ],
+                "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "description": "ID of pet to fetch",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }
+                ],
+                "responses": {
+                "200": {
+                    "description": "pet response",
+                    "schema": {
+                    "$ref": "#/definitions/pet"
+                    }
+                },
+                "default": {
+                    "description": "unexpected error",
+                    "schema": {
+                    "$ref": "#/definitions/errorModel"
+                    }
+                }
+                }
+            },
+            "delete": {
+                "description": "deletes a single pet based on the ID supplied",
+                "operationId": "deletePet",
+                "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "description": "ID of pet to delete",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }
+                ],
+                "responses": {
+                "204": {
+                    "description": "pet deleted"
+                },
+                "default": {
+                    "description": "unexpected error",
+                    "schema": {
+                    "$ref": "#/definitions/errorModel"
+                    }
+                }
+                }
+            }
+            }
+        },
+
+        "definitions": {
+            "pet": {
+            "type": "object",
+            "required": [
+                "id",
+                "name"
+            ],
+            "properties": {
+                "id": {
+                "type": "integer",
+                "format": "int64"
+                },
+                "name": {
+                "type": "string"
+                },
+                "tag": {
+                "type": "string"
+                }
+            }
+            },
+            "newPet": {
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "id": {
+                "type": "integer",
+                "format": "int64"
+                },
+                "name": {
+                "type": "string"
+                },
+                "tag": {
+                "type": "string"
+                }
+            }
+            },
+            "errorModel": {
+            "type": "object",
+            "required": [
+                "code",
+                "message"
+            ],
+            "properties": {
+                "coe": {
+                "type": "integer",
+                "format": "int32"
+                },
+                "message": {
+                "type": "string"
+                }
+            }
+            }
         }
-        ```
+    }
+    ```
 
 - Restful API 和 GRPC 接口的自动化测试有哪些异同？gRPC 提供了许多优势，但它有一个主要障碍：浏览器兼容性低。因此，gRPC 的用例一般局限在内部/私有系统
 
@@ -634,89 +634,89 @@
     请求响应测试接口：<https://httpbin.testing-studio.com/>，源码：[Github](https://github.com/postmanlabs/httpbin)
 - 常见接口请求
 
-      ```python
-      >>> import requests
-      >>> r = requests.post('http://<外网IP>:9999/api/', json={'name': 'testNewCategories'})
-      >>> r.status_code
-      200
-      ```
+  ```python
+  >>> import requests
+  >>> r = requests.post('http://<外网IP>:9999/api/', json={'name': 'testNewCategories'})
+  >>> r.status_code
+  200
+  ```
 
-      ```python
-      >>> import requests
-      >>> r = requests.get('https://api.github.com/events')
-      >>> r.status_code
-      200
+  ```python
+  >>> import requests
+  >>> r = requests.get('https://api.github.com/events')
+  >>> r.status_code
+  200
 
-      >>> r.text[:50]
-      '[{"id":"17531424137","type":"PullRequestEvent","ac'
-      >>> r.content[:50]
-      b'[{"id":"17531424137","type":"PullRequestEvent","ac'
-      >>> r.encoding
-      'utf-8'
+  >>> r.text[:50]
+  '[{"id":"17531424137","type":"PullRequestEvent","ac'
+  >>> r.content[:50]
+  b'[{"id":"17531424137","type":"PullRequestEvent","ac'
+  >>> r.encoding
+  'utf-8'
 
-      >>> r = requests.post('http://httpbin.org/post', data={'key': 'value'})
-      >>> import json
-      >>> json.loads(r.text)
-      {'args': {}, 'data': '', 'files': {}, 'form': {'key': 'value'}, 'headers': {'Accept': '*/*', 'Accept-Encoding': 'gzip, deflate', 'Content-Length': '9', 'Content-Type': 'application/x-www-form-urlencoded', 'Host': 'httpbin.org', 'User-Agent': 'python-requests/2.25.1', 'X-Amzn-Trace-Id': 'Root=1-61145403-5e8bb0f66830a61e47862530'}, 'json': None, 'origin': '101.85.192.4', 'url': 'http://httpbin.org/post'}
-      >>> r.json()
-      ...
+  >>> r = requests.post('http://httpbin.org/post', data={'key': 'value'})
+  >>> import json
+  >>> json.loads(r.text)
+  {'args': {}, 'data': '', 'files': {}, 'form': {'key': 'value'}, 'headers': {'Accept': '*/*', 'Accept-Encoding': 'gzip, deflate', 'Content-Length': '9', 'Content-Type': 'application/x-www-form-urlencoded', 'Host': 'httpbin.org', 'User-Agent': 'python-requests/2.25.1', 'X-Amzn-Trace-Id': 'Root=1-61145403-5e8bb0f66830a61e47862530'}, 'json': None, 'origin': '101.85.192.4', 'url': 'http://httpbin.org/post'}
+  >>> r.json()
+  ...
 
-      >>> import pprint
-      >>> pprint.pprint(r.json())
-      {'args': {},
-      'data': '',
-      'files': {},
-      'form': {'key': 'value'},
-      'headers': {'Accept': '*/*',
-                  'Accept-Encoding': 'gzip, deflate',
-                  'Content-Length': '9',
-                  'Content-Type': 'application/x-www-form-urlencoded',
-                  'Host': 'httpbin.org',
-                  'User-Agent': 'python-requests/2.25.1',
-                  'X-Amzn-Trace-Id': 'Root=1-61145403-5e8bb0f66830a61e47862530'},
-      'json': None,
-      'origin': '101.85.192.4',
-      'url': 'http://httpbin.org/post'}
-      ```
+  >>> import pprint
+  >>> pprint.pprint(r.json())
+  {'args': {},
+  'data': '',
+  'files': {},
+  'form': {'key': 'value'},
+  'headers': {'Accept': '*/*',
+              'Accept-Encoding': 'gzip, deflate',
+              'Content-Length': '9',
+              'Content-Type': 'application/x-www-form-urlencoded',
+              'Host': 'httpbin.org',
+              'User-Agent': 'python-requests/2.25.1',
+              'X-Amzn-Trace-Id': 'Root=1-61145403-5e8bb0f66830a61e47862530'},
+  'json': None,
+  'origin': '101.85.192.4',
+  'url': 'http://httpbin.org/post'}
+  ```
 
-      ```python
-      # XML 请求
-      import requests
-      xml ="""<?xml version='1.0' encoding='utf-8'?><a>6</a>"""
-      headers={'Content-type':'application/xml'}
-      r = requests.post('http://httpbin.org/post', data=xml, headers=headers).text
+  ```python
+  # XML 请求
+  import requests
+  xml ="""<?xml version='1.0' encoding='utf-8'?><a>6</a>"""
+  headers={'Content-type':'application/xml'}
+  r = requests.post('http://httpbin.org/post', data=xml, headers=headers).text
 
-      # 上传文件
-      url = 'http://httpbin.org/post'
-      files = {'file': open('report.xls', 'rb')}
-      r = requests.post(url, files=files)
-      ```
+  # 上传文件
+  url = 'http://httpbin.org/post'
+  files = {'file': open('report.xls', 'rb')}
+  r = requests.post(url, files=files)
+  ```
 
 - 结构化数据处理
 
-      ```python
-      >>> import requests
-      >>> import json
-      >>> r = requests.get('https://api.github.com/repos/wu-wenxiang/training-python-public')
-      >>> json_data = r.json()
-      >>> print(json.dumps(json_data, indent=4))
-      {
-          "id": 100894204,
-          "node_id": "MDEwOlJlcG9zaXRvcnkxMDA4OTQyMDQ=",
-          "name": "training-python-public",
-          "full_name": "wu-wenxiang/training-python-public",
-          "private": false,
-          ...
-      }
+  ```python
+  >>> import requests
+  >>> import json
+  >>> r = requests.get('https://api.github.com/repos/wu-wenxiang/training-python-public')
+  >>> json_data = r.json()
+  >>> print(json.dumps(json_data, indent=4))
+  {
+      "id": 100894204,
+      "node_id": "MDEwOlJlcG9zaXRvcnkxMDA4OTQyMDQ=",
+      "name": "training-python-public",
+      "full_name": "wu-wenxiang/training-python-public",
+      "private": false,
+      ...
+  }
 
-      >>> r.json()['owner']['login']
-      'wu-wenxiang'
-      >>> assert r.json()['owner']['login'] == 'wu-wenxiang'
-      >>> assert r.json()['owner']['login'] == 'maodouzi'
-      Traceback (most recent call last):
-      File "<stdin>", line 1, in <module>
-      AssertionError
-      ```
+  >>> r.json()['owner']['login']
+  'wu-wenxiang'
+  >>> assert r.json()['owner']['login'] == 'wu-wenxiang'
+  >>> assert r.json()['owner']['login'] == 'maodouzi'
+  Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  AssertionError
+  ```
 
 - JSONPath
   - 文档：<https://goessner.net/articles/JsonPath/>
@@ -724,10 +724,21 @@
     JSONPath 表达式与 XPath 类似，是 XPath 在 json 中的应用，全称 XPath for JSON，用于从 JSON 文档中提取数据。JSONPath
     表达式和XPath语法对比如下：
 
-    | XPath | JSONPath | Description | | ----- | -------- | ----------- | | / | $ | 跟节点 | | . | @ |
-    当前节点 | | / | . or [] | 儿子节点 | | .. | N/A | 父节点 | | // | .. | 子孙节点 | | * | * | 匹配所有节点 | | @ | N/A
-    | 属性 | | [] | [] | 下标操作符 | | \| | [,] | 多选 | | N/A | [start:eand:step] | 切片 | | [] | ?() | 过滤表达式
-    | | N/A | () | script 表达式 | | () | N/A | 分组 |
+    | XPath | JSONPath          | Description |
+    | ----- | ----------------- | ----------- |
+    | /     | $                 | 跟节点         |
+    | .     | @                 | 当前节点        |
+    | /     | . or []           | 儿子节点        |
+    | ..    | N/A               | 父节点         |
+    | //    | ..                | 子孙节点        |
+    | *     | *                 | 匹配所有节点      |
+    | @     | N/A               | 属性          |
+    | []    | []                | 下标操作符       |
+    |       |                   | [,]         |
+    | N/A   | [start:eand:step] | 切片          |
+    | []    | ?()               | 过滤表达式       |
+    | N/A   | ()                | script 表达式  |
+    | ()    | N/A               | 分组          |
 
   - jsonpath 库可用于处理 json 数据：<https://pypi.org/project/jsonpath/>，`pip3 install jsonpath`
 
