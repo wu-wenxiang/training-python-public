@@ -1,29 +1,33 @@
 #-*- coding: utf-8 -*-
 #画出特征雷达图，代码接KMeans_cluster.py
 
+import os
 import pandas as pd
 from sklearn.cluster import KMeans #导入K均值聚类算法
 
-DIR = '/Users/wuwenxiang/Desktop/AirCustomer/test'
-inputfile = f'{DIR}/tmp/zscoreddata.xls' #待聚类的数据文件
-k = 6                       #需要进行的聚类类别数
+DIR = r'/Users/wuwenxiang/Desktop/AirCustomer/test'
+# DIR = r'C:\Users\Administrator\Desktop\AirCustomer\test'
+
+inputfile =os.path.join(DIR, 'tmp', 'zscoreddata.csv') #待聚类的数据文件
+k = 5                       #需要进行的聚类类别数
+
 
 #读取数据并进行聚类分析
-data = pd.read_excel(inputfile) #读取数据
+data = pd.read_csv(inputfile) #读取数据
 
 #调用k-means算法，进行聚类分析
-kmodel = KMeans(n_clusters = k, n_jobs = 4) #n_jobs是并行数，一般等于CPU数较好
+kmodel = KMeans(n_clusters = k) #n_jobs是并行数，一般等于CPU数较好
 kmodel.fit(data) #训练模型
 
 print(kmodel.cluster_centers_) #查看聚类中心
 a = kmodel.labels_
-print(a[a==5]) #查看各样本对应的类别
+print(a[a==4]) #查看各样本对应的类别
 
 import numpy as np
 import matplotlib.pyplot as plt
 
 labels = data.columns #标签
-k = 6 #数据个数
+k = 5 #数据个数
 plot_data = kmodel.cluster_centers_
 color = ['b', 'g', 'r', 'c', 'y'] #指定颜色
 
