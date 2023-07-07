@@ -821,147 +821,147 @@
 
     ![](images/testing-jsonschema.png)
 
-        ```python
-        # 把网站得到的 json schema 拿过来
-        >>> aStr='''{
-        ...     "$schema": "http://json-schema.org/draft-07/schema",
-        ...     "$id": "http://example.com/example.json",
-        ...     "type": "object",
-        ...     "title": "The root schema",
-        ...     "description": "The root schema comprises the entire JSON document.",
-        ...     "default": {},
-        ...     "examples": [
-        ...         {
-        ...             "name": "training-python-public",
-        ...             "owner": {
-        ...                 "login": "wu-wenxiang"
-        ...             }
-        ...         }
-        ...     ],
-        ...     "required": [
-        ...         "name",
-        ...         "owner"
-        ...     ],
-        ...     "properties": {
-        ...         "name": {
-        ...             "$id": "#/properties/name",
-        ...             "type": "string",
-        ...             "title": "The name schema",
-        ...             "description": "An explanation about the purpose of this instance.",
-        ...             "default": "",
-        ...             "examples": [
-        ...                 "training-python-public"
-        ...             ]
-        ...         },
-        ...         "owner": {
-        ...             "$id": "#/properties/owner",
-        ...             "type": "object",
-        ...             "title": "The owner schema",
-        ...             "description": "An explanation about the purpose of this instance.",
-        ...             "default": {},
-        ...             "examples": [
-        ...                 {
-        ...                     "login": "wu-wenxiang"
-        ...                 }
-        ...             ],
-        ...             "required": [
-        ...                 "login"
-        ...             ],
-        ...             "properties": {
-        ...                 "login": {
-        ...                     "$id": "#/properties/owner/properties/login",
-        ...                     "type": "string",
-        ...                     "title": "The login schema",
-        ...                     "description": "An explanation about the purpose of this instance.",
-        ...                     "default": "",
-        ...                     "examples": [
-        ...                         "wu-wenxiang"
-        ...                     ]
-        ...                 }
-        ...             },
-        ...             "additionalProperties": true
-        ...         }
-        ...     },
-        ...     "additionalProperties": true
-        ... }'''
-        >>> schema = json.loads(aStr)
-        >>> pprint.pprint(schema)
-        {'$id': 'http://example.com/example.json',
-        '$schema': 'http://json-schema.org/draft-07/schema',
-        'additionalProperties': True,
-        'default': {},
-        'description': 'The root schema comprises the entire JSON document.',
-        'examples': [{'name': 'training-python-public',
-                    'owner': {'login': 'wu-wenxiang'}}],
-        'properties': {'name': {'$id': '#/properties/name',
-                                'default': '',
-                                'description': 'An explanation about the purpose of '
-                                                'this instance.',
-                                'examples': ['training-python-public'],
-                                'title': 'The name schema',
-                                'type': 'string'},
-                        'owner': {'$id': '#/properties/owner',
-                                'additionalProperties': True,
-                                'default': {},
-                                'description': 'An explanation about the purpose of '
-                                                'this instance.',
-                                'examples': [{'login': 'wu-wenxiang'}],
-                                'properties': {'login': {'$id': '#/properties/owner/properties/login',
-                                                        'default': '',
-                                                        'description': 'An '
-                                                                        'explanation '
-                                                                        'about the '
-                                                                        'purpose of '
-                                                                        'this '
-                                                                        'instance.',
-                                                        'examples': ['wu-wenxiang'],
-                                                        'title': 'The login schema',
-                                                        'type': 'string'}},
-                                'required': ['login'],
-                                'title': 'The owner schema',
-                                'type': 'object'}},
-        'required': ['name', 'owner'],
-        'title': 'The root schema',
-        'type': 'object'}
-        ```
+    ```python
+    # 把网站得到的 json schema 拿过来
+    >>> aStr='''{
+    ...     "$schema": "http://json-schema.org/draft-07/schema",
+    ...     "$id": "http://example.com/example.json",
+    ...     "type": "object",
+    ...     "title": "The root schema",
+    ...     "description": "The root schema comprises the entire JSON document.",
+    ...     "default": {},
+    ...     "examples": [
+    ...         {
+    ...             "name": "training-python-public",
+    ...             "owner": {
+    ...                 "login": "wu-wenxiang"
+    ...             }
+    ...         }
+    ...     ],
+    ...     "required": [
+    ...         "name",
+    ...         "owner"
+    ...     ],
+    ...     "properties": {
+    ...         "name": {
+    ...             "$id": "#/properties/name",
+    ...             "type": "string",
+    ...             "title": "The name schema",
+    ...             "description": "An explanation about the purpose of this instance.",
+    ...             "default": "",
+    ...             "examples": [
+    ...                 "training-python-public"
+    ...             ]
+    ...         },
+    ...         "owner": {
+    ...             "$id": "#/properties/owner",
+    ...             "type": "object",
+    ...             "title": "The owner schema",
+    ...             "description": "An explanation about the purpose of this instance.",
+    ...             "default": {},
+    ...             "examples": [
+    ...                 {
+    ...                     "login": "wu-wenxiang"
+    ...                 }
+    ...             ],
+    ...             "required": [
+    ...                 "login"
+    ...             ],
+    ...             "properties": {
+    ...                 "login": {
+    ...                     "$id": "#/properties/owner/properties/login",
+    ...                     "type": "string",
+    ...                     "title": "The login schema",
+    ...                     "description": "An explanation about the purpose of this instance.",
+    ...                     "default": "",
+    ...                     "examples": [
+    ...                         "wu-wenxiang"
+    ...                     ]
+    ...                 }
+    ...             },
+    ...             "additionalProperties": true
+    ...         }
+    ...     },
+    ...     "additionalProperties": true
+    ... }'''
+    >>> schema = json.loads(aStr)
+    >>> pprint.pprint(schema)
+    {'$id': 'http://example.com/example.json',
+    '$schema': 'http://json-schema.org/draft-07/schema',
+    'additionalProperties': True,
+    'default': {},
+    'description': 'The root schema comprises the entire JSON document.',
+    'examples': [{'name': 'training-python-public',
+                'owner': {'login': 'wu-wenxiang'}}],
+    'properties': {'name': {'$id': '#/properties/name',
+                            'default': '',
+                            'description': 'An explanation about the purpose of '
+                                            'this instance.',
+                            'examples': ['training-python-public'],
+                            'title': 'The name schema',
+                            'type': 'string'},
+                    'owner': {'$id': '#/properties/owner',
+                            'additionalProperties': True,
+                            'default': {},
+                            'description': 'An explanation about the purpose of '
+                                            'this instance.',
+                            'examples': [{'login': 'wu-wenxiang'}],
+                            'properties': {'login': {'$id': '#/properties/owner/properties/login',
+                                                    'default': '',
+                                                    'description': 'An '
+                                                                    'explanation '
+                                                                    'about the '
+                                                                    'purpose of '
+                                                                    'this '
+                                                                    'instance.',
+                                                    'examples': ['wu-wenxiang'],
+                                                    'title': 'The login schema',
+                                                    'type': 'string'}},
+                            'required': ['login'],
+                            'title': 'The owner schema',
+                            'type': 'object'}},
+    'required': ['name', 'owner'],
+    'title': 'The root schema',
+    'type': 'object'}
+    ```
 
     不管用哪种方式（genson 自动生成 / online 网站转换 / 手写）获取到 schema，拿到 schema 之后可以开始验证：
 
-        ```python
-        >>> jsonschema.validate(data, schema=schema)
-        >>> schema['required']
-        ['name', 'owner']
-        >>> schema['required'] = ['name', 'owner2']
-        >>> jsonschema.validate(data, schema=schema)
-        Traceback (most recent call last):
-        File "<stdin>", line 1, in <module>
-        File "/usr/local/lib/python3.9/site-packages/jsonschema/validators.py", line 934, in validate
-            raise error
-        jsonschema.exceptions.ValidationError: 'owner2' is a required property
+    ```python
+    >>> jsonschema.validate(data, schema=schema)
+    >>> schema['required']
+    ['name', 'owner']
+    >>> schema['required'] = ['name', 'owner2']
+    >>> jsonschema.validate(data, schema=schema)
+    Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+    File "/usr/local/lib/python3.9/site-packages/jsonschema/validators.py", line 934, in validate
+        raise error
+    jsonschema.exceptions.ValidationError: 'owner2' is a required property
 
-        Failed validating 'required' in schema:
-            {'$id': 'http://example.com/example.json',
-            '$schema': 'http://json-schema.org/draft-07/schema',
-            'additionalProperties': True,
-            ...
-            }
-        ```
+    Failed validating 'required' in schema:
+        {'$id': 'http://example.com/example.json',
+        '$schema': 'http://json-schema.org/draft-07/schema',
+        'additionalProperties': True,
+        ...
+        }
+    ```
 
 - xml 解析断言
   - xml 文件解析可以使用 requests_xml，参考：<https://github.com/erinxocon/requests-xml>
   - 也可以使用 Python xml.etree.ElementTree 模块解析 xml 数据，使用 Xpath 定位
 
-        ```python
-        # xml.etree.ElementTree 模块 xml 解析举例：
+    ```python
+    # xml.etree.ElementTree 模块 xml 解析举例：
 
-        import xml.etree.ElementTree as ET
-        root = ET.fromstring(countrydata)
-        root.findall(".")
-        root.findall("./country/neighbor")
-        root.findall(".//year/..[@name='Singapore']")
-        root.findall(".//*[@name='Singapore']/year")
-        root.findall(".//neighbor[2]")
-        ```
+    import xml.etree.ElementTree as ET
+    root = ET.fromstring(countrydata)
+    root.findall(".")
+    root.findall("./country/neighbor")
+    root.findall(".//year/..[@name='Singapore']")
+    root.findall(".//*[@name='Singapore']/year")
+    root.findall(".//neighbor[2]")
+    ```
 
   - 和 JSON Schema 一样，也有一个 XML Schema，用于解析 xml 文档，文档参考：https://www.w3.org/2001/XMLSchema
   - Python库安装： pip3 install xmlschema
@@ -975,28 +975,28 @@
 - 文档参考：<https://docs.pytest.org/en/6.2.x/usage.html#cmdline>
 - 接口测试断言
 
-      ```python
-      # a.py
-      import requests
+  ```python
+  # a.py
+  import requests
 
-      class TestRequest():
-          def test_get(self):
-              r = requests.get('https://api.github.com/events')
-              assert r.status_code == 200
-      ```
+  class TestRequest():
+      def test_get(self):
+          r = requests.get('https://api.github.com/events')
+          assert r.status_code == 200
+  ```
 
-      ```console
-      $ pytest a.py -v
-      ================================================================= test session starts =================================================================
-      platform darwin -- Python 3.9.2, pytest-6.2.4, py-1.10.0, pluggy-0.13.1 -- /usr/local/opt/python@3.9/bin/python3.9
-      cachedir: .pytest_cache
-      rootdir: /Users/wuwenxiang/local/test/test2
-      collected 1 item
+  ```console
+  $ pytest a.py -v
+  ================================================================= test session starts =================================================================
+  platform darwin -- Python 3.9.2, pytest-6.2.4, py-1.10.0, pluggy-0.13.1 -- /usr/local/opt/python@3.9/bin/python3.9
+  cachedir: .pytest_cache
+  rootdir: /Users/wuwenxiang/local/test/test2
+  collected 1 item
 
-      a.py::TestRequest::test_get PASSED                                                                                                              [100%]
+  a.py::TestRequest::test_get PASSED                                                                                                              [100%]
 
-      ================================================================== 1 passed in 0.79s ==================================================================
-      ```
+  ================================================================== 1 passed in 0.79s ==================================================================
+  ```
 
 ### 4.5 Tempest
 
