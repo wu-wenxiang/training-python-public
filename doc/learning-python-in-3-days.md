@@ -90,4 +90,4 @@
 |       |    |                 | [3.2.4 应用部署的依赖隔离](#612-部署不同的-python-版本)             |
 |       | 下午 |                 | [自动化测试](autotest.md)                                |
 |       |    |                 | [机器学习](http://blog.wuwenxiang.net/Machine-Learning) |
-|       |    |                 | [数据分析](src/data-analysis)                           |
+|       |    |                 | [5.4 数据分析](#54-数据分析)                                |
