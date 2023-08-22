@@ -238,6 +238,45 @@ Python 语法
 
   **注意这里的 else，如果由 break 跳出循环，就不会执行 else block，反之就会执行**
 
+  ```python
+  import time
+  import random
+
+  i = 0
+  timeout_flag = True
+
+  while i < 5:
+      r = random.random()
+      print(r)
+      if r > 0.8:
+          timeout_flag = False
+          break
+      time.sleep(1)
+      i += 1
+
+  if timeout_flag:
+      print('timeout!')
+  ```
+
+  用 else 可以缩减一个变量，效果同前。
+
+  ```python
+  import time
+  import random
+
+  i = 0
+
+  while i < 5:
+      r = random.random()
+      print(r)
+      if r > 0.8:
+          break
+      time.sleep(1)
+      i += 1
+  else:
+      print('timeout!')
+  ```
+
 #### 1.2.5 帮助文档 Pydoc
 
 - 交互环境：查询 sys 模块的帮助文档：`help(sys)`
