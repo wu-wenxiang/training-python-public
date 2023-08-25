@@ -2917,7 +2917,7 @@ send 42
 
 `pip install -i https://pypi.tuna.tsinghua.edu.cn/simple pandas numpy scipy matplotlib scikit-learn xlrd openpyxl`
 
-Windows: `pip install -i msvc-runtime`
+Windows: `pip install -i https://pypi.tuna.tsinghua.edu.cn/simple msvc-runtime`
 
 #### 5.4.1 Numpy
 
