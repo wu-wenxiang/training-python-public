@@ -1,12 +1,15 @@
 # Python 自动化测试
 
-- 授课时长：
-  - 上午：9:00 至 12:00
-  - 下午：13:30 至 17:00
-- Prerequisite
-  - 有计算机语言编程基础
-  - 了解 API 测试的基本概念
-  - 掌握一种 IDE，比如 VSCode（Remote Plugin）
+## 注意 ⚠️
+
+- _斜体表示引用_
+- **未经允许，禁止转载**
+
+Prerequisite：
+
+- 有计算机语言编程基础
+- 了解 API 测试的基本概念
+- 掌握一种 IDE，比如 VSCode（Remote Plugin）
 
 ## 1. 基本概念
 
