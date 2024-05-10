@@ -2237,7 +2237,7 @@ python -m doctest -v test.py
   - Onlaunch / 暂停程序 / 查看变量 / 逐步监视程序执行
   - 不能用于 Attach 调试 / 多线程支持有限
 - 启动调试工具
-  - 程序设置断点：`import pdb; pdb.set_trace()`
+  - 程序设置断点：`import pdb; pdb.set_trace()` 或者 `breakpoint()`
   - 调试工具接口
     - 在调用栈中移动 / 检查和修改变量的值 / 控制程序执行
     - l,s,n / p / c
