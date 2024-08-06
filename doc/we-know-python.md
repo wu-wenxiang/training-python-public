@@ -2435,6 +2435,8 @@ demo，[Github](https://github.com/wu-wenxiang/restful-api-demo)，[Gitee](https
 参考：fastapi retstful API
 demo，[Github](https://github.com/wu-wenxiang/fastapi-demo)，[Gitee](https://gitee.com/wu-wen-xiang/fastapi-demo)，异步框架压测可以看到明显优势，[压测报告](https://gitee.com/wu-wen-xiang/fastapi-demo/blob/main/doc/how-to-take-a-stress-test-for-fastapi-sync-mode.md)
 
+参考：fastapi todolist demo，[Github](https://github.com/wu-wenxiang/fastapi-todo-list-demo)，[Gitee](https://gitee.com/wu-wen-xiang/fastapi-todo-list-demo)
+
 ### 4.3 服务部署
 
 [返回目录](#课程目录)
