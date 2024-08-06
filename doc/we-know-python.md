@@ -2901,12 +2901,12 @@ StopIteration
 >>> a
 <generator object <genexpr> at 0x1060f3a50>
 >>> for i in a: print i
-... 
+...
 0
 1
 2
 >>> for i in a: print i # 生成器是单迭代对象
-... 
+...
 >>>
 ```
 
@@ -2993,7 +2993,7 @@ Windows: `pip install -i https://pypi.tuna.tsinghua.edu.cn/simple msvc-runtime`
 
 参考：<https://scrapy.org/>
 
-- [Overview at a glance](https://docs.scrapy.org/en/latest/intro/overview.html) 
+- [Overview at a glance](https://docs.scrapy.org/en/latest/intro/overview.html)
 - [练习](python-exec-public.py#L1483)
 
 #### 5.5.2 request + lxml
@@ -3388,7 +3388,7 @@ aProcess.start() # run
 输出层的节点个数可以自由的增加，输出层用于判断输入属于那个分类，每个输出层都共享同样的输入层和隐藏层。
 
 ![](images/nn-demo.png)
-                        
+
 这里的每个节点都和下一层节点全部相连，又称为全连接网络。数据传输的方向是单向的并且一直向前传播，也叫做前馈神经网络。
 
 卷积神经网络**不是**全连接网络，循环神经网络**不是**前馈神经网络。
@@ -3430,6 +3430,8 @@ aProcess.start() # run
 
 ### 7.4 Transform 大模型基础（选讲）
 
+[返回目录](#课程目录)
+
 #### 7.4.1 编码和解码
 
 #### 7.4.2 注意力机制
@@ -3438,21 +3440,338 @@ aProcess.start() # run
 
 ### 7.5 Pytorch
 
+[返回目录](#课程目录)
+
+安装：[参考](https://pypi.org/project/torch/)
+
+- `pip install torch`
+- `pip install torchvision torchaudio`
+
 参考：<https://pytorch.ac.cn/tutorials/beginner/basics/quickstart_tutorial.html>
+
+```python
+import torch
+from torch import nn
+from torch.utils.data import DataLoader
+from torchvision import datasets
+from torchvision.transforms import ToTensor
+
+# Download training data from open datasets.
+training_data = datasets.FashionMNIST(
+    root="data",
+    train=True,
+    download=True,
+    transform=ToTensor(),
+)
+
+# Download test data from open datasets.
+test_data = datasets.FashionMNIST(
+    root="data",
+    train=False,
+    download=True,
+    transform=ToTensor(),
+)
+
+batch_size = 64
+
+# Create data loaders.
+train_dataloader = DataLoader(training_data, batch_size=batch_size)
+test_dataloader = DataLoader(test_data, batch_size=batch_size)
+
+for X, y in test_dataloader:
+    print(f"Shape of X [N, C, H, W]: {X.shape}")
+    print(f"Shape of y: {y.shape} {y.dtype}")
+    break
+
+# Get cpu, gpu or mps device for training.
+device = (
+    "cuda"
+    if torch.cuda.is_available()
+    else "mps"
+    if torch.backends.mps.is_available()
+    else "cpu"
+)
+print(f"Using {device} device")
+
+# Define model
+class NeuralNetwork(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.flatten = nn.Flatten()
+        self.linear_relu_stack = nn.Sequential(
+            nn.Linear(28*28, 512),
+            nn.ReLU(),
+            nn.Linear(512, 512),
+            nn.ReLU(),
+            nn.Linear(512, 10)
+        )
+
+    def forward(self, x):
+        x = self.flatten(x)
+        logits = self.linear_relu_stack(x)
+        return logits
+
+model = NeuralNetwork().to(device)
+print(model)
+
+loss_fn = nn.CrossEntropyLoss()
+optimizer = torch.optim.SGD(model.parameters(), lr=1e-3)
+
+def train(dataloader, model, loss_fn, optimizer):
+    size = len(dataloader.dataset)
+    model.train()
+    for batch, (X, y) in enumerate(dataloader):
+        X, y = X.to(device), y.to(device)
+
+        # Compute prediction error
+        pred = model(X)
+        loss = loss_fn(pred, y)
+
+        # Backpropagation
+        loss.backward()
+        optimizer.step()
+        optimizer.zero_grad()
+
+        if batch % 100 == 0:
+            loss, current = loss.item(), (batch + 1) * len(X)
+            print(f"loss: {loss:>7f}  [{current:>5d}/{size:>5d}]")
+
+def test(dataloader, model, loss_fn):
+    size = len(dataloader.dataset)
+    num_batches = len(dataloader)
+    model.eval()
+    test_loss, correct = 0, 0
+    with torch.no_grad():
+        for X, y in dataloader:
+            X, y = X.to(device), y.to(device)
+            pred = model(X)
+            test_loss += loss_fn(pred, y).item()
+            correct += (pred.argmax(1) == y).type(torch.float).sum().item()
+    test_loss /= num_batches
+    correct /= size
+    print(f"Test Error: \n Accuracy: {(100*correct):>0.1f}%, Avg loss: {test_loss:>8f} \n")
+
+epochs = 5
+for t in range(epochs):
+    print(f"Epoch {t+1}\n-------------------------------")
+    train(train_dataloader, model, loss_fn, optimizer)
+    test(test_dataloader, model, loss_fn)
+print("Done!")
+
+torch.save(model.state_dict(), "model.pth")
+print("Saved PyTorch Model State to model.pth")
+
+model = NeuralNetwork().to(device)
+model.load_state_dict(torch.load("model.pth"))
+
+classes = [
+    "T-shirt/top",
+    "Trouser",
+    "Pullover",
+    "Dress",
+    "Coat",
+    "Sandal",
+    "Shirt",
+    "Sneaker",
+    "Bag",
+    "Ankle boot",
+]
+
+model.eval()
+x, y = test_data[0][0], test_data[0][1]
+with torch.no_grad():
+    x = x.to(device)
+    pred = model(x)
+    predicted, actual = classes[pred[0].argmax(0)], classes[y]
+    print(f'Predicted: "{predicted}", Actual: "{actual}"')
+```
 
 ### 7.6 面向 GPU 编程
 
-参考：<https://documen.tician.de/pycuda/tutorial.html>
+[返回目录](#课程目录)
 
-参考：<https://github.com/inducer/pycuda/tree/main/examples>
+#### 7.6.1 GPU 相关
+
+参考：[Gitee](https://gitee.com/wu-wen-xiang/lab-kubernetes/blob/master/doc/kubernetes-best-practices.md#7-gpu-%E7%9B%B8%E5%85%B3) 或者 [Github](https://github.com/wu-wenxiang/lab-kubernetes/blob/master/doc/kubernetes-best-practices.md#7-gpu-%E7%9B%B8%E5%85%B3)
+
+1. GPU 厂家 Overview
+2. [在裸机、容器和 K8S 上使用 GPU](https://www.lixueduan.com/posts/ai/01-how-to-use-gpu/)
+3. 在 K8S 上使用 GPU 的常见问题
+4. GPU 切分
+
+[Intel: CPU vs GPU](https://www.intel.cn/content/www/cn/zh/products/docs/processors/cpu-vs-gpu.html)
+
+1. CPU 并行方式是：将任务分解，在任务内并行，任务间串行，可以解决复杂任务，但瓶颈在最慢的任务上
+2. GPU 并行方式时：将数据分解，各自处理，再合并
+
+[GPU 架构差异](https://hustcat.github.io/gpu-architecture/)
+
+- Intel X86 指令集不适合这样的多核并发，只是挤牙膏一样从单核到双核，到 24 核等
+- RISC 指令集稍好些，IBM 很早做出 64 核架构
+- GPU 从刚开始就 640 核（指令集简单）
+
+并发加速公式：`1 / (串行时间比例 + 并行任务时间比例 / 并行数)`
+
+#### 7.6.2 CUDA
+
+参考：[CUDA 基础概念和编程](https://developer.nvidia.com/blog/cuda-refresher-cuda-programming-model/)
+
+![](images/kernel-execution-on-gpu-1.png)
+
+![](images/gorpycuda3.png)
+
+编写核函数
+
+1. blockIdx 线程块（block）索引
+2. blockDim 每个线程块（block）启动的线程（thread）数量
+3. threadIdx 线程索引
+
+调用核函数
+
+1. `some_kernel_func<<<2,128>>>(a,b,c)`，调用 `some_kernel_func` 2*128 次
+2. 2 是 `num_blocks` 线程块数量，128 是 `num_threads` 线程块里的线程数量
+
+CPU 用于控制调用 kernels 函数
+
+1. 一个 CUDA 程序可能有数以千计的 kernels 组成
+2. kernels 用关键字 `__global__` 区分
+3. 执行用 `<<<N,M>>>`，N 代表 N 个 block，M 代表每个 block 有 M 个线程。每个线程各自调用核函数
+
+#### 7.6.2 PyCUDA
+
+安装：[参考](https://wiki.tiker.net/PyCuda/Installation/)，`pip install pycuda`
+
+使用参考：<https://documen.tician.de/pycuda/tutorial.html>
+
+```python
+import numpy as np
+import pycuda.autoinit
+from pycuda import gpuarray
+
+# 定义两个向量
+a = gpuarray.to_gpu(np.arange(4))
+b = gpuarray.to_gpu(np.arange(4))
+
+# 执行向量加法
+c = a + b
+print(c)
+```
+
+高级用法
+
+```python
+import pycuda.driver as cuda
+import pycuda.autoinit
+from pycuda.compiler import SourceModule
+
+import numpy
+a = numpy.random.randn(4,4)
+
+a = a.astype(numpy.float32)
+
+a_gpu = cuda.mem_alloc(a.size * a.dtype.itemsize)
+
+cuda.memcpy_htod(a_gpu, a)
+
+mod = SourceModule("""
+    __global__ void doublify(float *a)
+    {
+      int idx = threadIdx.x + threadIdx.y*4;
+      a[idx] *= 2;
+    }
+    """)
+
+func = mod.get_function("doublify")
+func(a_gpu, block=(4,4,1))
+
+a_doubled = numpy.empty_like(a)
+cuda.memcpy_dtoh(a_doubled, a_gpu)
+print("original array:")
+print(a)
+print("doubled with kernel:")
+print(a_doubled)
+
+# alternate kernel invocation -------------------------------------------------
+
+func(cuda.InOut(a), block=(4, 4, 1))
+print("doubled with InOut:")
+print(a)
+
+# part 2 ----------------------------------------------------------------------
+
+import pycuda.gpuarray as gpuarray
+a_gpu = gpuarray.to_gpu(numpy.random.randn(4,4).astype(numpy.float32))
+a_doubled = (2*a_gpu).get()
+
+print("original array:")
+print(a_gpu)
+print("doubled with gpuarray:")
+print(a_doubled)
+```
+
+更多 Demo：<https://github.com/inducer/pycuda/tree/main/examples>
 
 ### 7.7 大模型 Agent
 
+[返回目录](#课程目录)
+
 #### 7.7.1 知识库 RAG
+
+##### 7.7.1.1 什么是 RAG
+
+参考：[AWS](https://aws.amazon.com/cn/what-is/retrieval-augmented-generation/)
+
+1. Retrieval Augmented Generation 检索增强生成
+2. 对大型语言模型输出进行优化，使其能够在生成响应之前引用训练数据来源之外的权威知识库。
+
+优点：
+
+- 经济高效的实施
+- 当前时事信息
+- 增强用户信任度
+- 更多开发人员控制权
+
+工作原理：
+
+- 创建外部数据
+- 检索相关信息
+- 增强 LLM 提示
+- 更新外部数据
+
+![](images/llm-rag.png)
+
+##### 7.7.1.2 基本概念
+
+Langchain: 一个开源框架，用于构建基于大型语言模型（LLM）的应用程序。用于简化人工智能开发。
+
+![](images/langchain.png)
+
+Embedding Model：将高维数据（如文本、图像、音频）转换为低维连续向量表示的方法。
+
+LLM：Large Language Model 大语言模型
+
+向量数据库 FAISS: Facebook AI Similarity Search, 一个用于高效相似性搜索和密集向量聚类的库。
+
+模型部署框架
+
+- Xinference
+- LocalAI
+- Ollama
+- FastChat
+
+Supabase：一个开源的 Firebase 替代方案，提供 PostgreSQL 数据库、认证、即时 API、边缘函数、实时订阅、存储和向量嵌入等服务。
+
+##### 7.7.1.3 实现
+
+参考：[Langchain-Chatchat](https://github.com/chatchat-space/Langchain-Chatchat)
+
+参考：[Quivr](https://github.com/QuivrHQ/quivr)
 
 #### 7.7.2 多模态
 
 ### 7.8 大模型推理应用
+
+[返回目录](#课程目录)
 
 #### 7.8.1 K8S-AIOps
 
