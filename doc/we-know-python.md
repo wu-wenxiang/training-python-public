@@ -2444,6 +2444,10 @@ demo，[Github](https://github.com/wu-wenxiang/fastapi-demo)，[Gitee](https://g
 参考：Python Django Demo，[Github](https://github.com/wu-wenxiang/ZZLARGE-Project-DjangoTest) 或
 [Gitee](https://gitee.com/wu-wen-xiang/project-django-demo)
 
+### 4.4 BootStrap + JQuery
+
+参考：[Github](https://github.com/wu-wenxiang/todolist-bootstrap-jquery) 或 [Gitee](https://gitee.com/wu-wen-xiang/todolist-bootstrap-jquery)
+
 ## 5. 算法和设计模式相关
 
 [返回目录](#课程目录)
