@@ -3412,7 +3412,7 @@ aProcess.start() # run
 
 #### 7.3.1 什么是卷积
 
-卷积的原始含义：
+卷积的原始含义：[参考](https://www.zhihu.com/question/22298352)
 
 1. 不确定的输入
 2. 确定的消耗
@@ -3426,6 +3426,8 @@ aProcess.start() # run
 #### 7.3.3 卷积神经网络
 
 1. 卷积神经网络的结构
+  - [NVidia CNN](https://www.nvidia.cn/glossary/data-science/convolutional-neural-network/)
+  - [CNN](https://paddlepedia.readthedocs.io/en/latest/tutorials/CNN/convolution_operator/Convolution.html)
 2. 池化的作用是什么？
 
 ### 7.4 Transform 大模型基础（选讲）
@@ -3775,6 +3777,10 @@ Supabase：一个开源的 Firebase 替代方案，提供 PostgreSQL 数据库�
 
 #### 7.8.1 K8S-AIOps
 
+[文档下载](https://share.weiyun.com/MY69BvxM)
+
 #### 7.8.2 微调
+
+[文档下载](https://share.weiyun.com/MY69BvxM)
 
 #### 7.8.3 推理加速
