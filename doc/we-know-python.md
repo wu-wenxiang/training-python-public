@@ -47,9 +47,9 @@
 |       |    |                  | Django 静态文件和自动化部署 |
 |       |  |                  | [4.2 Django Restful API](#42-restful-api)                  |
 |       |    |                  | [后端任务管理]()             |
-|       | 下午 |                  | [Ajax 和前后端分离]()                              |
-|       |    |                  | [前端框架入门]()                    |
-|       |    |                  | [FastAPI 和 OpenAPI（Swagger）]()                            |
+|       | 下午 |                  | [4.4.1 Ajax 和前后端分离](#441-bootstrap--jquery)                              |
+|       |    |                  | [4.4.2 前端框架](#442-vuejs)                    |
+|       |    |                  | [4.2 FastAPI 和 OpenAPI（Swagger）](#42-restful-api)                            |
 
 ## 1. 基础
 
@@ -2444,9 +2444,45 @@ demo，[Github](https://github.com/wu-wenxiang/fastapi-demo)，[Gitee](https://g
 参考：Python Django Demo，[Github](https://github.com/wu-wenxiang/ZZLARGE-Project-DjangoTest) 或
 [Gitee](https://gitee.com/wu-wen-xiang/project-django-demo)
 
-### 4.4 BootStrap + JQuery
+参考：[Ansible](automation.md#23-ansible-基础)
+
+### 4.4 前端框架
+
+#### 4.4.1 BootStrap + JQuery
 
 参考：[Github](https://github.com/wu-wenxiang/todolist-bootstrap-jquery) 或 [Gitee](https://gitee.com/wu-wen-xiang/todolist-bootstrap-jquery)
+
+参考：[Ant Design](https://4x-ant-design.antgroup.com/components/overview-cn/)
+
+#### 4.4.2 VueJS
+
+- Vue3.4 + Vite5.x + Ant-Design-Vue + TypeScript + pinia + unocss
+- lodash + dayjs + axios + mockjs + echarts
+- 国际化：vue-i18n
+- 代码规范：husky + prettier + lint-staged + eslint + stylelint
+
+#### 4.4.3 react
+
+框架组合：
+
+- react 16/17 + react-dom + react-router + react-router-dom+ mobx + babel(es6/7 -> es 5) + less
+- lodash (小工具封装库) + moment + axios
+- antd + ant-desgin/icons + g6(图形化)  + reactflow(拖拽)
+
+自动化测试
+
+- cypress（ui 整合性测试）
+- jest (逻辑性测试)
+
+国际化
+
+- i18next, grunt(horzion 采集)
+- 基于百度翻译的一套国际化
+
+微前端：
+
+- qiankun
+- 无界
 
 ## 5. 算法和设计模式相关
 
