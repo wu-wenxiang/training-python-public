@@ -37,7 +37,7 @@
 |       |    |                  | [7.7 大模型 Agent](#77-大模型-agent)                  |
 |       |    |                  | [7.8 大模型推理应用](#78-大模型推理应用)                  |
 | 第四天 | 上午 | [Web 开发](#4-web-开发) | [4.1 Web 开发原理](#41-mvc-框架)                   |
-|       |    |                  | [Flask 框架]()                            |
+|       |    |                  | [4.2.1 Flask 框架](#421-flask)                            |
 |       |    |                  | [6.5 数据库和 ORM](#65-数据库和-orm)                  |
 |       |    |                  | [4.1 Django 架构介绍和项目构建](#41-mvc-框架)                               |
 |       | 下午 |                  | Django 路由和视图函数                                |
@@ -2416,8 +2416,6 @@ Copilot: <https://docs.github.com/zh/copilot/quickstart>
 
 [返回目录](#课程目录)
 
-Flask，参考：<https://flask.palletsprojects.com/zh-cn/main/quickstart/#a-minimal-application>
-
 ### 4.1 MVC 框架
 
 [返回目录](#课程目录)
@@ -2429,10 +2427,20 @@ Flask，参考：<https://flask.palletsprojects.com/zh-cn/main/quickstart/#a-min
 
 [返回目录](#课程目录)
 
+#### 4.2.1 Flask
+
 参考：[REST API 接口基本概念](autotest.md#41-rest-api-%E6%8E%A5%E5%8F%A3%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5)
+
+Flask，参考：<https://flask.palletsprojects.com/zh-cn/main/quickstart/#a-minimal-application>
+
+Flask Restful API：[Github](https://github.com/wu-wenxiang/rest_api_demo#quick-start) 或 [Gitee](https://gitee.com/wu-wen-xiang/rest_api_demo#quick-start)
+
+#### 4.2.2 Pecan
 
 参考：pecan restful API
 demo，[Github](https://github.com/wu-wenxiang/restful-api-demo)，[Gitee](https://gitee.com/wu-wen-xiang/restful-api-demo)
+
+#### 4.2.3 FastAPI
 
 参考：fastapi retstful API
 demo，[Github](https://github.com/wu-wenxiang/fastapi-demo)，[Gitee](https://gitee.com/wu-wen-xiang/fastapi-demo)，异步框架压测可以看到明显优势，[压测报告](https://gitee.com/wu-wen-xiang/fastapi-demo/blob/main/doc/how-to-take-a-stress-test-for-fastapi-sync-mode.md)
@@ -2978,7 +2986,7 @@ send 42
 4
 ```
 
-### 5.3.3 异步
+#### 5.3.3 异步
 
 参考：<https://docs.python.org/zh-cn/3/library/asyncio-task.html>
 
@@ -2989,6 +2997,14 @@ send 42
 ![](images/thread-coroutine.png)
 
 ![](images/time-thread-coroutine.png)
+
+#### 5.3.4 后台任务
+
+参考：[celery](https://docs.celeryq.dev/en/stable/getting-started/first-steps-with-celery.html)
+
+```python
+
+```
 
 ### 5.4 数据分析
 
