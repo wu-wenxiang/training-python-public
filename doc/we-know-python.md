@@ -46,7 +46,7 @@
 | 第 5 天 | 上午 |                  | Django 模板和表单                                |
 |       |    |                  | Django 静态文件和自动化部署 |
 |       |  |                  | [4.2 Django Restful API](#42-restful-api)                  |
-|       |    |                  | [后端任务管理]()             |
+|       |    |                  | [5.3.4 后台任务管理](#534-后台任务)             |
 |       | 下午 |                  | [4.4.1 Ajax 和前后端分离](#441-bootstrap--jquery)                              |
 |       |    |                  | [4.4.2 前端框架](#442-vuejs)                    |
 |       |    |                  | [4.2 FastAPI 和 OpenAPI（Swagger）](#42-restful-api)                            |
@@ -3003,7 +3003,107 @@ send 42
 参考：[celery](https://docs.celeryq.dev/en/stable/getting-started/first-steps-with-celery.html)
 
 ```python
+# tasks.py
+# pip install celery sqlalchemy
+from celery import Celery
 
+app = Celery(
+    'tasks',
+    broker='sqla+sqlite:///celerydb.sqlite',
+    backend='db+sqlite:///celerydb.sqlite',
+)
+
+@app.task
+def add(x, y):
+    return x + y
+
+# celery -A tasks worker --loglevel=INFO
+```
+
+发任务：
+
+```python
+from tasks import add
+
+result = add.delay(4, 4)
+
+print(result.ready())
+print(result.get(timeout=1))
+print(result.ready())
+print(result.traceback)
+```
+
+[APSchedule 参考](https://apscheduler.readthedocs.io/en/3.x/userguide.html)
+
+```python
+# pip install apscheduler
+
+import datetime, time
+from apscheduler.schedulers.background import BackgroundScheduler
+
+def job1():
+    print('job1')
+
+def job2(x, y):
+    print('job2', x, y)
+
+scheduler = BackgroundScheduler()
+scheduler.start()
+
+# 每天 2 点运行，指定 jobstore 与 executor，默认都为 default
+scheduler.add_job(
+    job1,
+	trigger='cron',
+	hour=2,
+	# jobstore='mem',
+	executor='processpool'
+)
+
+# 每天 2 点 30 分 5 秒运行
+scheduler.add_job(
+	job2,
+	trigger='cron',
+	second=5,
+	minute=30,
+	hour=2,
+	args=['hello', 'world']
+)
+
+# 每 10 秒运行一次
+scheduler.add_job(
+	job1,
+	trigger='cron',
+	second='*/10'
+)
+
+# 每天 1:00,2:00,3:00 运行
+scheduler.add_job(
+	job1,
+	trigger='cron',
+	hour='1-3'
+)
+
+# 在 6,7,8,11,12 月的第三个周五 的 1:00,2:00,3:00 运行
+scheduler.add_job(
+	job1,
+	trigger='cron',
+	month='6-8,11-12',
+	day='3rd fri',
+	hour='1-3'
+)
+
+# 在 2019-12-31 号之前的周一到周五 5 点 30 分运行
+scheduler.add_job(
+	job1,
+	trigger='cron',
+	day_of_week='mon-fri',
+	hour=5,
+	minute=30,
+	end_date='2019-12-31'
+)
+
+while True:
+    time.sleep(1)
 ```
 
 ### 5.4 数据分析
