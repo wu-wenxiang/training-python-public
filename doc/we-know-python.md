@@ -2416,6 +2416,8 @@ Copilot: <https://docs.github.com/zh/copilot/quickstart>
 
 [返回目录](#课程目录)
 
+Flask，参考：<https://flask.palletsprojects.com/zh-cn/main/quickstart/#a-minimal-application>
+
 ### 4.1 MVC 框架
 
 [返回目录](#课程目录)
