@@ -2471,6 +2471,8 @@ demo，[Github](https://github.com/wu-wenxiang/fastapi-demo)，[Gitee](https://g
 - 国际化：vue-i18n
 - 代码规范：husky + prettier + lint-staged + eslint + stylelint
 
+参考：[Github](https://github.com/wu-wenxiang/todolist-vue3) 或 [Gitee](https://gitee.com/wu-wen-xiang/todolist-vue3)
+
 #### 4.4.3 react
 
 框架组合：
