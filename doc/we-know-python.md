@@ -3990,6 +3990,10 @@ Supabase：一个开源的 Firebase 替代方案，提供 PostgreSQL 数据库�
 3. [deepspeed 多机多卡训练踏过的坑](https://zhuanlan.zhihu.com/p/624223085)
 4. [训练框架介绍(Megatron-lm、DeepSpeed)](https://github.com/kebijuelun/Awesome-LLM-Learning/blob/main/3.%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/1.%E8%AE%AD%E7%BB%83%E6%A1%86%E6%9E%B6%E4%BB%8B%E7%BB%8D(Megatron-lm%E3%80%81DeepSpeed).md)
 5. [openmlsys 分布式训练](https://openmlsys.github.io/chapter_distributed_training/methods.html)
+6. [百度-Megatron-DeepSpeed](https://cloud.baidu.com/article/3178698)
+7. [阿里云-DeepSpeed 分布式训练](https://help.aliyun.com/zh/ack/cloud-native-ai-suite/user-guide/deepspeed-distributed-training)，[基于 Kubernetes 构建云原生 AI 平台](https://mp.weixin.qq.com/s?spm=a2c6h.12873639.article-detail.7.55c554015aKVnM&__biz=MzUzNzYxNjAzMg==&mid=2247524465&idx=1&sn=5a51aee33e4b81439a55a432ab29280a&scene=21#wechat_redirect)
+8. [Megatron-LLaMA](https://github.com/alibaba/Megatron-LLaMA)
+9. [阿里-使用 Megatron-Deepspeed 训练 GPT-2 并生成文本](https://help.aliyun.com/zh/ecs/use-cases/use-the-megatron-deepspeed-training-gpt-2-and-generate-text)
 
 #### 7.9.3 大模型
 
@@ -4003,3 +4007,16 @@ Supabase：一个开源的 Firebase 替代方案，提供 PostgreSQL 数据库�
 2. [源码分析 vllm + Ray 的分布式推理](https://blog.csdn.net/AlibabaTech1024/article/details/139619871)
 3. [使用 Accelerate 和 PyTorch Distributed
    进行分布式推理](https://github.com/OpenDocCN/huggingface-doc-zh/blob/master/docs/dfsr_0.26/dfsr026_032.md)
+
+#### 7.9.5 增量学习
+
+1. [增量学习(Incremental Learning)小综述](https://www.scholat.com/teamwork/showPostMessage.html?id=9840)
+2. [从增量学习到元学习](https://www.vzkoo.com/read/202402193d27a79bcfcde711deaee265.html)
+3. [Pytorch 实现](https://wenku.csdn.net/answer/dkyusniff4)
+4. [LwF 算法实现](https://wenku.csdn.net/answer/991a4c20f2e5447bbff1ba0569c48d0b)
+
+#### 7.9.6 联邦学习
+
+1. [联邦学习简介](https://wdxtub.com/flt/flt-01/2020/10/13/)
+2. [用 Python 从零实现横向联邦图像分类](https://github.com/FederatedAI/Practicing-Federated-Learning/tree/main/chapter03_Python_image_classification)
+3. [Flower 联邦学习](https://flower.ai/docs/framework/main/zh_Hans/tutorial-series-what-is-federated-learning.html)
