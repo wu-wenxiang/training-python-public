@@ -3961,3 +3961,45 @@ Supabase：一个开源的 Firebase 替代方案，提供 PostgreSQL 数据库�
 [文档下载](https://share.weiyun.com/MY69BvxM)
 
 #### 7.8.3 推理加速
+
+### 7.9 扩展参考
+
+#### 7.9.1 超参调优
+
+主要参考：
+
+1. [八种方法](https://www.51cto.com/article/717411.html)
+2. [百度-自动超参搜索-产品实现](https://cloud.baidu.com/doc/BML/s/Ikhynmwyx)，也有可视化建模流程
+3. [cubestudio-nni-超参搜索](https://github.com/data-infra/cube-studio/wiki/%E5%B9%B3%E5%8F%B0%E6%9E%B6%E6%9E%84-%E8%B6%85%E5%8F%82%E6%90%9C%E7%B4%A2)
+
+其它参考
+
+1. [optuna](https://optuna.readthedocs.io/zh-cn/latest/index.html)，[Optuna 简体中文文档](https://github.com/optuna/doc-optuna-zh-cn/tree/master)，
+2. [深度学习调优指南中文版](https://github.com/schrodingercatss/tuning_playbook_zh_cn)
+3. [超参数优化 HPO](https://github.com/luweiagi/machine-learning-notes/blob/master/docs/auto-machine-learning/hyperparameter-optimization/hyperparameter-optimization.md)
+4. [AutoML 介绍](https://mp.weixin.qq.com/s/cfFcMyabJjj4qPoBTvvj6A)
+5. [超参自动优化方法总结](https://mp.weixin.qq.com/s/waPWzo6iIEXYaH_MQdLfYg)
+6. [调参神器 hyperopt](https://gist.github.com/duoan/9b9a7d19836696750ee2a935d51a87c8)
+7. [解决大模型超参调优的难题！微软和 OpenAI 提出 Efficient Hyperparameter
+   Tuning](https://www.cvmart.net/community/detail/6238)，[MUP](https://github.com/microsoft/mup)
+
+#### 7.9.2 分布式训练
+
+1. [分布式训练](https://llamafactory.readthedocs.io/zh-cn/latest/advanced/distributed.html#id18)
+2. [分布式训练：Distributed Data Parallel](https://zerolovesea.github.io/2024/03/07/%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%AD%E7%BB%83%EF%BC%9ADistributed-Data-Parallel/#Pytorch%E5%A4%9A%E6%9C%BA%E5%A4%9A%E5%8D%A1%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0)
+3. [deepspeed 多机多卡训练踏过的坑](https://zhuanlan.zhihu.com/p/624223085)
+4. [训练框架介绍(Megatron-lm、DeepSpeed)](https://github.com/kebijuelun/Awesome-LLM-Learning/blob/main/3.%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/1.%E8%AE%AD%E7%BB%83%E6%A1%86%E6%9E%B6%E4%BB%8B%E7%BB%8D(Megatron-lm%E3%80%81DeepSpeed).md)
+5. [openmlsys 分布式训练](https://openmlsys.github.io/chapter_distributed_training/methods.html)
+
+#### 7.9.3 大模型
+
+1. [llm-action](https://github.com/liguodongiot/llm-action)，[unify-easy-llm（ULM）一键式大模型训练工具](https://github.com/liguodongiot/unify-easy-llm)
+2. [大模型微调面面观](https://github.com/naginoa/LLMs_interview_notes/blob/main/%E5%A4%A7%E6%A8%A1%E5%9E%8B%EF%BC%88LLMs%EF%BC%89%E5%BE%AE%E8%B0%83%E9%9D%A2.md)
+
+#### 7.9.4 分布式推理
+
+1. [分布式推理的工程化：Arena + Ingress + DeepSpeed
+   Inference](https://blog.csdn.net/yunqiinsight/article/details/131419297)
+2. [源码分析 vllm + Ray 的分布式推理](https://blog.csdn.net/AlibabaTech1024/article/details/139619871)
+3. [使用 Accelerate 和 PyTorch Distributed
+   进行分布式推理](https://github.com/OpenDocCN/huggingface-doc-zh/blob/master/docs/dfsr_0.26/dfsr026_032.md)
