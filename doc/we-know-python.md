@@ -7,49 +7,49 @@
 
 ## 课程目录
 
-| 日程    | 时间 | 课程               | 内容                                                  |
-| ----- | -- | ---------------- | --------------------------------------------------- |
-| 第 1 天 | 上午 | [基础原理](#1-基础)      | [1.2 开发环境搭建](#12-开发环境搭建)                                    |
-|       |    |                  | [1.3 变量和对象](#13-变量和对象)                            |
-|       |    |                  | [1.4 基本对象类型](#14-基本对象类型)                              |
-|       |  |                  | [1.4.6 序列和散列](#146-序列和散列)                            |
-|       | 下午   |                  | [2.1 函数和高阶函数](#21-函数和高阶函数)                          |
-|       |    |                  | [6.3 文件和目录](#63-文件和目录)                          |
-|       |    |                  | [5.3.2 迭代器和生成器](#532-迭代器和生成器)                          |
-|       |    |                  | [3.5 模块和打包](#35-模块和打包)                          |
-|       |    |                  | [2.2 类和实例](#22-类和实例)                          |
-| 第 2 天 | 上午 | [开发进阶](#3-开发相关)      | [3.2 自动化测试](#32-自动化测试)                                |
-|       |    |                  | [6.2 父子进程调用](#62-父子进程调用)            |
-|       |    |                  | [6.4 并行计算](#64-并行计算)            |
-|       |    |                  | [3.4 开发规范](#34-开发规范)                              |
-|       |    |                  | [5.5.3 异步](#533-异步)                                |
-|       | 下午  |  [数据处理](#54-数据分析)          | [5.5 数据爬取](#55-数据爬取)                            |
-|  |  |                | [5.4.1 科学计算](#541-numpy)                           |
-|       |    |                  | [5.4.5 机器学习](#545-sklearn)                              |
-|       |    |                  | [5.4.6 数据分析](#546-机器学习和数据分析)                   |
-|  第 3 天 | 上午  |   | [5.4.7 数据分析案例：客户价值模型](#547-数据分析-demo)                 |
-|       |    |   [人工智能](#7-人工智能)  | [7.1 感知机理论](#71-感知机理论)                  |
-|       |    |                  | [7.2 神经网络基础](#72-神经网络基础)                  |
-|       |    |                  | [7.3 卷积神经网络基础（选讲）](#73-卷积神经网络基础选讲)                  |
-|       |    |                  | [7.4 Transform 大模型基础（选讲）](#74-transform-大模型基础选讲)                  |
-|       | 下午    |                  | [7.5 Pytorch](#75-pytorch)                  |
-|       | |                  | [7.6 面向 GPU 编程](#76-面向-gpu-编程i)                  |
-|       |    |                  | [7.7 大模型 Agent](#77-大模型-agent)                  |
-|       |    |                  | [7.8 大模型推理应用](#78-大模型推理应用)                  |
-| 第四天 | 上午 | [Web 开发](#4-web-开发) | [4.1 Web 开发原理](#41-mvc-框架)                   |
-|       |    |                  | [4.2.1 Flask 框架](#421-flask)                            |
-|       |    |                  | [6.5 数据库和 ORM](#65-数据库和-orm)                  |
-|       |    |                  | [4.1 Django 架构介绍和项目构建](#41-mvc-框架)                               |
-|       | 下午 |                  | Django 路由和视图函数                                |
-|       |    |                  | Django 模型                |
-| |  |                  | Django 管理界面                                |
-| 第 5 天 | 上午 |                  | Django 模板和表单                                |
-|       |    |                  | [4.3 自动化部署](#43-服务部署) |
-|       |  |                  | [4.2 Django Restful API](#42-restful-api)                  |
-|       |    |                  | [5.3.4 后台任务管理](#534-后台任务)             |
-|       | 下午 |                  | [4.4.1 Ajax 和前后端分离](#441-bootstrap--jquery)                              |
-|       |    |                  | [4.4.2 前端框架](#442-vuejs)                    |
-|       |    |                  | [4.2 FastAPI 和 OpenAPI（Swagger）](#42-restful-api)                            |
+| 日程    | 时间 | 课程                  | 内容                                                |
+| ----- | -- | ------------------- | ------------------------------------------------- |
+| 第 1 天 | 上午 | [基础原理](#1-基础)       | [1.2 开发环境搭建](#12-开发环境搭建)                          |
+|       |    |                     | [1.3 变量和对象](#13-变量和对象)                            |
+|       |    |                     | [1.4 基本对象类型](#14-基本对象类型)                          |
+|       |    |                     | [1.4.6 序列和散列](#146-序列和散列)                         |
+|       | 下午 |                     | [2.1 函数和高阶函数](#21-函数和高阶函数)                        |
+|       |    |                     | [6.3 文件和目录](#63-文件和目录)                            |
+|       |    |                     | [5.3.2 迭代器和生成器](#532-迭代器和生成器)                     |
+|       |    |                     | [3.5 模块和打包](#35-模块和打包)                            |
+|       |    |                     | [2.2 类和实例](#22-类和实例)                              |
+| 第 2 天 | 上午 | [开发进阶](#3-开发相关)     | [3.2 自动化测试](#32-自动化测试)                            |
+|       |    |                     | [6.2 父子进程调用](#62-父子进程调用)                          |
+|       |    |                     | [6.4 并行计算](#64-并行计算)                              |
+|       |    |                     | [3.4 开发规范](#34-开发规范)                              |
+|       |    |                     | [5.5.3 异步](#533-异步)                               |
+|       | 下午 | [数据处理](#54-数据分析)    | [5.5 数据爬取](#55-数据爬取)                              |
+|       |    |                     | [5.4.1 科学计算](#541-numpy)                          |
+|       |    |                     | [5.4.5 机器学习](#545-sklearn)                        |
+|       |    |                     | [5.4.6 数据分析](#546-机器学习和数据分析)                      |
+| 第 3 天 | 上午 |                     | [5.4.7 数据分析案例：客户价值模型](#547-数据分析-demo)             |
+|       |    | [人工智能](#7-人工智能)     | [7.1 感知机理论](#71-感知机理论)                            |
+|       |    |                     | [7.2 神经网络基础](#72-神经网络基础)                          |
+|       |    |                     | [7.3 卷积神经网络基础（选讲）](#73-卷积神经网络基础选讲)                |
+|       |    |                     | [7.4 Transform 大模型基础（选讲）](#74-transform-大模型基础选讲)  |
+|       | 下午 |                     | [7.5 Pytorch](#75-pytorch)                        |
+|       |    |                     | [7.6 面向 GPU 编程](#76-面向-gpu-编程i)                   |
+|       |    |                     | [7.7 大模型 Agent](#77-大模型-agent)                    |
+|       |    |                     | [7.8 大模型推理应用](#78-大模型推理应用)                        |
+| 第四天   | 上午 | [Web 开发](#4-web-开发) | [4.1 Web 开发原理](#41-mvc-框架)                        |
+|       |    |                     | [4.2.1 Flask 框架](#421-flask)                      |
+|       |    |                     | [6.5 数据库和 ORM](#65-数据库和-orm)                      |
+|       |    |                     | [4.1 Django 架构介绍和项目构建](#41-mvc-框架)                |
+|       | 下午 |                     | Django 路由和视图函数                                    |
+|       |    |                     | Django 模型                                         |
+|       |    |                     | Django 管理界面                                       |
+| 第 5 天 | 上午 |                     | Django 模板和表单                                      |
+|       |    |                     | [4.3 自动化部署](#43-服务部署)                             |
+|       |    |                     | [4.2 Django Restful API](#42-restful-api)         |
+|       |    |                     | [5.3.4 后台任务管理](#534-后台任务)                         |
+|       | 下午 |                     | [4.4.1 Ajax 和前后端分离](#441-bootstrap--jquery)       |
+|       |    |                     | [4.4.2 前端框架](#442-vuejs)                          |
+|       |    |                     | [4.2 FastAPI 和 OpenAPI（Swagger）](#42-restful-api) |
 
 ## 1. 基础
 
@@ -2433,7 +2433,8 @@ Copilot: <https://docs.github.com/zh/copilot/quickstart>
 
 Flask，参考：<https://flask.palletsprojects.com/zh-cn/main/quickstart/#a-minimal-application>
 
-Flask Restful API：[Github](https://github.com/wu-wenxiang/rest_api_demo#quick-start) 或 [Gitee](https://gitee.com/wu-wen-xiang/rest_api_demo#quick-start)
+Flask Restful API：[Github](https://github.com/wu-wenxiang/rest_api_demo#quick-start) 或
+[Gitee](https://gitee.com/wu-wen-xiang/rest_api_demo#quick-start)
 
 #### 4.2.2 Pecan
 
@@ -2445,7 +2446,8 @@ demo，[Github](https://github.com/wu-wenxiang/restful-api-demo)，[Gitee](https
 参考：fastapi retstful API
 demo，[Github](https://github.com/wu-wenxiang/fastapi-demo)，[Gitee](https://gitee.com/wu-wen-xiang/fastapi-demo)，异步框架压测可以看到明显优势，[压测报告](https://gitee.com/wu-wen-xiang/fastapi-demo/blob/main/doc/how-to-take-a-stress-test-for-fastapi-sync-mode.md)
 
-参考：fastapi todolist demo，[Github](https://github.com/wu-wenxiang/fastapi-todo-list-demo)，[Gitee](https://gitee.com/wu-wen-xiang/fastapi-todo-list-demo)
+参考：fastapi todolist
+demo，[Github](https://github.com/wu-wenxiang/fastapi-todo-list-demo)，[Gitee](https://gitee.com/wu-wen-xiang/fastapi-todo-list-demo)
 
 ### 4.3 服务部署
 
@@ -2460,7 +2462,8 @@ demo，[Github](https://github.com/wu-wenxiang/fastapi-demo)，[Gitee](https://g
 
 #### 4.4.1 BootStrap + JQuery
 
-参考：[Github](https://github.com/wu-wenxiang/todolist-bootstrap-jquery) 或 [Gitee](https://gitee.com/wu-wen-xiang/todolist-bootstrap-jquery)
+参考：[Github](https://github.com/wu-wenxiang/todolist-bootstrap-jquery) 或
+[Gitee](https://gitee.com/wu-wen-xiang/todolist-bootstrap-jquery)
 
 参考：[Ant Design](https://4x-ant-design.antgroup.com/components/overview-cn/)
 
@@ -2471,7 +2474,8 @@ demo，[Github](https://github.com/wu-wenxiang/fastapi-demo)，[Gitee](https://g
 - 国际化：vue-i18n
 - 代码规范：husky + prettier + lint-staged + eslint + stylelint
 
-参考：[Github](https://github.com/wu-wenxiang/todolist-vue3) 或 [Gitee](https://gitee.com/wu-wen-xiang/todolist-vue3)
+参考：[Github](https://github.com/wu-wenxiang/todolist-vue3) 或
+[Gitee](https://gitee.com/wu-wen-xiang/todolist-vue3)
 
 #### 4.4.3 react
 
@@ -2479,7 +2483,7 @@ demo，[Github](https://github.com/wu-wenxiang/fastapi-demo)，[Gitee](https://g
 
 - react 16/17 + react-dom + react-router + react-router-dom+ mobx + babel(es6/7 -> es 5) + less
 - lodash (小工具封装库) + moment + axios
-- antd + ant-desgin/icons + g6(图形化)  + reactflow(拖拽)
+- antd + ant-desgin/icons + g6(图形化) + reactflow(拖拽)
 
 自动化测试
 
@@ -3452,19 +3456,24 @@ aProcess.start() # run
 [返回目录](#课程目录)
 
 1. 什么是智能（**学习**）？学习是
-  - 从已知的经验和数据（**数据集**）中找规律（**模型**，对宇宙的立即）
-  - 用这个规律对未知的信息进行预判（**推理**）。
+
+- 从已知的经验和数据（**数据集**）中找规律（**模型**，对宇宙的立即）
+- 用这个规律对未知的信息进行预判（**推理**）。
+
 2. 宇宙是什么样的？
-  - 柏拉图的绝对理性（公式模型，绝对理性）
-  - 概率论的大数定理（概率模型，理性与混乱并存，理性降格，小样本 scale out 逼近全样本）
-  - 活跃变化的幂律分布（沙塔模型）
+
+- 柏拉图的绝对理性（公式模型，绝对理性）
+- 概率论的大数定理（概率模型，理性与混乱并存，理性降格，小样本 scale out 逼近全样本）
+- 活跃变化的幂律分布（沙塔模型）
+
 3. 对应宇宙的三种理解，产生三个不同的学习流派：
-  - **演绎**：1956，符号主义，数学证明
-  - **归纳**：承认混乱，但乱中有序
-    - 连接主义，**神经网络**，自然语言处理没有统一一致的规律，需要容忍错误
-    - 贝叶斯主义，**概率图**，贝叶斯网络，马尔可夫随机场
-    - 类比主义，**SVM**，两两比较
-  - **演化**：行为主义，遗传算法，软件开发-开源-敏捷
+
+- **演绎**：1956，符号主义，数学证明
+- **归纳**：承认混乱，但乱中有序
+  - 连接主义，**神经网络**，自然语言处理没有统一一致的规律，需要容忍错误
+  - 贝叶斯主义，**概率图**，贝叶斯网络，马尔可夫随机场
+  - 类比主义，**SVM**，两两比较
+- **演化**：行为主义，遗传算法，软件开发-开源-敏捷
 
 ### 7.1 感知机理论
 
@@ -3472,9 +3481,11 @@ aProcess.start() # run
 
 #### 7.1.1 线性模型和非线性模型
 
-**线性模型**：线性模型假设数据之间的关系是线性的，也就是说，数据的输出随着输入的增加或减少按比例变化。在数学表示上，如果两个变量 x 和 y 满足 `y=ax+b` 的关系（其中 a 和 b 是常数），那么这种关系就是线性的。线性模型的一个重要特性是，它满足叠加原理，即多个输入同时作用于系统的响应等于各个输入单独作用于系统的响应之和。这种模型的特性使其在许多领域中都非常有用，如回归分析、时间序列分析和经济预测等。
+**线性模型**：线性模型假设数据之间的关系是线性的，也就是说，数据的输出随着输入的增加或减少按比例变化。在数学表示上，如果两个变量 x 和 y 满足 `y=ax+b` 的关系（其中 a 和 b
+是常数），那么这种关系就是线性的。线性模型的一个重要特性是，它满足叠加原理，即多个输入同时作用于系统的响应等于各个输入单独作用于系统的响应之和。这种模型的特性使其在许多领域中都非常有用，如回归分析、时间序列分析和经济预测等。
 
-**非线性模型**：与线性模型相反，非线性模型描述的关系不是线性的。这意味着数据的输出不按固定的比例变化，可能随着输入的增加或减少而发生非线性的变化。在数学表示上，如果关系不能表示为 `y=ax+b` 的形式，那么它就是非线性的。非线性模型的一个重要特性是，它不满足叠加原理。尽管非线性模型的应用不如线性模型广泛，但在某些特定情况下，如生物医学研究、金融预测和环境科学等，非线性模型是非常重要的。
+**非线性模型**：与线性模型相反，非线性模型描述的关系不是线性的。这意味着数据的输出不按固定的比例变化，可能随着输入的增加或减少而发生非线性的变化。在数学表示上，如果关系不能表示为 `y=ax+b`
+的形式，那么它就是非线性的。非线性模型的一个重要特性是，它不满足叠加原理。尽管非线性模型的应用不如线性模型广泛，但在某些特定情况下，如生物医学研究、金融预测和环境科学等，非线性模型是非常重要的。
 
 ![](images/xianxing-feixianxing.jpeg)
 
@@ -3492,7 +3503,9 @@ aProcess.start() # run
 
 ![](images/perception.png)
 
-一个神经元接收到来自 n 个其它神经元的输入信号；对这些输入信号，通过带权值的连接进行计算（各个连接线的权值与对应输入值相乘，然后进行累加），然后判断计算出来的累加值是否超过阈值（Threshold）；若等于或超过阈值，则输出 y 为 1，表示该神经元激活，否则输出 y 为 -1 表示该神经元抑制。
+一个神经元接收到来自 n
+个其它神经元的输入信号；对这些输入信号，通过带权值的连接进行计算（各个连接线的权值与对应输入值相乘，然后进行累加），然后判断计算出来的累加值是否超过阈值（Threshold）；若等于或超过阈值，则输出
+y 为 1，表示该神经元激活，否则输出 y 为 -1 表示该神经元抑制。
 
 激活函数一定时非线性的，如果是线性的，那么多层感知机就没有意义。
 
@@ -3586,8 +3599,10 @@ aProcess.start() # run
 #### 7.3.3 卷积神经网络
 
 1. 卷积神经网络的结构
-  - [NVidia CNN](https://www.nvidia.cn/glossary/data-science/convolutional-neural-network/)
-  - [CNN](https://paddlepedia.readthedocs.io/en/latest/tutorials/CNN/convolution_operator/Convolution.html)
+
+- [NVidia CNN](https://www.nvidia.cn/glossary/data-science/convolutional-neural-network/)
+- [CNN](https://paddlepedia.readthedocs.io/en/latest/tutorials/CNN/convolution_operator/Convolution.html)
+
 2. 池化的作用是什么？
 
 ### 7.4 Transform 大模型基础（选讲）
@@ -3754,7 +3769,9 @@ with torch.no_grad():
 
 #### 7.6.1 GPU 相关
 
-参考：[Gitee](https://gitee.com/wu-wen-xiang/lab-kubernetes/blob/master/doc/kubernetes-best-practices.md#7-gpu-%E7%9B%B8%E5%85%B3) 或者 [Github](https://github.com/wu-wenxiang/lab-kubernetes/blob/master/doc/kubernetes-best-practices.md#7-gpu-%E7%9B%B8%E5%85%B3)
+参考：[Gitee](https://gitee.com/wu-wen-xiang/lab-kubernetes/blob/master/doc/kubernetes-best-practices.md#7-gpu-%E7%9B%B8%E5%85%B3)
+或者
+[Github](https://github.com/wu-wenxiang/lab-kubernetes/blob/master/doc/kubernetes-best-practices.md#7-gpu-%E7%9B%B8%E5%85%B3)
 
 1. GPU 厂家 Overview
 2. [在裸机、容器和 K8S 上使用 GPU](https://www.lixueduan.com/posts/ai/01-how-to-use-gpu/)
