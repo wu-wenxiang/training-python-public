@@ -4020,3 +4020,10 @@ Supabase：一个开源的 Firebase 替代方案，提供 PostgreSQL 数据库�
 1. [联邦学习简介](https://wdxtub.com/flt/flt-01/2020/10/13/)
 2. [用 Python 从零实现横向联邦图像分类](https://github.com/FederatedAI/Practicing-Federated-Learning/tree/main/chapter03_Python_image_classification)
 3. [Flower 联邦学习](https://flower.ai/docs/framework/main/zh_Hans/tutorial-series-what-is-federated-learning.html)
+4. [详解联邦学习 Federated Learning](https://lanhuapp.com/link/#/invite?sid=lx0gjxuh)
+
+#### 7.9.7 模型压缩
+
+1. [模型压缩](https://blog.csdn.net/Xiao_Ya__/article/details/139326851)
+2. [深度学习模型压缩方法](https://xie.infoq.cn/article/291294a9a1d8ee7822183741b)
+3. [模型压缩综述：剪枝、量化、知识蒸馏](https://blog.csdn.net/Fannie_Peng/article/details/106397222)
